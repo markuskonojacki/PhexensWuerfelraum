@@ -1,0 +1,32 @@
+﻿<simpleChildWindow:ChildWindow 
+    x:Class="PhexensWuerfelraum.Ui.Desktop.TrialModifierDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:PhexensWuerfelraum.Ui.Desktop"
+    mc:Ignorable="d" 
+    xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    IsOpen="{Binding IsChildWindowOpenOrNotProperty}"
+    Padding="15"
+    AllowMove="False"
+    ShowCloseButton="False"
+    Title="Erleichterung/Erschwernis"
+    DataContext="{Binding TrialModifierDialog, Source={StaticResource Locator}}">
+    <simpleChildWindow:ChildWindow.OverlayBrush>
+        <SolidColorBrush Opacity="0.8" Color="{StaticResource Gray2}" />
+    </simpleChildWindow:ChildWindow.OverlayBrush>
+
+    <Grid Height="Auto" Width="Auto">
+        <StackPanel Orientation="Vertical" Margin="15" HorizontalAlignment="Center">
+            <Label FontWeight="Bold">Positiv = Erschwernis</Label>
+            <Label FontWeight="Bold">Negativ = Erleichterung</Label>
+            <Controls:NumericUpDown Minimum="-100" Maximum="100" Interval="1" HasDecimals="False" Value="{Binding TrialModifer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" StringFormat="G0" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Margin="5" Width="80" Command="{Binding OkCommand}">Ok</Button>
+                <Button Margin="5" Width="80" Command="{Binding CancelCommand}">Abbrechen</Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</simpleChildWindow:ChildWindow>

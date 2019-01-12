@@ -1,0 +1,38 @@
+﻿<simpleChildWindow:ChildWindow 
+    x:Class="PhexensWuerfelraum.Ui.Desktop.PickHeroDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:PhexensWuerfelraum.Ui.Desktop"
+    mc:Ignorable="d" 
+    xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
+    IsOpen="{Binding IsChildWindowOpenOrNotProperty}"
+    Padding="15"
+    AllowMove="False"
+    ShowCloseButton="True"
+    Title="Helden Software Helden"
+    DataContext="{Binding Character, Source={StaticResource Locator}}">
+    <simpleChildWindow:ChildWindow.OverlayBrush>
+        <SolidColorBrush Opacity="0.8" Color="{StaticResource Gray2}" />
+    </simpleChildWindow:ChildWindow.OverlayBrush>
+
+    <Grid Width="400">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0" FontWeight="Bold">Wähle einen Helden, indem du ihn anklickst:</Label>
+        <ListView x:Name="CharacterListView" ItemsSource="{Binding CharacterList}" SelectionChanged="ListView_SelectionChanged" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" local:ListBoxSelectionBehavior.ClickSelection="True" SelectionMode="Single">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" Margin="2"/>
+                        <TextBlock Text="{Binding LastUpdate}" Margin="2"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</simpleChildWindow:ChildWindow>

@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="PhexensWuerfelraum.Ui.Desktop.UserControls.TrialRollControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:PhexensWuerfelraum.Ui.Desktop.UserControls"
+             mc:Ignorable="d"
+             d:DesignHeight="30" d:DesignWidth="220">
+    <Grid MouseLeftButtonUp="RollButton_MouseLeftButtonUp">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="185" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" StretchDirection="DownOnly">
+            <Label Margin="2" Content="{Binding Name}" Grid.Column="0" HorizontalContentAlignment="Left" />
+        </Viewbox>
+        <TextBox Margin="2" HorizontalAlignment="Right" Grid.Column="1" Height="25" Text="{Binding Value}" Width="30" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False" />
+        <!--<Image x:Name="RollButton" Source="/Resources/d20_roll.png" Opacity="0.75" Margin="2" Height="20" Width="18" MouseLeftButtonUp="RollButton_MouseLeftButtonUp" />-->
+    </Grid>
+</UserControl>

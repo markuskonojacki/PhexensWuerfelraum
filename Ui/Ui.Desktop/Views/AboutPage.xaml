@@ -1,0 +1,22 @@
+﻿<Page x:Class="PhexensWuerfelraum.Ui.Desktop.Views.AboutPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      Style="{DynamicResource PageStyle}"
+      Title="AboutPage"
+      DataContext="{Binding About, Source={StaticResource Locator}}">
+
+    <Grid>
+        <StackPanel VerticalAlignment="Center">
+            <Image HorizontalAlignment="Center" Height="128" Margin="10" VerticalAlignment="Top" Source="/Resources/AppIcon.ico" Grid.Row="0" />
+            <TextBlock x:Name="AboutTextBlock" TextAlignment="Center" Grid.Row="1" Width="Auto" Height="Auto">
+                    Phexens Würfelraum<LineBreak />
+                    Version <Run Text="{Binding Path=Version, Mode=OneWay}" /><LineBreak />
+                    von Markus Konojacki<LineBreak /><LineBreak />
+                    <!--d20 dice icon by iconcubic released under:<LineBreak /><Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC Attribution-Noncommercial-No Derivate 4.0</Hyperlink>-->
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</Page>

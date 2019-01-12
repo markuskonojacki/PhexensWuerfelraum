@@ -1,0 +1,119 @@
+﻿<Controls:MetroWindow x:Class="PhexensWuerfelraum.Ui.Desktop.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:UiLogic="clr-namespace:PhexensWuerfelraum.Logic.Ui;assembly=PhexensWuerfelraum.Logic.Ui"
+                      xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                      xmlns:local="clr-namespace:PhexensWuerfelraum.Ui.Desktop"
+                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                      mc:Ignorable="d"
+                      Title="Phexens Würfelraum"
+                      TitleCaps="False"
+                      ShowIconOnTitleBar="True"
+                      Icon="Resources\AppIcon.ico"
+                      WindowStartupLocation="CenterScreen"
+                      IconScalingMode="NoScaleSmallerFrame"
+                      ResizeMode="CanResizeWithGrip"
+                      MinHeight="800"
+                      MinWidth="900"
+                      Height="900"
+                      Width="1400"
+                      DataContext="{Binding Main, Source={StaticResource Locator}}"
+                      dialogs:DialogParticipation.Register="{Binding}">
+
+    <Controls:MetroWindow.Resources>
+        <local:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <local:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+    </Controls:MetroWindow.Resources>
+
+    <Controls:MetroWindow.IsEnabled>
+        <Binding Path="IsEnabled" Source="{StaticResource MessageListener}"/>        
+    </Controls:MetroWindow.IsEnabled>
+
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands ShowLastSeparator="False">
+            <Button DataContext="{Binding Character, Source={StaticResource Locator}}" Command="{Binding OpenHeroPickDialogCommand}" ToolTip="Helden wechseln">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="5" />
+                    <iconPacks:PackIconMaterial Kind="AccountSwitch" Height="18" Width="15" />
+                    <Rectangle Width="5" />
+                </StackPanel>
+            </Button>
+
+            <Button 
+                DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" 
+                Command="{Binding ConnectCommand}"
+                Visibility="{Binding ChatRoom.Connected, Converter={StaticResource InverseBooleanToVisibilityConverter}}" 
+                ToolTip="Verbindung zum Server herstellen">
+                <StackPanel 
+                    Orientation="Horizontal" 
+                    Background="{DynamicResource ValidationSummaryColor1}" 
+                    Height="26"
+                    Width="90">
+                    <Rectangle Width="5" />
+                    <iconPacks:PackIconMaterial Height="18" Width="18" Kind="LanDisconnect" VerticalAlignment="Center" />
+                    <TextBlock 
+                        Text="{Binding ChatRoom.Status}" 
+                        Width="Auto" 
+                        VerticalAlignment="Center" 
+                        Margin="4,0,0,0"/>                    
+                    <Rectangle Width="5" />
+                </StackPanel>
+            </Button>
+
+            <Button 
+                DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}"
+                Command="{Binding DisconnectCommand}"
+                Visibility="{Binding ChatRoom.Connected, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                ToolTip="Verbindung zum Server trennen">
+                <StackPanel 
+                    Orientation="Horizontal" 
+                    Background="Green" 
+                    Height="26"
+                    Width="90">
+                    <Rectangle Width="5" />
+                    <iconPacks:PackIconMaterial Height="18" Width="18" Kind="LanConnect" VerticalAlignment="Center" />
+                    <TextBlock 
+                        Text="{Binding ChatRoom.Status}"
+                        VerticalAlignment="Center" 
+                        Margin="4,0,0,0"/>
+                    <Rectangle Width="5" />
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
+    <Grid x:Name="NavigationGrid" DataContext="{Binding Navigation, Source={StaticResource Locator}}">
+        <Grid.Resources>
+            <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type UiLogic:MenuItem}"> 
+                <Grid Height="48">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Focusable="False"
+                                    Content="{Binding Icon}" />
+                    <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Text="{Binding Text}" />
+                </Grid>
+            </DataTemplate>
+        </Grid.Resources>
+
+        <Controls:HamburgerMenu x:Name="HamburgerMenuControl"
+                                IsPaneOpen="False"
+                                ItemsSource="{Binding Menu}"
+                                OptionsItemsSource="{Binding OptionsMenu}"
+                                ItemInvoked="HamburgerMenuControl_OnItemInvoked"
+                                DisplayMode="CompactInline" Grid.Row="0"
+                                ItemTemplate="{StaticResource MenuItemTemplate}"
+                                OptionsItemTemplate="{StaticResource MenuItemTemplate}" />
+    </Grid>
+</Controls:MetroWindow>
