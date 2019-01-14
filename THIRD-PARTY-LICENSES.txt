@@ -3,6 +3,12 @@ in accordance with the following licenses:
 
 -------------------------------------------------------------------------
 
+Image: Natural Paper
+License: CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0/de/)
+Credit: Background pattern made by Mihaela Hinayon (https://www.toptal.com/designers/subtlepatterns/natural-paper/)
+
+-------------------------------------------------------------------------
+
 Image: d10 dice icon
 License: Creative Commons 3.0 BY
 Credit: Icon made by Skoll (https://game-icons.net)

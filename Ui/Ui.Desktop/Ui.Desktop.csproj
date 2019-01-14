@@ -356,9 +356,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Backgrounds\bg-paper.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Dice\d10.png" />
     <Resource Include="Resources\Dice\d12.png" />
     <Resource Include="Resources\Dice\d20.png" />
@@ -382,6 +379,7 @@
     <Resource Include="Resources\Dice\william-tell-skull.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Backgrounds\natural_paper.png" />
     <Content Include="Resources\Sounds\roll-1-1-1.mp3" />
     <Content Include="Resources\Sounds\roll-1-1.mp3" />
     <Content Include="Resources\Sounds\roll-20-20-20 .mp3" />

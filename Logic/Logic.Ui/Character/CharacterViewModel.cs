@@ -1,4 +1,8 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
+using Jot;
+using Jot.Storage;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Compression;
@@ -6,10 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Data;
 using System.Xml.Linq;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
-using Jot;
-using Jot.Storage;
 using static PhexensWuerfelraum.Logic.Ui.CharacterModel;
 
 namespace PhexensWuerfelraum.Logic.Ui
@@ -41,7 +41,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 }
             }
         }
-        
+
         private bool CanLoad() => true;
 
         #endregion properties
@@ -576,8 +576,11 @@ namespace PhexensWuerfelraum.Logic.Ui
                             }).ToList()),
                     }).First();
 
-            //var path = $@"c:\temp\{character.Name}.xml";
-            //doc.Save(path);
+#if DEBUG
+            Directory.CreateDirectory(@"c:\temp\");
+            var path = $@"c:\temp\{character.Name}.xml";
+            doc.Save(path);
+#endif
 
             return character;
         }

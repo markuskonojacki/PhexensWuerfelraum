@@ -61,52 +61,12 @@ namespace PhexensWuerfelraum.Ui.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Always_Together {
-            get {
-                object obj = ResourceManager.GetObject("Always_Together", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon AppIcon {
             get {
                 object obj = ResourceManager.GetObject("AppIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap bg_paper {
-            get {
-                object obj = ResourceManager.GetObject("bg_paper", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap bg_parchment {
-            get {
-                object obj = ResourceManager.GetObject("bg_parchment", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] DHIZARFONT {
-            get {
-                object obj = ResourceManager.GetObject("DHIZARFONT", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         
@@ -131,12 +91,11 @@ namespace PhexensWuerfelraum.Ui.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static byte[] NeverSayNever {
+        internal static System.IO.UnmanagedMemoryStream Notification {
             get {
-                object obj = ResourceManager.GetObject("NeverSayNever", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetStream("Notification", resourceCulture);
             }
         }
         
@@ -147,6 +106,46 @@ namespace PhexensWuerfelraum.Ui.Desktop.Properties {
             get {
                 object obj = ResourceManager.GetObject("PlayerIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] roll_1_1 {
+            get {
+                object obj = ResourceManager.GetObject("roll_1_1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] roll_1_1_1 {
+            get {
+                object obj = ResourceManager.GetObject("roll_1_1_1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] roll_20_20 {
+            get {
+                object obj = ResourceManager.GetObject("roll_20_20", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] roll_20_20_20 {
+            get {
+                object obj = ResourceManager.GetObject("roll_20_20_20", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }
