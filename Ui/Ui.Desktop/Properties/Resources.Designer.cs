@@ -110,42 +110,38 @@ namespace PhexensWuerfelraum.Ui.Desktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static byte[] roll_1_1 {
+        internal static System.IO.UnmanagedMemoryStream roll_1_1 {
             get {
-                object obj = ResourceManager.GetObject("roll_1_1", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetStream("roll_1_1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static byte[] roll_1_1_1 {
+        internal static System.IO.UnmanagedMemoryStream roll_1_1_1 {
             get {
-                object obj = ResourceManager.GetObject("roll_1_1_1", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetStream("roll_1_1_1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static byte[] roll_20_20 {
+        internal static System.IO.UnmanagedMemoryStream roll_20_20 {
             get {
-                object obj = ResourceManager.GetObject("roll_20_20", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetStream("roll_20_20", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static byte[] roll_20_20_20 {
+        internal static System.IO.UnmanagedMemoryStream roll_20_20_20 {
             get {
-                object obj = ResourceManager.GetObject("roll_20_20_20", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetStream("roll_20_20_20", resourceCulture);
             }
         }
     }
