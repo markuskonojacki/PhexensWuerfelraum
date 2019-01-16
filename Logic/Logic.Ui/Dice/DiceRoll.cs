@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Ioc;
 using System;
 using System.Linq;
+using System.Windows;
 using static PhexensWuerfelraum.Logic.Ui.CharacterModel;
 
 namespace PhexensWuerfelraum.Logic.Ui
@@ -32,7 +33,6 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// <returns>returns a string that represents the trial outcome</returns>
         public string RollTrial(string trialName, Probe trial, int trialValue, string behinderungsfaktorText = "")
         {
-            string resultString = "";
             RollResult rollResult = Roller.Roll("3d20");
             int attribute1Value, attribute2Value, attribute3Value;
             int roll1 = 0, roll2 = 0, roll3 = 0;
@@ -62,6 +62,11 @@ namespace PhexensWuerfelraum.Logic.Ui
                     }
                     i++;
                 }
+            }
+
+            if (trial.Attribut1 == AttributType.Wildcard || trial.Attribut2 == AttributType.Wildcard || trial.Attribut3 == AttributType.Wildcard)
+            {
+                return string.Format($"{trialName}: {roll1}, {roll2}, {roll3} (Probe mit frei wählbarem Attributen)");
             }
 
             attribute1Value = GetAttributeValue(trial.Attribut1);
@@ -252,9 +257,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 trialPointsRemaining = trialValue; // can't have more left than what you started with (trial modifications)
             }
 
-            resultString = String.Format($"{trialName}: {roll1}, {roll2}, {roll3} ⇒ {trialPointsRemaining} {resultText} {erschwernisTxt}{trialModificationTxt}{beText}");
-
-            return resultString;
+            return string.Format($"{trialName}: {roll1}, {roll2}, {roll3} ⇒ {trialPointsRemaining} {resultText} {erschwernisTxt}{trialModificationTxt}{beText}");
         }
 
         /// <summary>
@@ -302,18 +305,8 @@ namespace PhexensWuerfelraum.Logic.Ui
 
                 case AttributType.Wildcard:
                     attributeValue = 0;
+                    break;
 
-                    throw new NotImplementedException();
-
-                //if (onCreate == false)
-                //{
-                //    Windows.AttributPicker picker = new Windows.AttributPicker();
-                //    if (picker.ShowDialog() == true)
-                //    {
-                //        attributeValue = GetAttributeValue(GetAttributeByName(picker.Answer), onCreate);
-                //    }
-                //}
-                //break;
                 default:
                     attributeValue = 0;
                     break;
