@@ -6,7 +6,7 @@
     <Style TargetType="{x:Type Page}" BasedOn="{StaticResource MetroPage}" x:Key="PageStyle">
         <Setter Property="Background" Value="{DynamicResource AccentColorBrush4}" />
         <Setter Property="MinHeight" Value="450" />
-        <Setter Property="MinWidth" Value="800" />
+        <Setter Property="MinWidth" Value="700" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Page}">
@@ -274,7 +274,7 @@
         <Setter Property="Opacity" Value="0.9" />
         <Setter Property="Height" Value="420" />
         <Setter Property="MaxHeight" Value="420" />
-        <Setter Property="MinWidth" Value="300" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
