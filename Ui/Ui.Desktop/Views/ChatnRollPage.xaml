@@ -1,4 +1,4 @@
-﻿<Page x:Class="PhexensWuerfelraum.Ui.Desktop.ChatnRoll"
+<Page x:Class="PhexensWuerfelraum.Ui.Desktop.ChatnRoll"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
@@ -423,6 +423,14 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+
+            <ListBox ItemsSource="{Binding Character.Zauberliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <usercontrols:TrialRollControl />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
-    </Grid>
+    </StackPanel>
 </Page>

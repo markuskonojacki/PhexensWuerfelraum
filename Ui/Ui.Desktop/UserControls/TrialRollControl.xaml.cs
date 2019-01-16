@@ -1,8 +1,7 @@
-﻿using PhexensWuerfelraum.Logic.Ui;
-using System.Windows;
+﻿using GalaSoft.MvvmLight.Ioc;
+using PhexensWuerfelraum.Logic.Ui;
 using System.Windows.Controls;
 using System.Windows.Input;
-using GalaSoft.MvvmLight.Ioc;
 
 namespace PhexensWuerfelraum.Ui.Desktop.UserControls
 {
@@ -21,11 +20,18 @@ namespace PhexensWuerfelraum.Ui.Desktop.UserControls
         private void RollButton_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             Grid button = sender as Grid;
-            var talent = button.DataContext as CharacterModel.Talent;
 
             if (ChatnRollViewModel.SendRollCommand.CanExecute(null) == true)
             {
-                ChatnRollViewModel.Message = new DiceRoll().RollTrial(talent);
+                if (button.DataContext is CharacterModel.Talent)
+                {
+                    ChatnRollViewModel.Message = new DiceRoll().RollTrial((CharacterModel.Talent)button.DataContext);
+                }
+                else
+                {
+                    ChatnRollViewModel.Message = new DiceRoll().RollTrial((CharacterModel.Zauber)button.DataContext);
+                }
+
                 ChatnRollViewModel.SendRollCommand.Execute(null);
             }
         }
