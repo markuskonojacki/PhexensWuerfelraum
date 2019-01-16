@@ -11,7 +11,7 @@ apt install mono-complete
 
 Run in powershell console in VS to compile executable for Ubuntu
 ```powershell
-dotnet publish -c release -r ubuntu.16.04-x64 -o C:\VSDistribution\PhexensWuerfelraum.Server.Console
+dotnet publish Server\Server.Console -c release -r ubuntu.16.04-x64 -o C:\VSDistribution\PhexensWuerfelraum.Server.Console
 ```
 
 Run the server

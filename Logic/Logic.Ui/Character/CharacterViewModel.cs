@@ -55,7 +55,7 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         #region mappings
 
-        private AttributType MapStringToAttribut(string name)
+        public AttributType MapStringToAttribut(string name)
         {
             switch (name)
             {

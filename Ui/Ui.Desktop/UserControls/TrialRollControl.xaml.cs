@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace PhexensWuerfelraum.Ui.Desktop.UserControls
 {
@@ -10,6 +11,8 @@ namespace PhexensWuerfelraum.Ui.Desktop.UserControls
     /// </summary>
     public partial class TrialRollControl : UserControl
     {
+        private ChatnRollViewModel ChatnRollViewModel { get; set; } = SimpleIoc.Default.GetInstance<ChatnRollViewModel>();
+
         public TrialRollControl()
         {
             InitializeComponent();
@@ -19,7 +22,12 @@ namespace PhexensWuerfelraum.Ui.Desktop.UserControls
         {
             Grid button = sender as Grid;
             var talent = button.DataContext as CharacterModel.Talent;
-            MessageBox.Show(talent.Value.ToString());
+
+            if (ChatnRollViewModel.SendRollCommand.CanExecute(null) == true)
+            {
+                ChatnRollViewModel.Message = new DiceRoll().RollTrial(talent);
+                ChatnRollViewModel.SendRollCommand.Execute(null);
+            }
         }
     }
 }

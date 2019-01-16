@@ -173,7 +173,7 @@
     <Compile Include="Base\BaseViewModel.cs" />
     <Compile Include="Character\CharacterModel.cs" />
     <Compile Include="Character\CharacterViewModel.cs" />
-    <Compile Include="Dice\DiceViewModel.cs" />
+    <Compile Include="Dice\DiceRoll.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Messages\OpenInfoMessage.cs" />
     <Compile Include="Messages\OpenHeroPickDialogMessage.cs" />

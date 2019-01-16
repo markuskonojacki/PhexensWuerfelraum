@@ -103,12 +103,12 @@ namespace PhexensWuerfelraum.Logic.Ui
         [Trackable]
         public ObservableCollection<Talent> Talentliste { get; set; }
 
-        public List<Talent> KoerperTalentliste { get => Talentliste.Where(t => t.Gruppe == TalentGruppe.Koerper).ToList(); }
-        public List<Talent> GesellschaftTalentliste { get => Talentliste.Where(t => t.Gruppe == TalentGruppe.Gesellschaft).ToList(); }
-        public List<Talent> NaturTalentliste { get => Talentliste.Where(t => t.Gruppe == TalentGruppe.Natur).ToList(); }
-        public List<Talent> WissenTalentliste { get => Talentliste.Where(t => t.Gruppe == TalentGruppe.Wissen || t.Gruppe == TalentGruppe.Sprachen || t.Gruppe == TalentGruppe.Schrift).ToList(); }
-        public List<Talent> HandwerkTalentliste { get => Talentliste.Where(t => t.Gruppe == TalentGruppe.Handwerk).ToList(); }
-        public List<Talent> MetaTalentliste { get => Talentliste.Where(t => t.Gruppe == TalentGruppe.Meta || t.Gruppe == TalentGruppe.Gabe || t.Gruppe == TalentGruppe.Custom).ToList(); }
+        public List<Talent> KoerperTalentliste { get => Talentliste?.Where(t => t.Gruppe == TalentGruppe.Koerper).ToList(); }
+        public List<Talent> GesellschaftTalentliste { get => Talentliste?.Where(t => t.Gruppe == TalentGruppe.Gesellschaft).ToList(); }
+        public List<Talent> NaturTalentliste { get => Talentliste?.Where(t => t.Gruppe == TalentGruppe.Natur).ToList(); }
+        public List<Talent> WissenTalentliste { get => Talentliste?.Where(t => t.Gruppe == TalentGruppe.Wissen || t.Gruppe == TalentGruppe.Sprachen || t.Gruppe == TalentGruppe.Schrift).ToList(); }
+        public List<Talent> HandwerkTalentliste { get => Talentliste?.Where(t => t.Gruppe == TalentGruppe.Handwerk).ToList(); }
+        public List<Talent> MetaTalentliste { get => Talentliste?.Where(t => t.Gruppe == TalentGruppe.Meta || t.Gruppe == TalentGruppe.Gabe || t.Gruppe == TalentGruppe.Custom).ToList(); }
 
         [Trackable]
         public ObservableCollection<Vorteil> Vorteile { get; set; }

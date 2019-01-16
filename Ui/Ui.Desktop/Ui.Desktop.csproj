@@ -174,12 +174,14 @@
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
+    <Compile Include="Converters\MessageTypeToTextConverter.cs" />
     <Compile Include="Dialogs\PickHeroDialog.xaml.cs">
       <DependentUpon>PickHeroDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\TrialModifierDialog.xaml.cs">
       <DependentUpon>TrialModifierDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ListBoxExtender.cs" />
     <Compile Include="ListBoxSelectionBehavior.cs" />
     <Compile Include="MessageListener.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -334,6 +336,10 @@
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Logic\Logic.ClientServer\Logic.ClientServer.csproj">
+      <Project>{3b6e5c76-4e1c-4648-a562-e5d2d8dea733}</Project>
+      <Name>Logic.ClientServer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Logic\Logic.Ui\Logic.Ui.csproj">
       <Project>{cf839743-6331-4790-8ab9-c7e0557c328d}</Project>
       <Name>Logic.Ui</Name>

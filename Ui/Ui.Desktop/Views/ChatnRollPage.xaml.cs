@@ -1,10 +1,7 @@
-﻿using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
-using MahApps.Metro.Controls.Dialogs;
-using MahApps.Metro.SimpleChildWindow;
+﻿using MahApps.Metro.Controls.Dialogs;
 using PhexensWuerfelraum.Logic.Ui;
 using System;
-using System.Diagnostics;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,13 +14,12 @@ namespace PhexensWuerfelraum.Ui.Desktop
     /// </summary>
     public partial class ChatnRoll
     {
-        #region commands
-        
-        #endregion
         #region properties
-        MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+
+        private MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
 
         public CustomDialog _customCloseDialogTest;
+
         public CustomDialog CustomCloseDialogTest()
         {
             CustomDialog dialog = new CustomDialog();
@@ -50,23 +46,13 @@ namespace PhexensWuerfelraum.Ui.Desktop
 
             return dialog;
         }
-        #endregion
+
+        #endregion properties
 
         public ChatnRoll()
         {
             InitializeComponent();
         }
-
-        //public async Task<MessageDialogResult> ShowMessage(string message, MessageDialogStyle dialogStyle)
-        //{
-        //    var metroWindow = this;
-        //    var metroDialogSettings = new MetroDialogSettings
-        //    {
-        //        NegativeButtonText = "Abbrechen"
-        //    };
-
-        //    return await DialogCoordinator.Instance.ShowMessageAsync(this, "MY TITLE", message, dialogStyle, metroDialogSettings);
-        //}
 
         private async void OpenTrialModifierDialog()
         {
@@ -105,7 +91,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
             if (e.Key == Key.Enter)
             {
                 var context = (ChatnRollViewModel)DataContext;
-                context.SendCommand.Execute(null);
+                context.SendTextCommand.Execute(null);
             }
         }
 

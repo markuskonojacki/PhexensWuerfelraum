@@ -274,6 +274,7 @@
         <Setter Property="Opacity" Value="0.9" />
         <Setter Property="Height" Value="420" />
         <Setter Property="MaxHeight" Value="420" />
+        <Setter Property="MinWidth" Value="300" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />

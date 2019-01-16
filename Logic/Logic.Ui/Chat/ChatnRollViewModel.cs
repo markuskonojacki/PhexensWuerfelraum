@@ -33,8 +33,6 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         private bool CanSend() => ChatRoom.Connected;
 
-        private bool CanRoll() => true;
-
         private readonly SettingsViewModel settingsViewModel = SimpleIoc.Default.GetInstance<SettingsViewModel>();
 
         #endregion properties
@@ -44,7 +42,9 @@ namespace PhexensWuerfelraum.Logic.Ui
         public RelayCommand ConnectCommand { get; set; }
         public RelayCommand DisconnectCommand { get; set; }
         public RelayCommand OpenTrialModifierCommand { get; private set; }
-        public RelayCommand SendCommand { get; set; }
+        public RelayCommand SendTextCommand { get; set; }
+        public RelayCommand SendRollCommand { get; set; }
+        public RelayCommand SendActionCommand { get; set; }
         public RelayCommand RollDiceCommand { get; set; }
 
         #endregion Commands
@@ -56,8 +56,10 @@ namespace PhexensWuerfelraum.Logic.Ui
             ChatRoom = new Chatroom();
             ConnectCommand = new RelayCommand(async () => await Connect(), CanConnect);
             DisconnectCommand = new RelayCommand(async () => await Disconnect(), CanDisconnect);
-            SendCommand = new RelayCommand(async () => await Send(), CanSend);
-            RollDiceCommand = new RelayCommand(async () => await Send(), CanRoll);
+            SendTextCommand = new RelayCommand(async () => await SendText(), CanSend);
+            SendRollCommand = new RelayCommand(async () => await SendRoll(), CanSend);
+            SendActionCommand = new RelayCommand(async () => await SendAction(), CanSend);
+            RollDiceCommand = new RelayCommand(async () => await SendText(), CanSend);
         }
 
         #endregion constructors
@@ -175,7 +177,7 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             ConnectCommand.RaiseCanExecuteChanged();
             DisconnectCommand.RaiseCanExecuteChanged();
-            SendCommand.RaiseCanExecuteChanged();
+            SendTextCommand.RaiseCanExecuteChanged();
             RollDiceCommand.RaiseCanExecuteChanged();
         }
 
@@ -191,12 +193,36 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// <summary>
         /// send message to chat
         /// </summary>
-        private async Task Send()
+        private async Task SendText()
         {
             if (ChatRoom == null)
                 DisplayError("Du bist mit keinem Server verbunden");
 
-            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, MessageType.Text); // ToDo: MessageType
+            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, MessageType.Text);
+            Message = string.Empty;
+        }
+
+        /// <summary>
+        /// send message to chat
+        /// </summary>
+        private async Task SendRoll()
+        {
+            if (ChatRoom == null)
+                DisplayError("Du bist mit keinem Server verbunden");
+
+            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, MessageType.Roll);
+            Message = string.Empty;
+        }
+
+        /// <summary>
+        /// send message to chat
+        /// </summary>
+        private async Task SendAction()
+        {
+            if (ChatRoom == null)
+                DisplayError("Du bist mit keinem Server verbunden");
+
+            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, MessageType.Action);
             Message = string.Empty;
         }
 
