@@ -3,9 +3,12 @@ using PhexensWuerfelraum.Logic.ClientServer;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {
@@ -21,6 +24,11 @@ namespace PhexensWuerfelraum.Logic.Ui
         private UserModel _ownUser;
         private UserModel _selectedUser;
         private readonly SettingsViewModel SettingsViewModel = SimpleIoc.Default.GetInstance<SettingsViewModel>();
+        private MediaPlayer mediaPlayer1;
+        private MediaPlayer mediaPlayer2;
+        private MediaPlayer mediaPlayer3;
+        private MediaPlayer mediaPlayer4;
+        private MediaPlayer mediaPlayer5;
 
         public Chatroom()
         {
@@ -35,6 +43,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         public string Status { get; set; }
         public ObservableCollection<UserModel> Users { get; set; }
         public Guid Recipient { get; set; } = Guid.Empty;
+
         public UserModel SelectedUser
         {
             get => _selectedUser;
@@ -176,6 +185,44 @@ namespace PhexensWuerfelraum.Logic.Ui
                 if (packet is ChatPacket chatP)
                 {
                     Messages.Add(chatP);
+
+                    if (SettingsViewModel.Setting.SoundEffectsEnabled)
+                    { 
+                        if (chatP.Username != _ownUser.UserName)
+                        {
+                            mediaPlayer1 = new MediaPlayer();
+                            mediaPlayer1.Open(new Uri(Directory.GetParent(Assembly.GetExecutingAssembly().Location) + "/Resources/Sounds/Notification.wav"));
+                            mediaPlayer1.Play();
+                        }
+
+                        if (chatP.MessageType == MessageType.Roll)
+                        {
+                            if (chatP.Message.Contains("Doppel 1!"))
+                            {
+                                mediaPlayer2 = new MediaPlayer();
+                                mediaPlayer2.Open(new Uri(Directory.GetParent(Assembly.GetExecutingAssembly().Location) + "/Resources/Sounds/roll-1-1.wav"));
+                                mediaPlayer2.Play();
+                            }
+                            else if (chatP.Message.Contains("dreifach 1!"))
+                            {
+                                mediaPlayer3 = new MediaPlayer();
+                                mediaPlayer3.Open(new Uri(Directory.GetParent(Assembly.GetExecutingAssembly().Location) + "/Resources/Sounds/roll-1-1-1.wav"));
+                                mediaPlayer3.Play();
+                            }
+                            else if (chatP.Message.Contains("doppel 20;"))
+                            {
+                                mediaPlayer4 = new MediaPlayer();
+                                mediaPlayer4.Open(new Uri(Directory.GetParent(Assembly.GetExecutingAssembly().Location) + "/Resources/Sounds/roll-20-20.wav"));
+                                mediaPlayer4.Play();
+                            }
+                            else if (chatP.Message.Contains("dreifach 20;"))
+                            {
+                                mediaPlayer5 = new MediaPlayer();
+                                mediaPlayer5.Open(new Uri(Directory.GetParent(Assembly.GetExecutingAssembly().Location) + "/Resources/Sounds/roll-20-20-20.wav"));
+                                mediaPlayer5.Play();
+                            }
+                        }
+                    }
                 }
 
                 if (packet is UserConnectionPacket connectionP)

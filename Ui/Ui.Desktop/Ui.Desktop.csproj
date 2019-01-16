@@ -324,7 +324,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Sounds\Notification.wav" />
+    <None Include="Resources\Sounds\Notification.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
@@ -386,10 +388,20 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Backgrounds\natural_paper.png" />
-    <Content Include="Resources\Sounds\roll-1-1-1.mp3" />
-    <Content Include="Resources\Sounds\roll-1-1.mp3" />
-    <Content Include="Resources\Sounds\roll-20-20-20 .mp3" />
-    <Content Include="Resources\Sounds\roll-20-20.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sounds\roll-1-1-1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Sounds\roll-1-1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Sounds\roll-20-20-20 .wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Sounds\roll-20-20.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.3.2.6\build\Fody.targets" Condition="Exists('..\packages\Fody.3.2.6\build\Fody.targets')" />
