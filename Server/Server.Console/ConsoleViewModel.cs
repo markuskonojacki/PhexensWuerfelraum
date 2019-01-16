@@ -171,10 +171,21 @@ namespace PhexensWuerfelraum.Server.Console
         {
             if (e.Packet.Package is UserConnectionPacket ucp)
             {
+                var userType = "";
+                switch (ucp.UserType)
+                {
+                    case UserType.Player:
+                        userType = "Spieler";
+                        break;
+                    case UserType.GameMaster:
+                        userType = "Meister";
+                        break;
+                }
+
                 var notification = new ChatPacket
                 {
                     Username = "Server",
-                    Message = $"Der Spieler {ucp.Username} ist dem Chat als {ucp.UserType} beigetreten"
+                    Message = $"{ucp.Username} ist dem Chat als {userType} beigetreten"
                 };
 
                 if (UserList.Exists(u => u.UserGuid == ucp.UserGuid))
