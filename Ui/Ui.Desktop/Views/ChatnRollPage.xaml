@@ -432,5 +432,5 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </Page>
