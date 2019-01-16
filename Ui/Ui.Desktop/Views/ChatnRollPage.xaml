@@ -1,4 +1,4 @@
-﻿<Page x:Class="PhexensWuerfelraum.Ui.Desktop.ChatnRoll"
+<Page x:Class="PhexensWuerfelraum.Ui.Desktop.ChatnRoll"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
@@ -145,18 +145,22 @@
                                             <DockPanel HorizontalAlignment="Stretch">
                                                 <DockPanel>
                                                     <TextBlock
-                                                Padding="2,2,0,2"
-                                                Text="{Binding Path=Username}"
-                                                Foreground="{Binding UserColor}"
-                                                FontWeight="Bold"
-                                                DockPanel.Dock="Left" />
+                                                        Padding="2,2,0,2"
+                                                        Text="{Binding Path=Username}"
+                                                        Foreground="{Binding UserColor}"
+                                                        FontWeight="Bold"
+                                                        DockPanel.Dock="Left" />
                                                     <TextBlock
-                                                Padding="0,2,0,2"
-                                                Text="{Binding Path=MessageType, Converter={StaticResource MessageTypeToTextConverter}}"
-                                                Foreground="{Binding Path=UserColor}"
-                                                FontWeight="Bold"
-                                                DockPanel.Dock="Left" />
-                                                    <TextBlock DockPanel.Dock="Left" Padding="2" Text="{Binding Path=Message}" TextWrapping="Wrap" />
+                                                        Padding="0,2,0,2"
+                                                        Text="{Binding Path=MessageType, Converter={StaticResource MessageTypeToTextConverter}}"
+                                                        Foreground="{Binding Path=UserColor}"
+                                                        FontWeight="Bold"
+                                                        DockPanel.Dock="Left" />
+                                                    <TextBlock 
+                                                        DockPanel.Dock="Left" 
+                                                        Padding="0,2,2,2" 
+                                                        Text="{Binding Path=Message}" 
+                                                        TextWrapping="Wrap" />
                                                 </DockPanel>
                                             </DockPanel>
                                         </Border>
