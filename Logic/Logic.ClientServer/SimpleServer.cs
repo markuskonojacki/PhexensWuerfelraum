@@ -158,6 +158,8 @@ namespace PhexensWuerfelraum.Logic.ClientServer
             {
                 if (package is ChatPacket chatP)
                 {
+                    chatP.DateTime = DateTime.Now;
+
                     // only send ChatPacket if recipient is intended recipient, the recipient is a game master or the recipient is everyone
                     if (c.IsGameMaster == false && chatP.Recipient != c.ClientId && chatP.Recipient != Guid.Empty)
                         continue;

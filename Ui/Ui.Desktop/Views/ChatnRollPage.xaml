@@ -116,12 +116,12 @@
                         </Grid.RowDefinitions>
 
                         <Border Grid.Row="0">
-                            <ListView 
-                                x:Name="chatList" 
+                            <ListView
+                                x:Name="chatList"
                                 ItemsSource="{Binding ChatRoom.Messages}"
-                                HorizontalAlignment="Stretch" 
+                                HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
-                                ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                 Style="{DynamicResource ChatListViewStyle}"
                                 local:ListBoxExtender.AutoScrollToEnd="True"
                                 IsSynchronizedWithCurrentItem="True">
@@ -144,21 +144,26 @@
                                             <DockPanel HorizontalAlignment="Stretch">
                                                 <DockPanel>
                                                     <TextBlock
-                                                        Padding="2,2,0,2"
+                                                        Text="{Binding Path=DateTime, StringFormat={}{0:HH:mm:ss}}"
+                                                        Padding="2"
+                                                        DockPanel.Dock="Left"
+                                                        Foreground="DarkGray" />
+                                                    <TextBlock
                                                         Text="{Binding Path=Username}"
+                                                        Padding="2,2,0,2"
                                                         Foreground="{Binding UserColor}"
                                                         FontWeight="Bold"
                                                         DockPanel.Dock="Left" />
                                                     <TextBlock
-                                                        Padding="0,2,0,2"
                                                         Text="{Binding Path=MessageType, Converter={StaticResource MessageTypeToTextConverter}}"
+                                                        Padding="0,2,0,2"
                                                         Foreground="{Binding Path=UserColor}"
                                                         FontWeight="Bold"
                                                         DockPanel.Dock="Left" />
-                                                    <TextBlock 
-                                                        DockPanel.Dock="Left" 
-                                                        Padding="0,2,2,2" 
-                                                        Text="{Binding Path=Message}" 
+                                                    <TextBlock
+                                                        Text="{Binding Path=Message}"
+                                                        DockPanel.Dock="Left"
+                                                        Padding="0,2,2,2"
                                                         TextWrapping="Wrap" />
                                                 </DockPanel>
                                             </DockPanel>
