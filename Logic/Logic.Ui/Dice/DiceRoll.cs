@@ -252,7 +252,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 trialPointsRemaining = trialValue; // can't have more left than what you started with (trial modifications)
             }
 
-            resultString = String.Format($"{trialName}: {roll1}, {roll2}, {roll3} => {trialPointsRemaining} {resultText} {erschwernisTxt}{trialModificationTxt}{beText}");
+            resultString = String.Format($"{trialName}: {roll1}, {roll2}, {roll3} ⇒ {trialPointsRemaining} {resultText} {erschwernisTxt}{trialModificationTxt}{beText}");
 
             return resultString;
         }
