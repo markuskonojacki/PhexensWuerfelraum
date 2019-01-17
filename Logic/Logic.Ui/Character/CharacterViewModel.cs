@@ -97,7 +97,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 var tierkunde = Character.Talentliste.Single(t => t.Name == "Tierkunde").Value;
                 var wildnisleben = Character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
 
-                int talentValue = ((wildnisleben + tierkunde + faehrtensuchen + sichverstecken + Character.JagdwaffenTaW) / 5);
+                int talentValue = (int)Math.Round(((double)(wildnisleben + tierkunde + faehrtensuchen + sichverstecken + Character.JagdwaffenTaW) / 5), 0, MidpointRounding.AwayFromZero);
                 var maxValue = new int[] { wildnisleben * 2, tierkunde * 2, faehrtensuchen * 2, sichverstecken * 2 }.Min();
 
                 Character.Talentliste.Add(new Talent
@@ -125,7 +125,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 var tierkunde = Character.Talentliste.Single(t => t.Name == "Tierkunde").Value;
                 var wildnisleben = Character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
 
-                int talentValue = ((wildnisleben + tierkunde + faehrtensuchen + schleichen + Character.JagdwaffenTaW) / 5);
+                int talentValue = (int)Math.Round(((double)(wildnisleben + tierkunde + faehrtensuchen + schleichen + Character.JagdwaffenTaW) / 5), 0, MidpointRounding.AwayFromZero);
                 var maxValue = new int[] { wildnisleben * 2, tierkunde * 2, faehrtensuchen * 2, schleichen * 2 }.Min();
 
                 Character.Talentliste.Add(new Talent
@@ -151,7 +151,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 var tierkunde = Character.Talentliste.Single(t => t.Name == "Tierkunde").Value;
                 var wildnisleben = Character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
 
-                int talentValue = ((wildnisleben + tierkunde + (2 * reiten) + Character.JagdwaffenTaW) / 5);
+                int talentValue = (int)Math.Round(((double)(wildnisleben + tierkunde + (2 * reiten) + Character.JagdwaffenTaW) / 5), 0, MidpointRounding.AwayFromZero);
                 var maxValue = new int[] { wildnisleben * 2, tierkunde * 2, reiten * 2 }.Min();
 
                 Character.Talentliste.Add(new Talent
@@ -183,7 +183,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 var sinnenschaerfe = Character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
                 var wildnisleben = Character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
 
-                int talentValue = (wildnisleben + sinnenschaerfe + pflanzenkunde) / 3;
+                int talentValue = (int)Math.Round(((double)(wildnisleben + sinnenschaerfe + pflanzenkunde) / 3), 0, MidpointRounding.AwayFromZero);
                 var maxValue = new int[] { wildnisleben * 2, sinnenschaerfe * 2, pflanzenkunde * 2 }.Min();
 
                 Character.Talentliste.Add(new Talent
@@ -223,7 +223,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 var selbstbeherrschung = Character.Talentliste.Single(t => t.Name == "Selbstbeherrschung").Value;
                 var sinnenschaerfe = Character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
 
-                int talentValue = (selbstbeherrschung + (2 * sinnenschaerfe) + 1) / 3;
+                int talentValue = (int)Math.Round(((double)(selbstbeherrschung + (2 * sinnenschaerfe) + 1) / 3), 0, MidpointRounding.AwayFromZero);
                 var maxValue = new int[] { selbstbeherrschung * 2, sinnenschaerfe * 2 }.Min();
 
                 Character.Talentliste.Add(new Talent
@@ -252,7 +252,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                     var sichverstecken = Character.Talentliste.Single(t => t.Name == "Sich verstecken").Value;
                     var sinnenschaerfe = Character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
 
-                    int talentValue = (sinnenschaerfe + sichverstecken + schleichen) / 3;
+                    int talentValue = (int)Math.Round(((double)(sinnenschaerfe + sichverstecken + schleichen) / 3), 0, MidpointRounding.AwayFromZero);
                     var maxValue = new int[] { sinnenschaerfe * 2, sichverstecken * 2, schleichen * 2 }.Min();
 
                     Character.Talentliste.Add(new Talent
@@ -278,7 +278,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                     var selbstbeherrschung = Character.Talentliste.Single(t => t.Name == "Selbstbeherrschung").Value;
                     var sinnenschaerfe = Character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
 
-                    int talentValue = (orientierung + (sinnenschaerfe * 2) + (selbstbeherrschung * 3)) / 6;
+                    int talentValue = (int)Math.Round(((double)(orientierung + (sinnenschaerfe * 2) + (selbstbeherrschung * 3)) / 6), 0, MidpointRounding.AwayFromZero);
                     var maxValue = new int[] { orientierung * 2, sinnenschaerfe * 2, selbstbeherrschung * 2 }.Min();
 
                     Character.Talentliste.Add(new Talent
