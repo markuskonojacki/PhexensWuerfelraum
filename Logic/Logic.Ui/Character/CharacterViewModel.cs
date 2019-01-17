@@ -1,4 +1,4 @@
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using Jot;
 using Jot.Storage;
@@ -22,6 +22,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         public ListCollectionView AttributesView { get; set; }
         public CharacterModel Character { get; set; } = new CharacterModel();
         public ObservableCollection<CharacterModel> CharacterList { get; set; }
+        private SettingsModel Settings { get; set; } = SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting;
 
         public bool IsChildWindowOpenOrNotProperty { get; set; }
 
@@ -38,6 +39,260 @@ namespace PhexensWuerfelraum.Logic.Ui
 
                     InitAttributesView();
                     CalcSuccessChances();
+                    FindJagdwaffenTaW();
+                    AddMetaTalents();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Finds the designated hunting weapon and saves the talent value for the hunting meta talents
+        /// </summary>
+        private void FindJagdwaffenTaW()
+        {
+            if (Character.Ausruestung.Any(a => a.Name == "jagtwaffe" && a.Set == "0" && a.Nummer != "0"))
+            {
+                Heldenausruestung h1 = Character.Ausruestung.First(a => a.Name == "jagtwaffe" && a.Set == "0" && a.Nummer != "0");
+                Heldenausruestung h2 = new Heldenausruestung();
+
+                switch (h1.Nummer)
+                {
+                    case "1":
+                        h2 = Character.Ausruestung.First(a => a.Name == "fkwaffe1" && a.Set == "0" && a.Slot == "0");
+                        break;
+
+                    case "2":
+                        h2 = Character.Ausruestung.First(a => a.Name == "fkwaffe2" && a.Set == "0" && a.Slot == "0");
+                        break;
+
+                    case "3":
+                        h2 = Character.Ausruestung.First(a => a.Name == "fkwaffe3" && a.Set == "0" && a.Slot == "0");
+                        break;
+                }
+                
+                if (Character.Talentliste.Any(t => t.Name == h2.Talent))
+                {
+                    Character.JagdwaffenTaW = Character.Talentliste.Single(t => t.Name == h2.Talent).Value;
+                }
+            }
+            else
+            {
+                Character.JagdwaffenTaW = 0;
+            }
+        }
+
+        /// <summary>
+        /// Adds meta talents to the talents list
+        /// </summary>
+        private void AddMetaTalents()
+        {
+            // Ansitzjagd
+            if (Character.Talentliste.Any(t => t.Name == "Wildnisleben") && 
+                Character.Talentliste.Any(t => t.Name == "Tierkunde") && 
+                Character.Talentliste.Any(t => t.Name == "Fährtensuchen") &&
+                Character.Talentliste.Any(t => t.Name == "Sich verstecken"))
+            {
+                var faehrtensuchen = Character.Talentliste.Single(t => t.Name == "Fährtensuchen").Value;
+                var sichverstecken = Character.Talentliste.Single(t => t.Name == "Sich verstecken").Value;
+                var tierkunde = Character.Talentliste.Single(t => t.Name == "Tierkunde").Value;
+                var wildnisleben = Character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
+
+                int talentValue = ((wildnisleben + tierkunde + faehrtensuchen + sichverstecken + Character.JagdwaffenTaW) / 5) + 1;
+                var maxValue = new int[] { wildnisleben * 2, tierkunde * 2, faehrtensuchen * 2, sichverstecken * 2 }.Min();
+
+                Character.Talentliste.Add(new Talent
+                {
+                    Name = "Ansitzjagd",
+                    Probe = new Probe
+                    {
+                        Attribut1 = AttributType.Mut,
+                        Attribut2 = AttributType.Intuition,
+                        Attribut3 = AttributType.Gewandtheit
+                    },
+                    Value = new int[] { talentValue, maxValue }.Min(),
+                    Gruppe = TalentGruppe.Meta
+                });
+            }
+
+            // Pirschjagd
+            if (Character.Talentliste.Any(t => t.Name == "Wildnisleben") &&
+                Character.Talentliste.Any(t => t.Name == "Tierkunde") &&
+                Character.Talentliste.Any(t => t.Name == "Fährtensuchen") &&
+                Character.Talentliste.Any(t => t.Name == "Schleichen"))
+            {
+                var faehrtensuchen = Character.Talentliste.Single(t => t.Name == "Fährtensuchen").Value;
+                var schleichen = Character.Talentliste.Single(t => t.Name == "Schleichen").Value;
+                var tierkunde = Character.Talentliste.Single(t => t.Name == "Tierkunde").Value;
+                var wildnisleben = Character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
+
+                int talentValue = ((wildnisleben + tierkunde + faehrtensuchen + schleichen + Character.JagdwaffenTaW) / 5) + 1;
+                var maxValue = new int[] { wildnisleben * 2, tierkunde * 2, faehrtensuchen * 2, schleichen * 2 }.Min();
+
+                Character.Talentliste.Add(new Talent
+                {
+                    Name = "Pirschjagd",
+                    Probe = new Probe
+                    {
+                        Attribut1 = AttributType.Mut,
+                        Attribut2 = AttributType.Intuition,
+                        Attribut3 = AttributType.Gewandtheit
+                    },
+                    Value = new int[] { talentValue, maxValue }.Min(),
+                    Gruppe = TalentGruppe.Meta
+                });
+            }
+
+            // Hetzjagd
+            if (Character.Talentliste.Any(t => t.Name == "Wildnisleben") &&
+                Character.Talentliste.Any(t => t.Name == "Tierkunde") &&
+                Character.Talentliste.Any(t => t.Name == "Reiten"))
+            {
+                var reiten = Character.Talentliste.Single(t => t.Name == "Reiten").Value;
+                var tierkunde = Character.Talentliste.Single(t => t.Name == "Tierkunde").Value;
+                var wildnisleben = Character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
+
+                int talentValue = ((wildnisleben + tierkunde + (2 * reiten) + Character.JagdwaffenTaW) / 5);
+                var maxValue = new int[] { wildnisleben * 2, tierkunde * 2, reiten * 2 }.Min();
+
+                Character.Talentliste.Add(new Talent
+                {
+                    Name = "Hetzjagd",
+                    Probe = new Probe
+                    {
+                        Attribut1 = AttributType.Mut,
+                        Attribut2 = AttributType.Intuition,
+                        Attribut3 = AttributType.Gewandtheit
+                    },
+                    Value = new int[] { talentValue, maxValue }.Min(),
+                    Gruppe = TalentGruppe.Meta
+                });
+            }
+
+            // Häuserlauf
+            // besitze keine der Quellen: https://de.wiki-aventurica.de/wiki/H%C3%A4userlauf
+
+            // Traumreise
+            // besitze keine der Quellen: https://de.wiki-aventurica.de/wiki/Traumreise
+
+            // Kräuter Suchen + Nahrung Sammeln
+            if (Character.Talentliste.Any(t => t.Name == "Wildnisleben") &&
+                Character.Talentliste.Any(t => t.Name == "Sinnenschärfe") &&
+                Character.Talentliste.Any(t => t.Name == "Pflanzenkunde"))
+            {
+                var pflanzenkunde = Character.Talentliste.Single(t => t.Name == "Pflanzenkunde").Value;
+                var sinnenschaerfe = Character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
+                var wildnisleben = Character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
+
+                int talentValue = (wildnisleben + sinnenschaerfe + pflanzenkunde) / 3;
+                var maxValue = new int[] { wildnisleben * 2, sinnenschaerfe * 2, pflanzenkunde * 2 }.Min();
+
+                Character.Talentliste.Add(new Talent
+                {
+                    Name = "Kräuter suchen",
+                    Probe = new Probe
+                    {
+                        Attribut1 = AttributType.Mut,
+                        Attribut2 = AttributType.Intuition,
+                        Attribut3 = AttributType.Fingerfertigkeit
+                    },
+                    Value = new int[] { talentValue, maxValue }.Min(),
+                    Gruppe = TalentGruppe.Meta
+                });
+
+                Character.Talentliste.Add(new Talent
+                {
+                    Name = "Nahrung sammeln",
+                    Probe = new Probe
+                    {
+                        Attribut1 = AttributType.Mut,
+                        Attribut2 = AttributType.Intuition,
+                        Attribut3 = AttributType.Fingerfertigkeit
+                    },
+                    Value = new int[] { talentValue, maxValue }.Min(),
+                    Gruppe = TalentGruppe.Meta
+                });
+            }
+
+            // Wassersuchen
+            // Besitze keine der Quellen: https://de.wiki-aventurica.de/wiki/Wassersuchen
+
+            // Wache halten
+            if (Character.Talentliste.Any(t => t.Name == "Selbstbeherrschung") &&
+                Character.Talentliste.Any(t => t.Name == "Sinnenschärfe"))
+            {
+                var selbstbeherrschung = Character.Talentliste.Single(t => t.Name == "Selbstbeherrschung").Value;
+                var sinnenschaerfe = Character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
+
+                int talentValue = (selbstbeherrschung + (2 * sinnenschaerfe) + 1) / 3;
+                var maxValue = new int[] { selbstbeherrschung * 2, sinnenschaerfe * 2 }.Min();
+
+                Character.Talentliste.Add(new Talent
+                {
+                    Name = "Wache halten",
+                    Probe = new Probe
+                    {
+                        Attribut1 = AttributType.Mut,
+                        Attribut2 = AttributType.Intuition,
+                        Attribut3 = AttributType.Konstitution
+                    },
+                    Value = new int[] { talentValue, maxValue }.Min(),
+                    Gruppe = TalentGruppe.Meta
+                });
+            }
+
+            // Custom talents
+            if (Settings.AdditionalTrials)
+            {
+                // Heimlichkeit
+                if (Character.Talentliste.Any(t => t.Name == "Sinnenschärfe") &&
+                    Character.Talentliste.Any(t => t.Name == "Sich verstecken") &&
+                    Character.Talentliste.Any(t => t.Name == "Schleichen"))
+                {
+                    var schleichen = Character.Talentliste.Single(t => t.Name == "Schleichen").Value;
+                    var sichverstecken = Character.Talentliste.Single(t => t.Name == "Sich verstecken").Value;
+                    var sinnenschaerfe = Character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
+
+                    int talentValue = (sinnenschaerfe + sichverstecken + schleichen) / 3;
+                    var maxValue = new int[] { sinnenschaerfe * 2, sichverstecken * 2, schleichen * 2 }.Min();
+
+                    Character.Talentliste.Add(new Talent
+                    {
+                        Name = "Heimlichkeit",
+                        Probe = new Probe
+                        {
+                            Attribut1 = AttributType.Mut,
+                            Attribut2 = AttributType.Intuition,
+                            Attribut3 = AttributType.Gewandtheit
+                        },
+                        Value = new int[] { talentValue, maxValue }.Min(),
+                        Gruppe = TalentGruppe.Custom
+                    });
+                }
+
+                // Traumkontrolle
+                if (Character.Talentliste.Any(t => t.Name == "Orientierung") &&
+                    Character.Talentliste.Any(t => t.Name == "Sinnenschärfe") &&
+                    Character.Talentliste.Any(t => t.Name == "Selbstbeherrschung"))
+                {
+                    var orientierung = Character.Talentliste.Single(t => t.Name == "Orientierung").Value;
+                    var selbstbeherrschung = Character.Talentliste.Single(t => t.Name == "Selbstbeherrschung").Value;
+                    var sinnenschaerfe = Character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
+
+                    int talentValue = (orientierung + (sinnenschaerfe * 2) + (selbstbeherrschung * 3)) / 6;
+                    var maxValue = new int[] { orientierung * 2, sinnenschaerfe * 2, selbstbeherrschung * 2 }.Min();
+
+                    Character.Talentliste.Add(new Talent
+                    {
+                        Name = "Traumkontrolle",
+                        Probe = new Probe
+                        {
+                            Attribut1 = AttributType.Mut,
+                            Attribut2 = AttributType.Mut,
+                            Attribut3 = AttributType.Intuition
+                        },
+                        Value = new int[] { talentValue, maxValue }.Min(),
+                        Gruppe = TalentGruppe.Meta
+                    });
                 }
             }
         }
@@ -331,6 +586,9 @@ namespace PhexensWuerfelraum.Logic.Ui
             Log.Instance.Trace("CharacterViewModel initialized");
         }
 
+        /// <summary>
+        /// calculate chance of success for every talent
+        /// </summary>
         private void CalcSuccessChances()
         {
             // add chance of success to talent

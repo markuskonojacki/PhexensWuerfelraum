@@ -1,4 +1,4 @@
-using Jot;
+﻿using Jot;
 using Jot.DefaultInitializer;
 using System;
 using System.Collections.Generic;
@@ -70,6 +70,9 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         [Trackable]
         public int Behinderung { get; set; }
+
+        [Trackable]
+        public int JagdwaffenTaW { get; set; }
 
         [Trackable]
         public int Modifikation { get; set; }
