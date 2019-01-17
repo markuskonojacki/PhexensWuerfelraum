@@ -396,7 +396,7 @@
     <None Include="Resources\Sounds\roll-1-1.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\Sounds\roll-20-20-20 .wav">
+    <None Include="Resources\Sounds\roll-20-20-20.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Sounds\roll-20-20.wav">
