@@ -97,7 +97,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 var tierkunde = Character.Talentliste.Single(t => t.Name == "Tierkunde").Value;
                 var wildnisleben = Character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
 
-                int talentValue = ((wildnisleben + tierkunde + faehrtensuchen + sichverstecken + Character.JagdwaffenTaW) / 5) + 1;
+                int talentValue = ((wildnisleben + tierkunde + faehrtensuchen + sichverstecken + Character.JagdwaffenTaW) / 5);
                 var maxValue = new int[] { wildnisleben * 2, tierkunde * 2, faehrtensuchen * 2, sichverstecken * 2 }.Min();
 
                 Character.Talentliste.Add(new Talent
@@ -125,7 +125,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 var tierkunde = Character.Talentliste.Single(t => t.Name == "Tierkunde").Value;
                 var wildnisleben = Character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
 
-                int talentValue = ((wildnisleben + tierkunde + faehrtensuchen + schleichen + Character.JagdwaffenTaW) / 5) + 1;
+                int talentValue = ((wildnisleben + tierkunde + faehrtensuchen + schleichen + Character.JagdwaffenTaW) / 5);
                 var maxValue = new int[] { wildnisleben * 2, tierkunde * 2, faehrtensuchen * 2, schleichen * 2 }.Min();
 
                 Character.Talentliste.Add(new Talent
