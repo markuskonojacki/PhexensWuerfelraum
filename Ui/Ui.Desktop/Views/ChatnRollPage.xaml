@@ -77,7 +77,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
+        <StackPanel Grid.Row="0" x:Name="TopChatContent">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -380,57 +380,155 @@
             </Grid>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <ListBox ItemsSource="{Binding Character.KoerperTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <usercontrols:TrialRollControl />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <ListBox ItemsSource="{Binding Character.GesellschaftTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <usercontrols:TrialRollControl />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <ListBox ItemsSource="{Binding Character.NaturTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <usercontrols:TrialRollControl />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <ListBox ItemsSource="{Binding Character.WissenTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <usercontrols:TrialRollControl />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <ListBox ItemsSource="{Binding Character.HandwerkTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <usercontrols:TrialRollControl />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <ListBox ItemsSource="{Binding Character.MetaTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <usercontrols:TrialRollControl />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden" CanContentScroll="True" Width="{Binding ActualWidth, ElementName=TopChatContent}" Template="{StaticResource ScrollViewerHorizontalOnTopTemplate}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                <StackPanel>
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Character.KoerperTalentliste.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    
+                    <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Körper</Label>
+                    <ListView ItemsSource="{Binding Character.KoerperTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <usercontrols:TrialRollControl />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
 
-            <ListBox ItemsSource="{Binding Character.Zauberliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <usercontrols:TrialRollControl />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
+                <StackPanel>
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Character.GesellschaftTalentliste.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+
+                    <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Gesellschaft</Label>
+                    <ListView ItemsSource="{Binding Character.GesellschaftTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <usercontrols:TrialRollControl />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+
+                <StackPanel>
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Character.NaturTalentliste.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+
+                    <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Natur</Label>
+                    <ListView ItemsSource="{Binding Character.NaturTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <usercontrols:TrialRollControl />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+
+                <StackPanel>
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Character.WissenTalentliste.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+
+                    <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Wissen</Label>
+                    <ListView ItemsSource="{Binding Character.WissenTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <usercontrols:TrialRollControl />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+
+                <StackPanel>
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Character.HandwerkTalentliste.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+
+                    <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Handwerk</Label>
+                    <ListView ItemsSource="{Binding Character.HandwerkTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <usercontrols:TrialRollControl />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+
+                <StackPanel>
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Character.MetaTalentliste.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+
+                    <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Meta/Gaben</Label>
+                    <ListView ItemsSource="{Binding Character.MetaTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <usercontrols:TrialRollControl />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+
+                <StackPanel>
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Character.Zauberliste.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+
+                    <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Zauber</Label>
+                    <ListView ItemsSource="{Binding Character.Zauberliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <usercontrols:TrialRollControl />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
