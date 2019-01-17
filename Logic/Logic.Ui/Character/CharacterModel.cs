@@ -1,4 +1,4 @@
-﻿using Jot;
+using Jot;
 using Jot.DefaultInitializer;
 using System;
 using System.Collections.Generic;
@@ -115,6 +115,9 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         [Trackable]
         public ObservableCollection<Zauber> Zauberliste { get; set; }
+
+        [Trackable]
+        public ObservableCollection<Heldenausruestung> Ausruestung { get; set; }
 
         #region static attributes
 
@@ -237,6 +240,16 @@ namespace PhexensWuerfelraum.Logic.Ui
             public string Name { get; set; }
             public Probe Probe { get; set; }
             public int Value { get; set; }
+        }
+
+        public class Heldenausruestung : BaseModel
+        {
+            public string Name { get; set; }
+            public string Set { get; set; }
+            public string Slot { get; set; }
+            public string Nummer { get; set; }
+            public string Talent { get; set; }
+            public string Waffenname { get; set; }
         }
 
         #endregion structs

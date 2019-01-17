@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using Jot;
 using Jot.Storage;
@@ -573,6 +573,18 @@ namespace PhexensWuerfelraum.Logic.Ui
                                 Name = (string)zauber.Attribute("name"),
                                 Value = (int)zauber.Attribute("value"),
                                 Probe = MapStringToProbe((string)zauber.Attribute("probe"))
+                            }).ToList()),
+                        Ausruestung = new ObservableCollection<Heldenausruestung>(
+                        (
+                            from heldenausruestung in e.Elements("ausrüstungen").Elements("heldenausruestung")
+                            select new Heldenausruestung
+                            {
+                                Name = (string)heldenausruestung.Attribute("name"),
+                                Set = (string)heldenausruestung.Attribute("set"),
+                                Slot = (string)heldenausruestung.Attribute("slot"),
+                                Nummer = (string)heldenausruestung.Attribute("nummer"),
+                                Talent = (string)heldenausruestung.Attribute("talent"),
+                                Waffenname = (string)heldenausruestung.Attribute("waffenname"),
                             }).ToList()),
                     }).First();
 
