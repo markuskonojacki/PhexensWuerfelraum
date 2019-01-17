@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PhexensWuerfelraum.Logic.ClientServer
@@ -93,6 +94,7 @@ namespace PhexensWuerfelraum.Logic.ClientServer
                         OnConnectionAccepted?.Invoke(this, e);
                     }
                 }
+                Thread.Sleep(5);
             }
             return true;
         }
@@ -149,6 +151,8 @@ namespace PhexensWuerfelraum.Logic.ClientServer
                         }
                     }
                 }
+
+                Thread.Sleep(5);
             }
         }
 

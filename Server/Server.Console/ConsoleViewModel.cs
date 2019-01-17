@@ -74,7 +74,7 @@ namespace PhexensWuerfelraum.Server.Console
             _updateTask = Task.Run(() => Update());
             _isRunning = true;
 
-            WriteOutput(String.Format("Listening on {0}:{1}", ExternalAddress, Port.ToString()));
+            WriteOutput(string.Format("Listening on {0}:{1}", ExternalAddress, Port.ToString()));
         }
 
         private async Task SetupServer()
