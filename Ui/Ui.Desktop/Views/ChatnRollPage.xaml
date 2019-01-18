@@ -380,7 +380,14 @@
             </Grid>
         </StackPanel>
 
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden" CanContentScroll="True" Width="{Binding ActualWidth, ElementName=TopChatContent}" Template="{StaticResource ScrollViewerHorizontalOnTopTemplate}">
+        <ScrollViewer 
+            Grid.Row="1" 
+            HorizontalScrollBarVisibility="Visible" 
+            VerticalScrollBarVisibility="Hidden" 
+            CanContentScroll="True" 
+            Width="{Binding ActualWidth, ElementName=TopChatContent}" 
+            Template="{StaticResource ScrollViewerHorizontalOnTopTemplate}"
+            PreviewMouseWheel="ListBox_PreviewMouseWheel">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Visible">
                 <StackPanel>
                     <StackPanel.Style>
