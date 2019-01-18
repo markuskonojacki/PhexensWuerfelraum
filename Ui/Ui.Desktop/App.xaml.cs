@@ -13,7 +13,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
     /// </summary>
     public partial class App : Application
     {
-        private string UpdateUrl = "C:\\temp\\PhexensWuerfelraum\\Releases"; // ToDo update to web url
+        private string UpdateUrl = @"https://wuerfelraum.3d20.de/Download/";
 
         protected override void OnStartup(StartupEventArgs e)
         {
