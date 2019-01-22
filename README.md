@@ -10,20 +10,30 @@ Phexens Würfelraum ist ein Programm um mit anderen Menschen gemeinsam [Das Schw
 
 ### Build
 #### Linux
-Install Mono on server
+
+Run in packet manager console in VS to compile executable for Ubuntu
+```powershell
+dotnet publish Server\Server.Console -c release -r ubuntu.18.04-x64 -o C:\VSDistribution\PhexensWuerfelraum.Server.Console
+```
+
+### Run
+Das Ausführen des Server setzt das Mono Framework voraus.
 ```bash
 apt install mono-complete
 ```
 
-Run in powershell console in VS to compile executable for Ubuntu
-```powershell
-dotnet publish Server\Server.Console -c release -r ubuntu.16.04-x64 -o C:\VSDistribution\PhexensWuerfelraum.Server.Console
-```
-
-### Run
+Mache die Applikation ausführbar.
 ```bash
 chmod +x PhexensWuerfelraum.Server.Console
+```
+
+Starte die Applikation. Die Angabe des Portes kann wahlweise über die `settings.ini` oder einen Übergabeparameter erfolgen.
+```bash
 ./PhexensWuerfelraum.Server.Console --port 1212
 ```
 
 ### Windows
+
+## Lizenz
+
+Phexens Würfelraum ist unter der MIT Lizenz veröffentlicht. Für Details siehe: [LICENSE](LICENSE)
