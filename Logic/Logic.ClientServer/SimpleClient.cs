@@ -55,6 +55,7 @@ namespace PhexensWuerfelraum.Logic.ClientServer
             Address = ipAddress;
             EndPoint = new IPEndPoint(ipAddress, port);
             Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Socket.SetKeepAlive(2000, 2000); // https://stackoverflow.com/a/46805801/7557790
 
             ReceiveBufferSize = 8000;
             SendBufferSize = 8000;
@@ -226,16 +227,19 @@ namespace PhexensWuerfelraum.Logic.ClientServer
         }
 
         //https://stackoverflow.com/questions/2661764/how-to-check-if-a-socket-is-connected-disconnected-in-c
+        //https://stackoverflow.com/a/46805801/7557790
         public bool IsSocketConnected()
         {
             try
             {
-                bool part1 = Socket.Poll(5000, SelectMode.SelectRead);
-                bool part2 = (Socket.Available == 0);
-                if (part1 && part2)
-                    return false;
-                else
+                if (Socket.IsConnected())
+                {
                     return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (ObjectDisposedException e)
             {

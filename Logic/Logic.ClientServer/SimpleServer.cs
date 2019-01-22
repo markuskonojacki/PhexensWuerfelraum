@@ -50,6 +50,7 @@ namespace PhexensWuerfelraum.Logic.ClientServer
             {
                 ReceiveTimeout = 10000
             };
+            Socket.SetKeepAlive(2000, 2000); // https://stackoverflow.com/a/46805801/7557790
             Connections = new List<SimpleClient>();
         }
 
