@@ -218,7 +218,7 @@ namespace PhexensWuerfelraum.Server.Console
 
         private void Server_OnConnectionRemoved(object sender, PacketEvents e)
         {
-            if (!UserList.Exists(u => u.UserGuid == e.Sender.ClientId.ToString()))
+            if (!UserList.Exists(u => u.UserGuid == e.Sender.ClientGuid.ToString()))
             {
                 return;
             }
@@ -231,9 +231,9 @@ namespace PhexensWuerfelraum.Server.Console
 
             var userPacket = new UserConnectionPacket
             {
-                UserGuid = e.Sender.ClientId.ToString(),
-                Username = UserList.Find(u => u.UserGuid == e.Sender.ClientId.ToString()).UserName,
-                UserType = UserList.Find(u => u.UserGuid == e.Sender.ClientId.ToString()).UserType,
+                UserGuid = e.Sender.ClientGuid.ToString(),
+                Username = UserList.Find(u => u.UserGuid == e.Sender.ClientGuid.ToString()).UserName,
+                UserType = UserList.Find(u => u.UserGuid == e.Sender.ClientGuid.ToString()).UserType,
                 IsJoining = false
             };
 

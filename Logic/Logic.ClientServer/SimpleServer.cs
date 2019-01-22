@@ -50,7 +50,7 @@ namespace PhexensWuerfelraum.Logic.ClientServer
             {
                 ReceiveTimeout = 10000
             };
-            Socket.SetKeepAlive(2000, 2000); // https://stackoverflow.com/a/46805801/7557790
+            Socket.SetKeepAlive(1000, 2); // https://stackoverflow.com/a/46805801/7557790
             Connections = new List<SimpleClient>();
         }
 
@@ -128,7 +128,7 @@ namespace PhexensWuerfelraum.Logic.ClientServer
 
                         if (readObject is PersonalPacket pp)
                         {
-                            var destination = Connections.FirstOrDefault(c => c.ClientId.ToString() == pp.GuidId);
+                            var destination = Connections.FirstOrDefault(c => c.ClientGuid.ToString() == pp.GuidId);
                             var e4 = BuildEvent(client, destination, pp);
                             OnPersonalPacketReceived?.Invoke(this, e4);
 
@@ -143,12 +143,6 @@ namespace PhexensWuerfelraum.Logic.ClientServer
                         if (readObject is ChatPacket cp)
                         {
                             SendObjectToClients(cp);
-                            //foreach (var c in Connections.ToList())
-                            //{
-                            //    c.SendObject(readObject).Wait();
-                            //    var e3 = BuildEvent(client, c, readObject);
-                            //    OnPacketSent?.Invoke(this, e3);
-                            //}
                         }
                     }
                 }
@@ -165,8 +159,11 @@ namespace PhexensWuerfelraum.Logic.ClientServer
                 {
                     chatP.DateTime = DateTime.Now;
 
-                    // only send ChatPacket if recipient is intended recipient, the recipient is a game master or the recipient is everyone
-                    if (c.IsGameMaster == false && chatP.Recipient != c.ClientId && chatP.Recipient != Guid.Empty)
+                    // only send ChatPacket if... 
+                    if (c.IsGameMaster == false &&                  // ...the recipient is a game master
+                        chatP.RecipientGuid != c.ClientGuid &&      // ...recipient is intended recipient
+                        chatP.RecipientGuid != Guid.Empty &&        // ...the recipient is everyone
+                        chatP.RecipientGuid != chatP.SenderGuid)    // ...the recipient is yourself
                         continue;
                 }
 

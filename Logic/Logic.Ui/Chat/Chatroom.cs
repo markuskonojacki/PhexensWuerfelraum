@@ -120,12 +120,19 @@ namespace PhexensWuerfelraum.Logic.Ui
         public async Task Send(string username, string message, string colorCode, Guid recipient, MessageType messageType = MessageType.Text)
         {
             Log.Instance.Trace("ChatRoom.Send");
+
+            if (recipient != Guid.Empty)
+            {
+                messageType = MessageType.Whisper;
+            }
+
             ChatPacket cap = new ChatPacket
             {
                 Username = username,
                 Message = message,
                 UserColor = colorCode,
-                Recipient = recipient,
+                RecipientGuid = recipient,
+                SenderGuid = _client.ClientGuid,
                 MessageType = messageType
             };
 
@@ -145,12 +152,12 @@ namespace PhexensWuerfelraum.Logic.Ui
                 Username = user.UserName,
                 UserType = user.UserType,
                 IsJoining = true,
-                UserGuid = _client.ClientId.ToString()
+                UserGuid = _client.ClientGuid.ToString()
             };
 
             var personalPacket = new PersonalPacket
             {
-                GuidId = _client.ClientId.ToString(),
+                GuidId = _client.ClientGuid.ToString(),
                 Package = notifyServer
             };
 

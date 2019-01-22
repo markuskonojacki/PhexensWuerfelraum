@@ -10,7 +10,7 @@ namespace PhexensWuerfelraum.Logic.ClientServer
 {
     public class SimpleClient
     {
-        public Guid ClientId { get; private set; }
+        public Guid ClientGuid { get; private set; }
         public Socket Socket { get; private set; }
         public IPEndPoint EndPoint { get; private set; }
         public IPAddress Address { get; private set; }
@@ -55,7 +55,7 @@ namespace PhexensWuerfelraum.Logic.ClientServer
             Address = ipAddress;
             EndPoint = new IPEndPoint(ipAddress, port);
             Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            Socket.SetKeepAlive(2000, 2000); // https://stackoverflow.com/a/46805801/7557790
+            Socket.SetKeepAlive(1000, 2); // https://stackoverflow.com/a/46805801/7557790
 
             ReceiveBufferSize = 8000;
             SendBufferSize = 8000;
@@ -75,7 +75,7 @@ namespace PhexensWuerfelraum.Logic.ClientServer
                 if (result)
                 {
                     guid = RecieveGuid();
-                    ClientId = Guid.Parse(guid);
+                    ClientGuid = Guid.Parse(guid);
                     IsGuidAssigned = true;
                     return true;
                 }
@@ -222,8 +222,8 @@ namespace PhexensWuerfelraum.Logic.ClientServer
             var endPoint = ((IPEndPoint)Socket.LocalEndPoint);
             EndPoint = endPoint;
 
-            ClientId = Guid.NewGuid();
-            return ClientId.ToString();
+            ClientGuid = Guid.NewGuid();
+            return ClientGuid.ToString();
         }
 
         //https://stackoverflow.com/questions/2661764/how-to-check-if-a-socket-is-connected-disconnected-in-c

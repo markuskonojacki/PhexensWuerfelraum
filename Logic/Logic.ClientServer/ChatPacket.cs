@@ -6,7 +6,8 @@ namespace PhexensWuerfelraum.Logic.ClientServer
     {
         Text,
         Action,
-        Roll
+        Roll,
+        Whisper
     }
 
     [Serializable]
@@ -16,7 +17,8 @@ namespace PhexensWuerfelraum.Logic.ClientServer
         public string Message { get; set; }
         public DateTime DateTime { get; set; }
         public string UserColor { get; set; }
-        public Guid Recipient { get; set; } = Guid.Empty;
+        public Guid RecipientGuid { get; set; } = Guid.Empty;
+        public Guid SenderGuid { get; set; } = Guid.Empty;
         public MessageType MessageType { get; set; } = MessageType.Text;
     }
 }

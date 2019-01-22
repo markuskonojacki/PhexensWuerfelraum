@@ -23,6 +23,10 @@ namespace PhexensWuerfelraum.Ui.Desktop
                 case MessageType.Roll:
                     ret = " würfelt auf ";
                     break;
+
+                case MessageType.Whisper:
+                    ret = " flüstert dir: ";
+                    break;
             }
 
             return ret;
