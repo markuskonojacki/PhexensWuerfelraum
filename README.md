@@ -13,7 +13,7 @@ Phexens Würfelraum ist ein Programm um mit anderen Menschen gemeinsam [Das Schw
 
 Run in packet manager console in VS to compile executable for Ubuntu
 ```powershell
-dotnet publish Server\Server.Console -c release -r ubuntu.16.04-x64 -o C:\VSDistribution\PhexensWuerfelraum.Server.Console
+dotnet publish Server\Server.Console -c release -r ubuntu.18.04-x64 -o C:\VSDistribution\PhexensWuerfelraum.Server.Console
 ```
 
 ### Run
