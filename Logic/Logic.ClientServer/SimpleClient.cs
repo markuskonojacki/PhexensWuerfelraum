@@ -55,7 +55,6 @@ namespace PhexensWuerfelraum.Logic.ClientServer
             Address = ipAddress;
             EndPoint = new IPEndPoint(ipAddress, port);
             Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            Socket.SetKeepAlive(1000, 2); // https://stackoverflow.com/a/46805801/7557790
 
             ReceiveBufferSize = 8000;
             SendBufferSize = 8000;
@@ -190,7 +189,7 @@ namespace PhexensWuerfelraum.Logic.ClientServer
                 Socket.Connect(EndPoint);
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Trace.WriteLine("Connection failed. " + ex.Message);
                 return false;

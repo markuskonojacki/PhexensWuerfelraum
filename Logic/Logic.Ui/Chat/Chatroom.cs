@@ -194,7 +194,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                     Messages.Add(chatP);
 
                     if (SettingsViewModel.Setting.SoundEffectsEnabled)
-                    { 
+                    {
                         if (chatP.Username != _ownUser.UserName)
                         {
                             mediaPlayer1 = new MediaPlayer();

@@ -1,8 +1,6 @@
 ﻿using PhexensWuerfelraum.Logic.ClientServer;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -177,6 +175,7 @@ namespace PhexensWuerfelraum.Server.Console
                     case UserType.Player:
                         userType = "Spieler";
                         break;
+
                     case UserType.GameMaster:
                         userType = "Meister";
                         break;
@@ -194,13 +193,14 @@ namespace PhexensWuerfelraum.Server.Console
                 }
                 else
                 {
-                    UserList.Add(new UserModel() {
+                    UserList.Add(new UserModel()
+                    {
                         UserGuid = ucp.UserGuid,
                         UserName = ucp.Username,
-                        UserType = ucp.UserType                        
+                        UserType = ucp.UserType
                     });
                 }
-                
+
                 ucp.Users = UserList;
 
                 Task.Run(() => _server.SendObjectToClients(ucp)).Wait();

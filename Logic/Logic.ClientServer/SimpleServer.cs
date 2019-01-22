@@ -26,6 +26,9 @@ namespace PhexensWuerfelraum.Logic.ClientServer
         public List<SimpleClient> Connections { get; private set; }
 
         private Task _receivingTask;
+        private Task _checkClientHeartbeatTask;
+
+        private Dictionary<Guid, DateTime> ClientLastMessage = new Dictionary<Guid, DateTime>();
 
         public event PacketEventHandler OnConnectionAccepted;
 
@@ -50,7 +53,6 @@ namespace PhexensWuerfelraum.Logic.ClientServer
             {
                 ReceiveTimeout = 10000
             };
-            Socket.SetKeepAlive(1000, 2); // https://stackoverflow.com/a/46805801/7557790
             Connections = new List<SimpleClient>();
         }
 
@@ -64,10 +66,16 @@ namespace PhexensWuerfelraum.Logic.ClientServer
         public async Task<bool> Start()
         {
             _receivingTask = Task.Run(() => MonitorStreams());
+            _checkClientHeartbeatTask = Task.Run(() => CheckClientHeartbeat());
+
             IsRunning = true;
+
             await Listen();
+            await _checkClientHeartbeatTask;
             await _receivingTask;
+
             Socket.Close();
+
             return true;
         }
 
@@ -91,13 +99,43 @@ namespace PhexensWuerfelraum.Logic.ClientServer
                         var newGuid = await client.CreateGuid(newConnection);
                         await client.SendMessage(newGuid);
                         Connections.Add(client);
-                        var e = BuildEvent(client, null, String.Empty);
+                        ClientLastMessage.Add(client.ClientGuid, DateTime.Now);
+                        var e = BuildEvent(client, null, string.Empty);
                         OnConnectionAccepted?.Invoke(this, e);
                     }
                 }
+
                 Thread.Sleep(5);
             }
+
             return true;
+        }
+
+        private void CheckClientHeartbeat()
+        {
+            int timeoutHours = 12;
+
+            while (IsRunning)
+            {
+                foreach (var client in Connections.ToList())
+                {
+                    ClientLastMessage.TryGetValue(client.ClientGuid, out DateTime lastMessageDateTime);
+
+                    TimeSpan timeSpan = DateTime.Now - lastMessageDateTime;
+
+                    if (timeSpan.TotalHours >= timeoutHours)
+                    {
+                        Console.WriteLine($"Haven't heard from '{client.ClientGuid}' in over {timeoutHours} hours; client removed from Connections");
+
+                        var e5 = BuildEvent(client, null, string.Empty);
+                        Connections.Remove(client);
+                        OnConnectionRemoved?.Invoke(this, e5);
+                        continue;
+                    }
+                }
+
+                Thread.Sleep((int)new TimeSpan(0, 10, 0).TotalMilliseconds);
+            }
         }
 
         private void MonitorStreams()
@@ -159,7 +197,10 @@ namespace PhexensWuerfelraum.Logic.ClientServer
                 {
                     chatP.DateTime = DateTime.Now;
 
-                    // only send ChatPacket if... 
+                    ClientLastMessage.Remove(chatP.SenderGuid);
+                    ClientLastMessage.Add(chatP.SenderGuid, chatP.DateTime);
+
+                    // only send ChatPacket if...
                     if (c.IsGameMaster == false &&                  // ...the recipient is a game master
                         chatP.RecipientGuid != c.ClientGuid &&      // ...recipient is intended recipient
                         chatP.RecipientGuid != Guid.Empty &&        // ...the recipient is everyone
