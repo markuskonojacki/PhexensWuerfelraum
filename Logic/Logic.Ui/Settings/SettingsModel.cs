@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.CommandWpf;
 using Jot;
 using Jot.DefaultInitializer;
 using System.ComponentModel.DataAnnotations;

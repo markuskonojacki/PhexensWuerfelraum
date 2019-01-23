@@ -1,10 +1,10 @@
-﻿using System;
+using GalaSoft.MvvmLight.CommandWpf;
+using System;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
-using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using PhexensWuerfelraum.Logic.ClientServer;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using Jot;
 using Jot.Storage;
 
