@@ -53,5 +53,15 @@
     <Compile Include="UserConnectionPacket.cs" />
     <Compile Include="UserModel.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\.shared\LICENSE.txt">
+      <Link>LICENSE.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\.shared\THIRD-PARTY-LICENSES.txt">
+      <Link>THIRD-PARTY-LICENSES.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

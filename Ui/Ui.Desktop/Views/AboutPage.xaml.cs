@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Windows.Controls;
 
 namespace PhexensWuerfelraum.Ui.Desktop.Views
 {
@@ -17,9 +20,15 @@ namespace PhexensWuerfelraum.Ui.Desktop.Views
             get { return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
         }
 
-        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        private void LicenseButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start(e.Uri.AbsoluteUri);
+            var path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LICENSE.txt");
+            Process.Start(path);
+        }
+
+        private void ThirdPartyLicenseButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Process.Start(Path.Combine(System.Environment.CurrentDirectory, "THIRD-PARTY-LICENSES.txt"));
         }
     }
 }

@@ -10,13 +10,16 @@
 
     <Grid>
         <StackPanel VerticalAlignment="Center">
-            <Image HorizontalAlignment="Center" Height="128" Margin="10" VerticalAlignment="Top" Source="/Resources/AppIcon.ico" Grid.Row="0" />
-            <TextBlock x:Name="AboutTextBlock" TextAlignment="Center" Grid.Row="1" Width="Auto" Height="Auto">
+            <Image HorizontalAlignment="Center" Height="256" Margin="10" VerticalAlignment="Top" Source="/Resources/AppIcon.ico" Grid.Row="0" />
+            <TextBlock TextAlignment="Center" FontSize="20">
                     Phexens Würfelraum<LineBreak />
                     Version <Run Text="{Binding Path=Version, Mode=OneWay}" /><LineBreak />
-                    von Markus Konojacki<LineBreak /><LineBreak />
-                    <!--d20 dice icon by iconcubic released under:<LineBreak /><Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC Attribution-Noncommercial-No Derivate 4.0</Hyperlink>-->
+                    von Markus Konojacki
             </TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Margin="10" Width="200" FontSize="15" Click="LicenseButton_Click">Lizenz</Button>
+                <Button Margin="10" Width="200" FontSize="15" Click="ThirdPartyLicenseButton_Click">Lizenzen Dritter</Button>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

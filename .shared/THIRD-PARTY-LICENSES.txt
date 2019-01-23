@@ -76,7 +76,7 @@ Credit: Icon made by Delapouite (http://delapouite.com)
 -------------------------------------------------------------------------
 
 Source Code: WPFChat (used as basis for Client/Server Architecture)
-Liucense: MIT
+License: MIT
 License Source: https://github.com/Joben28/WPFChat/blob/master/LICENSE
 
 Source Text:
