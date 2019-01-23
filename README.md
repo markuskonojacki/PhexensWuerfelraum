@@ -36,4 +36,4 @@ Starte die Applikation. Die Angabe des Portes kann wahlweise über die `settings
 
 ## Lizenz
 
-Phexens Würfelraum ist unter der MIT Lizenz veröffentlicht. Für Details siehe: [LICENSE](LICENSE)
+Phexens Würfelraum ist unter der MIT Lizenz veröffentlicht. Für Details siehe: [LICENSE.txt](LICENSE)
