@@ -9,11 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\..\.shared\LICENSE.txt" Link="LICENSE.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="..\..\LICENSE.txt" Link="LICENSE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\.shared\THIRD-PARTY-LICENSES.txt" Link="THIRD-PARTY-LICENSES.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="..\..\THIRD-PARTY-LICENSES.txt" Link="THIRD-PARTY-LICENSES.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

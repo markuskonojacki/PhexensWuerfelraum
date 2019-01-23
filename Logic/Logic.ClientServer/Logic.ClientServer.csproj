@@ -54,13 +54,13 @@
     <Compile Include="UserModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\.shared\LICENSE.txt">
+    <Content Include="..\..\LICENSE.txt">
       <Link>LICENSE.txt</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\.shared\THIRD-PARTY-LICENSES.txt">
+    <Content Include="..\..\THIRD-PARTY-LICENSES.txt">
       <Link>THIRD-PARTY-LICENSES.txt</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

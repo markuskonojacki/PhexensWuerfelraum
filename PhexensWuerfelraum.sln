@@ -19,9 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic.ClientServer", "Logic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".shared", ".shared", "{80C739FB-FDA0-4CB0-ACE4-AAFEA81AD6E5}"
 	ProjectSection(SolutionItems) = preProject
-		.shared\LICENSE.txt = .shared\LICENSE.txt
 		.shared\SharedAssembly.cs = .shared\SharedAssembly.cs
-		.shared\THIRD-PARTY-LICENSES.txt = .shared\THIRD-PARTY-LICENSES.txt
 	EndProjectSection
 EndProject
 Global

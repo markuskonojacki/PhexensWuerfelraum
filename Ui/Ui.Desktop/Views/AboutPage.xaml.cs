@@ -17,7 +17,7 @@ namespace PhexensWuerfelraum.Ui.Desktop.Views
 
         public string Version
         {
-            get { return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
+            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
         }
 
         private void LicenseButton_Click(object sender, System.Windows.RoutedEventArgs e)
