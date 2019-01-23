@@ -97,24 +97,27 @@ namespace PhexensWuerfelraum.Logic.Ui
             if (IsRunning)
             {
                 IsRunning = false;
+
                 await _connectionTask;
                 await _updateTask;
 
                 _client.Disconnect();
-
-                Connected = false;
             }
 
+            Connected = false;
             Status = "Verbinden";
 
-            Messages.Add(new ChatPacket
+            Application.Current.Dispatcher.Invoke(delegate
             {
-                Username = string.Empty,
-                Message = "Du hast die Verbindung zum Server getrennt.",
-                UserColor = "black"
+                Messages.Add(new ChatPacket
+                {
+                    Username = string.Empty,
+                    Message = "Die Verbindung zum Server wurde getrennt.",
+                    UserColor = "black",
+                    DateTime = DateTime.Now
+                });
+                Users.Clear();
             });
-
-            Users.Clear();
         }
 
         public async Task Send(string username, string message, string colorCode, Guid recipient, MessageType messageType = MessageType.Text)
@@ -273,7 +276,11 @@ namespace PhexensWuerfelraum.Logic.Ui
                         Thread.Sleep(5000);
 
                         if (_pinged)
-                            await Task.Run(() => Disconnect());
+                        {
+#pragma warning disable 4014 // Because this call is not awaited, execution of the current method continues before the call is completed.
+                            Task.Run(() => Disconnect());
+#pragma warning disable 4014
+                        }
                     }
                 }
                 else
@@ -316,7 +323,9 @@ namespace PhexensWuerfelraum.Logic.Ui
                 var recieved = await MonitorData();
 
                 if (recieved)
+                {
                     Trace.WriteLine(recieved);
+                }
             }
         }
     }
