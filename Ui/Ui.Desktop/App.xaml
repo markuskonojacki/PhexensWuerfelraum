@@ -13,7 +13,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <UiLogic:MainViewModel x:Key="Locator" d:IsDataSource="True" />
-                    <Desktop:MessageListener x:Key="MessageListener"  />
+                    <Desktop:MessageListener x:Key="MessageListener" />
                 </ResourceDictionary>
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
@@ -24,7 +24,17 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
                 <ResourceDictionary Source="/Resources/IconsNonShared.xaml" />
-                <ResourceDictionary Source="/Resources/MyStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/MiscStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/PageStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/DisconnectedButtonStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/UserListBoxStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/ChatStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/SendTextBoxStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/AttributeTextBoxStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/UserListViewStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/SendButtonStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/TalentsStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/ScrollBarStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
