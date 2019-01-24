@@ -2,7 +2,6 @@
 using GalaSoft.MvvmLight.Ioc;
 using System;
 using System.Linq;
-using System.Windows;
 using static PhexensWuerfelraum.Logic.Ui.CharacterModel;
 
 namespace PhexensWuerfelraum.Logic.Ui
@@ -10,7 +9,6 @@ namespace PhexensWuerfelraum.Logic.Ui
     public class DiceRoll
     {
         private CharacterViewModel CharacterViewModel { get; set; } = SimpleIoc.Default.GetInstance<CharacterViewModel>();
-        private ChatnRollViewModel ChatnRollViewModel { get; set; } = SimpleIoc.Default.GetInstance<ChatnRollViewModel>();
         private CharacterModel Character { get; set; } = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
 
         public string RollTrial(Talent talent)
@@ -66,7 +64,7 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             if (trial.Attribut1 == AttributType.Wildcard || trial.Attribut2 == AttributType.Wildcard || trial.Attribut3 == AttributType.Wildcard)
             {
-                return string.Format($"{trialName}: {roll1}, {roll2}, {roll3} (Probe mit frei wählbarem Attributen)");
+                return string.Format($"{trialName}: {roll1}, {roll2}, {roll3} (Probe enthält frei wählbare Attribute)");
             }
 
             attribute1Value = GetAttributeValue(trial.Attribut1);
@@ -221,7 +219,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             }
             else if (rolledOnes == 3)
             {
-                resultText = "geschafft; Holy Shit dreifach 1! O_O";
+                resultText = "geschafft; Bei den Zwölfen, dreifach 1! :D";
             }
 
             if (rolledTwenties == 2)
@@ -230,7 +228,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             }
             else if (rolledTwenties == 3)
             {
-                resultText = "fuck... dreifach 20; War nett dich gekannt zu haben! >_<";
+                resultText = "fuck... dreifach 20; War nett dich gekannt zu haben! :(";
             }
 
             #endregion doppel 1/20
@@ -257,7 +255,191 @@ namespace PhexensWuerfelraum.Logic.Ui
                 trialPointsRemaining = trialValue; // can't have more left than what you started with (trial modifications)
             }
 
-            return string.Format($"{trialName}: {roll1}, {roll2}, {roll3} ⇒ {trialPointsRemaining} {resultText} {erschwernisTxt}{trialModificationTxt}{beText}");
+            return string.Format($"auf {trialName}: {roll1}, {roll2}, {roll3} ⇒ {trialPointsRemaining} {resultText} {erschwernisTxt}{trialModificationTxt}{beText}");
+        }
+
+        public string RollDice(string parm, int diceAmount)
+        {
+            RollResult rollResult;
+            string[] bedeutungen = new string[13];
+            string result = string.Empty;
+            string rollValueString = string.Empty;
+
+            switch (parm)
+            {
+                case "d20":
+                case "d12":
+                case "d6":
+                case "d3":
+                    rollResult = Roller.Roll($"{diceAmount}{parm}");
+
+                    result += $"{diceAmount}{parm}:";
+
+                    foreach (DieResult singleRoll in rollResult.Values)
+                    {
+                        if (singleRoll.Value != 0)
+                        {
+                            result += $" {singleRoll.Value} +";
+                        }
+                    }
+
+                    result = result.Substring(0, result.Length - 2);
+
+                    result += $" = {rollResult.Value}";
+                    break;
+
+                case "smileydice":
+                    string[] smileys = new string[] { ":)", ":|", ";)", ":(", ":'(", "]:>" };
+                    rollResult = Roller.Roll("1d" + smileys.Length);
+
+                    result = $"einen schicksalshaften Würfelwurf. Und die Würfel würfeln: {smileys[(int)rollResult.Value - 1]}";
+                    break;
+
+                case "hitzonedice":
+                    string[] trefferzonen = new string[] {
+                        "Kopf",
+                        "Kopf",
+                        "Torso",
+                        "Torso",
+                        "Torso",
+                        "Torso",
+                        "Torso",
+                        "Rücken",
+                        "Rücken",
+                        "Linkes Bein",
+                        "Linkes Bein",
+                        "Linkes Bein",
+                        "Rechtes Bein",
+                        "Rechtes Bein",
+                        "Rechtes Bein",
+                        "Linker Arm",
+                        "Linker Arm",
+                        "Linker Arm",
+                        "Rechter Arm",
+                        "Rechter Arm",
+                        "Rechter Arm",
+                         };
+                    rollResult = Roller.Roll("1d" + trefferzonen.Length);
+
+                    result = $"einen Trefferzonenwürfel. Die getroffene Trefferzone ist: {trefferzonen[(int)rollResult.Value - 1]}";
+                    break;
+
+                case "meleepatzerdice":
+                    rollResult = Roller.Roll("2d6");
+
+                    foreach (DieResult singleRoll in rollResult.Values)
+                    {
+                        if (singleRoll.Value != 0)
+                        {
+                            rollValueString += $" {singleRoll.Value} +";
+                        }
+                    }
+
+                    rollValueString = rollValueString.Substring(0, rollValueString.Length - 2);
+
+                    bedeutungen[0] = string.Empty;
+                    bedeutungen[1] = string.Empty;
+                    bedeutungen[2] = "[2] Waffe zerstört";
+                    bedeutungen[3] = "[3-5] Sturz";
+                    bedeutungen[4] = bedeutungen[3];
+                    bedeutungen[5] = bedeutungen[3];
+                    bedeutungen[6] = "[6-8] Stolpern";
+                    bedeutungen[7] = bedeutungen[6];
+                    bedeutungen[8] = bedeutungen[6];
+                    bedeutungen[9] = "[9-10] Waffe verloren";
+                    bedeutungen[10] = bedeutungen[9];
+                    bedeutungen[11] = "[11] An eigener Waffeverletzt";
+                    bedeutungen[12] = "[12] Schwerer Eigentreffer";
+
+                    result = $"auf die Nahkampf-Patzertabelle: {rollValueString} = {rollResult.Value} (Bedeutung: {bedeutungen[(int)rollResult.Value]})";
+                    break;
+
+                case "rangedpatzerdice":
+                    rollResult = Roller.Roll("2d6");
+
+                    foreach (DieResult singleRoll in rollResult.Values)
+                    {
+                        if (singleRoll.Value != 0)
+                        {
+                            rollValueString += $" {singleRoll.Value} +";
+                        }
+                    }
+
+                    rollValueString = rollValueString.Substring(0, rollValueString.Length - 2);
+
+                    bedeutungen[0] = string.Empty;
+                    bedeutungen[1] = string.Empty;
+                    bedeutungen[2] = "[2] Waffe zerstört";
+                    bedeutungen[3] = "[3] Waffe beschädigt";
+                    bedeutungen[4] = "[4-10] Fehlschuss";
+                    bedeutungen[5] = bedeutungen[4];
+                    bedeutungen[6] = bedeutungen[4];
+                    bedeutungen[7] = bedeutungen[4];
+                    bedeutungen[8] = bedeutungen[4];
+                    bedeutungen[9] = bedeutungen[4];
+                    bedeutungen[10] = bedeutungen[4];
+                    bedeutungen[11] = "[11-12] Kameraden getroffen";
+                    bedeutungen[12] = bedeutungen[11];
+
+                    result = $"auf die Fernkampf-Patzertabelle: {rollValueString} = {rollResult.Value} (Bedeutung: {bedeutungen[(int)rollResult.Value]})";
+                    break;
+
+                case "attributMU":
+                    result = RollAttributeDice(Character.MU, "Mut");
+                    break;
+
+                case "attributKL":
+                    result = RollAttributeDice(Character.KL, "Klugheit");
+                    break;
+
+                case "attributIN":
+                    result = RollAttributeDice(Character.IN, "Intuition");
+                    break;
+
+                case "attributCH":
+                    result = RollAttributeDice(Character.CH, "Charisma");
+                    break;
+
+                case "attributFF":
+                    result = RollAttributeDice(Character.FF, "Fingerfertigkeit");
+                    break;
+
+                case "attributGE":
+                    result = RollAttributeDice(Character.GE, "Gewandheit");
+                    break;
+
+                case "attributKO":
+                    result = RollAttributeDice(Character.KO, "Konstitution");
+                    break;
+
+                case "attributKK":
+                    result = RollAttributeDice(Character.KK, "Körperkraft");
+                    break;
+            }
+
+            return result;
+        }
+
+        private string RollAttributeDice(int attributWert, string attributTxt)
+        {
+            RollResult rollResult;
+            string suffix;
+            string ret;
+
+            rollResult = Roller.Roll("1d20");
+
+            if (rollResult.Value <= attributWert)
+            {
+                suffix = string.Format("{0} Punkte über, geschafft! :)", attributWert - rollResult.Value);
+            }
+            else
+            {
+                suffix = string.Format("{0} Punkte drüber, nicht geschafft... :(", (attributWert - rollResult.Value) * -1);
+            }
+
+            ret = $"eine {rollResult.Value} auf {attributTxt}. {suffix}";
+
+            return ret;
         }
 
         /// <summary>

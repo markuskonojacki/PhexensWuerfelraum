@@ -21,7 +21,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
                     break;
 
                 case MessageType.Roll:
-                    ret = " würfelt auf ";
+                    ret = " würfelt ";
                     break;
 
                 case MessageType.Whisper:

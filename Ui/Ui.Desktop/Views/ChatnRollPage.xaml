@@ -74,474 +74,482 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" MaxHeight="500" />
+            <RowDefinition Height="455" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" x:Name="TopChatContent">
-            <Grid>
+        <Grid Grid.Row="0" x:Name="TopChatContent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--#region Chat-->
+            <Grid Grid.Column="0" Grid.Row="0">
+                <Grid.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="Padding" Value="2" />
+                    </Style>
+                </Grid.Resources>
+                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="140" />
-                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="160" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0">
+                        <customcontrols:ChatMessagesListView
+                            x:Name="chatList"
+                            ItemsSource="{Binding ChatRoom.Messages}"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            Style="{DynamicResource ChatListViewStyle}"
+                            local:ListBoxExtender.AutoScrollToEnd="True"
+                            IsSynchronizedWithCurrentItem="True">
+                            <customcontrols:ChatMessagesListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListBoxItem}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                <ContentPresenter
+                                                    x:Name="contentPresenter"
+                                                    Content="{TemplateBinding Content}"
+                                                    ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                    OpacityMask="{x:Null}" />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </customcontrols:ChatMessagesListView.ItemContainerStyle>
+                            <customcontrols:ChatMessagesListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="WhiteSmoke" BorderThickness="0,0,0,1">
+                                        <DockPanel HorizontalAlignment="Stretch">
+                                            <DockPanel>
+                                                <TextBlock
+                                                    Text="{Binding Path=DateTime, StringFormat={}{0:HH:mm:ss}}"
+                                                    Padding="2"
+                                                    DockPanel.Dock="Left"
+                                                    Foreground="DarkGray" />
+                                                <TextBlock
+                                                    Text="{Binding Path=Username}"
+                                                    Padding="2,2,0,2"
+                                                    Foreground="{Binding UserColor}"
+                                                    FontWeight="Bold"
+                                                    DockPanel.Dock="Left" />
+                                                <TextBlock
+                                                    Text="{Binding Path=MessageType, Converter={StaticResource MessageTypeToTextConverter}}"
+                                                    Padding="0,2,0,2"
+                                                    Foreground="{Binding Path=UserColor}"
+                                                    FontWeight="Bold"
+                                                    DockPanel.Dock="Left" />
+                                                <TextBlock
+                                                    Text="{Binding Path=Message}"
+                                                    DockPanel.Dock="Left"
+                                                    Padding="0,2,2,2"
+                                                    TextWrapping="Wrap" />
+                                            </DockPanel>
+                                        </DockPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </customcontrols:ChatMessagesListView.ItemTemplate>
+                        </customcontrols:ChatMessagesListView>
+                    </Border>
+                    
+                    <Border Grid.Row="1">
+                        <customcontrols:ChatInputTextBox
+                            Controls:TextBoxHelper.ClearTextButton="True"
+                            Style="{StaticResource SendTextBoxStyle}"
+                            KeyDown="TextBox_KeyDown"
+                            Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            TextWrapping="WrapWithOverflow" />
+                    </Border>
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0">
+                        <ListView
+                            ItemsSource="{Binding ChatRoom.Users}"
+                            SelectedItem="{Binding ChatRoom.SelectedUser, Mode=TwoWay}"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Style="{DynamicResource UserListViewStyle}"
+                            local:ListBoxSelectionBehavior.ClickSelection="True">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/Resources/GameMasterIcon.png" Visibility="{Binding IsGameMaster, Converter={StaticResource VisibilityConverter}}" Margin="2" Height="16" Width="16" />
+                                        <Image Source="/Resources/PlayerIcon.png" Visibility="{Binding IsPlayer, Converter={StaticResource VisibilityConverter}}" Margin="2" Height="16" Width="12" />
+                                        <TextBlock Text="{Binding UserName}" Margin="2" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Border>
+                    <Border Grid.Row="1">
+                        <Button Content="senden" Command="{Binding SendCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{DynamicResource SendButtonStyle}" />
+                    </Border>
+                </Grid>
+            </Grid>
+            <!--#endregion -->
+
+            <!--#region Dice-->
+            <Grid Grid.Column="1" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="70" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="64" />
+                    <RowDefinition Height="64" />
+                    <RowDefinition Height="64" />
+                    <RowDefinition Height="64" />
+                    <RowDefinition Height="64" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                    Würfel
+                </Label>
+
+                <Button Background="Transparent" Grid.Column="0" Grid.Row="1" ToolTip="Würfle einen 20-seitigen Würfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="d20">
+                    <Image Source="/Resources/Dice/d20.png" />
+                </Button>
+                <Button Background="Transparent" Grid.Column="1" Grid.Row="1" ToolTip="Würfle einen 6-seitigen Würfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="d6">
+                    <Image Source="/Resources/Dice/d6.png" />
+                </Button>
+
+                <Button Background="Transparent" Grid.Column="0" Grid.Row="2" ToolTip="Würfle einen 12-seitigen Würfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="d12">
+                    <Image Source="/Resources/Dice/d12.png" />
+                </Button>
+                <Button Background="Transparent" Grid.Column="1" Grid.Row="2" ToolTip="Würfle einen 3-seitigen Würfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="d3">
+                    <Image Source="/Resources/Dice/d3.png" />
+                </Button>
+
+                <Button Background="Transparent" Grid.Column="0" Grid.Row="3" ToolTip="Würfle einen Schicksalswürfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="smileydice">
+                    <Image Source="/Resources/Dice/drama-masks.png" />
+                </Button>
+                <Button Background="Transparent" Grid.Column="1" Grid.Row="3" ToolTip="Würfle einen Trefferzonenwürfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="hitzonedice">
+                    <Image Source="/Resources/Dice/hitzone.png" />
+                </Button>
+
+                <Button Background="Transparent" Grid.Column="0" Grid.Row="4" ToolTip="Würfle einen Nahkampf-Patzerwürfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="meleepatzerdice">
+                    <Image Source="/Resources/Dice/shattered-sword.png" />
+                </Button>
+                <Button Background="Transparent" Grid.Column="1" Grid.Row="4" ToolTip="Würfle einen Fernkampf-Patzerwürfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="rangedpatzerdice">
+                    <Image Source="/Resources/Dice/william-tell-skull.png" />
+                </Button>
+
+                <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2">
+                    <Label FontWeight="Bold">Anzahl Würfel</Label>
+                    <Controls:NumericUpDown
+                    Minimum="1"
+                    Maximum="99"
+                    Interval="1"
+                    HasDecimals="False"
+                    Value="{Binding Path=DiceAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    StringFormat="G0"
+                    Opacity="0.8" />
+                    <Label FontWeight="Bold">Behinderung</Label>
+                    <Controls:NumericUpDown
+                    Minimum="0"
+                    Maximum="99"
+                    Interval="1"
+                    HasDecimals="False"
+                    DataContext="{Binding Character, Source={StaticResource Locator}}"
+                    Value="{Binding Path=Character.Behinderung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    StringFormat="G0"
+                    Opacity="0.8" />
+                    <Label FontWeight="Bold">Modifikation</Label>
+                    <Controls:NumericUpDown
+                    Minimum="-99"
+                    Maximum="99"
+                    Interval="1"
+                    HasDecimals="False"
+                    DataContext="{Binding Character, Source={StaticResource Locator}}"
+                    Value="{Binding Path=Character.Modifikation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    StringFormat="G0"
+                    Opacity="0.8"
+                    ToolTip="Positiv = Erschwernis / Negativ = Erleichterung" />
+                </StackPanel>
+            </Grid>
+            <!--#endregion-->
+
+            <!--#region Attribute-->
+            <Grid Grid.Column="2" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!--#region Chat-->
-                <Grid Grid.Column="0" Grid.Row="0">
-                    <Grid.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="Padding" Value="2,2,2,2" />
-                        </Style>
-                    </Grid.Resources>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="160" />
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="30" />
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="0">
-                            <ListView
-                                x:Name="chatList"
-                                ItemsSource="{Binding ChatRoom.Messages}"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                Style="{DynamicResource ChatListViewStyle}"
-                                local:ListBoxExtender.AutoScrollToEnd="True"
-                                IsSynchronizedWithCurrentItem="True">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="{x:Type ListBoxItem}">
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                    <ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Content}"
-                                      ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                      ContentTemplate="{TemplateBinding ContentTemplate}" OpacityMask="{x:Null}" />
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border BorderBrush="WhiteSmoke" BorderThickness="0,0,0,1">
-                                            <DockPanel HorizontalAlignment="Stretch">
-                                                <DockPanel>
-                                                    <TextBlock
-                                                        Text="{Binding Path=DateTime, StringFormat={}{0:HH:mm:ss}}"
-                                                        Padding="2"
-                                                        DockPanel.Dock="Left"
-                                                        Foreground="DarkGray" />
-                                                    <TextBlock
-                                                        Text="{Binding Path=Username}"
-                                                        Padding="2,2,0,2"
-                                                        Foreground="{Binding UserColor}"
-                                                        FontWeight="Bold"
-                                                        DockPanel.Dock="Left" />
-                                                    <TextBlock
-                                                        Text="{Binding Path=MessageType, Converter={StaticResource MessageTypeToTextConverter}}"
-                                                        Padding="0,2,0,2"
-                                                        Foreground="{Binding Path=UserColor}"
-                                                        FontWeight="Bold"
-                                                        DockPanel.Dock="Left" />
-                                                    <TextBlock
-                                                        Text="{Binding Path=Message}"
-                                                        DockPanel.Dock="Left"
-                                                        Padding="0,2,2,2"
-                                                        TextWrapping="Wrap" />
-                                                </DockPanel>
-                                            </DockPanel>
-                                        </Border>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </Border>
-                        <Border Grid.Row="1">
-                            <customcontrols:ChatInputTextBox 
-                                Controls:TextBoxHelper.ClearTextButton="True" 
-                                Style="{StaticResource SendTextBoxStyle}" 
-                                KeyDown="TextBox_KeyDown" 
-                                Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}" 
-                                ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                                TextWrapping="WrapWithOverflow" />
-                        </Border>
-                    </Grid>
-
-                    <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="30" />
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="0">
-                            <ListView
-                                ItemsSource="{Binding ChatRoom.Users}"
-                                SelectedItem="{Binding ChatRoom.SelectedUser, Mode=TwoWay}"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Style="{DynamicResource UserListViewStyle}"
-                                local:ListBoxSelectionBehavior.ClickSelection="True">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image Source="/Resources/GameMasterIcon.png" Visibility="{Binding IsGameMaster, Converter={StaticResource VisibilityConverter}}" Margin="2" Height="16" Width="16" />
-                                            <Image Source="/Resources/PlayerIcon.png" Visibility="{Binding IsPlayer, Converter={StaticResource VisibilityConverter}}" Margin="2" Height="16" Width="12" />
-                                            <TextBlock Text="{Binding UserName}" Margin="2" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </Border>
-                        <Border Grid.Row="1">
-                            <Button Content="senden" Command="{Binding SendCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{DynamicResource SendButtonStyle}" />
-                        </Border>
-                    </Grid>
-                </Grid>
-                <!--#endregion -->
-
-                <!--#region Dice-->
-                <Grid Grid.Column="1" Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="70" />
-                        <ColumnDefinition Width="70" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="64" />
-                        <RowDefinition Height="64" />
-                        <RowDefinition Height="64" />
-                        <RowDefinition Height="64" />
-                        <RowDefinition Height="64" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <Label FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
-                        Würfel
+                <StackPanel DataContext="{Binding Character, Source={StaticResource Locator}}">
+                    <Label FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        Attribute
                     </Label>
 
-                    <Button Background="Transparent" Grid.Column="0" Grid.Row="1" ToolTip="Würfle einen 20-seitigen Würfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="d20">
-                        <Image Source="/Resources/Dice/d20.png" />
-                    </Button>
-                    <Button Background="Transparent" Grid.Column="1" Grid.Row="1" ToolTip="Würfle einen 6-seitigen Würfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="d6">
-                        <Image Source="/Resources/Dice/d6.png" />
-                    </Button>
-
-                    <Button Background="Transparent" Grid.Column="0" Grid.Row="2" ToolTip="Würfle einen 12-seitigen Würfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="d12">
-                        <Image Source="/Resources/Dice/d12.png" />
-                    </Button>
-                    <Button Background="Transparent" Grid.Column="1" Grid.Row="2" ToolTip="Würfle einen 3-seitigen Würfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="d3">
-                        <Image Source="/Resources/Dice/d3.png" />
-                    </Button>
-
-                    <Button Background="Transparent" Grid.Column="0" Grid.Row="3" ToolTip="Würfle einen Schicksalswürfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="smileydice">
-                        <Image Source="/Resources/Dice/drama-masks.png" />
-                    </Button>
-                    <Button Background="Transparent" Grid.Column="1" Grid.Row="3" ToolTip="Würfle einen Trefferzonenwürfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="hitzonedice">
-                        <Image Source="/Resources/Dice/hitzone.png" />
-                    </Button>
-
-                    <Button Background="Transparent" Grid.Column="0" Grid.Row="4" ToolTip="Würfle einen Nahkampf-Patzerwürfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="meleepatzerdice">
-                        <Image Source="/Resources/Dice/shattered-sword.png" />
-                    </Button>
-                    <Button Background="Transparent" Grid.Column="1" Grid.Row="4" ToolTip="Würfle einen Fernkampf-Patzerwürfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="rangedpatzerdice">
-                        <Image Source="/Resources/Dice/william-tell-skull.png" />
-                    </Button>
-
-                    <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2">
-                        <Label FontWeight="Bold">Anzahl Würfel</Label>
-                        <Controls:NumericUpDown
-                        Minimum="1"
-                        Maximum="10"
-                        Interval="1"
-                        HasDecimals="False"
-                        Value="{Binding Path=DiceAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        StringFormat="G0"
-                        Opacity="0.8" />
-                        <Label FontWeight="Bold">Behinderung</Label>
-                        <Controls:NumericUpDown
-                        Minimum="0"
-                        Maximum="99"
-                        Interval="1"
-                        HasDecimals="False"
-                        DataContext="{Binding Character, Source={StaticResource Locator}}"
-                        Value="{Binding Path=Character.Behinderung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        StringFormat="G0"
-                        Opacity="0.8" />
-                        <Label FontWeight="Bold">Modifikation</Label>
-                        <Controls:NumericUpDown
-                        Minimum="-99"
-                        Maximum="99"
-                        Interval="1"
-                        HasDecimals="False"
-                        DataContext="{Binding Character, Source={StaticResource Locator}}"
-                        Value="{Binding Path=Character.Modifikation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        StringFormat="G0"
-                        Opacity="0.8"
-                        ToolTip="Positiv = Erschwernis / Negativ = Erleichterung" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
+                        <Label Width="30" HorizontalAlignment="Right">MU</Label>
+                        <TextBox Text="{Binding Character.MU, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributMU" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
+                        </Button>
                     </StackPanel>
-                </Grid>
-                <!--#endregion-->
 
-                <!--#region Attribute-->
-                <Grid Grid.Column="2" Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="90" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <StackPanel DataContext="{Binding Character, Source={StaticResource Locator}}">
-                        <Label FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                            Attribute
-                        </Label>
-
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                            <Label Width="30" HorizontalAlignment="Right">MU</Label>
-                            <TextBox Text="{Binding Character.MU, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                            <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributMU">
-                                <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                            </Button>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                            <Label Width="30" HorizontalAlignment="Right">KL</Label>
-                            <TextBox Text="{Binding Character.KL, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                            <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributKL">
-                                <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                            </Button>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                            <Label Width="30" HorizontalAlignment="Right">IN</Label>
-                            <TextBox Text="{Binding Character.IN, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                            <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributIN">
-                                <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                            </Button>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                            <Label Width="30" HorizontalAlignment="Right">CH</Label>
-                            <TextBox Text="{Binding Character.CH, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                            <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributCH">
-                                <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                            </Button>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                            <Label Width="30" HorizontalAlignment="Right">FF</Label>
-                            <TextBox Text="{Binding Character.FF, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                            <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributFF">
-                                <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                            </Button>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                            <Label Width="30" HorizontalAlignment="Right">GE</Label>
-                            <TextBox Text="{Binding Character.GE, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                            <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributGE">
-                                <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                            </Button>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                            <Label Width="30" HorizontalAlignment="Right">KO</Label>
-                            <TextBox Text="{Binding Character.KO, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                            <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributKO">
-                                <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                            </Button>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                            <Label Width="30" HorizontalAlignment="Right">KK</Label>
-                            <TextBox Text="{Binding Character.KK, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                            <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributKK">
-                                <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                            </Button>
-                        </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
+                        <Label Width="30" HorizontalAlignment="Right">KL</Label>
+                        <TextBox Text="{Binding Character.KL, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributKL" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
+                        </Button>
                     </StackPanel>
-                </Grid>
-                <!--#endregion-->
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
+                        <Label Width="30" HorizontalAlignment="Right">IN</Label>
+                        <TextBox Text="{Binding Character.IN, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributIN" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
+                        <Label Width="30" HorizontalAlignment="Right">CH</Label>
+                        <TextBox Text="{Binding Character.CH, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributCH" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
+                        <Label Width="30" HorizontalAlignment="Right">FF</Label>
+                        <TextBox Text="{Binding Character.FF, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributFF" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
+                        <Label Width="30" HorizontalAlignment="Right">GE</Label>
+                        <TextBox Text="{Binding Character.GE, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributGE" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
+                        <Label Width="30" HorizontalAlignment="Right">KO</Label>
+                        <TextBox Text="{Binding Character.KO, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributKO" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
+                        <Label Width="30" HorizontalAlignment="Right">KK</Label>
+                        <TextBox Text="{Binding Character.KK, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributKK" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
             </Grid>
-        </StackPanel>
+            <!--#endregion-->
+        </Grid>
 
-        <ScrollViewer 
-            Grid.Row="1" 
-            HorizontalScrollBarVisibility="Visible" 
-            VerticalScrollBarVisibility="Hidden" 
-            CanContentScroll="True" 
-            Width="{Binding ActualWidth, ElementName=TopChatContent}" 
-            Template="{StaticResource ScrollViewerHorizontalOnTopTemplate}"
-            PreviewMouseWheel="ListBox_PreviewMouseWheel">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Visible">
-                <StackPanel>
-                    <StackPanel.Style>
-                        <Style TargetType="StackPanel">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Character.KoerperTalentliste.Count}" Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-                    
-                    <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Körper</Label>
-                    <ListView ItemsSource="{Binding Character.KoerperTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <usercontrols:TrialRollControl />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+        <Canvas Grid.Row="1" x:Name="TrialCanvas"><!-- canvas magic: https://stackoverflow.com/a/19711950/7557790-->
+            <ScrollViewer
+                Name="TrialScrollViewer"
+                Height="{Binding Parent.ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                Width="{Binding ActualWidth, ElementName=TrialCanvas}"
+                HorizontalScrollBarVisibility="Visible"
+                VerticalScrollBarVisibility="Visible"
+                HorizontalAlignment="Center"
+                CanContentScroll="True"
+                Template="{StaticResource ScrollViewerHorizontalOnTopTemplate}"
+                PreviewMouseWheel="Trials_PreviewMouseWheel">
+                <StackPanel 
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    >
+                    <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Character.KoerperTalentliste.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Körper</Label>
+                        <ListView ItemsSource="{Binding Character.KoerperTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <usercontrols:TrialRollControl />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Character.GesellschaftTalentliste.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Gesellschaft</Label>
+                        <ListView ItemsSource="{Binding Character.GesellschaftTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <usercontrols:TrialRollControl />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Character.NaturTalentliste.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Natur</Label>
+                        <ListView ItemsSource="{Binding Character.NaturTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <usercontrols:TrialRollControl />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Character.WissenTalentliste.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Wissen</Label>
+                        <ListView ItemsSource="{Binding Character.WissenTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <usercontrols:TrialRollControl />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Character.HandwerkTalentliste.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Handwerk</Label>
+                        <ListView ItemsSource="{Binding Character.HandwerkTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <usercontrols:TrialRollControl />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Character.MetaTalentliste.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Meta/Gaben</Label>
+                        <ListView ItemsSource="{Binding Character.MetaTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <usercontrols:TrialRollControl />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Character.Zauberliste.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Zauber</Label>
+                        <ListView ItemsSource="{Binding Character.Zauberliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <usercontrols:TrialRollControl />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
                 </StackPanel>
-
-                <StackPanel>
-                    <StackPanel.Style>
-                        <Style TargetType="StackPanel">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Character.GesellschaftTalentliste.Count}" Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-
-                    <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Gesellschaft</Label>
-                    <ListView ItemsSource="{Binding Character.GesellschaftTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <usercontrols:TrialRollControl />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackPanel>
-
-                <StackPanel>
-                    <StackPanel.Style>
-                        <Style TargetType="StackPanel">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Character.NaturTalentliste.Count}" Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-
-                    <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Natur</Label>
-                    <ListView ItemsSource="{Binding Character.NaturTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <usercontrols:TrialRollControl />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackPanel>
-
-                <StackPanel>
-                    <StackPanel.Style>
-                        <Style TargetType="StackPanel">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Character.WissenTalentliste.Count}" Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-
-                    <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Wissen</Label>
-                    <ListView ItemsSource="{Binding Character.WissenTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <usercontrols:TrialRollControl />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackPanel>
-
-                <StackPanel>
-                    <StackPanel.Style>
-                        <Style TargetType="StackPanel">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Character.HandwerkTalentliste.Count}" Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-
-                    <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Handwerk</Label>
-                    <ListView ItemsSource="{Binding Character.HandwerkTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <usercontrols:TrialRollControl />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackPanel>
-
-                <StackPanel>
-                    <StackPanel.Style>
-                        <Style TargetType="StackPanel">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Character.MetaTalentliste.Count}" Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-
-                    <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Meta/Gaben</Label>
-                    <ListView ItemsSource="{Binding Character.MetaTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <usercontrols:TrialRollControl />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackPanel>
-
-                <StackPanel>
-                    <StackPanel.Style>
-                        <Style TargetType="StackPanel">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Character.Zauberliste.Count}" Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-
-                    <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Zauber</Label>
-                    <ListView ItemsSource="{Binding Character.Zauberliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <usercontrols:TrialRollControl />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackPanel>
-            </StackPanel>
-        </ScrollViewer>
+            </ScrollViewer>
+        </Canvas>
     </Grid>
 </Page>

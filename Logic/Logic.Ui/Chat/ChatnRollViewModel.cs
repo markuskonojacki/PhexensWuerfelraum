@@ -14,6 +14,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         #region properties
 
         public CharacterModel Character { get; set; } = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
+        private DiceRoll DiceRoll { get; set; } = SimpleIoc.Default.GetInstance<DiceRoll>();
 
         public string Address { get; set; }
         public Chatroom ChatRoom { get; set; }
@@ -31,6 +32,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         private bool CanDisconnect() => ChatRoom.Connected && !BlockConnectionCommands;
 
         private bool CanSend() => ChatRoom.Connected;
+        private bool CanSend(string arg) => ChatRoom.Connected;
 
         private readonly SettingsViewModel settingsViewModel = SimpleIoc.Default.GetInstance<SettingsViewModel>();
 
@@ -44,7 +46,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         public RelayCommand SendTextCommand { get; set; }
         public RelayCommand SendRollCommand { get; set; }
         public RelayCommand SendActionCommand { get; set; }
-        public RelayCommand RollDiceCommand { get; set; }
+        public RelayCommand<string> RollDiceCommand { get; set; }
 
         #endregion Commands
 
@@ -58,7 +60,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             SendTextCommand = new RelayCommand(async () => await SendText(), CanSend);
             SendRollCommand = new RelayCommand(async () => await SendRoll(), CanSend);
             SendActionCommand = new RelayCommand(async () => await SendAction(), CanSend);
-            RollDiceCommand = new RelayCommand(async () => await SendText(), CanSend);
+            RollDiceCommand = new RelayCommand<string>(async (parm) => await SendDice(parm), CanSend);
         }
 
         #endregion constructors
@@ -222,6 +224,16 @@ namespace PhexensWuerfelraum.Logic.Ui
                 DisplayError("Du bist mit keinem Server verbunden");
 
             await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, MessageType.Action);
+            Message = string.Empty;
+        }
+
+        /// <summary> 
+        /// send one of the predefined dice rolls to chat 
+        /// </summary> 
+        private async Task SendDice(string commandParameter)
+        {
+            Message = DiceRoll.RollDice(commandParameter, DiceAmount);
+            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, MessageType.Roll);
             Message = string.Empty;
         }
 

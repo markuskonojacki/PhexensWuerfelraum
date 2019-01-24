@@ -1,7 +1,6 @@
 ﻿using MahApps.Metro.Controls.Dialogs;
 using PhexensWuerfelraum.Logic.Ui;
 using System;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,7 +25,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
 
             if (_customCloseDialogTest == null)
             {
-                ResourceDictionary resdict = (ResourceDictionary)this.Resources["ChatnRollResourceDictionary"];
+                ResourceDictionary resdict = (ResourceDictionary)Resources["ChatnRollResourceDictionary"];
 
                 foreach (var item in resdict.Values)
                 {
@@ -99,6 +98,11 @@ namespace PhexensWuerfelraum.Ui.Desktop
         {
             var ScrollViewer = Template.FindName("PageScrollViewer", this) as ScrollViewer;
             ScrollViewer.ScrollToVerticalOffset(ScrollViewer.VerticalOffset - e.Delta / 3);
+        }
+
+        private void Trials_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            TrialScrollViewer.ScrollToVerticalOffset(TrialScrollViewer.VerticalOffset - e.Delta / 3);
         }
     }
 }
