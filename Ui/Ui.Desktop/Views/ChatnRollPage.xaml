@@ -5,6 +5,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:PhexensWuerfelraum.Ui.Desktop"
+      xmlns:customcontrols="clr-namespace:PhexensWuerfelraum.Ui.Desktop.CustomControls"
       xmlns:usercontrols="clr-namespace:PhexensWuerfelraum.Ui.Desktop.UserControls"
       Style="{DynamicResource PageStyle}"
       mc:Ignorable="d"
@@ -98,7 +99,7 @@
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="145" />
+                        <ColumnDefinition Width="160" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
@@ -173,8 +174,13 @@
                             </ListView>
                         </Border>
                         <Border Grid.Row="1">
-                            <TextBox Controls:TextBoxHelper.ClearTextButton="True" Style="{StaticResource SendTextBoxStyle}" KeyDown="TextBox_KeyDown" Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}">
-                            </TextBox>
+                            <customcontrols:ChatInputTextBox 
+                                Controls:TextBoxHelper.ClearTextButton="True" 
+                                Style="{StaticResource SendTextBoxStyle}" 
+                                KeyDown="TextBox_KeyDown" 
+                                Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}" 
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                TextWrapping="WrapWithOverflow" />
                         </Border>
                     </Grid>
 
@@ -190,12 +196,12 @@
 
                         <Border Grid.Row="0">
                             <ListView
-                        ItemsSource="{Binding ChatRoom.Users}"
-                        SelectedItem="{Binding ChatRoom.SelectedUser, Mode=TwoWay}"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        Style="{DynamicResource UserListViewStyle}"
-                        local:ListBoxSelectionBehavior.ClickSelection="True">
+                                ItemsSource="{Binding ChatRoom.Users}"
+                                SelectedItem="{Binding ChatRoom.SelectedUser, Mode=TwoWay}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Style="{DynamicResource UserListViewStyle}"
+                                local:ListBoxSelectionBehavior.ClickSelection="True">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">

@@ -175,6 +175,7 @@
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
     <Compile Include="Converters\MessageTypeToTextConverter.cs" />
+    <Compile Include="CustomControls\ChatInputTextBox.cs" />
     <Compile Include="Dialogs\PickHeroDialog.xaml.cs">
       <DependentUpon>PickHeroDialog.xaml</DependentUpon>
     </Compile>
@@ -240,6 +241,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
+    <Page Include="CustomControls\ChatInputTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\TrialRollControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
