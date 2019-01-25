@@ -108,7 +108,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 Messages.Add(new ChatPacket
                 {
                     Username = string.Empty,
-                    Message = "Die Verbindung zum Server wurde getrennt.",
+                    Message = "Die Verbindung zum Server wurde getrennt oder konnte nicht aufgebaut werden.",
                     UserColor = "black",
                     DateTime = DateTime.Now
                 });
