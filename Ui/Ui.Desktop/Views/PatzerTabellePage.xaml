@@ -47,36 +47,80 @@
         <TextBlock Grid.Column="1" Grid.Row="0" FontWeight="Bold" Margin="5">Nahkampf</TextBlock>
 
         <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">[2] Waffe zerstört</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="1" Margin="5" TextWrapping="Wrap">INI-4. Patzender muss in der Folgenden Runde Aktionen aufwenden, um eine Neue Waffe zu ziehen. Handelt es sich bei der Waffe um eine sehr stabile Waffe mit einem BF von 0 oder weniger, so wird dieses Ergebnis als 9-10 (Waffe verloren) gewertet und der BF der Waffe steigt um 2; eine unzerstörbare Waffe ist einfach nur verloren. Handelt es sich um eine natürliche Waffe(also Faust oder Fuß), so wird dieser Patzergewertet wie eine 12 (Schwerer Eigentreffer).</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="1" Margin="5" TextWrapping="Wrap">
+            · INI-4<LineBreak />
+            · Muss in Folgerunde Aktionen aufwenden um neue Waffe zu ziehen.<LineBreak />
+            · Bruchfaktor der Waffe von 0 oder weniger: Ergebnis als [9-10 Waffe verloren] werten, der BF der Waffe steigt außerdem um 2; eine unzerstörbare Waffe ist einfach nur verloren.<LineBreak />
+            · Natürliche Waffe (z.B. Faust oder Fuß): Werten wie [12 Schwerer Eigentreffer].
+        </TextBlock>
 
         <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">[3-5] Sturz</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="2" Margin="5" TextWrapping="Wrap">INI-2. Der Patzende liegt auf dem Boden; er Gilt in den folgenden Runden so lange als Am Boden, bis er erfolgreich aufstehen kann(eine Aktion Position und eine um seine BE erschwerte GE-Probe). Ein Held mit Balance oder Herausragender Balance kann einen Sturz in ein Stolpern verwandeln, wenn ihm eine GE-Probe (bei Herausragender Balance: GE-4), erschwert um die BE, gelingt.</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="2" Margin="5" TextWrapping="Wrap">
+            · INI-2<LineBreak />
+            · Der Patzende liegt auf dem Boden. Er gilt so lange als "Am Boden" bis er erfolgreich aufsteht. (eine Aktion Position und eine um seine BE erschwerte GE-Probe)<LineBreak />
+            · Ein Held mit Balance oder Herausragender Balance kann einen Sturz in ein Stolpern verwandeln, wenn ihm eine GE-Probe (bei Herausragender Balance: GE-4), erschwert um die BE, gelingt.
+        </TextBlock>
 
         <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center">[6-8] Stolpern</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="3" Margin="5" TextWrapping="Wrap">INI-2.</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="3" Margin="5" TextWrapping="Wrap">
+            · INI-2
+        </TextBlock>
 
         <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center">[9-10] Waffe verloren</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="4" Margin="5" TextWrapping="Wrap">INI-2. Der Patzende kann in der Folgenden Runde eine Aktion nur darauf verwenden, um mittelseiner GE-Probe an die Waffe zu gelangen; oder aber er wechselt die Waffe oder flieht. Handelt es sich beider Waffe um eine natürliche (angewachsene), so wird das Ergebnis als 3– 5 (Sturz) gewertet.</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="4" Margin="5" TextWrapping="Wrap" xml:space="preserve">· INI-2
+· Optionen der Folgerunde:
+  · GE-Probe um an die Waffe zu gelangen
+  · Wechsel der Waffe
+  · Flucht
+· Natürlich Waffe: Das Ergebnis als [3–5 Sturz] werten</TextBlock>
 
         <TextBlock Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center">[11] An eigener Waffeverletzt</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="5" Margin="5" TextWrapping="Wrap">INI-3. Der Betroffene erleidet Waffenschaden durch eigene Waffe (TP auswürfeln, wobei zusätzliche TP durch hohe KK nicht gewertet werden).</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="5" Margin="5" TextWrapping="Wrap">
+            · INI-3<LineBreak />
+            · Schaden durch Eigentreffer: TP auswürfeln, TP/KK nicht anwenden
+        </TextBlock>
 
         <TextBlock Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center">[12] Schwerer Eigentreffer</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="6" Margin="5" TextWrapping="Wrap">INI-4. Der Betroffene Erleidet schweren Schaden durch eigene Waffe (TP auswürfeln, aber als SP direkt von der LE abziehen, höhere TP durch KK werden angerechnet) und eventuell auch eine Wunde (bei mehr als KO SP) mit den dort genannten Folgen.</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="6" Margin="5" TextWrapping="Wrap">
+            · INI-4<LineBreak />
+            · Schwerer Schaden durch Eigentreffer: TP auswürfeln, Schaden als SP, TP/KK wirkt, Wunde möglich bei mehr als KO SP
+        </TextBlock>
 
         <TextBlock Grid.Column="1" Grid.Row="7"></TextBlock>
         <TextBlock Grid.Column="1" Grid.Row="8" FontWeight="Bold" Margin="5">Fernkampf</TextBlock>
 
         <TextBlock Grid.Column="0" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Center">[2] Waffe zerstört</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="9" Margin="5" TextWrapping="Wrap">INI-4. Der Schuss geht ungezielt daneben, und von irgendwo hört man ein hässliches ‚Krack’. Bogen, Armbrust oder Speer sind so schwer beschädigt, dass eine Reparatur nicht lohnt. Der Schütze verliert alle verbleibenden Aktionen und Reaktionen dieser Runde.</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="9" Margin="5" TextWrapping="Wrap">
+            · INI-4<LineBreak />
+            · Schuss geht ungezielt daneben<LineBreak />
+            · Bogen, Armbrust oder Speer sind so schwer beschädigt, dass eine Reparatur nicht lohnt<LineBreak />
+            · Schütze verliert alle verbleibenden Aktionen und Reaktionen dieser Runde
+        </TextBlock>
 
         <TextBlock Grid.Column="0" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Center">[3] Waffe beschädigt</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="10" Margin="5" TextWrapping="Wrap">INI-3. Der Schuss geht ungezielt daneben, das Projektil landet vor den Füßen des Schützen. Die Sehne des Bogens ist gerissen, die Mechanik der Armbrust ernsthaft verklemmt – es sind mindestens 30 Aktionen nötig, um die Waffe wieder schussfähig zu machen. Bei einer Wurfwaffe bedeutet dieses Resultat dasselbe wie eine 2– Messer, Diskus oder Speer sind zerbrochen. Der Schütze verliert alle verbleibenden Aktionen und Reaktionen dieser Runde.</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="10" Margin="5" TextWrapping="Wrap">
+            · INI-3<LineBreak />
+            · Schuss geht ungezielt daneben<LineBreak />
+            · Projektil fällt ohne Effekt einfach zu Boden<LineBreak />
+            · Sehne des Bogens ist gerissen oder die Mechanik der Armbrust ernsthaft verklemmt (mindestens 30 Aktionen nötig, um die Waffe wieder schussfähig zu machen)<LineBreak />
+            · Wurfwaffe: Das Ergebnis als [2 Waffe zerstört] werten<LineBreak />
+            · Schütze verliert alle verbleibenden Aktionen und Reaktionen dieser Runde
+        </TextBlock>
 
         <TextBlock Grid.Column="0" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Center">[4-10] Fehlschuss</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="11" Margin="5" TextWrapping="Wrap">INI-2. Der Schuss geht ungezielt daneben, das Projektil ist verloren; die Mechanik der Armbrust blockiert oder die Sehne droht vom Bogen zu rutschen – der Schütze benötigt zwei Aktionen, um die Waffe wieder schussfähig zu machen. Bei Wurfwaffen gilt, dass das Projektil ebenfalls verloren ist und der Werfer zwei Aktionen benötigt, um sein verlorenes Gleichgewicht wieder zu finden.</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="11" Margin="5" TextWrapping="Wrap">
+            · INI-2<LineBreak />
+            · Schuss geht ungezielt daneben<LineBreak />
+            · Projektil ist verloren<LineBreak />
+            · Mechanik der Armbrust blockiert oder Sehne droht vom Bogen zu rutschen (Schütze benötigt zwei Aktionen, um die Waffe wieder schussfähig zu machen)<LineBreak />
+            · Wurfwaffen: Werfer verliert sein Gleichgewicht und benötigt zur Wiederfindung zwei Aktionen
+        </TextBlock>
 
         <TextBlock Grid.Column="0" Grid.Row="12" VerticalAlignment="Center" HorizontalAlignment="Center">[11-12] Kameraden getroffen</TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="12" Margin="5" TextWrapping="Wrap">INI-3. Der Schuss löst sich unbeabsichtigt und trifft den am nächsten an der geplanten Flugbahn stehenden befreundeten Charakter. Würfeln Sie für diesen Trefferpunkte gemäß der Entfernung aus; Ansagen kommen jedoch nicht zum Tragen. Ist kein Kamerad in der Nähe, der getroffen werden könnte, hat der Schütze sich selbst verletzt.</TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="12" Margin="5" TextWrapping="Wrap">
+            · INI-3<LineBreak />
+            · Schuss löst sich unbeabsichtigt und trifft den am nächsten an der geplanten Flugbahn stehenden befreundeten Charakter (TP nach Entfernung, etwaige Ansagen ignorieren)<LineBreak />
+            · Kein Freund in der Nähe: Schütze verletzt sich selbst
+        </TextBlock>
     </Grid>
 </Page>
