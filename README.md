@@ -9,8 +9,6 @@
 # Phexens Würfelraum
 Zuvorderst: Phexens Würfelraum ist ein komplett __NICHT__ offizielles Projekt meinerseits. Es besteht keinerlei offizielle Verbindung zu Fanpro, Ulisses Spiele, der Significant Fantasy Medienrechte GbR oder ihren Produkten.
 
-DAS SCHWARZE AUGE, AVENTURIEN, DERE, MYRANOR, THARUN, UTHURIA und RIESLAND sind eingetragene Marken der Significant Fantasy Medienrechte GbR.
-
 Nun zum Tool selbst: Phexens Würfelraum ist ein Programm um es Menschen zu ermöglichen, gemeinsam [Das Schwarze Auge](http://www.ulisses-spiele.de/sortiment/rollenspiele/das-schwarze-auge/) über das Internet zu spielen. Es unterstützt den Import von durch die [Helden-Software](https://www.helden-software.de/) erstellten Charakteren.
 
 ## Server
@@ -50,7 +48,7 @@ dotnet publish Server\Server.Console -c release -r win10-x86 -o C:\VSDistributio
 
 Starte die Applikation. Die Angabe des Portes kann wahlweise über die `settings.ini` oder einen Übergabeparameter erfolgen. Der Übergabeparameter hat Vorrang.
 ```bash
-PhexensWuerfelraum.Server.Console.exe --port 1212
+C:\VSDistribution\PhexensWuerfelraum.Server.Console\PhexensWuerfelraum.Server.Console.exe --port 1212
 ```
 
 ## Lizenz
@@ -58,6 +56,8 @@ PhexensWuerfelraum.Server.Console.exe --port 1212
 Phexens Würfelraum ist unter der MIT Lizenz veröffentlicht. 
 Für Details siehe: [LICENSE.txt](LICENSE)
 Lizenzen von Dritt-Hersteller-Software, Grafiken und Soundeffekten finden sich hier: [THIRD-PARTY-LICENSES.txt](THIRD-PARTY-LICENSES.txt)
+
+DAS SCHWARZE AUGE, AVENTURIEN, DERE, MYRANOR, THARUN, UTHURIA und RIESLAND sind eingetragene Marken der Significant Fantasy Medienrechte GbR.
 
 | EN |
 |:---|
