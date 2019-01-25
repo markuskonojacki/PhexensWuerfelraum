@@ -1,11 +1,11 @@
-﻿using System;
-using System.Windows;
-using GalaSoft.MvvmLight.Ioc;
+﻿using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.SimpleChildWindow;
 using PhexensWuerfelraum.Logic.Ui;
+using System;
+using System.Windows;
 
 namespace PhexensWuerfelraum.Ui.Desktop
 {
@@ -41,8 +41,6 @@ namespace PhexensWuerfelraum.Ui.Desktop
                 this,
                 async msg =>
                 {
-                    Log.Instance.Trace("OpenInfoMessage called");
-
                     metroWindow = Application.Current.MainWindow as MetroWindow;
                     await metroWindow.ShowMessageAsync(msg.InfoTitle, msg.InfoText);
                 });
@@ -51,8 +49,6 @@ namespace PhexensWuerfelraum.Ui.Desktop
                 this,
                 async msg =>
                 {
-                    Log.Instance.Trace("OpenHeroPickDialogMessage called");
-
                     if (CharacterViewModel.IsChildWindowOpenOrNotProperty == false)
                     {
                         PickHeroDialog = new PickHeroDialog() { };

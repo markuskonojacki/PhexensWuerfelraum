@@ -69,7 +69,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                         h2 = Character.Ausruestung.First(a => a.Name == "fkwaffe3" && a.Set == "0" && a.Slot == "0");
                         break;
                 }
-                
+
                 if (Character.Talentliste.Any(t => t.Name == h2.Talent))
                 {
                     Character.JagdwaffenTaW = Character.Talentliste.Single(t => t.Name == h2.Talent).Value;
@@ -87,8 +87,8 @@ namespace PhexensWuerfelraum.Logic.Ui
         private void AddMetaTalents()
         {
             // Ansitzjagd
-            if (Character.Talentliste.Any(t => t.Name == "Wildnisleben") && 
-                Character.Talentliste.Any(t => t.Name == "Tierkunde") && 
+            if (Character.Talentliste.Any(t => t.Name == "Wildnisleben") &&
+                Character.Talentliste.Any(t => t.Name == "Tierkunde") &&
                 Character.Talentliste.Any(t => t.Name == "Fährtensuchen") &&
                 Character.Talentliste.Any(t => t.Name == "Sich verstecken"))
             {
@@ -582,8 +582,6 @@ namespace PhexensWuerfelraum.Logic.Ui
             CalculateSuccessChances = new RelayCommand(() => CalcSuccessChances());
 
             InitAttributesView();
-
-            Log.Instance.Trace("CharacterViewModel initialized");
         }
 
         /// <summary>
@@ -720,8 +718,6 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// </summary>
         public void ImportCharacter()
         {
-            Log.Instance.Trace("Character import started");
-
             CharacterList = new ObservableCollection<CharacterModel>();
             string filename = SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting.HeldenDateiPath;
 

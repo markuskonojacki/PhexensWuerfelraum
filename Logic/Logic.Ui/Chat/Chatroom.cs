@@ -64,14 +64,12 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         public void Clear()
         {
-            Log.Instance.Trace("ChatRoom.Clear");
             Messages.Clear();
             Users.Clear();
         }
 
         public async Task Connect(UserModel user, string address, int port)
         {
-            Log.Instance.Debug("Connect");
             Status = "Verbinde...";
 
             if (SetupClient(user.UserName, address, port))
@@ -82,16 +80,14 @@ namespace PhexensWuerfelraum.Logic.Ui
                     await InitializeConnection(packet);
                     _ownUser = user;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    Log.Instance.Error($"{ex.Message} ({ex.InnerException})");
                 }
             }
         }
 
         public async Task Disconnect()
         {
-            Log.Instance.Debug("Disconnect");
             Status = "Trenne...";
 
             if (IsRunning)
@@ -122,8 +118,6 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         public async Task Send(string username, string message, string colorCode, Guid recipient, MessageType messageType = MessageType.Text)
         {
-            Log.Instance.Trace("ChatRoom.Send");
-
             if (recipient != Guid.Empty)
             {
                 messageType = MessageType.Whisper;
@@ -144,7 +138,6 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         private async Task<PersonalPacket> GetNewConnectionPacket(UserModel user)
         {
-            Log.Instance.Trace("ChatRoom.GetNewConnectionPacket");
             _listenTask = Task.Run(() => _client.Connect());
 
             IsRunning = await _listenTask;
@@ -169,7 +162,6 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         private async Task InitializeConnection(PersonalPacket connectionPacket)
         {
-            Log.Instance.Trace("ChatRoom.InitializeConnection");
             _pinged = false;
 
             if (IsRunning)
@@ -278,7 +270,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                         if (_pinged)
                         {
 #pragma warning disable 4014 // Because this call is not awaited, execution of the current method continues before the call is completed.
-                            Task.Run(() => Disconnect());
+                            Task.Run(() => Disconnect()); // doesn't work if called async
 #pragma warning disable 4014
                         }
                     }
@@ -304,7 +296,6 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         private bool SetupClient(string username, string address, int port)
         {
-            Log.Instance.Trace("ChatRoom.SetupClient");
             _client = new SimpleClient(address, port)
             {
                 ClientUserName = username,
@@ -316,7 +307,6 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         private async Task Update()
         {
-            Log.Instance.Trace("ChatRoom.Update");
             while (IsRunning)
             {
                 Thread.Sleep(1);

@@ -21,8 +21,6 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             this.OptionsMenu.Add(new MenuItem() { Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Cogs }, IsEnabled = true, Text = "Einstellungen", NavigationDestination = new Uri("Views/SettingsPage.xaml", UriKind.RelativeOrAbsolute) });
             this.OptionsMenu.Add(new MenuItem() { Icon = new PackIconMaterial() { Kind = PackIconMaterialKind.Information }, IsEnabled = true, Text = "Über", NavigationDestination = new Uri("Views/AboutPage.xaml", UriKind.RelativeOrAbsolute) });
-
-            Log.Instance.Trace("Navigation initialized");
         }
 
         public ObservableCollection<MenuItem> Menu => AppMenu;

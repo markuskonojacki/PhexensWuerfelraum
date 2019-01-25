@@ -32,6 +32,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         private bool CanDisconnect() => ChatRoom.Connected && !BlockConnectionCommands;
 
         private bool CanSend() => ChatRoom.Connected;
+
         private bool CanSend(string arg) => ChatRoom.Connected;
 
         private readonly SettingsViewModel settingsViewModel = SimpleIoc.Default.GetInstance<SettingsViewModel>();
@@ -227,9 +228,9 @@ namespace PhexensWuerfelraum.Logic.Ui
             Message = string.Empty;
         }
 
-        /// <summary> 
-        /// send one of the predefined dice rolls to chat 
-        /// </summary> 
+        /// <summary>
+        /// send one of the predefined dice rolls to chat
+        /// </summary>
         private async Task SendDice(string commandParameter)
         {
             Message = DiceRoll.RollDice(commandParameter, DiceAmount);

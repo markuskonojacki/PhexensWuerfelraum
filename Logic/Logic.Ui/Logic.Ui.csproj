@@ -116,9 +116,6 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NLog.4.5.10\lib\net45\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="PropertyChanged, Version=2.5.13.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
@@ -174,7 +171,6 @@
     <Compile Include="Character\CharacterModel.cs" />
     <Compile Include="Character\CharacterViewModel.cs" />
     <Compile Include="Dice\DiceRoll.cs" />
-    <Compile Include="Log.cs" />
     <Compile Include="Messages\OpenInfoMessage.cs" />
     <Compile Include="Messages\OpenHeroPickDialogMessage.cs" />
     <Compile Include="Chat\ChatnRollViewModel.cs" />

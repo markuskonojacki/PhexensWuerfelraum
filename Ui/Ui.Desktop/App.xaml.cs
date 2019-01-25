@@ -1,10 +1,9 @@
-﻿using System;
+﻿using PhexensWuerfelraum.Ui.Desktop.Views;
+using Squirrel;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using PhexensWuerfelraum.Logic.Ui;
-using PhexensWuerfelraum.Ui.Desktop.Views;
-using Squirrel;
 
 namespace PhexensWuerfelraum.Ui.Desktop
 {
@@ -23,10 +22,10 @@ namespace PhexensWuerfelraum.Ui.Desktop
             PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Warning | SourceLevels.Error;
             base.OnStartup(e);
 
-            #if !DEBUG
+#if !DEBUG
             InitSquirrel();
             Update();
-            #endif
+#endif
         }
 
         private void InitSquirrel()
@@ -36,8 +35,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
                 SquirrelAwareApp.HandleEvents(
                   onInitialInstall: v => mgr.CreateShortcutForThisExe(),
                   onAppUpdate: v => mgr.CreateShortcutForThisExe(),
-                  onAppUninstall: v => mgr.RemoveShortcutForThisExe(),
-                  onFirstRun: OnFirstRun);
+                  onAppUninstall: v => mgr.RemoveShortcutForThisExe());
             }
         }
 
@@ -65,11 +63,6 @@ namespace PhexensWuerfelraum.Ui.Desktop
             }
         }
 
-        private static void OnFirstRun()
-        {
-            Log.Instance.Info("First run");
-        }
-
         //Check if there's an update available, then return the version
         private async Task<string> CheckForUpdates()
         {
@@ -85,7 +78,6 @@ namespace PhexensWuerfelraum.Ui.Desktop
         //Proceed with the update, then restart the app
         private async Task<int> ProceedUpdate(string version)
         {
-
             using (var mgr = new UpdateManager(UpdateUrl))
             {
                 await mgr.UpdateApp();
@@ -94,7 +86,6 @@ namespace PhexensWuerfelraum.Ui.Desktop
             return 0;
         }
     }
-
 
     public class DebugTraceListener : TraceListener
     {
