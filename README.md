@@ -1,23 +1,30 @@
-| README.md |
+| README.md  [DE](#phexens-würfelraum) [EN](#phexs-dice-room) |
 |:---|
 
 ![](Ui/Ui.Desktop/Resources/AppIcon.ico)
 
+| DE |
+|:---|
+
 # Phexens Würfelraum
-Phexens Würfelraum ist ein Programm um mit anderen Menschen gemeinsam [Das Schwarze Auge](http://www.ulisses-spiele.de/sortiment/rollenspiele/das-schwarze-auge/) online zu spielen. Es unterstützt den Import von durch die [Helden-Software](https://www.helden-software.de/) erstellten Charakteren.
+Zuvorderst: Phexens Würfelraum ist ein komplett __NICHT__ offizielles Projekt meinerseits. Es besteht keinerlei offizielle Verbindung zu Fanpro, Ulisses Spiele, der Significant Fantasy Medienrechte GbR oder ihren Produkten.
+
+DAS SCHWARZE AUGE, AVENTURIEN, DERE, MYRANOR, THARUN, UTHURIA und RIESLAND sind eingetragene Marken der Significant Fantasy Medienrechte GbR.
+
+Nun zum Tool selbst: Phexens Würfelraum ist ein Programm um es Menschen zu ermöglichen, gemeinsam [Das Schwarze Auge](http://www.ulisses-spiele.de/sortiment/rollenspiele/das-schwarze-auge/) über das Internet zu spielen. Es unterstützt den Import von durch die [Helden-Software](https://www.helden-software.de/) erstellten Charakteren.
 
 ## Server
 
 ### Build
 #### Linux
 
-Run in packet manager console in VS to compile executable for Ubuntu
+Führt folgendes in der Paket Manager Console im Visual Studio aus, um eine ausführbare Datei für Linux zu erstellen
 ```powershell
 dotnet publish Server\Server.Console -c release -r ubuntu.18.04-x64 -o C:\VSDistribution\PhexensWuerfelraum.Server.Console
 ```
 
-### Run
-Das Ausführen des Server setzt das Mono Framework voraus.
+##### Run
+Das Ausführen des Server setzt das Mono Framework voraus. Die sicherste Methode um alle Abhängigkeiten zu installieren wäre:
 ```bash
 apt install mono-complete
 ```
@@ -27,13 +34,39 @@ Mache die Applikation ausführbar.
 chmod +x PhexensWuerfelraum.Server.Console
 ```
 
-Starte die Applikation. Die Angabe des Portes kann wahlweise über die `settings.ini` oder einen Übergabeparameter erfolgen.
+Starte die Applikation. Die Angabe des Portes kann wahlweise über die `settings.ini` oder einen Übergabeparameter erfolgen. Der Übergabeparameter hat Vorrang.
 ```bash
 ./PhexensWuerfelraum.Server.Console --port 1212
 ```
 
-### Windows
+#### Windows
+
+Führt folgendes in der Paket Manager Console im Visual Studio aus, um eine ausführbare Datei für Windows zu erstellen
+```powershell
+dotnet publish Server\Server.Console -c release -r win10-x86 -o C:\VSDistribution\PhexensWuerfelraum.Server.Console
+```
+
+##### Run
+
+Starte die Applikation. Die Angabe des Portes kann wahlweise über die `settings.ini` oder einen Übergabeparameter erfolgen. Der Übergabeparameter hat Vorrang.
+```bash
+PhexensWuerfelraum.Server.Console.exe --port 1212
+```
 
 ## Lizenz
 
-Phexens Würfelraum ist unter der MIT Lizenz veröffentlicht. Für Details siehe: [LICENSE.txt](LICENSE)
+Phexens Würfelraum ist unter der MIT Lizenz veröffentlicht. 
+Für Details siehe: [LICENSE.txt](LICENSE)
+Lizenzen von Dritt-Hersteller-Software, Grafiken und Soundeffekten finden sich hier: [THIRD-PARTY-LICENSES.txt](THIRD-PARTY-LICENSES.txt)
+
+| EN |
+|:---|
+
+# Phex's Dice Room
+Phex's Dice Room is an application to support online play of the pen and paper game [The Dark Eye](https://www.ulisses-us.com/games/the-dark-eye/).
+I currently do not have plans to support other languages apart from german.
+
+## License
+Phex's Dice Room is licensed under the MIT license.
+For details see: [LICENSE.txt](LICENSE)
+For licenses of third partys see: [THIRD-PARTY-LICENSES.txt](THIRD-PARTY-LICENSES.txt)
