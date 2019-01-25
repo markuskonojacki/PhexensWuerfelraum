@@ -23,8 +23,12 @@ namespace PhexensWuerfelraum.Ui.Desktop
             base.OnStartup(e);
 
 #if !DEBUG
-            InitSquirrel();
-            Update();
+            SettingsModel Settings = new SettingsModel();
+            if (Settings.AutoUpdate)
+            {
+                InitSquirrel();
+                Update();
+            }
 #endif
         }
 
@@ -33,9 +37,9 @@ namespace PhexensWuerfelraum.Ui.Desktop
             using (var mgr = new UpdateManager(UpdateUrl))
             {
                 SquirrelAwareApp.HandleEvents(
-                  onInitialInstall: v => mgr.CreateShortcutForThisExe(),
-                  onAppUpdate: v => mgr.CreateShortcutForThisExe(),
-                  onAppUninstall: v => mgr.RemoveShortcutForThisExe());
+                    onInitialInstall: v => mgr.CreateShortcutForThisExe(),
+                    onAppUpdate: v => mgr.CreateShortcutForThisExe(),
+                    onAppUninstall: v => mgr.RemoveShortcutForThisExe());
             }
         }
 

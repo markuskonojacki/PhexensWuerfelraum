@@ -39,6 +39,8 @@
 
         <GroupBox Header="Sonstiges">
             <StackPanel>
+                <Controls:ToggleSwitch IsChecked="{Binding Setting.AutoUpdate}" Margin="10 10 0 10" Header="Automatische Updates" OnLabel="Aktiviert" OffLabel="Deaktiviert" Width="200" HorizontalAlignment="Left" ToolTip="Wenn deaktiviert prüft das Programm beim Starten NICHT automatisch auf eine neue Version." />
+                
                 <Label Margin="10 5 0 0" FontWeight="DemiBold" FontSize="16">Heldendatei</Label>
                 <StackPanel Orientation="Horizontal">
                     <TextBox IsEnabled="False" Text="{Binding Setting.HeldenDateiPath}" Margin="10 0 10 0" Width="600" HorizontalAlignment="Left" Controls:TextBoxHelper.Watermark="Pfad zur Helden-Software Charakterdatei: helden.zip.hld" />
