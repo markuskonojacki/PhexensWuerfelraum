@@ -23,8 +23,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
             base.OnStartup(e);
 
 #if !DEBUG
-            SettingsModel Settings = new SettingsModel();
-            if (Settings.AutoUpdate)
+            if (new Logic.Ui.SettingsModel().AutoUpdate)
             {
                 InitSquirrel();
                 Update();
