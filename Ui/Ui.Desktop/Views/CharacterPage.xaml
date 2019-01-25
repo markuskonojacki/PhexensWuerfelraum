@@ -125,6 +125,7 @@
                         <DataGridTextColumn Header="Probe 1" Binding="{Binding Path=Probe.Attribut1}" IsReadOnly="True" />
                         <DataGridTextColumn Header="Probe 2" Binding="{Binding Path=Probe.Attribut2}" IsReadOnly="True" />
                         <DataGridTextColumn Header="Probe 3" Binding="{Binding Path=Probe.Attribut3}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Erfolg-%" Binding="{Binding Path=Erfolgswahrscheinlichkeit, StringFormat={}{0:0} %}" IsReadOnly="True" />
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>

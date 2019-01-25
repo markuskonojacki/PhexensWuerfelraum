@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              d:DesignHeight="35"
              d:DesignWidth="220">
-    <Grid MouseLeftButtonUp="RollButton_MouseLeftButtonUp" Background="Transparent">
+    <Grid MouseLeftButtonUp="RollButton_MouseLeftButtonUp" Background="Transparent" ToolTip="{Binding Path=ToolTip}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="185" />
             <ColumnDefinition Width="Auto" />
@@ -18,9 +18,9 @@
 
         <Viewbox Grid.Column="0" Grid.Row="0" Stretch="Uniform" HorizontalAlignment="Stretch" StretchDirection="DownOnly">
             <Border BorderBrush="{x:Null}" Height="32">
-                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontFamily="Gabriola" FontSize="23" />
+                <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" FontFamily="Gabriola" FontSize="23" />
             </Border>
         </Viewbox>
-        <TextBox HorizontalAlignment="Right" Grid.Column="1" Grid.Row="0" Height="25" Text="{Binding Value}" Width="30" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False" />
+        <TextBox HorizontalAlignment="Right" Grid.Column="1" Grid.Row="0" Height="25" Text="{Binding Path=Value}" Width="30" MaxLines="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsEnabled="False" />
     </Grid>
 </UserControl>

@@ -169,6 +169,300 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         #endregion methods
 
+        #region mappings
+
+        public static string MapAttributeTypeToStringShort(AttributType attributType)
+        {
+            switch (attributType)
+            {
+                case AttributType.Mut:
+                    return "MU";
+
+                case AttributType.Klugheit:
+                    return "KL";
+
+                case AttributType.Intuition:
+                    return "IN";
+
+                case AttributType.Charisma:
+                    return "CH";
+
+                case AttributType.Fingerfertigkeit:
+                    return "FF";
+
+                case AttributType.Gewandtheit:
+                    return "GE";
+
+                case AttributType.Konstitution:
+                    return "KO";
+
+                case AttributType.Koerperkraft:
+                    return "KK";
+
+                case AttributType.Wildcard:
+                    return "**";
+
+                default:
+                    return "";
+            }
+        }
+
+        public static AttributType MapStringToAttributType(string name)
+        {
+            switch (name)
+            {
+                case "Mut":
+                case "MU":
+                    return AttributType.Mut;
+
+                case "Klugheit":
+                case "KL":
+                    return AttributType.Klugheit;
+
+                case "Intuition":
+                case "IN":
+                    return AttributType.Intuition;
+
+                case "Charisma":
+                case "CH":
+                    return AttributType.Charisma;
+
+                case "Fingerfertigkeit":
+                case "FF":
+                    return AttributType.Fingerfertigkeit;
+
+                case "Gewandtheit":
+                case "GE":
+                    return AttributType.Gewandtheit;
+
+                case "Konstitution":
+                case "KO":
+                    return AttributType.Konstitution;
+
+                case "Körperkraft":
+                case "KK":
+                    return AttributType.Koerperkraft;
+
+                default:
+                    return AttributType.Wildcard;
+            }
+        }
+
+        public static Probe MapStringToProbe(string probeStr)
+        {
+            AttributType a1 = AttributType.Intuition;
+            AttributType a2 = AttributType.Intuition;
+            AttributType a3 = AttributType.Intuition;
+
+            probeStr = probeStr.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty);
+
+            a1 = MapStringToAttributType(probeStr.Split('/')[0]);
+            a2 = MapStringToAttributType(probeStr.Split('/')[1]);
+            a3 = MapStringToAttributType(probeStr.Split('/')[2]);
+
+            Probe convertedProbe = new Probe()
+            {
+                Attribut1 = a1,
+                Attribut2 = a2,
+                Attribut3 = a3
+            };
+
+            return convertedProbe;
+        }
+
+        public static TalentGruppe MapStringToTalentGruppe(string talentName)
+        {
+            switch (talentName)
+            {
+                case "Armbrust":
+                case "Belagerungswaffen":
+                case "Blasrohr":
+                case "Bogen":
+                case "Diskus":
+                case "Schleuder":
+                case "Wurfbeile":
+                case "Wurfmesser":
+                case "Wurfspeere":
+                case "Anderthalbhänder":
+                case "Dolche":
+                case "Fechtwaffen":
+                case "Hiebwaffen":
+                case "Infanteriewaffen":
+                case "Kettenstäbe":
+                case "Kettenwaffen":
+                case "Lanzenreiten":
+                case "Peitsche":
+                case "Raufen":
+                case "Ringen":
+                case "Säbel":
+                case "Schwerter":
+                case "Speere":
+                case "Stäbe":
+                case "Zweihandflegel":
+                case "Zweihandhiebwaffen":
+                case "Zweihandschwerter/-säbel":
+                    return TalentGruppe.Waffen;
+
+                case "Akrobatik":
+                case "Athletik":
+                case "Fliegen":
+                case "Gaukeleien":
+                case "Immanspiel":
+                case "Klettern":
+                case "Körperbeherrschung":
+                case "Reiten":
+                case "Schleichen":
+                case "Schwimmen":
+                case "Selbstbeherrschung":
+                case "Sich verstecken":
+                case "Singen":
+                case "Sinnenschärfe":
+                case "Skifahren":
+                case "Stimmen imitieren":
+                case "Tanzen":
+                case "Taschendiebstahl":
+                case "Zechen":
+                    return TalentGruppe.Koerper;
+
+                case "Betören":
+                case "Etikette":
+                case "Gassenwissen":
+                case "Lehren":
+                case "Menschenkenntnis":
+                case "Schauspielerei":
+                case "Schriftlicher Ausdruck":
+                case "Sich verkleiden":
+                case "Überreden":
+                case "Überzeugen":
+                    return TalentGruppe.Gesellschaft;
+
+                case "Fährtensuchen":
+                case "Fallen stellen":
+                case "Fesseln/Entfesseln":
+                case "Fischen/Angeln":
+                case "Orientierung":
+                case "Wettervorhersage":
+                case "Wildnisleben":
+                    return TalentGruppe.Natur;
+
+                case "Anatomie":
+                case "Baukunst":
+                case "Brett-/Kartenspiel":
+                case "Geografie":
+                case "Geschichtswissen":
+                case "Gesteinskunde":
+                case "Götter und Kulte":
+                case "Heraldik":
+                case "Hüttenkunde":
+                case "Kriegskunst":
+                case "Kryptographie":
+                case "Magiekunde":
+                case "Mechanik":
+                case "Pflanzenkunde":
+                case "Philosophie":
+                case "Rechnen":
+                case "Rechtskunde":
+                case "Sagen und Legenden":
+                case "Schätzen":
+                case "Schiffbau":
+                case "Sprachenkunde":
+                case "Staatskunst":
+                case "Sternkunde":
+                case "Tierkunde":
+                    return TalentGruppe.Wissen;
+
+                case "Abrichten":
+                case "Ackerbau":
+                case "Alchimie":
+                case "Bergbau":
+                case "Bogenbau":
+                case "Boote fahren":
+                case "Brauer":
+                case "Drucker":
+                case "Fahrzeug lenken":
+                case "Falschspiel":
+                case "Feinmechanik":
+                case "Feuersteinbearbeitung":
+                case "Fleischer":
+                case "Gerber/Kürschner":
+                case "Glaskunst":
+                case "Grobschmied":
+                case "Handel":
+                case "Hauswirtschaft":
+                case "Heilkunde: Gift":
+                case "Heilkunde: Krankheiten":
+                case "Heilkunde: Seele":
+                case "Heilkunde: Wunden":
+                case "Holzbearbeitung":
+                case "Instrumentenbauer":
+                case "Kartografie":
+                case "Kochen":
+                case "Kristallzucht":
+                case "Lederarbeiten":
+                case "Malen/Zeichnen":
+                case "Maurer":
+                case "Metallguss":
+                case "Musizieren":
+                case "Schlösser knacken":
+                case "Schnaps brennen":
+                case "Schneidern":
+                case "Seefahrt":
+                case "Seiler":
+                case "Steinmetz":
+                case "Steinschneider/Juwelier":
+                case "Stellmacher":
+                case "Stoffe färben":
+                case "Tätowieren":
+                case "Töpfern":
+                case "Viehzucht":
+                case "Webkunst":
+                case "Winzer":
+                case "Zimmermann":
+                    return TalentGruppe.Handwerk;
+
+                case "Ansitzjagd":
+                case "Hetzjagd":
+                case "Häuserlauf":
+                case "Kräuter Suchen":
+                case "Nahrung Sammeln":
+                case "Pirschjagd":
+                case "Speerfischen":
+                case "Tierfallen stellen":
+                case "Traumreise":
+                case "Wassersuchen":
+                case "Wache halten":
+                case "Heimlichkeit":
+                    return TalentGruppe.Meta;
+
+                case "Empathie":
+                case "Gefahreninstinkt":
+                case "Geräuschhexerei":
+                case "Kräfteschub/Talentschub":
+                case "Magiegespür":
+                case "Prophezeien":
+                case "Tierempathie":
+                case "Zwergennase":
+                case "Liturgiekenntnis":
+                    return TalentGruppe.Gabe;
+
+                default:
+                    if (talentName.StartsWith("Sprachen kennen"))
+                    {
+                        return TalentGruppe.Sprachen;
+                    }
+                    else if (talentName.StartsWith("Lesen/Schreiben"))
+                    {
+                        return TalentGruppe.Schrift;
+                    }
+                    else
+                    {
+                        return TalentGruppe.Custom;
+                    }
+            }
+        }
+
+        #endregion mappings
+
         #region structs
 
         public class Attribut : BaseModel
@@ -211,6 +505,16 @@ namespace PhexensWuerfelraum.Logic.Ui
             public Probe Probe { get; set; }
             public int Value { get; set; }
             public float Erfolgswahrscheinlichkeit { get; set; }
+            public string ToolTip => $"{Name}: {MapAttributeTypeToStringShort(Probe.Attribut1)}/{MapAttributeTypeToStringShort(Probe.Attribut2)}/{MapAttributeTypeToStringShort(Probe.Attribut3)}";
+        }
+
+        public class Zauber : BaseModel
+        {
+            public string Name { get; set; }
+            public Probe Probe { get; set; }
+            public int Value { get; set; }
+            public float Erfolgswahrscheinlichkeit { get; set; }
+            public string ToolTip => $"{Name}: {MapAttributeTypeToStringShort(Probe.Attribut1)}/{MapAttributeTypeToStringShort(Probe.Attribut2)}/{MapAttributeTypeToStringShort(Probe.Attribut3)}";
         }
 
         public class Vorteil : BaseModel
@@ -236,13 +540,6 @@ namespace PhexensWuerfelraum.Logic.Ui
                     return "";
                 }
             }
-        }
-
-        public class Zauber : BaseModel
-        {
-            public string Name { get; set; }
-            public Probe Probe { get; set; }
-            public int Value { get; set; }
         }
 
         public class Heldenausruestung : BaseModel
