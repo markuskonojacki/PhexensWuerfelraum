@@ -265,15 +265,24 @@ namespace PhexensWuerfelraum.Logic.Ui
                 switch (h1.Nummer)
                 {
                     case "1":
-                        h2 = Character.Ausruestung.First(a => a.Name == "fkwaffe1" && a.Set == "0" && a.Slot == "0");
+                        if (Character.Ausruestung.Any(a => a.Name == "fkwaffe1" && a.Set == "0" && a.Slot == "0"))
+                        {
+                            h2 = Character.Ausruestung.First(a => a.Name == "fkwaffe1" && a.Set == "0" && a.Slot == "0");
+                        }
                         break;
 
                     case "2":
-                        h2 = Character.Ausruestung.First(a => a.Name == "fkwaffe2" && a.Set == "0" && a.Slot == "0");
+                        if (Character.Ausruestung.Any(a => a.Name == "fkwaffe2" && a.Set == "0" && a.Slot == "0"))
+                        {
+                            h2 = Character.Ausruestung.First(a => a.Name == "fkwaffe2" && a.Set == "0" && a.Slot == "0");
+                        }
                         break;
 
                     case "3":
-                        h2 = Character.Ausruestung.First(a => a.Name == "fkwaffe3" && a.Set == "0" && a.Slot == "0");
+                        if (Character.Ausruestung.Any(a => a.Name == "fkwaffe3" && a.Set == "0" && a.Slot == "0"))
+                        {
+                            h2 = Character.Ausruestung.First(a => a.Name == "fkwaffe3" && a.Set == "0" && a.Slot == "0");
+                        }
                         break;
                 }
 
