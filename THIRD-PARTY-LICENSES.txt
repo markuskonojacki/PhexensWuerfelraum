@@ -104,15 +104,15 @@ SOFTWARE.
 
 -------------------------------------------------------------------------
 
-Sound: Fail Jingle (stereo mix)
+Sound: Fail Jingle (stereo mix) (roll-20-20.wav)
 License: Attribution 3.0 Unported (CC BY 3.0, https://creativecommons.org/licenses/by/3.0/)
-Credit: unfa (https://freesound.org)
+Credit: unfa (https://freesound.org/people/unfa/sounds/181351/)
 
 -------------------------------------------------------------------------
 
-Sound: nooooo_no_slowmotion.wav
+Sound: scottstoked_yeehaw.wav (roll-1-1-1.wav)
 License: Attribution 3.0 Unported (CC BY 3.0, https://creativecommons.org/licenses/by/3.0/)
-Credit: vtkproductions.com (https://freesound.org)
+Credit: shawshank73 (https://freesound.org/people/shawshank73/sounds/102437/)
 
 -------------------------------------------------------------------------
 
