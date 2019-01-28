@@ -11,6 +11,10 @@ Zuvorderst: Phexens Würfelraum ist ein komplett __NICHT__ offizielles Projekt m
 
 Nun zum Tool selbst: Phexens Würfelraum ist ein Programm um es Menschen zu ermöglichen, gemeinsam [Das Schwarze Auge](http://www.ulisses-spiele.de/sortiment/rollenspiele/das-schwarze-auge/) über das Internet zu spielen. Es unterstützt den Import von durch die [Helden-Software](https://www.helden-software.de/) erstellten Charakteren.
 
+## Client
+
+Phexens Würfelraum benötigt __keine__ Administrativen Rechte. Alle Daten werden unter `%LocalAppData%/PhexensWuerfelraum` gespeichert.
+
 ## Server
 
 ### Build
