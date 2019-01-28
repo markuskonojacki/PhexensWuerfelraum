@@ -41,6 +41,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                     CalcSuccessChances();
                     FindJagdwaffenTaW();
                     AddMetaTalents();
+                    AddCustomTalents();
                 }
             }
         }
@@ -455,8 +456,13 @@ namespace PhexensWuerfelraum.Logic.Ui
                     Gruppe = TalentGruppe.Meta
                 });
             }
+        }
 
-            // Custom talents
+        /// <summary>
+        /// Adds custom talents to the talents list if enabled
+        /// </summary>
+        private void AddCustomTalents()
+        {
             if (Settings.AdditionalTrials)
             {
                 // Heimlichkeit
@@ -508,6 +514,57 @@ namespace PhexensWuerfelraum.Logic.Ui
                         },
                         Value = new int[] { talentValue, maxValue }.Min(),
                         Gruppe = TalentGruppe.Meta
+                    });
+                }
+
+                // Sinnenschärfe FF + KL
+                if (Character.Talentliste.Any(t => t.Name == "Sinnenschärfe"))
+                {
+                    Talent talent = Character.Talentliste.Single(t => t.Name == "Sinnenschärfe");
+
+                    Character.Talentliste.Add(new Talent
+                    {
+                        Name = "Sinnenschärfe FF",
+                        Probe = new Probe
+                        {
+                            Attribut1 = AttributType.Klugheit,
+                            Attribut2 = AttributType.Intuition,
+                            Attribut3 = AttributType.Fingerfertigkeit
+                        },
+                        Value = talent.Value,
+                        Gruppe = TalentGruppe.Koerper
+                    });
+
+                    Character.Talentliste.Add(new Talent
+                    {
+                        Name = "Sinnenschärfe KL",
+                        Probe = new Probe
+                        {
+                            Attribut1 = AttributType.Klugheit,
+                            Attribut2 = AttributType.Intuition,
+                            Attribut3 = AttributType.Klugheit
+                        },
+                        Value = talent.Value,
+                        Gruppe = TalentGruppe.Koerper
+                    });
+                }
+
+                // Fährtensuchen IN
+                if (Character.Talentliste.Any(t => t.Name == "Fährtensuchen"))
+                {
+                    Talent talent = Character.Talentliste.Single(t => t.Name == "Fährtensuchen");
+
+                    Character.Talentliste.Add(new Talent
+                    {
+                        Name = "Fährtensuchen IN",
+                        Probe = new Probe
+                        {
+                            Attribut1 = AttributType.Klugheit,
+                            Attribut2 = AttributType.Intuition,
+                            Attribut3 = AttributType.Intuition
+                        },
+                        Value = talent.Value,
+                        Gruppe = TalentGruppe.Natur
                     });
                 }
             }
