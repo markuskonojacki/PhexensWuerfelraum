@@ -124,14 +124,29 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         #region static attributes
 
-        public int CH { get => Attribute.Where(a => a.Type == AttributType.Charisma).SingleOrDefault().Value; }
-        public int FF { get => Attribute.Where(a => a.Type == AttributType.Fingerfertigkeit).SingleOrDefault().Value; }
-        public int GE { get => Attribute.Where(a => a.Type == AttributType.Gewandtheit).SingleOrDefault().Value; }
-        public int IN { get => Attribute.Where(a => a.Type == AttributType.Intuition).SingleOrDefault().Value; }
-        public int KK { get => Attribute.Where(a => a.Type == AttributType.Koerperkraft).SingleOrDefault().Value; }
-        public int KL { get => Attribute.Where(a => a.Type == AttributType.Klugheit).SingleOrDefault().Value; }
-        public int KO { get => Attribute.Where(a => a.Type == AttributType.Konstitution).SingleOrDefault().Value; }
-        public int MU { get => Attribute.Where(a => a.Type == AttributType.Mut).SingleOrDefault().Value; }
+        public int CH { get => GetAttributValueByType(AttributType.Charisma); }
+        public int FF { get => GetAttributValueByType(AttributType.Fingerfertigkeit); }
+        public int GE { get => GetAttributValueByType(AttributType.Gewandtheit); }
+        public int IN { get => GetAttributValueByType(AttributType.Intuition); }
+        public int KK { get => GetAttributValueByType(AttributType.Koerperkraft); }
+        public int KL { get => GetAttributValueByType(AttributType.Klugheit); }
+        public int KO { get => GetAttributValueByType(AttributType.Konstitution); }
+        public int MU { get => GetAttributValueByType(AttributType.Mut); }
+
+        private int GetAttributValueByType(AttributType attributType)
+        {
+            if (Attribute.Any(a => a.Type == attributType))
+            {
+                int baseValue = Attribute.Where(a => a.Type == attributType).First().Value;
+                int modValue = Attribute.Where(a => a.Type == attributType).First().Mod;
+
+                return baseValue + modValue;
+            }
+            else
+            {
+                return 0;
+            }            
+        }
 
         #endregion static attributes
 
@@ -470,6 +485,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             public string Name { get; set; } = "";
             public AttributType Type { get; set; } = AttributType.Wildcard;
             public int Value { get; set; } = 0;
+            public int Mod { get; set; } = 0;
         }
 
         public class Ausbildung : BaseModel

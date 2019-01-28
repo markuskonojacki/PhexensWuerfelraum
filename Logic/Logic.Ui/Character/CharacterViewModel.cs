@@ -544,6 +544,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                             {
                                 Name = (string)attribut.Attribute("name"),
                                 Value = (int)attribut.Attribute("value"),
+                                Mod = (int)attribut.Attribute("mod"),
                                 Type = MapStringToAttributType((string)attribut.Attribute("name"))
                             }).ToList()),
                         Vorteile = new ObservableCollection<Vorteil>(
