@@ -77,7 +77,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             ToggleBlockConnectionCommands(false);
 
             var character = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
-            var settings = settingsViewModel.Setting; // SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting;
+            var settings = settingsViewModel.Setting;
 
             Username = settings.StaticUserName;
 
@@ -126,7 +126,7 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             if (string.IsNullOrWhiteSpace(Username))
             {
-                DisplayError("Gibt bitte einen Username an");
+                DisplayError("Gib bitte einen Namen an");
                 return;
             }
 
@@ -200,7 +200,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             if (ChatRoom == null)
                 DisplayError("Du bist mit keinem Server verbunden");
 
-            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, MessageType.Text);
+            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, MessageType.Text);
             Message = string.Empty;
         }
 
@@ -212,7 +212,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             if (ChatRoom == null)
                 DisplayError("Du bist mit keinem Server verbunden");
 
-            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, MessageType.Roll);
+            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, MessageType.Roll);
             Message = string.Empty;
         }
 
@@ -224,7 +224,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             if (ChatRoom == null)
                 DisplayError("Du bist mit keinem Server verbunden");
 
-            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, MessageType.Action);
+            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, MessageType.Action);
             Message = string.Empty;
         }
 
@@ -234,7 +234,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         private async Task SendDice(string commandParameter)
         {
             Message = DiceRoll.RollDice(commandParameter, DiceAmount);
-            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, MessageType.Roll);
+            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, MessageType.Roll);
             Message = string.Empty;
         }
 

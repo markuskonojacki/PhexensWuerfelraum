@@ -171,7 +171,7 @@
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
-    <Compile Include="Converters\MessageTypeToTextConverter.cs" />
+    <Compile Include="Converters\MultiValueMessageFromConverter.cs" />
     <Compile Include="CustomControls\ChatInputTextBox.cs" />
     <Compile Include="CustomControls\ChatMessagesListView.cs" />
     <Compile Include="Dialogs\PickHeroDialog.xaml.cs">

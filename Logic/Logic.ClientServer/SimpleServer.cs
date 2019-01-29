@@ -97,9 +97,13 @@ namespace PhexensWuerfelraum.Logic.ClientServer
                     {
                         var client = new SimpleClient();
                         var newGuid = await client.CreateGuid(newConnection);
+
                         await client.SendMessage(newGuid);
+
                         Connections.Add(client);
+
                         ClientLastMessage.Add(client.ClientGuid, DateTime.Now);
+
                         var e = BuildEvent(client, null, string.Empty);
                         OnConnectionAccepted?.Invoke(this, e);
                     }
@@ -201,16 +205,22 @@ namespace PhexensWuerfelraum.Logic.ClientServer
                     ClientLastMessage.Add(chatP.SenderGuid, chatP.DateTime);
 
                     // only send ChatPacket if...
-                    if (c.IsGameMaster == false &&                  // ...the recipient is a game master
-                        chatP.RecipientGuid != c.ClientGuid &&      // ...recipient is intended recipient
-                        chatP.RecipientGuid != Guid.Empty &&        // ...the recipient is everyone
-                        chatP.RecipientGuid != chatP.SenderGuid)    // ...the recipient is yourself
-                        continue;
+                    if (c.IsGameMaster == true                  ||  // ...the recipient is a game master
+                        chatP.RecipientGuid == c.ClientGuid     ||  // ...recipient is intended recipient
+                        chatP.RecipientGuid == Guid.Empty       ||  // ...the recipient is everyone
+                        chatP.SenderGuid == c.ClientGuid)           // ...the recipient is yourself
+                    {
+                        c.SendObject(package).Wait();
+                        var e3 = BuildEvent(c, c, package);
+                        OnPacketSent?.Invoke(this, e3);
+                    }
                 }
-
-                c.SendObject(package).Wait();
-                var e3 = BuildEvent(c, c, package);
-                OnPacketSent?.Invoke(this, e3);
+                else
+                {
+                    c.SendObject(package).Wait();
+                    var e3 = BuildEvent(c, c, package);
+                    OnPacketSent?.Invoke(this, e3);
+                }
             }
         }
 

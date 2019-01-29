@@ -107,7 +107,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             {
                 Messages.Add(new ChatPacket
                 {
-                    Username = string.Empty,
+                    FromUsername = string.Empty,
                     Message = "Die Verbindung zum Server wurde getrennt oder konnte nicht aufgebaut werden.",
                     UserColor = "black",
                     DateTime = DateTime.Now
@@ -116,21 +116,29 @@ namespace PhexensWuerfelraum.Logic.Ui
             });
         }
 
-        public async Task Send(string username, string message, string colorCode, Guid recipient, MessageType messageType = MessageType.Text)
+        public async Task Send(string username, string message, string colorCode, Guid recipient, string recipientUsername, MessageType messageType = MessageType.Text)
         {
             if (recipient != Guid.Empty)
             {
-                messageType = MessageType.Whisper;
+                if (messageType == MessageType.Roll)
+                {
+                    messageType = MessageType.RollWhisper;
+                }
+                else
+                {
+                    messageType = MessageType.Whisper;
+                }
             }
 
             ChatPacket cap = new ChatPacket
             {
-                Username = username,
-                Message = message,
+                MessageType = messageType,
                 UserColor = colorCode,
-                RecipientGuid = recipient,
                 SenderGuid = _client.ClientGuid,
-                MessageType = messageType
+                FromUsername = username,
+                RecipientGuid = recipient,
+                ToUsername = recipientUsername,
+                Message = message,
             };
 
             await _client.SendObject(cap);
@@ -190,14 +198,14 @@ namespace PhexensWuerfelraum.Logic.Ui
 
                     if (SettingsViewModel.Setting.SoundEffectsEnabled)
                     {
-                        if (chatP.Username != _ownUser.UserName)
+                        if (chatP.FromUsername != _ownUser.UserName)
                         {
                             mediaPlayer1 = new MediaPlayer();
                             mediaPlayer1.Open(new Uri(Directory.GetParent(Assembly.GetExecutingAssembly().Location) + "/Resources/Sounds/Notification.wav"));
                             mediaPlayer1.Play();
                         }
 
-                        if (chatP.MessageType == MessageType.Roll)
+                        if (chatP.MessageType == MessageType.Roll || chatP.MessageType == MessageType.RollWhisper)
                         {
                             if (chatP.Message.Contains("Doppel 1!"))
                             {

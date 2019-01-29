@@ -7,18 +7,23 @@ namespace PhexensWuerfelraum.Logic.ClientServer
         Text,
         Action,
         Roll,
-        Whisper
+        Whisper,
+        RollWhisper
     }
 
     [Serializable]
     public class ChatPacket
     {
-        public string Username { get; set; }
-        public string Message { get; set; }
+        public MessageType MessageType { get; set; } = MessageType.Text;
         public DateTime DateTime { get; set; }
         public string UserColor { get; set; }
-        public Guid RecipientGuid { get; set; } = Guid.Empty;
+
         public Guid SenderGuid { get; set; } = Guid.Empty;
-        public MessageType MessageType { get; set; } = MessageType.Text;
+        public string FromUsername { get; set; }
+
+        public Guid RecipientGuid { get; set; } = Guid.Empty;
+        public string ToUsername { get; set; } = "";
+
+        public string Message { get; set; }
     }
 }

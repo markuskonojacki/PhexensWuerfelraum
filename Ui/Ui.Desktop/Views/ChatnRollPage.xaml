@@ -14,7 +14,7 @@
 
     <Page.Resources>
         <local:BooleanToVisibilityConverter x:Key="VisibilityConverter" />
-        <local:MessageTypeToTextConverter x:Key="MessageTypeToTextConverter" />
+        <local:MultiValueMessageFromConverter x:Key="MultiValueMessageFromConverter" />
 
         <Style x:Key="DiceButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="{DynamicResource GrayBrush10}" />
@@ -143,27 +143,28 @@
                                 <DataTemplate>
                                     <Border BorderBrush="WhiteSmoke" BorderThickness="0,0,0,1">
                                         <DockPanel HorizontalAlignment="Stretch">
-                                            <DockPanel>
+                                            <DockPanel LastChildFill="True">
                                                 <TextBlock
                                                     Text="{Binding Path=DateTime, StringFormat={}{0:HH:mm:ss}}"
                                                     Padding="2"
                                                     DockPanel.Dock="Left"
                                                     Foreground="DarkGray" />
                                                 <TextBlock
-                                                    Text="{Binding Path=Username}"
                                                     Padding="2,2,0,2"
                                                     Foreground="{Binding UserColor}"
                                                     FontWeight="Bold"
-                                                    DockPanel.Dock="Left" />
-                                                <TextBlock
-                                                    Text="{Binding Path=MessageType, Converter={StaticResource MessageTypeToTextConverter}}"
-                                                    Padding="0,2,0,2"
-                                                    Foreground="{Binding Path=UserColor}"
-                                                    FontWeight="Bold"
-                                                    DockPanel.Dock="Left" />
+                                                    DockPanel.Dock="Left">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding Converter="{StaticResource MultiValueMessageFromConverter}">
+                                                            <Binding Path="MessageType" />
+                                                            <Binding Path="FromUsername" />
+                                                            <Binding Path="ToUsername" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
                                                 <TextBlock
                                                     Text="{Binding Path=Message}"
-                                                    DockPanel.Dock="Left"
+                                                    DockPanel.Dock="Right"
                                                     Padding="0,2,2,2"
                                                     TextWrapping="Wrap" />
                                             </DockPanel>

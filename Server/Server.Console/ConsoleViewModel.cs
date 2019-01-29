@@ -183,7 +183,7 @@ namespace PhexensWuerfelraum.Server.Console
 
                 var notification = new ChatPacket
                 {
-                    Username = "Server",
+                    FromUsername = "Server",
                     Message = $"{ucp.Username} ist dem Chat als {userType} beigetreten"
                 };
 
@@ -225,7 +225,7 @@ namespace PhexensWuerfelraum.Server.Console
 
             var notification = new ChatPacket
             {
-                Username = "Server",
+                FromUsername = "Server",
                 Message = "Ein Mitspieler hat den Chat verlassen"
             };
 
