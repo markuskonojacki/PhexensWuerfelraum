@@ -177,9 +177,6 @@
     <Compile Include="Dialogs\PickHeroDialog.xaml.cs">
       <DependentUpon>PickHeroDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\TrialModifierDialog.xaml.cs">
-      <DependentUpon>TrialModifierDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ListBoxExtender.cs" />
     <Compile Include="ListBoxSelectionBehavior.cs" />
     <Compile Include="MessageListener.cs" />
@@ -218,10 +215,6 @@
     <Page Include="Dialogs\PickHeroDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Dialogs\TrialModifierDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
