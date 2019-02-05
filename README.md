@@ -20,6 +20,8 @@ Phexens Würfelraum benötigt __keine__ Administrativen Rechte. Alle Daten werde
 ### Build
 #### Linux
 
+Zum Build wird das [.NET Core 2.1 x64 SDK](https://dotnet.microsoft.com/download/visual-studio-sdks) benötigt.
+
 Führt folgendes in der Paket Manager Console im Visual Studio aus, um eine ausführbare Datei für Linux zu erstellen
 ```powershell
 dotnet publish Server\Server.Console -c release -r ubuntu.18.04-x64 -o C:\VSDistribution\PhexensWuerfelraum.Server.Console
