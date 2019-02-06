@@ -11,7 +11,7 @@
     Padding="15"
     AllowMove="False"
     ShowCloseButton="True"
-    Title="Helden Software Helden"
+    Title="Helden-Software Helden"
     DataContext="{Binding Character, Source={StaticResource Locator}}">
     <simpleChildWindow:ChildWindow.OverlayBrush>
         <SolidColorBrush Opacity="0.8" Color="{StaticResource Gray2}" />
@@ -24,7 +24,15 @@
         </Grid.RowDefinitions>
         
         <Label Grid.Row="0" FontWeight="Bold">Wähle einen Helden, indem du ihn anklickst:</Label>
-        <ListView x:Name="CharacterListView" ItemsSource="{Binding CharacterList}" SelectionChanged="ListView_SelectionChanged" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" local:ListBoxSelectionBehavior.ClickSelection="True" SelectionMode="Single">
+        <ListView 
+            x:Name="CharacterListView" 
+            ItemsSource="{Binding CharacterList}" 
+            SelectionChanged="ListView_SelectionChanged" 
+            Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            local:ListBoxSelectionBehavior.ClickSelection="True"
+            SelectionMode="Single">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

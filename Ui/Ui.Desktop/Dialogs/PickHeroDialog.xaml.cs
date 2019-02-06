@@ -1,6 +1,6 @@
-﻿using System.Windows.Controls;
-using GalaSoft.MvvmLight.Ioc;
+﻿using GalaSoft.MvvmLight.Ioc;
 using PhexensWuerfelraum.Logic.Ui;
+using System.Windows.Controls;
 
 namespace PhexensWuerfelraum.Ui.Desktop
 {
@@ -12,22 +12,15 @@ namespace PhexensWuerfelraum.Ui.Desktop
         public PickHeroDialog()
         {
             InitializeComponent();
-
-            //CharacterListView.SelectedItem = null;
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //if (CharacterListView.SelectedItem != null)
-            {
-                Visibility = System.Windows.Visibility.Hidden;
+            Visibility = System.Windows.Visibility.Hidden;
 
-                // SelectedItem="{Binding SelectedCharacter, Mode=OneWayToSource}"
-                var characterViewModel = SimpleIoc.Default.GetInstance<CharacterViewModel>();
-                characterViewModel.SelectedCharacter = (CharacterModel)CharacterListView.SelectedItem;
+            SimpleIoc.Default.GetInstance<CharacterViewModel>().SelectedCharacter = (CharacterModel)CharacterListView.SelectedItem;
 
-                Close();
-            }
+            Close();
         }
     }
 }
