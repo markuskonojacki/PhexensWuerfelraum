@@ -1,5 +1,9 @@
-| README.md  [DE](#phexens-würfelraum) [EN](#phexs-dice-room) |
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Derevar/PhexensWuerfelraum/blob/master/LICENSE)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/Derevar/PhexensWuerfelraum/graphs/contributors)
+
+| [DE](#phexens-würfelraum)
 |:---|
+| [EN](#phexs-dice-room)
 
 ![](Ui/Ui.Desktop/Resources/AppIcon.ico)
 
