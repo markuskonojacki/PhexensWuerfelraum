@@ -90,12 +90,7 @@
 
             <!--#region Chat-->
             <Grid Grid.Column="0" Grid.Row="0">
-                <Grid.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="Padding" Value="2" />
-                    </Style>
-                </Grid.Resources>
-                
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="160" />
@@ -103,122 +98,102 @@
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Column="0" Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                <customcontrols:ChatMessagesListView
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="2,2,2,1"
+                    x:Name="chatList"
+                    ItemsSource="{Binding ChatRoom.Messages}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    Style="{DynamicResource ChatListViewStyle}"
+                    local:ListBoxExtender.AutoScrollToEnd="True"
+                    IsSynchronizedWithCurrentItem="True">
+                    <customcontrols:ChatMessagesListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <ContentPresenter
+                                            x:Name="contentPresenter"
+                                            Content="{TemplateBinding Content}"
+                                            ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            OpacityMask="{x:Null}" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </customcontrols:ChatMessagesListView.ItemContainerStyle>
+                    <customcontrols:ChatMessagesListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="WhiteSmoke" BorderThickness="0,0,0,1">
+                                <DockPanel HorizontalAlignment="Stretch">
+                                    <DockPanel LastChildFill="True">
+                                        <TextBlock
+                                            Text="{Binding Path=DateTime, StringFormat={}{0:HH:mm:ss}}"
+                                            Padding="2"
+                                            DockPanel.Dock="Left"
+                                            Foreground="DarkGray" />
+                                        <TextBlock
+                                            Padding="2,2,0,2"
+                                            Foreground="{Binding UserColor}"
+                                            FontWeight="Bold"
+                                            DockPanel.Dock="Left">
+                                            <TextBlock.Text>
+                                                <MultiBinding Converter="{StaticResource MultiValueMessageFromConverter}">
+                                                    <Binding Path="MessageType" />
+                                                    <Binding Path="FromUsername" />
+                                                    <Binding Path="ToUsername" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                        <TextBlock
+                                            Text="{Binding Path=Message}"
+                                            DockPanel.Dock="Right"
+                                            Padding="0,2,2,2"
+                                            TextWrapping="Wrap" />
+                                    </DockPanel>
+                                </DockPanel>
+                            </Border>
+                        </DataTemplate>
+                    </customcontrols:ChatMessagesListView.ItemTemplate>
+                </customcontrols:ChatMessagesListView>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="30" />
-                    </Grid.RowDefinitions>
+                <customcontrols:ChatInputTextBox
+                    Grid.Row="1" 
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="2" 
+                    Margin="2"
+                    Controls:TextBoxHelper.ClearTextButton="True"
+                    Style="{StaticResource SendTextBoxStyle}"
+                    KeyDown="TextBox_KeyDown"
+                    Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    TextWrapping="WrapWithOverflow" />
 
-                    <Border Grid.Row="0">
-                        <customcontrols:ChatMessagesListView
-                            x:Name="chatList"
-                            ItemsSource="{Binding ChatRoom.Messages}"
-                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                            Style="{DynamicResource ChatListViewStyle}"
-                            local:ListBoxExtender.AutoScrollToEnd="True"
-                            IsSynchronizedWithCurrentItem="True">
-                            <customcontrols:ChatMessagesListView.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListBoxItem}">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                <ContentPresenter
-                                                    x:Name="contentPresenter"
-                                                    Content="{TemplateBinding Content}"
-                                                    ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                                    ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                    OpacityMask="{x:Null}" />
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </customcontrols:ChatMessagesListView.ItemContainerStyle>
-                            <customcontrols:ChatMessagesListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Border BorderBrush="WhiteSmoke" BorderThickness="0,0,0,1">
-                                        <DockPanel HorizontalAlignment="Stretch">
-                                            <DockPanel LastChildFill="True">
-                                                <TextBlock
-                                                    Text="{Binding Path=DateTime, StringFormat={}{0:HH:mm:ss}}"
-                                                    Padding="2"
-                                                    DockPanel.Dock="Left"
-                                                    Foreground="DarkGray" />
-                                                <TextBlock
-                                                    Padding="2,2,0,2"
-                                                    Foreground="{Binding UserColor}"
-                                                    FontWeight="Bold"
-                                                    DockPanel.Dock="Left">
-                                                    <TextBlock.Text>
-                                                        <MultiBinding Converter="{StaticResource MultiValueMessageFromConverter}">
-                                                            <Binding Path="MessageType" />
-                                                            <Binding Path="FromUsername" />
-                                                            <Binding Path="ToUsername" />
-                                                        </MultiBinding>
-                                                    </TextBlock.Text>
-                                                </TextBlock>
-                                                <TextBlock
-                                                    Text="{Binding Path=Message}"
-                                                    DockPanel.Dock="Right"
-                                                    Padding="0,2,2,2"
-                                                    TextWrapping="Wrap" />
-                                            </DockPanel>
-                                        </DockPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </customcontrols:ChatMessagesListView.ItemTemplate>
-                        </customcontrols:ChatMessagesListView>
-                    </Border>
-                    
-                    <Border Grid.Row="1">
-                        <customcontrols:ChatInputTextBox
-                            Controls:TextBoxHelper.ClearTextButton="True"
-                            Style="{StaticResource SendTextBoxStyle}"
-                            KeyDown="TextBox_KeyDown"
-                            Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
-                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                            TextWrapping="WrapWithOverflow" />
-                    </Border>
-                </Grid>
-
-                <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="30" />
-                    </Grid.RowDefinitions>
-
-                    <Border Grid.Row="0">
-                        <ListView
-                            ItemsSource="{Binding ChatRoom.Users}"
-                            SelectedItem="{Binding ChatRoom.SelectedUser, Mode=TwoWay}"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Style="{DynamicResource UserListViewStyle}"
-                            local:ListBoxSelectionBehavior.ClickSelection="True">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="/Resources/GameMasterIcon.png" Visibility="{Binding IsGameMaster, Converter={StaticResource VisibilityConverter}}" Margin="2" Height="16" Width="16" />
-                                        <Image Source="/Resources/PlayerIcon.png" Visibility="{Binding IsPlayer, Converter={StaticResource VisibilityConverter}}" Margin="2" Height="16" Width="12" />
-                                        <TextBlock Text="{Binding UserName}" Margin="2" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Border>
-                    <Border Grid.Row="1">
-                        <Button Content="senden" Command="{Binding SendCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{DynamicResource SendButtonStyle}" />
-                    </Border>
-                </Grid>
+                <ListView
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="2"
+                    ItemsSource="{Binding ChatRoom.Users}"
+                    SelectedItem="{Binding ChatRoom.SelectedUser, Mode=TwoWay}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Style="{DynamicResource UserListViewStyle}"
+                    local:ListBoxSelectionBehavior.ClickSelection="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Resources/GameMasterIcon.png" Visibility="{Binding IsGameMaster, Converter={StaticResource VisibilityConverter}}" Margin="2" Height="16" Width="16" />
+                                <Image Source="/Resources/PlayerIcon.png" Visibility="{Binding IsPlayer, Converter={StaticResource VisibilityConverter}}" Margin="2" Height="16" Width="12" />
+                                <TextBlock Text="{Binding UserName}" Margin="2" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
             <!--#endregion -->
 
@@ -387,7 +362,8 @@
             <!--#endregion-->
         </Grid>
 
-        <Canvas Grid.Row="1" x:Name="TrialCanvas"><!-- canvas magic: https://stackoverflow.com/a/19711950/7557790-->
+        <Canvas Grid.Row="1" x:Name="TrialCanvas">
+            <!-- canvas magic: https://stackoverflow.com/a/19711950/7557790-->
             <ScrollViewer
                 Name="TrialScrollViewer"
                 Height="{Binding Parent.ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
@@ -398,11 +374,10 @@
                 CanContentScroll="True"
                 Template="{StaticResource ScrollViewerHorizontalOnTopTemplate}"
                 PreviewMouseWheel="Trials_PreviewMouseWheel">
-                <StackPanel 
+                <StackPanel
                     Orientation="Horizontal"
                     HorizontalAlignment="Center"
-                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                    >
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible">
                     <StackPanel>
                         <StackPanel.Style>
                             <Style TargetType="StackPanel">
