@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Threading.Tasks;
@@ -148,15 +149,7 @@ namespace PhexensWuerfelraum.Logic.ClientServer
             {
                 foreach (var client in Connections.ToList())
                 {
-                    if (!client.IsSocketConnected())
-                    {
-                        var e5 = BuildEvent(client, null, string.Empty);
-                        Connections.Remove(client);
-                        OnConnectionRemoved?.Invoke(this, e5);
-                        continue;
-                    }
-
-                    if (client.Socket.Available != 0)
+                    if (client.Socket.IsConnected() == true)
                     {
                         var readObject = ReadObject(client.Socket);
                         var e1 = BuildEvent(client, null, readObject);
@@ -186,6 +179,13 @@ namespace PhexensWuerfelraum.Logic.ClientServer
                         {
                             SendObjectToClients(cp);
                         }
+                    }
+                    else
+                    {
+                        var e5 = BuildEvent(client, null, string.Empty);
+                        Connections.Remove(client);
+                        OnConnectionRemoved?.Invoke(this, e5);
+                        continue;
                     }
                 }
 
@@ -228,19 +228,28 @@ namespace PhexensWuerfelraum.Logic.ClientServer
         {
             byte[] data = new byte[clientSocket.ReceiveBufferSize];
 
-            using (Stream s = new NetworkStream(clientSocket))
+            try
             {
-                s.Read(data, 0, data.Length);
-                var memory = new MemoryStream(data)
+                using (Stream s = new NetworkStream(clientSocket))
                 {
-                    Position = 0
-                };
+                    s.Read(data, 0, data.Length);
+                    var memory = new MemoryStream(data)
+                    {
+                        Position = 0
+                    };
 
-                var formatter = new BinaryFormatter();
-                var obj = formatter.Deserialize(memory);
+                    var formatter = new BinaryFormatter();
+                    var obj = formatter.Deserialize(memory);
 
-                return obj;
+                    return obj;
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception caught: {ex.Message} ({ex.InnerException?.Message})");
+            }
+
+            return null;
         }
 
         private PacketEvents BuildEvent(SimpleClient sender, SimpleClient receiver, object package)

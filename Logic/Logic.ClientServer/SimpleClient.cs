@@ -109,7 +109,7 @@ namespace PhexensWuerfelraum.Logic.ClientServer
 
         private object TryRecieveObject()
         {
-            if (Socket.Available == 0)
+            if (Socket.IsConnected() == false)
                 return null;
 
             byte[] data = new byte[Socket.ReceiveBufferSize];
