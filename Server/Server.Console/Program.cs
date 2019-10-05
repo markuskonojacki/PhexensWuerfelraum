@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System;
 
 namespace PhexensWuerfelraum.Server.Console
 {
@@ -17,7 +18,7 @@ namespace PhexensWuerfelraum.Server.Console
 
             consoleViewModel.PropertyChanged += (s, e) =>
             {
-                System.Console.WriteLine($"{e.PropertyName} => { s.GetType().GetProperty(e.PropertyName).GetValue(s).ToString() }");
+                ConsoleViewModel.WriteOutput($"{e.PropertyName} => { s.GetType().GetProperty(e.PropertyName).GetValue(s).ToString() }");
             };
 
             consoleViewModel.RunCommand.Execute(null);

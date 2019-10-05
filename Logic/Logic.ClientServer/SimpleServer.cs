@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,6 +28,7 @@ namespace PhexensWuerfelraum.Logic.ClientServer
         private Task _receivingTask;
         private Task _checkClientHeartbeatTask;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "Wrong suggestion")]
         private Dictionary<Guid, DateTime> ClientLastMessage = new Dictionary<Guid, DateTime>();
 
         public event PacketEventHandler OnConnectionAccepted;
@@ -130,7 +130,7 @@ namespace PhexensWuerfelraum.Logic.ClientServer
 
                     if (timeSpan.TotalHours >= timeoutHours)
                     {
-                        Console.WriteLine($"Haven't heard from '{client.ClientGuid}' in over {timeoutHours} hours; client removed from Connections");
+                        Console.WriteLine($"{DateTime.Now} | Haven't heard from '{client.ClientGuid}' in over {timeoutHours} hours; client removed from Connections");
 
                         var e5 = BuildEvent(client, null, string.Empty);
                         Connections.Remove(client);
@@ -152,6 +152,17 @@ namespace PhexensWuerfelraum.Logic.ClientServer
                     if (client.Socket.IsConnected() == true)
                     {
                         var readObject = ReadObject(client.Socket);
+
+                        if (readObject == null)
+                        {
+                            Console.WriteLine($"{DateTime.Now} | readObject is null; client { client.ClientGuid } removed from Connections");
+
+                            var e5 = BuildEvent(client, null, string.Empty);
+                            Connections.Remove(client);
+                            OnConnectionRemoved?.Invoke(this, e5);
+                            continue;
+                        }
+
                         var e1 = BuildEvent(client, null, readObject);
                         OnPacketReceived?.Invoke(this, e1);
 
@@ -205,9 +216,9 @@ namespace PhexensWuerfelraum.Logic.ClientServer
                     ClientLastMessage.Add(chatP.SenderGuid, chatP.DateTime);
 
                     // only send ChatPacket if...
-                    if (c.IsGameMaster == true                  ||  // ...the recipient is a game master
-                        chatP.RecipientGuid == c.ClientGuid     ||  // ...recipient is intended recipient
-                        chatP.RecipientGuid == Guid.Empty       ||  // ...the recipient is everyone
+                    if (c.IsGameMaster == true ||  // ...the recipient is a game master
+                        chatP.RecipientGuid == c.ClientGuid ||  // ...recipient is intended recipient
+                        chatP.RecipientGuid == Guid.Empty ||  // ...the recipient is everyone
                         chatP.SenderGuid == c.ClientGuid)           // ...the recipient is yourself
                     {
                         c.SendObject(package).Wait();
@@ -246,7 +257,7 @@ namespace PhexensWuerfelraum.Logic.ClientServer
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception caught: {ex.Message} ({ex.InnerException?.Message})");
+                Console.WriteLine($"{DateTime.Now} | Exception caught: {ex.Message} ({ex.InnerException?.Message})");
             }
 
             return null;

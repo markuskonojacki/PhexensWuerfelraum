@@ -166,12 +166,11 @@ namespace PhexensWuerfelraum.Logic.ClientServer
             {
                 using (Stream s = new NetworkStream(Socket))
                 {
-                    StreamWriter writer = new StreamWriter(s)
+                    using (StreamWriter writer = new StreamWriter(s) { AutoFlush = true })
                     {
-                        AutoFlush = true
-                    };
+                        writer.WriteLine(message);
+                    }
 
-                    writer.WriteLine(message);
                     return true;
                 }
             }
@@ -202,10 +201,11 @@ namespace PhexensWuerfelraum.Logic.ClientServer
             {
                 using (Stream s = new NetworkStream(Socket))
                 {
-                    var reader = new StreamReader(s);
-                    s.ReadTimeout = 5000;
-
-                    return reader.ReadLine();
+                    using (var reader = new StreamReader(s))
+                    {
+                        s.ReadTimeout = 5000;
+                        return reader.ReadLine();
+                    }
                 }
             }
             catch (IOException e)

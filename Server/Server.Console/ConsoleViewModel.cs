@@ -1,4 +1,5 @@
 ﻿using PhexensWuerfelraum.Logic.ClientServer;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net;
@@ -250,9 +251,9 @@ namespace PhexensWuerfelraum.Server.Console
             WriteOutput("Client Disconnected: " + e.Sender.Socket.RemoteEndPoint.ToString());
         }
 
-        private void WriteOutput(string message)
+        public static void WriteOutput(string message)
         {
-            System.Console.WriteLine(message);
+            System.Console.WriteLine($"{DateTime.Now} | {message}");
         }
     }
 }
