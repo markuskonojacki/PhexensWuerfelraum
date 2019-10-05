@@ -1,8 +1,8 @@
-﻿using System;
-using System.IO;
-using GalaSoft.MvvmLight.CommandWpf;
+﻿using GalaSoft.MvvmLight.CommandWpf;
 using Jot;
 using Jot.Storage;
+using System;
+using System.IO;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {
@@ -10,7 +10,7 @@ namespace PhexensWuerfelraum.Logic.Ui
     {
         #region properties
 
-        public StateTracker Tracker;
+        public Tracker Tracker;
         public SettingsModel Setting { get; set; } = new SettingsModel();
 
         private bool CanFind() => true;
@@ -32,7 +32,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             var settingsFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum");
             Directory.CreateDirectory(settingsFilePath);
 
-            Tracker = new StateTracker() { StoreFactory = new JsonFileStoreFactory(settingsFilePath) };
+            Tracker = new Tracker() { Store = new JsonFileStore(settingsFilePath) };
 
             if (IsInDesignModeStatic)
             {
@@ -48,7 +48,8 @@ namespace PhexensWuerfelraum.Logic.Ui
             }
             else
             {
-                Tracker.Configure(Setting).Apply();
+                Tracker.Configure<SettingsModel>();
+                Tracker.Track(Setting);
             }
 
             FindCommand = new RelayCommand(() => Find(), CanFind);

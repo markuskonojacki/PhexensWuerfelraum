@@ -1,5 +1,4 @@
-﻿using Jot;
-using Jot.DefaultInitializer;
+﻿using Jot.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,7 +6,7 @@ using System.Linq;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {
-    public class CharacterModel : BaseModel, ITrackingAware
+    public class CharacterModel : BaseModel, ITrackingAware<CharacterModel>
     {
         #region constructors
 
@@ -62,25 +61,18 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         #region properties
 
-        [Trackable]
         public ObservableCollection<Attribut> Attribute { get; set; }
 
-        [Trackable]
         public ObservableCollection<Ausbildung> Ausbildungen { get; set; }
 
-        [Trackable]
         public int Behinderung { get; set; }
 
-        [Trackable]
         public int JagdwaffenTaW { get; set; }
 
-        [Trackable]
         public int Modifikation { get; set; }
 
-        [Trackable]
         public string FileName { get; set; }
 
-        [Trackable]
         public string Id { get; set; }
 
         public DateTime LastUpdate
@@ -94,16 +86,12 @@ namespace PhexensWuerfelraum.Logic.Ui
             }
         }
 
-        [Trackable]
         public string Name { get; set; }
 
-        [Trackable]
         public ObservableCollection<Sonderfertigkeit> Sonderfertigkeiten { get; set; }
 
-        [Trackable]
         public string Stand { get; set; }
 
-        [Trackable]
         public ObservableCollection<Talent> Talentliste { get; set; }
 
         public List<Talent> KoerperTalentliste { get => Talentliste?.Where(t => t.Gruppe == TalentGruppe.Koerper).ToList(); }
@@ -113,13 +101,10 @@ namespace PhexensWuerfelraum.Logic.Ui
         public List<Talent> HandwerkTalentliste { get => Talentliste?.Where(t => t.Gruppe == TalentGruppe.Handwerk).ToList(); }
         public List<Talent> MetaTalentliste { get => Talentliste?.Where(t => t.Gruppe == TalentGruppe.Meta || t.Gruppe == TalentGruppe.Gabe || t.Gruppe == TalentGruppe.Custom).ToList(); }
 
-        [Trackable]
         public ObservableCollection<Vorteil> Vorteile { get; set; }
 
-        [Trackable]
         public ObservableCollection<Zauber> Zauberliste { get; set; }
 
-        [Trackable]
         public ObservableCollection<Heldenausruestung> Ausruestung { get; set; }
 
         #region static attributes
@@ -145,7 +130,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             else
             {
                 return 0;
-            }            
+            }
         }
 
         #endregion static attributes
@@ -154,11 +139,28 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         #region methods
 
-        public void InitConfiguration(TrackingConfiguration configuration)
+        public void ConfigureTracking(TrackingConfiguration<CharacterModel> configuration)
         {
             configuration
-            .IdentifyAs("LastCharacter")
-            .RegisterPersistTrigger(nameof(PropertyChanged));
+                .Id(c => "LastCharacter")
+                .Properties(c => new
+                {
+                    c.Attribute,
+                    c.Ausbildungen,
+                    c.Behinderung,
+                    c.JagdwaffenTaW,
+                    c.Modifikation,
+                    c.FileName,
+                    c.Id,
+                    c.Name,
+                    c.Sonderfertigkeiten,
+                    c.Stand,
+                    c.Talentliste,
+                    c.Vorteile,
+                    c.Zauberliste,
+                    c.Ausruestung
+                })
+                .PersistOn(nameof(PropertyChanged));
         }
 
         /// <summary>
@@ -265,9 +267,9 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         public static Probe MapStringToProbe(string probeStr)
         {
-            AttributType a1 = AttributType.Intuition;
-            AttributType a2 = AttributType.Intuition;
-            AttributType a3 = AttributType.Intuition;
+            AttributType a1;
+            AttributType a2;
+            AttributType a3;
 
             probeStr = probeStr.Replace(" ", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty);
 

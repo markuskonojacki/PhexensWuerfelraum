@@ -18,7 +18,8 @@ namespace PhexensWuerfelraum.Logic.Ui
     {
         #region properties
 
-        public StateTracker Tracker;
+        public Tracker Tracker;
+
         public ListCollectionView AttributesView { get; set; }
         public CharacterModel Character { get; set; } = new CharacterModel();
         public ObservableCollection<CharacterModel> CharacterList { get; set; }
@@ -46,8 +47,6 @@ namespace PhexensWuerfelraum.Logic.Ui
             }
         }
 
-        private bool CanLoad() => true;
-
         #endregion properties
 
         #region commands
@@ -64,8 +63,9 @@ namespace PhexensWuerfelraum.Logic.Ui
             var charactersFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum");
             Directory.CreateDirectory(charactersFilePath);
 
-            Tracker = new StateTracker() { StoreFactory = new JsonFileStoreFactory(charactersFilePath) };
-            Tracker.Configure(Character).Apply();
+            Tracker = new Tracker() { Store = new JsonFileStore(charactersFilePath) };
+            Tracker.Configure<CharacterModel>();
+            Tracker.Track(Character);
 
             #endregion define current Character and load from settings file
 
@@ -113,7 +113,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// <returns>chance of success</returns>
         private float CalcSuccessChance(int e1, int e2, int e3, int taw, int mod = 0)
         {
-            float erfolgswahrscheinlichkeit = 0;
+            float erfolgswahrscheinlichkeit;
             float erfolge = 0;
             int x;
             int y;
@@ -125,8 +125,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 {
                     for (z = 1; z <= 20; z++)
                     {
-                        var erfolg = false;
-
+                        bool erfolg;
                         if ((x == 1 && (y == 1 || z == 1)) || (y == 1 && z == 1)) // Meisterlich
                         {
                             erfolg = true;
@@ -147,17 +146,17 @@ namespace PhexensWuerfelraum.Logic.Ui
                             {
                                 if (x > e1)
                                 {
-                                    p = p - (x - e1);
+                                    p -= (x - e1);
                                 }
 
                                 if (y > e2)
                                 {
-                                    p = p - (y - e2);
+                                    p -= (y - e2);
                                 }
 
                                 if (z > e3)
                                 {
-                                    p = p - (z - e3);
+                                    p -= (z - e3);
                                 }
 
                                 erfolg = (p > -1);
@@ -234,14 +233,16 @@ namespace PhexensWuerfelraum.Logic.Ui
                     {
                         if (entry.Name != "held.xml.tree")
                         {
-                            StreamReader characterStreamReader = new StreamReader(entry.Open(), Encoding.UTF8);
-                            XDocument doc = XDocument.Parse(characterStreamReader.ReadToEnd());
+                            using (StreamReader characterStreamReader = new StreamReader(entry.Open(), Encoding.UTF8))
+                            {
+                                XDocument doc = XDocument.Parse(characterStreamReader.ReadToEnd());
 
-                            var pickCharacter = XmlToCharacterModel(doc);
+                                var pickCharacter = XmlToCharacterModel(doc);
 
-                            pickCharacter.FileName = entry.FullName;
+                                pickCharacter.FileName = entry.FullName;
 
-                            CharacterList.Add(pickCharacter);
+                                CharacterList.Add(pickCharacter);
+                            }
                         }
                     }
 

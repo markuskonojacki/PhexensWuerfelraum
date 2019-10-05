@@ -1,37 +1,29 @@
-﻿using Jot;
-using Jot.DefaultInitializer;
+﻿using Jot.Configuration;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {
-    public class SettingsModel : BaseModel, ITrackingAware
+    public class SettingsModel : BaseModel, ITrackingAware<SettingsModel>
     {
         #region properties
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Server Address darf nicht leer sein.")]
-        [Trackable]
         public string ServerAddress { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Server Port darf nicht leer sein")]
-        [Trackable]
         public string ServerPort { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Heldendatei-Pfad darf nicht leer sein")]
-        [Trackable]
         public string HeldenDateiPath { get; set; }
 
-        [Trackable]
         public string WikiUrl { get; set; }
 
-        [Trackable]
         public string WhiteboardUrl { get; set; }
 
-        [Trackable]
         public string StaticUserName { get; set; }
 
-        [Trackable]
         public bool SoundEffectsEnabled { get; set; } = true;
 
         #region AutoUpdate
@@ -63,17 +55,27 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         #endregion AutoUpdate
 
-        [Trackable]
         public bool GameMasterMode { get; set; }
 
-        [Trackable]
         public bool AdditionalTrials { get; set; }
 
-        public void InitConfiguration(TrackingConfiguration configuration)
+        public void ConfigureTracking(TrackingConfiguration<SettingsModel> configuration)
         {
             configuration
-            .IdentifyAs("Settings")
-            .RegisterPersistTrigger(nameof(PropertyChanged));
+                .Id(s => "Settings")
+                .Properties(s => new
+                {
+                    s.ServerAddress,
+                    s.ServerPort,
+                    s.HeldenDateiPath,
+                    s.WikiUrl,
+                    s.WhiteboardUrl,
+                    s.StaticUserName,
+                    s.SoundEffectsEnabled,
+                    s.GameMasterMode,
+                    s.AdditionalTrials
+                })
+                .PersistOn(nameof(PropertyChanged));
         }
 
         #endregion properties

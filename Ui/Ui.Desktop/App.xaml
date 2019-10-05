@@ -22,7 +22,6 @@
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Sienna.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                <ResourceDictionary Source="/Resources/Icons.xaml" />
                 <ResourceDictionary Source="/Resources/IconsNonShared.xaml" />
                 <ResourceDictionary Source="/Resources/Styles/MiscStyle.xaml" />
                 <ResourceDictionary Source="/Resources/Styles/PageStyle.xaml" />

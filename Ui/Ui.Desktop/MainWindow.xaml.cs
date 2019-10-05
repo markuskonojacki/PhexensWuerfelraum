@@ -1,15 +1,15 @@
-﻿using System;
+﻿using CefSharp.Wpf;
+using Jot;
+using Jot.Storage;
+using MahApps.Metro.Controls;
+using PhexensWuerfelraum.Logic.Ui;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using CefSharp.Wpf;
-using MahApps.Metro.Controls;
-using PhexensWuerfelraum.Logic.Ui;
 using MenuItem = PhexensWuerfelraum.Logic.Ui.MenuItem;
-using Jot;
-using Jot.Storage;
 
 namespace PhexensWuerfelraum.Ui.Desktop
 {
@@ -18,7 +18,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
     /// </summary>
     partial class MainWindow
     {
-        public StateTracker Tracker;
+        public Tracker Tracker;
 
         public MainWindow()
         {
@@ -53,13 +53,13 @@ namespace PhexensWuerfelraum.Ui.Desktop
             var charactersFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum");
             Directory.CreateDirectory(charactersFilePath);
 
-            Tracker = new StateTracker() { StoreFactory = new JsonFileStoreFactory(charactersFilePath) };
+            Tracker = new Tracker() { Store = new JsonFileStore(charactersFilePath) };
 
-            Tracker.Configure(this)
-            .IdentifyAs("Main Window")
-            .AddProperties<MetroWindow>(w => w.Height, w => w.Width, w => w.Top, w => w.Left/*, w => w.WindowState*/)
-            .RegisterPersistTrigger(nameof(SizeChanged))
-            .Apply();
+            Tracker.Configure<MetroWindow>()
+               .Id(mw => "Main Window")
+               .Properties(mw => new { mw.Height, mw.Width, mw.Top, mw.Left })
+               .PersistOn(nameof(SizeChanged));
+            Tracker.Track(this);
         }
 
         private void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
