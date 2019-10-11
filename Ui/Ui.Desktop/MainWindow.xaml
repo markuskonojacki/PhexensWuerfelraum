@@ -10,7 +10,9 @@
                       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                       mc:Ignorable="d"
                       Title="Phexens Würfelraum"
-                      TitleCaps="False"
+                      TitleCharacterCasing="Normal"
+                      GlowBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                      WindowTransitionsEnabled="False"
                       ShowIconOnTitleBar="True"
                       Icon="Resources\AppIcon.ico"
                       WindowStartupLocation="CenterScreen"
@@ -50,7 +52,7 @@
                 ToolTip="Verbindung zum Server herstellen">
                 <StackPanel
                     Orientation="Horizontal"
-                    Background="{DynamicResource ValidationSummaryColor1}"
+                    Background="OrangeRed"
                     Height="26"
                     Width="90">
                     <Rectangle Width="5" />
@@ -112,8 +114,8 @@
                                 ItemsSource="{Binding Menu}"
                                 OptionsItemsSource="{Binding OptionsMenu}"
                                 ItemInvoked="HamburgerMenuControl_OnItemInvoked"
-                                DisplayMode="CompactInline" Grid.Row="0"
                                 ItemTemplate="{StaticResource MenuItemTemplate}"
-                                OptionsItemTemplate="{StaticResource MenuItemTemplate}" />
+                                OptionsItemTemplate="{StaticResource MenuItemTemplate}"
+                                DisplayMode="CompactInline" />
     </Grid>
 </Controls:MetroWindow>

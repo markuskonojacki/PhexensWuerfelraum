@@ -44,9 +44,10 @@ namespace PhexensWuerfelraum.Ui.Desktop
 
             Navigation.Frame = new Frame() { NavigationUIVisibility = NavigationUIVisibility.Hidden };
             Navigation.Frame.Navigated += SplitViewFrame_OnNavigated;
+            HamburgerMenuControl.Content = Navigation.Frame;
 
             // Navigate to the home page.
-            this.Loaded += (sender, args) => Navigation.Navigate(new Uri("Views/ChatnRollPage.xaml", UriKind.RelativeOrAbsolute));
+            Loaded += (sender, args) => Navigation.Navigate(new Uri("Views/ChatnRollPage.xaml", UriKind.RelativeOrAbsolute));
 
             #endregion init navigation
 
@@ -73,9 +74,8 @@ namespace PhexensWuerfelraum.Ui.Desktop
 
         private void SplitViewFrame_OnNavigated(object sender, NavigationEventArgs e)
         {
-            this.HamburgerMenuControl.Content = e.Content;
-            this.HamburgerMenuControl.SelectedItem = e.ExtraData ?? ((NavigationViewModel)NavigationGrid.DataContext).GetItem(e.Uri);
-            this.HamburgerMenuControl.SelectedOptionsItem = e.ExtraData ?? ((NavigationViewModel)NavigationGrid.DataContext).GetOptionsItem(e.Uri);
+            HamburgerMenuControl.SelectedItem = e.ExtraData ?? ((NavigationViewModel)NavigationGrid.DataContext).GetItem(e.Uri);
+            HamburgerMenuControl.SelectedOptionsItem = e.ExtraData ?? ((NavigationViewModel)NavigationGrid.DataContext).GetOptionsItem(e.Uri);
         }
     }
 }

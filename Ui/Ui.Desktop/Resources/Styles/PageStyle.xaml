@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls">
-    <Style TargetType="{x:Type Page}" BasedOn="{StaticResource MetroPage}" x:Key="PageStyle">
-        <Setter Property="Background" Value="{DynamicResource AccentColorBrush4}" />
+    <Style TargetType="{x:Type Page}" BasedOn="{StaticResource MahApps.Styles.Page}" x:Key="PageStyle">
+        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent4}" />
         <Setter Property="MinHeight" Value="450" />
         <Setter Property="MinWidth" Value="700" />
         <Setter Property="Template">

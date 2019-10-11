@@ -3,8 +3,8 @@
                     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls">
     <Style x:Key="UserListViewStyle" TargetType="{x:Type ListView}">
         <Setter Property="AlternationCount" Value="2" />
-        <Setter Property="Background" Value="{DynamicResource WhiteBrush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource BlackBrush}" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="Black" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Opacity" Value="0.9" />
         <Setter Property="OverridesDefaultStyle" Value="True" />

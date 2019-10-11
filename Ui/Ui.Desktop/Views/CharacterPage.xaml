@@ -20,7 +20,7 @@
 
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label>Behinderung</Label>
-                <Controls:NumericUpDown Minimum="0" Maximum="99" Interval="1" HasDecimals="False" Value="{Binding Path=Character.Behinderung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" StringFormat="G0" />
+                <Controls:NumericUpDown Minimum="0" Maximum="99" Interval="1" Value="{Binding Path=Character.Behinderung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" StringFormat="G0" />
             </StackPanel>
 
             <TextBlock FontWeight="DemiBold">Werte in <TextBlock Foreground="ForestGreen">grün</TextBlock> lassen sich frei verändern</TextBlock>
@@ -57,7 +57,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <DataGrid 
+                <DataGrid
                     AlternatingRowBackground="Gainsboro"
                     AlternationCount="2"
                     Margin="0 0 10 0"
@@ -80,7 +80,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <DataGrid 
+                <DataGrid
                     AlternatingRowBackground="Gainsboro"
                     AlternationCount="2"
                     Margin="0 0 10 0"
@@ -109,7 +109,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <DataGrid 
+                <DataGrid
                     AlternatingRowBackground="Gainsboro"
                     AlternationCount="2"
                     Margin="0 0 10 0"

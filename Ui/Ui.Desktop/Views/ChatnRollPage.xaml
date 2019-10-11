@@ -60,7 +60,7 @@
                 Title="Custom Dialog which is awaitable">
                 <StackPanel>
                     <TextBlock Height="30"
-                               Foreground="{DynamicResource AccentColorBrush}"
+                               Foreground="{DynamicResource MahApps.Brushes.Accent}"
                                Text="This dialog allows arbitrary content. You have to close it yourself by clicking the close button below."
                                TextWrapping="Wrap" />
                     <Button Click="CloseCustomDialog" Content="Close Me!" />
@@ -163,9 +163,9 @@
                 </customcontrols:ChatMessagesListView>
 
                 <customcontrols:ChatInputTextBox
-                    Grid.Row="1" 
-                    Grid.Column="0" 
-                    Grid.ColumnSpan="2" 
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
                     Margin="2"
                     Controls:TextBoxHelper.ClearTextButton="True"
                     Style="{StaticResource SendTextBoxStyle}"
@@ -251,7 +251,6 @@
                     Minimum="1"
                     Maximum="99"
                     Interval="1"
-                    HasDecimals="False"
                     Value="{Binding Path=DiceAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     StringFormat="G0"
                     Opacity="0.8" />
@@ -260,7 +259,6 @@
                     Minimum="0"
                     Maximum="99"
                     Interval="1"
-                    HasDecimals="False"
                     DataContext="{Binding Character, Source={StaticResource Locator}}"
                     Value="{Binding Path=Character.Behinderung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     StringFormat="G0"
@@ -270,7 +268,6 @@
                     Minimum="-99"
                     Maximum="99"
                     Interval="1"
-                    HasDecimals="False"
                     DataContext="{Binding Character, Source={StaticResource Locator}}"
                     Value="{Binding Path=Character.Modifikation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     StringFormat="G0"

@@ -11,7 +11,7 @@
       DataContext="{Binding Settings, Source={StaticResource Locator}}">
 
     <Grid>
-        <Controls:ProgressRing Foreground="{DynamicResource AccentColorBrush}"/>
+        <Controls:ProgressRing Foreground="{DynamicResource MahApps.Brushes.Accent}" />
         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 100 0 0" FontWeight="Bold">Wenn hier nichts läd, stelle sicher, dass du die Einstellungen (Wiki URL) richtig ausgefüllt hast.</TextBlock>
         <cefSharp:ChromiumWebBrowser Name="WikiBrowser" Grid.Row="0" Address="{Binding Setting.WikiUrl}" />
     </Grid>
