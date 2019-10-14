@@ -1,4 +1,3 @@
-using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using MahApps.Metro.Controls.Dialogs;
 
@@ -11,8 +10,6 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// </summary>
         public MainViewModel()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
             //if (BaseViewModel.IsInDesignModeStatic)
             //{
             //    // Create design time view services and models
@@ -32,13 +29,13 @@ namespace PhexensWuerfelraum.Logic.Ui
             SimpleIoc.Default.Register<IDialogCoordinator, DialogCoordinator>();
         }
 
-        public AboutViewModel About => ServiceLocator.Current.GetInstance<AboutViewModel>();
-        public CharacterViewModel Character => ServiceLocator.Current.GetInstance<CharacterViewModel>();
-        public ChatnRollViewModel ChatnRoll => ServiceLocator.Current.GetInstance<ChatnRollViewModel>();
-        public DialogCoordinator DialogCoordinator => ServiceLocator.Current.GetInstance<DialogCoordinator>();
-        public DiceRoll Dice => ServiceLocator.Current.GetInstance<DiceRoll>();
-        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
-        public NavigationViewModel Navigation => ServiceLocator.Current.GetInstance<NavigationViewModel>();
-        public SettingsViewModel Settings => ServiceLocator.Current.GetInstance<SettingsViewModel>();
+        public AboutViewModel About => SimpleIoc.Default.GetInstance<AboutViewModel>();
+        public CharacterViewModel Character => SimpleIoc.Default.GetInstance<CharacterViewModel>();
+        public ChatnRollViewModel ChatnRoll => SimpleIoc.Default.GetInstance<ChatnRollViewModel>();
+        public DialogCoordinator DialogCoordinator => SimpleIoc.Default.GetInstance<DialogCoordinator>();
+        public DiceRoll Dice => SimpleIoc.Default.GetInstance<DiceRoll>();
+        public MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
+        public NavigationViewModel Navigation => SimpleIoc.Default.GetInstance<NavigationViewModel>();
+        public SettingsViewModel Settings => SimpleIoc.Default.GetInstance<SettingsViewModel>();
     }
 }

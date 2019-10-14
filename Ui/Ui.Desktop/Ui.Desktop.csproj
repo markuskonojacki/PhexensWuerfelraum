@@ -359,21 +359,6 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="cef.redist.x64">
-      <Version>75.1.14</Version>
-    </PackageReference>
-    <PackageReference Include="cef.redist.x86">
-      <Version>75.1.14</Version>
-    </PackageReference>
-    <PackageReference Include="CefSharp.Common">
-      <Version>75.1.142</Version>
-    </PackageReference>
-    <PackageReference Include="CefSharp.Wpf">
-      <Version>75.1.142</Version>
-    </PackageReference>
-    <PackageReference Include="CommonServiceLocator">
-      <Version>2.0.4</Version>
-    </PackageReference>
     <PackageReference Include="ControlzEx">
       <Version>4.1.0</Version>
     </PackageReference>
@@ -389,19 +374,16 @@
       <Version>2.0.0-alpha0490</Version>
     </PackageReference>
     <PackageReference Include="MahApps.Metro.IconPacks">
-      <Version>3.0.0-alpha0223</Version>
+      <Version>3.0.0-alpha0243</Version>
     </PackageReference>
     <PackageReference Include="MahApps.Metro.IconPacks.Material">
-      <Version>3.0.0-alpha0223</Version>
+      <Version>3.0.0-alpha0243</Version>
     </PackageReference>
     <PackageReference Include="MahApps.Metro.SimpleChildWindow">
       <Version>2.0.0-alpha0028</Version>
     </PackageReference>
     <PackageReference Include="Mono.Cecil">
       <Version>0.11.0</Version>
-    </PackageReference>
-    <PackageReference Include="MvvmLight">
-      <Version>5.4.1.1</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3-beta2</Version>

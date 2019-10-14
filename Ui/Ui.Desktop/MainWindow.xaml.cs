@@ -1,4 +1,4 @@
-﻿using CefSharp.Wpf;
+﻿//using CefSharp.Wpf;
 using Jot;
 using Jot.Storage;
 using MahApps.Metro.Controls;
@@ -22,19 +22,19 @@ namespace PhexensWuerfelraum.Ui.Desktop
 
         public MainWindow()
         {
-            #region setup CefSharp cache settings
+            //#region setup CefSharp cache settings
 
-            var cachePath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum"), "Cache");
-            Directory.CreateDirectory(cachePath);
+            //var cachePath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum"), "Cache");
+            //Directory.CreateDirectory(cachePath);
 
-            var settings = new CefSettings
-            {
-                CachePath = cachePath
-            };
+            //var settings = new CefSettings
+            //{
+            //    CachePath = cachePath
+            //};
 
-            CefSharp.Cef.Initialize(settings);
+            //CefSharp.Cef.Initialize(settings);
 
-            #endregion setup CefSharp cache settings
+            //#endregion setup CefSharp cache settings
 
             InitializeComponent();
 
