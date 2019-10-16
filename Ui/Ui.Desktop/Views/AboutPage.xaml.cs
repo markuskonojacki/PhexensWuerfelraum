@@ -15,11 +15,6 @@ namespace PhexensWuerfelraum.Ui.Desktop.Views
             InitializeComponent();
         }
 
-        public string Version
-        {
-            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
-        }
-
         private void LicenseButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LICENSE.txt");

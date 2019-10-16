@@ -19,8 +19,4 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\.shared\Directory.Build.props" Link="Properties\Directory.Build.props" />
-  </ItemGroup>
 </Project>

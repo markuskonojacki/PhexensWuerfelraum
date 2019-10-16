@@ -42,10 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\.shared\Directory.Build.props" Link="Properties\Directory.Build.props" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Logic.ClientServer\Logic.ClientServer.csproj" />
   </ItemGroup>
 </Project>

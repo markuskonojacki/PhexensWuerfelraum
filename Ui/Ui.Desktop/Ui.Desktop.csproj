@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <RootNamespace>PhexensWuerfelraum.Ui.Desktop</RootNamespace>
     <AssemblyName>PhexensWuerfelraum.Ui.Desktop</AssemblyName>
     <Authors>Markus Konojacki</Authors>
@@ -46,11 +47,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\.shared\SharedAssembly.cs" Link="Properties\SharedAssembly.cs" />
+    <None Include="..\..\.shared\SharedAssembly.cs" Link="Properties\SharedAssembly.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\.shared\Directory.Build.props" Link="Properties\Directory.Build.props" />
     <None Include="..\..\README.md" Link="README.md" />
   </ItemGroup>
 
