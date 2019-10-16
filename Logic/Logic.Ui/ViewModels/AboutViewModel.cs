@@ -5,6 +5,7 @@ namespace PhexensWuerfelraum.Logic.Ui
 {
     public class AboutViewModel
     {
-        public string Version { get => Assembly.GetExecutingAssembly().GetName().Version.Major.ToString() + "." + Assembly.GetExecutingAssembly().GetName().Version.Minor.ToString() + "." + Assembly.GetExecutingAssembly().GetName().Version.Build.ToString(); }
+        public string Version { get => Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyVersionAttribute>().Version; }
+        //public string Version { get => Assembly.GetExecutingAssembly().GetName().Version.Major.ToString() + "." + Assembly.GetExecutingAssembly().GetName().Version.Minor.ToString() + "." + Assembly.GetExecutingAssembly().GetName().Version.Build.ToString(); }
     }
 }

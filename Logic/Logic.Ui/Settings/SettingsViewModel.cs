@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.CommandWpf;
+﻿using GalaSoft.MvvmLight.Command;
 using Jot;
 using Jot.Storage;
 using System;
@@ -32,7 +32,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             var settingsFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum");
             Directory.CreateDirectory(settingsFilePath);
 
-            Tracker = new Tracker() { Store = new JsonFileStore(settingsFilePath) };
+            Tracker = new Tracker(new JsonFileStore(settingsFilePath));
 
             if (IsInDesignModeStatic)
             {

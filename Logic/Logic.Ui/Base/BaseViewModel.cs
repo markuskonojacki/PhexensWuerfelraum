@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Threading;
+
+//using GalaSoft.MvvmLight.Threading;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {
@@ -7,10 +8,10 @@ namespace PhexensWuerfelraum.Logic.Ui
     {
         public BaseViewModel()
         {
-            if (!IsInDesignModeStatic && !IsInDesignMode)
-            {
-                DispatcherHelper.Initialize();
-            }
+            //if (!IsInDesignModeStatic && !IsInDesignMode)
+            //{
+            //    DispatcherHelper.Initialize();
+            //}
         }
     }
 }

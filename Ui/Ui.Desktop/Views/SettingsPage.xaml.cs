@@ -1,6 +1,4 @@
-﻿using GalaSoft.MvvmLight.Ioc;
-using PhexensWuerfelraum.Logic.Ui;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace PhexensWuerfelraum.Ui.Desktop
 {
@@ -12,12 +10,6 @@ namespace PhexensWuerfelraum.Ui.Desktop
         public SettingsPage()
         {
             InitializeComponent();
-
-            //SimpleIoc.Default.GetInstance<SettingsViewModel>().Tracker.Configure(this)
-            //        .IdentifyAs("SettingsViewModel")
-            //        .AddProperties<SettingsPage>(w => w.ServerAddress, w => w.ServerPort)
-            //        .RegisterPersistTrigger("TextChanged")
-            //        .Apply();
         }
     }
 }

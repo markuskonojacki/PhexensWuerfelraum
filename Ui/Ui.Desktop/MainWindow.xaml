@@ -4,7 +4,7 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:UiLogic="clr-namespace:PhexensWuerfelraum.Logic.Ui;assembly=PhexensWuerfelraum.Logic.Ui"
+                      xmlns:LogicUi="clr-namespace:PhexensWuerfelraum.Logic.Ui;assembly=PhexensWuerfelraum.Logic.Ui"
                       xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                       xmlns:local="clr-namespace:PhexensWuerfelraum.Ui.Desktop"
                       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
@@ -90,7 +90,7 @@
 
     <Grid x:Name="NavigationGrid" DataContext="{Binding Navigation, Source={StaticResource Locator}}">
         <Grid.Resources>
-            <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type UiLogic:MenuItem}">
+            <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type LogicUi:MenuItem}">
                 <Grid Height="48">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="48" />

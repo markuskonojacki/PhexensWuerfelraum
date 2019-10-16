@@ -1,412 +1,275 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9FD4F482-12C8-4D6F-BA19-D4A2094CD6F0}</ProjectGuid>
     <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
     <RootNamespace>PhexensWuerfelraum.Ui.Desktop</RootNamespace>
     <AssemblyName>PhexensWuerfelraum.Ui.Desktop</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
+    <Authors>Markus Konojacki</Authors>
+    <Company />
+    <Product>Phexens Würfelraum</Product>
+    <Description>The Phexens Wuerfelraum desktop app.</Description>
+    <Copyright>Copyright © Markus Konojacki 2019-present</Copyright>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/Derevar/PhexensWuerfelraum</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Derevar/PhexensWuerfelraum</RepositoryUrl>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
+    <None Remove="FodyWeavers.xml" />
+    <None Remove="Resources\AppIcon.ico" />
+    <None Remove="Resources\Backgrounds\natural_paper.png" />
+    <None Remove="Resources\Dice\d10.png" />
+    <None Remove="Resources\Dice\d12.png" />
+    <None Remove="Resources\Dice\d20.png" />
+    <None Remove="Resources\Dice\d20_roll.png" />
+    <None Remove="Resources\Dice\d3.png" />
+    <None Remove="Resources\Dice\d6.png" />
+    <None Remove="Resources\Dice\d8.png" />
+    <None Remove="Resources\Dice\drama-masks.png" />
+    <None Remove="Resources\Dice\hitzone.png" />
+    <None Remove="Resources\Dice\shattered-sword.png" />
+    <None Remove="Resources\Dice\william-tell-skull.png" />
+    <None Remove="Resources\GameMasterIcon.png" />
+    <None Remove="Resources\PlayerIcon.png" />
+    <None Include="..\..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
+
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="..\..\.shared\SharedAssembly.cs">
-      <Link>Properties\SharedAssembly.cs</Link>
-    </Compile>
-    <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
-    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Converters\InverseBooleanConverter.cs" />
-    <Compile Include="Converters\MathConverter.cs" />
-    <Compile Include="Converters\MultiValueMessageFromConverter.cs" />
-    <Compile Include="CustomControls\ChatInputTextBox.cs" />
-    <Compile Include="CustomControls\ChatMessagesListView.cs" />
-    <Compile Include="Dialogs\PickHeroDialog.xaml.cs">
-      <DependentUpon>PickHeroDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ListBoxExtender.cs" />
-    <Compile Include="ListBoxSelectionBehavior.cs" />
-    <Compile Include="MessageListener.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\TrialRollControl.xaml.cs">
-      <DependentUpon>TrialRollControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AboutPage.xaml.cs">
-      <DependentUpon>AboutPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CharacterPage.xaml.cs">
-      <DependentUpon>CharacterPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PatzerTabellePage.xaml.cs">
-      <DependentUpon>PatzerTabellePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SplashScreen.xaml.cs">
-      <DependentUpon>SplashScreen.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WikiPage.xaml.cs">
-      <DependentUpon>WikiPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WhiteboardPage.xaml.cs">
-      <DependentUpon>WhiteboardPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ChatnRollPage.xaml.cs">
-      <DependentUpon>ChatnRollPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Dialogs\PickHeroDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="CustomControls\ChatInputTextBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="CustomControls\ChatMessagesListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Resource Include="Resources\Styles\PageStyle.xaml">
+    <Page Remove="Resources\IconsNonShared.xaml" />
+    <Page Remove="Resources\Styles\MiscStyle.xaml" />
+    <Page Remove="Resources\Styles\PageStyle.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\.shared\SharedAssembly.cs" Link="Properties\SharedAssembly.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\.shared\Directory.Build.props" Link="Properties\Directory.Build.props" />
+    <None Include="..\..\README.md" Link="README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ControlzEx" Version="4.1.1" />
+    <PackageReference Include="Fody" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Jot" Version="2.0.3" />
+    <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0531" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="3.0.0-alpha0245" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="3.0.0-alpha0245" />
+    <PackageReference Include="MahApps.Metro.SimpleChildWindow" Version="2.0.0-alpha0031" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.0.30" />
+    <PackageReference Include="Mono.Cecil" Version="0.11.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3-beta2" />
+    <PackageReference Include="NuGet.CommandLine" Version="5.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody" Version="3.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Logic\Logic.ClientServer\Logic.ClientServer.csproj" />
+    <ProjectReference Include="..\..\Logic\Logic.Ui\Logic.Ui.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="..\..\LICENSE.txt" Link="LICENSE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="..\..\THIRD-PARTY-LICENSES.txt" Link="THIRD-PARTY-LICENSES.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="FodyWeavers.xml" />
+    <Resource Include="Resources\AppIcon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Backgrounds\natural_paper.png" />
+    <Resource Include="Resources\Dice\d10.png" />
+    <Resource Include="Resources\Dice\d12.png" />
+    <Resource Include="Resources\Dice\d20.png" />
+    <Resource Include="Resources\Dice\d20_roll.png" />
+    <Resource Include="Resources\Dice\d3.png" />
+    <Resource Include="Resources\Dice\d6.png" />
+    <Resource Include="Resources\Dice\d8.png" />
+    <Resource Include="Resources\Dice\drama-masks.png" />
+    <Resource Include="Resources\Dice\hitzone.png" />
+    <Resource Include="Resources\Dice\shattered-sword.png" />
+    <Resource Include="Resources\Dice\william-tell-skull.png" />
+    <Resource Include="Resources\GameMasterIcon.png" />
+    <Resource Include="Resources\IconsNonShared.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Resource>
-    <Page Include="Resources\Styles\ScrollBarStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\TalentsStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\SendButtonStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\UserListViewStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\AttributeTextBoxStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\SendTextBoxStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\DisconnectedButtonStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Styles\ChatStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles\UserListBoxStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\TrialRollControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AboutPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CharacterPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\PatzerTabellePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\SplashScreen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\WikiPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\WhiteboardPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ChatnRollPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Resource Include="Resources\PlayerIcon.png" />
     <Resource Include="Resources\Styles\MiscStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Resource>
-    <Resource Include="Resources\IconsNonShared.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Resource Include="Resources\Styles\PageStyle.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Resource>
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Navigation.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+    <ApplicationDefinition Update="App.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="App.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Dialogs\PickHeroDialog.xaml.cs">
+      <DependentUpon>PickHeroDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="MainWindow.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="UserControls\TrialRollControl.xaml.cs">
+      <DependentUpon>TrialRollControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\CharacterPage.xaml.cs">
+      <DependentUpon>CharacterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ChatnRollPage.xaml.cs">
+      <DependentUpon>ChatnRollPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PatzerTabellePage.xaml.cs">
+      <DependentUpon>PatzerTabellePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\WhiteboardPage.xaml.cs">
+      <DependentUpon>WhiteboardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\WikiPage.xaml.cs">
+      <DependentUpon>WikiPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="..\..\README.md">
-      <Link>README.md</Link>
-    </None>
-    <None Include="AppIcon.afdesign" />
-    <None Include="PhexensWuerfelraum.nuspec">
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="PhexensWuerfelraum.nuspec">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    <None Update="Resources\installing.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Sounds\Notification.wav">
+    <None Update="Resources\Sounds\Notification.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\roll-1-1-1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\roll-1-1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\roll-20-20-20.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\roll-20-20.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
   <ItemGroup>
-    <Resource Include="FodyWeavers.xml" />
+    <Page Update="CustomControls\ChatInputTextBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CustomControls\ChatMessagesListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Dialogs\PickHeroDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Resources\Styles\AttributeTextBoxStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\ChatStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\DisconnectedButtonStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\ScrollBarStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\SendButtonStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\SendTextBoxStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\TalentsStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\UserListBoxStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Styles\UserListViewStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\TrialRollControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AboutPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CharacterPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ChatnRollPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PatzerTabellePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SplashScreen.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WhiteboardPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WikiPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Logic\Logic.ClientServer\Logic.ClientServer.csproj">
-      <Project>{3b6e5c76-4e1c-4648-a562-e5d2d8dea733}</Project>
-      <Name>Logic.ClientServer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Logic\Logic.Ui\Logic.Ui.csproj">
-      <Project>{cf839743-6331-4790-8ab9-c7e0557c328d}</Project>
-      <Name>Logic.Ui</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\GameMasterIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\PlayerIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\AppIcon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\installing.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Dice\d10.png" />
-    <Resource Include="Resources\Dice\d12.png" />
-    <Resource Include="Resources\Dice\d20.png" />
-    <Resource Include="Resources\Dice\d3.png" />
-    <Resource Include="Resources\Dice\d6.png" />
-    <Resource Include="Resources\Dice\d8.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Dice\d20_roll.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Dice\drama-masks.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Dice\hitzone.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Dice\shattered-sword.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Dice\william-tell-skull.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Backgrounds\natural_paper.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Sounds\roll-1-1-1.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Sounds\roll-1-1.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Sounds\roll-20-20-20.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Sounds\roll-20-20.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="..\..\LICENSE.txt">
-      <Link>LICENSE.txt</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\..\THIRD-PARTY-LICENSES.txt">
-      <Link>THIRD-PARTY-LICENSES.txt</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="ControlzEx">
-      <Version>4.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="Fody">
-      <Version>6.0.0</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Jot">
-      <Version>2.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="MahApps.Metro">
-      <Version>2.0.0-alpha0490</Version>
-    </PackageReference>
-    <PackageReference Include="MahApps.Metro.IconPacks">
-      <Version>3.0.0-alpha0243</Version>
-    </PackageReference>
-    <PackageReference Include="MahApps.Metro.IconPacks.Material">
-      <Version>3.0.0-alpha0243</Version>
-    </PackageReference>
-    <PackageReference Include="MahApps.Metro.SimpleChildWindow">
-      <Version>2.0.0-alpha0028</Version>
-    </PackageReference>
-    <PackageReference Include="Mono.Cecil">
-      <Version>0.11.0</Version>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3-beta2</Version>
-    </PackageReference>
-    <PackageReference Include="NuGet.CommandLine">
-      <Version>5.2.0</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="PropertyChanged.Fody">
-      <Version>3.1.3</Version>
-    </PackageReference>
-    <PackageReference Include="squirrel.windows">
-      <Version>1.9.1</Version>
-    </PackageReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Fody.3.2.6\build\Fody.targets" Condition="Exists('..\packages\Fody.3.2.6\build\Fody.targets')" />
-  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
-    <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
-      <Output TaskParameter="Assemblies" ItemName="myAssemblyInfo" />
-    </GetAssemblyIdentity>
-    <Exec Command="nuget pack PhexensWuerfelraum.nuspec -Version %(myAssemblyInfo.Version) -Properties Configuration=Release -OutputDirectory $(OutDir) -BasePath $(OutDir)" />
-    <Exec Command="squirrel --releasify $(OutDir)PhexensWuerfelraum.$([System.Version]::Parse(%(myAssemblyInfo.Version)).ToString(3)).nupkg --no-msi -g $(OutDir)\Resources\installing.gif" />
-  </Target>
 </Project>

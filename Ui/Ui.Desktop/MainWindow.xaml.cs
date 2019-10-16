@@ -54,7 +54,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
             var charactersFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum");
             Directory.CreateDirectory(charactersFilePath);
 
-            Tracker = new Tracker() { Store = new JsonFileStore(charactersFilePath) };
+            Tracker = new Tracker(new JsonFileStore(charactersFilePath));
 
             Tracker.Configure<MetroWindow>()
                .Id(mw => "Main Window")

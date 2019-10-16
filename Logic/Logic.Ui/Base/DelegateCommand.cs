@@ -9,6 +9,7 @@ namespace PhexensWuerfelraum.Logic.Ui
     {
         private readonly Func<bool> _canExecute;
         private readonly Action _execute;
+
         /// <summary>
         /// Initializes a new instance of the RelayCommand class that
         /// can always execute.
@@ -28,6 +29,11 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// <exception cref="ArgumentNullException">If the execute argument is null.</exception>
         public DelegateCommand(Action execute, Func<bool> canExecute)
         {
+            if (execute == null)
+            {
+                throw new ArgumentNullException(nameof(execute));
+            }
+
             this._execute = execute ?? throw new ArgumentNullException(nameof(execute));
             this._canExecute = canExecute;
         }
