@@ -31,7 +31,6 @@
     <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0531" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="3.0.0-alpha0245" />
     <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="3.1.0-preview1.19506.1" />
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.1.0-preview1.19504.10" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3-beta2" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.1.3" />
