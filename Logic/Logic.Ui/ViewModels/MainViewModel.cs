@@ -26,6 +26,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             SimpleIoc.Default.Register<CharacterViewModel>();
             SimpleIoc.Default.Register<DiceRoll>();
             SimpleIoc.Default.Register<AboutViewModel>();
+            SimpleIoc.Default.Register<Chatroom>();
             SimpleIoc.Default.Register<IDialogCoordinator, DialogCoordinator>();
         }
 
@@ -37,5 +38,6 @@ namespace PhexensWuerfelraum.Logic.Ui
         public MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
         public NavigationViewModel Navigation => SimpleIoc.Default.GetInstance<NavigationViewModel>();
         public SettingsViewModel Settings => SimpleIoc.Default.GetInstance<SettingsViewModel>();
+        public Chatroom Chatroom => SimpleIoc.Default.GetInstance<Chatroom>();
     }
 }

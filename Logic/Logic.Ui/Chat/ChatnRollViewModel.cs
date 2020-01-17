@@ -17,7 +17,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         private DiceRoll DiceRoll { get; set; } = SimpleIoc.Default.GetInstance<DiceRoll>();
 
         public string Address { get; set; }
-        public Chatroom ChatRoom { get; set; }
+        public Chatroom ChatRoom { get; set; } = SimpleIoc.Default.GetInstance<Chatroom>();
         public string ColorCode { get; set; }
         public string Message { get; set; }
         public string Port { get; set; }
@@ -55,9 +55,9 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         public ChatnRollViewModel()
         {
-            ChatRoom = new Chatroom();
+            //ChatRoom = new Chatroom();
             ConnectCommand = new RelayCommand(async () => await Connect(), CanConnect);
-            DisconnectCommand = new RelayCommand(async () => await Disconnect(), CanDisconnect);
+            DisconnectCommand = new RelayCommand(async () => Disconnect(), CanDisconnect);
             SendTextCommand = new RelayCommand(async () => await SendText(), CanSend);
             SendRollCommand = new RelayCommand(async () => await SendRoll(), CanSend);
             SendActionCommand = new RelayCommand(async () => await SendAction(), CanSend);
@@ -104,11 +104,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 }
             }
 
-            UserModel user = new UserModel()
-            {
-                UserName = Username,
-                UserType = UserType
-            };
+            UserModel user = new UserModel(Username, UserType);
 
             var validPort = int.TryParse(Port, out int socketPort);
 
@@ -142,14 +138,14 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// disconnect from the chat server
         /// </summary>
         /// <returns></returns>
-        private async Task Disconnect()
+        private void Disconnect()
         {
             ToggleBlockConnectionCommands(false);
 
             if (ChatRoom == null)
                 DisplayError("Du bist mit keinem Server verbunden");
 
-            await ChatRoom.Disconnect();
+            ChatRoom.Disconnect();
 
             settingsViewModel.AllowEdit = true;
             ToggleBlockConnectionCommands(true);
@@ -158,10 +154,10 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// <summary>
         /// disconnects from and reconnects to the chat server
         /// </summary>
-        public async void Reconnect()
+        public void Reconnect()
         {
-            await Disconnect();
-            await Connect();
+            Disconnect();
+            Connect();
         }
 
         /// <summary>
@@ -200,7 +196,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             if (ChatRoom == null)
                 DisplayError("Du bist mit keinem Server verbunden");
 
-            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, MessageType.Text);
+            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, ChatMessageType.Text);
             Message = string.Empty;
         }
 
@@ -212,7 +208,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             if (ChatRoom == null)
                 DisplayError("Du bist mit keinem Server verbunden");
 
-            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, MessageType.Roll);
+            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, ChatMessageType.Roll);
             Message = string.Empty;
         }
 
@@ -224,7 +220,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             if (ChatRoom == null)
                 DisplayError("Du bist mit keinem Server verbunden");
 
-            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, MessageType.Action);
+            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, ChatMessageType.Action);
             Message = string.Empty;
         }
 
@@ -234,7 +230,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         private async Task SendDice(string commandParameter)
         {
             Message = DiceRoll.RollDice(commandParameter, DiceAmount);
-            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, MessageType.Roll);
+            await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, ChatMessageType.Roll);
             Message = string.Empty;
         }
 

@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AsyncClientServer" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.0-preview1.19506.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="3.1.0-preview1.19506.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.0-preview1.19506.1" />

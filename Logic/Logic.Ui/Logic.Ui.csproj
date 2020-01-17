@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AsyncClientServer" Version="1.1.2" />
     <PackageReference Include="DiceRoller" Version="4.0.0" />
     <PackageReference Include="Fody" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>

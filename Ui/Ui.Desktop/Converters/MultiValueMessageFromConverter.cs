@@ -20,7 +20,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             string ret = "";
-            MessageType messageType = (MessageType)values[0];
+            ChatMessageType messageType = (ChatMessageType)values[0];
             string fromUsername = values[1].ToString();
             string toUsername = values[2]?.ToString();
             string ownName = "";
@@ -36,20 +36,20 @@ namespace PhexensWuerfelraum.Ui.Desktop
 
             switch (messageType)
             {
-                case MessageType.Action:
+                case ChatMessageType.Action:
                     ret = $"{fromUsername} ";
                     break;
 
-                case MessageType.Text:
+                case ChatMessageType.Text:
                     ret = $"{fromUsername}: ";
                     break;
 
-                case MessageType.Roll:
+                case ChatMessageType.Roll:
                     ret = $"{fromUsername} würfelt ";
                     break;
 
-                case MessageType.Whisper:
-                case MessageType.RollWhisper:
+                case ChatMessageType.Whisper:
+                case ChatMessageType.RollWhisper:
                     if (fromUsername == ownName)
                     {
                         ret = $"Du flüsterst {toUsername}: ";
