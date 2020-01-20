@@ -128,7 +128,7 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             ChatRoom.Clear();
 
-            await Task.Run(() => ChatRoom.Connect(user, Address, socketPort));
+            await Task.Run(() => ChatRoom.Connect(Address, socketPort));
 
             settingsViewModel.AllowEdit = false;
             ToggleBlockConnectionCommands(true);

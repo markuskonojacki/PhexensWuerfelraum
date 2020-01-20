@@ -77,7 +77,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             Users.Clear();
         }
 
-        public void Connect(UserModel user, string address, int port)
+        public void Connect(string address, int port)
         {
             Status = "Verbinde...";
 
@@ -87,8 +87,11 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             if (UseSSL)
             {
-                string key = File.ReadAllText(@"C:\Users\Konojacki\source\repos\Derevar\PhexensWuerfelraum\Server\Server.Console\bin\Debug\netcoreapp3.1\public.pem");
-                var cert = new X509Certificate2(key);
+                //string key = File.ReadAllText(@"C:\Users\Konojacki\source\repos\Derevar\PhexensWuerfelraum\Server\Server.Console\bin\Debug\netcoreapp3.1\public.pem");
+
+                X509Certificate2 cert = new X509Certificate2(@"C:\Users\marku\source\repos\Derevar\PhexensWuerfelraum\Server\Server.Console\bin\Debug\netcoreapp3.1\public.pem");
+
+                //var cert = new X509Certificate2(File.ReadAllBytes(@"C:\Users\marku\source\repos\Derevar\PhexensWuerfelraum\Server\Server.Console\bin\Debug\netcoreapp3.1\public.pem"));
 
                 //var cert = new X509Certificate2(File.ReadAllBytes(Path.GetFullPath(@"C:\Users\" + Environment.UserName + @"\Desktop\test.pfx")), Password); // Generate: https://raw.githubusercontent.com/Cloet/SimpleSockets/master/Self-SignedCertificate%20Script.ps1
                 _client = new SimpleSocketTcpSslClient(cert);

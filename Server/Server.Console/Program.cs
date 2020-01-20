@@ -59,11 +59,12 @@ namespace PhexensWuerfelraum.Server.Console
                 if (!File.Exists(privKeyFileName))
                 {
                     X509Certificate2 generatedCert = Certificates.GenerateCertificate("PhexensWuerfelraumServer");
+
                     //generatedCert.GetRSAPublicKey().ToXmlString(true);
                     //string privkey = generatedCert.PrivateKey.ToXmlString(true);
                     string publicKey = Certificates.ExportToPEM(generatedCert);
 
-                    File.WriteAllBytes(privKeyFileName, generatedCert.RawData);
+                    File.WriteAllBytes(privKeyFileName, generatedCert.Export(X509ContentType.Pkcs12));
                     File.WriteAllText(publicKeyFileName, publicKey);
 
                     System.Console.WriteLine("");
@@ -74,6 +75,7 @@ namespace PhexensWuerfelraum.Server.Console
                 }
 
                 var cert = new X509Certificate2(File.ReadAllBytes(privateKeyPath));
+
                 //var cert = new X509Certificate2(File.ReadAllBytes(Path.GetFullPath(@"C:\Users\" + Environment.UserName + @"\Desktop\test.pfx")), "Password"); // Generate: https://raw.githubusercontent.com/Cloet/SimpleSockets/master/Self-SignedCertificate%20Script.ps1
 
                 _listener = new SimpleSocketTcpSslListener(cert);

@@ -25,8 +25,8 @@ namespace PhexensWuerfelraum.Server.Console
 
             certificateGenerator.SetIssuerDN(new X509Name($"C=NL, O=PhexensWuerfelraum, CN={subject}"));
             certificateGenerator.SetSubjectDN(new X509Name($"C=NL, O=PhexensWuerfelraum, CN={subject}"));
-            certificateGenerator.SetNotBefore(DateTime.UtcNow.Date);
-            certificateGenerator.SetNotAfter(DateTime.UtcNow.Date.AddYears(1));
+            certificateGenerator.SetNotBefore(DateTime.UtcNow.Date.AddDays(-7));
+            certificateGenerator.SetNotAfter(DateTime.MaxValue);
 
             const int strength = 2048;
             var keyGenerationParameters = new KeyGenerationParameters(random, strength);
