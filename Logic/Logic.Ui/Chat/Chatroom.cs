@@ -22,9 +22,8 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         private static Chatroom ChatRoom = SimpleIoc.Default.GetInstance<Chatroom>();
 
-        private static int Port;
         private static bool UseSSL;
-        private static string Password;
+        private static string Password = "Password";
         private static bool Encrypt;
         private static bool Compress;
         private static SimpleSocketClient _client;
@@ -86,11 +85,12 @@ namespace PhexensWuerfelraum.Logic.Ui
             Compress = true;
             UseSSL = true; // SettingsViewModel.Setting.;
 
-            var jsonSer = new JsonSerialization();
-
             if (UseSSL)
             {
-                var cert = new X509Certificate2(File.ReadAllBytes(Path.GetFullPath(@"C:\Users\" + Environment.UserName + @"\Desktop\test.pfx")), "Password"); // Generate: https://raw.githubusercontent.com/Cloet/SimpleSockets/master/Self-SignedCertificate%20Script.ps1
+                string key = File.ReadAllText(@"C:\Users\Konojacki\source\repos\Derevar\PhexensWuerfelraum\Server\Server.Console\bin\Debug\netcoreapp3.1\public.pem");
+                var cert = new X509Certificate2(key);
+
+                //var cert = new X509Certificate2(File.ReadAllBytes(Path.GetFullPath(@"C:\Users\" + Environment.UserName + @"\Desktop\test.pfx")), Password); // Generate: https://raw.githubusercontent.com/Cloet/SimpleSockets/master/Self-SignedCertificate%20Script.ps1
                 _client = new SimpleSocketTcpSslClient(cert);
             }
             else

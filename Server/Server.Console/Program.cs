@@ -10,22 +10,12 @@ using SimpleSockets.Messaging;
 using SimpleSockets.Messaging.Metadata;
 using SimpleSockets.Server;
 using PhexensWuerfelraum.Logic.ClientServer;
+using System.Reflection;
 
 namespace PhexensWuerfelraum.Server.Console
 {
     internal class Program
     {
-        //private static void Main(string[] args)
-        //{
-        //    var config = new ConfigurationBuilder()
-        //        .AddIniFile("settings.ini", optional: true, reloadOnChange: true)
-        //        .AddCommandLine(args)
-        //        .Build();
-
-        //    consoleViewModel.Port = config["port"];
-        //    System.Console.ReadKey();
-        //}
-
         private static int Port;
         private static bool UseSSL;
         private static string Password;
@@ -49,20 +39,43 @@ namespace PhexensWuerfelraum.Server.Console
             WriteLine("Configuration:");
 
             Port = int.Parse(config["port"]);
-            WriteLine($"Port={Port}");
+            WriteLine($"Port is {Port}");
 
             UseSSL = bool.Parse(config["ssl"]);
-            WriteLine($"Use SSL={UseSSL}");
+            WriteLine($"SSL is {(UseSSL ? "ON" : "OFF")}");
 
             Encrypt = bool.Parse(config["encrypt"]);
-            WriteLine($"Use encryption={Encrypt}");
+            WriteLine($"Encryption is {(Encrypt ? "ON" : "OFF")}");
 
             Compress = bool.Parse(config["compress"]);
-            WriteLine($"Use compression={Compress}");
+            WriteLine($"Compression is {(Compress ? "ON" : "OFF")}");
 
             if (UseSSL)
             {
-                var cert = new X509Certificate2(File.ReadAllBytes(Path.GetFullPath(@"C:\Users\" + Environment.UserName + @"\Desktop\test.pfx")), "Password"); // Generate: https://raw.githubusercontent.com/Cloet/SimpleSockets/master/Self-SignedCertificate%20Script.ps1
+                var privKeyFileName = "private.key";
+                string privateKeyPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), privKeyFileName);
+                var publicKeyFileName = "public.pem";
+
+                if (!File.Exists(privKeyFileName))
+                {
+                    X509Certificate2 generatedCert = Certificates.GenerateCertificate("PhexensWuerfelraumServer");
+                    //generatedCert.GetRSAPublicKey().ToXmlString(true);
+                    //string privkey = generatedCert.PrivateKey.ToXmlString(true);
+                    string publicKey = Certificates.ExportToPEM(generatedCert);
+
+                    File.WriteAllBytes(privKeyFileName, generatedCert.RawData);
+                    File.WriteAllText(publicKeyFileName, publicKey);
+
+                    System.Console.WriteLine("");
+                    WriteLine($"No certificate found. Generated a new private/public key pair. Give the following string to your users. It is also saved as {privateKeyPath}");
+                    System.Console.WriteLine("");
+                    System.Console.Write(publicKey);
+                    System.Console.WriteLine("");
+                }
+
+                var cert = new X509Certificate2(File.ReadAllBytes(privateKeyPath));
+                //var cert = new X509Certificate2(File.ReadAllBytes(Path.GetFullPath(@"C:\Users\" + Environment.UserName + @"\Desktop\test.pfx")), "Password"); // Generate: https://raw.githubusercontent.com/Cloet/SimpleSockets/master/Self-SignedCertificate%20Script.ps1
+
                 _listener = new SimpleSocketTcpSslListener(cert);
             }
             else
