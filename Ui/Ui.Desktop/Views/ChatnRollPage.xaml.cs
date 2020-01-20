@@ -104,5 +104,10 @@ namespace PhexensWuerfelraum.Ui.Desktop
         {
             TrialScrollViewer.ScrollToVerticalOffset(TrialScrollViewer.VerticalOffset - e.Delta / 3);
         }
+
+        private void SelectableMessageTextBlock_TextSelected(string SelectedText)
+        {
+            Clipboard.SetText(SelectedText);
+        }
     }
 }

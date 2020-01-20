@@ -136,12 +136,14 @@
                                             Text="{Binding Path=DateTime, StringFormat={}{0:HH:mm:ss}}"
                                             Padding="2"
                                             DockPanel.Dock="Left"
-                                            Foreground="DarkGray" />
+                                            Foreground="DarkGray"
+                                            Focusable="True" />
                                         <TextBlock
                                             Padding="2,2,0,2"
                                             Foreground="{Binding UserColor}"
                                             FontWeight="Bold"
-                                            DockPanel.Dock="Left">
+                                            DockPanel.Dock="Left"
+                                            Focusable="True">
                                             <TextBlock.Text>
                                                 <MultiBinding Converter="{StaticResource MultiValueMessageFromConverter}">
                                                     <Binding Path="MessageType" />
@@ -150,11 +152,15 @@
                                                 </MultiBinding>
                                             </TextBlock.Text>
                                         </TextBlock>
-                                        <TextBlock
-                                            Text="{Binding Path=Message}"
+                                        <local:TextBlockSelectable
+                                            x:Name="SelectableMessageTextBlock"
+                                            Cursor="IBeam"
+                                            Text="{Binding Path=Message, Mode=OneWay}"
                                             DockPanel.Dock="Right"
                                             Padding="0,2,2,2"
-                                            TextWrapping="Wrap" />
+                                            TextWrapping="Wrap"
+                                            Focusable="True"
+                                            TextSelected="SelectableMessageTextBlock_TextSelected" />
                                     </DockPanel>
                                 </DockPanel>
                             </Border>
