@@ -70,7 +70,7 @@ namespace PhexensWuerfelraum.Server.Console
                 _listener = new SimpleSocketTcpListener();
             }
 
-            _listener.ObjectSerializer = new JsonSerialization();
+            _listener.ObjectSerializer = new BinarySerializer();
             _listener.AllowReceivingFiles = true;
 
             BindEvents();

@@ -99,7 +99,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             }
 
             _client.EnableExtendedAuth = false; // When the client sets 'EnableExtendedAuth' to true it will send a GUID, OSVersion, PC Name and DomainName to the server
-            _client.ObjectSerializer = jsonSer;
+            _client.ObjectSerializer = new BinarySerializer();
             _client.AllowReceivingFiles = true;
 
             BindEvents();
