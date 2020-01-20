@@ -14,6 +14,7 @@ namespace PhexensWuerfelraum.Logic.ClientServer
         RollWhisper
     }
 
+    [Serializable]
     public class ChatPacket
     {
         public ChatPacket(ChatMessageType messageType, string message, int fromId, string fromUsername, int toId, string toUsername, string color = "Black")
