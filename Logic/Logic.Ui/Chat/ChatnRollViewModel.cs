@@ -138,14 +138,14 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// disconnect from the chat server
         /// </summary>
         /// <returns></returns>
-        private void Disconnect()
+        private async Task Disconnect()
         {
             ToggleBlockConnectionCommands(false);
 
             if (ChatRoom == null)
                 DisplayError("Du bist mit keinem Server verbunden");
 
-            ChatRoom.Disconnect();
+            await ChatRoom.Disconnect();
 
             settingsViewModel.AllowEdit = true;
             ToggleBlockConnectionCommands(true);
@@ -154,10 +154,10 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// <summary>
         /// disconnects from and reconnects to the chat server
         /// </summary>
-        public void Reconnect()
+        public async Task ReconnectAsync()
         {
-            Disconnect();
-            Connect();
+            await Disconnect();
+            await Connect();
         }
 
         /// <summary>

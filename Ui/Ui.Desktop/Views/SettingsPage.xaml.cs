@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using MahApps.Metro.Controls;
+using System.Windows.Controls;
 
 namespace PhexensWuerfelraum.Ui.Desktop
 {
@@ -10,6 +11,8 @@ namespace PhexensWuerfelraum.Ui.Desktop
         public SettingsPage()
         {
             InitializeComponent();
+
+            TextBoxHelper.SetWatermark(PublicKey, $"-----BEGIN CERTIFICATE----- \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n -----END CERTIFICATE-----");
         }
     }
 }

@@ -27,6 +27,8 @@ namespace PhexensWuerfelraum.Logic.Ui
         private static bool Encrypt;
         private static bool Compress;
         private static SimpleSocketClient _client;
+        private static AuthPacket ClientAuthInfo;
+        private static int OwnId { get => ClientAuthInfo.UserModel.Id; }
 
         private UserModel _selectedUser;
         private readonly SettingsViewModel SettingsViewModel = SimpleIoc.Default.GetInstance<SettingsViewModel>();
@@ -83,17 +85,11 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             Encrypt = true;
             Compress = true;
-            UseSSL = true; // SettingsViewModel.Setting.;
+            UseSSL = SettingsViewModel.Setting.EnableSSL;
 
             if (UseSSL)
             {
-                //string key = File.ReadAllText(@"C:\Users\Konojacki\source\repos\Derevar\PhexensWuerfelraum\Server\Server.Console\bin\Debug\netcoreapp3.1\public.pem");
-
-                X509Certificate2 cert = new X509Certificate2(@"C:\Users\marku\source\repos\Derevar\PhexensWuerfelraum\Server\Server.Console\bin\Debug\netcoreapp3.1\public.pem");
-
-                //var cert = new X509Certificate2(File.ReadAllBytes(@"C:\Users\marku\source\repos\Derevar\PhexensWuerfelraum\Server\Server.Console\bin\Debug\netcoreapp3.1\public.pem"));
-
-                //var cert = new X509Certificate2(File.ReadAllBytes(Path.GetFullPath(@"C:\Users\" + Environment.UserName + @"\Desktop\test.pfx")), Password); // Generate: https://raw.githubusercontent.com/Cloet/SimpleSockets/master/Self-SignedCertificate%20Script.ps1
+                var cert = new X509Certificate2(new System.Text.ASCIIEncoding().GetBytes(SettingsViewModel.Setting.PublicKey));
                 _client = new SimpleSocketTcpSslClient(cert);
             }
             else
@@ -110,15 +106,20 @@ namespace PhexensWuerfelraum.Logic.Ui
             _client.StartClient(address, port);
         }
 
-        public void Disconnect()
+        public async Task Disconnect()
         {
             Status = "Trenne...";
+
+            await new Task(() => _client.Close());
         }
 
         public async Task Send(string username, string message, string colorCode, int toId, string toName, ChatMessageType messageType = ChatMessageType.Text)
         {
-            ChatPacket chatPacket = new ChatPacket(messageType, message, 0, username, toId, toName, colorCode);
-            _client.SendObject(chatPacket);
+            if (!string.IsNullOrEmpty(message) && !string.IsNullOrWhiteSpace(message))
+            {
+                ChatPacket chatPacket = new ChatPacket(messageType, message, 0, username, toId, toName, colorCode);
+                await _client.SendObjectAsync(chatPacket);
+            }
         }
 
         #region Events
@@ -152,7 +153,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             //WriteLine("Authenticated with success.");
         }
 
-        private static void ClientOnObjectReceived(SimpleSocketClient a, object obj, Type objType)
+        private static void ClientOnObjectReceived(SimpleSocketClient simpleSocketClient, object obj, Type objType)
         {
             //WriteLine("Received an object of type = " + objType.FullName);
             if (obj.GetType() == typeof(ChatPacket))
@@ -172,6 +173,11 @@ namespace PhexensWuerfelraum.Logic.Ui
                         ChatRoom.Users.Add(user);
                     }
                 });
+            }
+            else if (obj.GetType() == typeof(AuthPacket))
+            {
+                var a = (AuthPacket)obj;
+                ClientAuthInfo = a;
             }
         }
 
@@ -227,6 +233,19 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         private static void ErrorThrown(SimpleSocket socketClient, Exception error)
         {
+            //if (error.GetType() == typeof(Exception) ||
+            //    error.GetType() == typeof(IOException) ||
+            //    error.GetType() == typeof(ObjectDisposedException))
+            //{
+            //    Application.Current.Dispatcher.Invoke(delegate
+            //    {
+            //        ChatRoom.Messages.Add(new ChatPacket(ChatMessageType.Text, "Ein Fehler ist aufgetreten. Die Verbindung zum Server wurde unerwartet geschlossen.", 0, "", 0, ""));
+            //    });
+            //}
+            //else
+            //{
+            throw error;
+            //}
             //WriteLine("The client has thrown an error: " + error.Message);
             //WriteLine("Stacktrace: " + error.StackTrace);
         }
@@ -290,13 +309,12 @@ namespace PhexensWuerfelraum.Logic.Ui
 
                 if (SettingsViewModel.Setting.SoundEffectsEnabled)
                 {
-                    // ToDo
-                    //if (chatPacket.FromId != _ownUser.UserName)
-                    //{
-                    //    ChatRoom.mediaPlayer1 = new MediaPlayer();
-                    //    ChatRoom.mediaPlayer1.Open(new Uri(Directory.GetParent(Assembly.GetExecutingAssembly().Location) + "/Resources/Sounds/Notification.wav"));
-                    //    ChatRoom.mediaPlayer1.Play();
-                    //}
+                    if (chatPacket.FromId != OwnId) // only play notification sound for messages from other users
+                    {
+                        ChatRoom.mediaPlayer1 = new MediaPlayer();
+                        ChatRoom.mediaPlayer1.Open(new Uri(Directory.GetParent(Assembly.GetExecutingAssembly().Location) + "/Resources/Sounds/Notification.wav"));
+                        ChatRoom.mediaPlayer1.Play();
+                    }
 
                     if (chatPacket.MessageType == ChatMessageType.Roll || chatPacket.MessageType == ChatMessageType.RollWhisper)
                     {

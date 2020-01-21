@@ -20,6 +20,9 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         public string WikiUrl { get; set; }
 
+        public bool EnableSSL { get; set; } = true;
+        public string PublicKey { get; set; }
+
         public string WhiteboardUrl { get; set; }
 
         public string StaticUserName { get; set; }
@@ -73,7 +76,9 @@ namespace PhexensWuerfelraum.Logic.Ui
                     s.StaticUserName,
                     s.SoundEffectsEnabled,
                     s.GameMasterMode,
-                    s.AdditionalTrials
+                    s.AdditionalTrials,
+                    s.EnableSSL,
+                    s.PublicKey
                 })
                 .PersistOn(nameof(PropertyChanged));
         }

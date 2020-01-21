@@ -60,7 +60,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
                         if (ChatnRollViewModel.ChatRoom.Connected)
                         {
                             metroWindow = Application.Current.MainWindow as MetroWindow;
-                            metroWindow.Dispatcher.Invoke(new Action(() => { ChatnRollViewModel.Reconnect(); }));
+                            metroWindow.Dispatcher.Invoke(new Action(() => { ChatnRollViewModel.ReconnectAsync(); }));
                         }
                     }
                 });

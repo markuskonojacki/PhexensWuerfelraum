@@ -18,14 +18,11 @@ namespace PhexensWuerfelraum.Server.Console
     {
         private static int Port;
         private static bool UseSSL;
-        private static string Password;
         private static bool Encrypt;
         private static bool Compress;
 
         private static List<AuthPacket> AuthenticatedUsers = new List<AuthPacket>();
         private static SimpleSocketListener _listener;
-        private static ChatPacket ChatPacketContract;
-        private static long totalmsg;
 
         private static void Main(string[] args)
         {
@@ -52,25 +49,26 @@ namespace PhexensWuerfelraum.Server.Console
 
             if (UseSSL)
             {
-                var privKeyFileName = "private.key";
-                string privateKeyPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), privKeyFileName);
-                var publicKeyFileName = "public.pem";
+                var privKeyFileName = "PrivateKey.pfx";
+                var privateKeyPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), privKeyFileName);
+                var publicKeyFileName = "PublicKey.pem";
+                var publicKeyPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), publicKeyFileName);
 
                 if (!File.Exists(privKeyFileName))
                 {
                     X509Certificate2 generatedCert = Certificates.GenerateCertificate("PhexensWuerfelraumServer");
 
-                    //generatedCert.GetRSAPublicKey().ToXmlString(true);
-                    //string privkey = generatedCert.PrivateKey.ToXmlString(true);
                     string publicKey = Certificates.ExportToPEM(generatedCert);
 
-                    File.WriteAllBytes(privKeyFileName, generatedCert.Export(X509ContentType.Pkcs12));
+                    File.WriteAllBytes(privKeyFileName, generatedCert.Export(X509ContentType.Pfx));
                     File.WriteAllText(publicKeyFileName, publicKey);
 
                     System.Console.WriteLine("");
-                    WriteLine($"No certificate found. Generated a new private/public key pair. Give the following string to your users. It is also saved as {privateKeyPath}");
+                    WriteLine($"No certificate found. Generated a new private/public key pair. Give the following string to your users. It is also saved as {publicKeyPath}");
                     System.Console.WriteLine("");
                     System.Console.Write(publicKey);
+                    System.Console.WriteLine("");
+                    System.Console.WriteLine($"NEVER share the {privKeyFileName}!");
                     System.Console.WriteLine("");
                 }
 
@@ -298,45 +296,45 @@ namespace PhexensWuerfelraum.Server.Console
 
             if (obj.GetType() == typeof(AuthPacket))
             {
-                var p = (AuthPacket)obj;
+                var authPacket = (AuthPacket)obj;
 
-                if (p.Password == Password)
+                WriteLine($"User '{authPacket.UserModel.UserName}' has sent an authentication packet");
+
+                authPacket.UserModel.Id = client.Id;
+                AuthenticatedUsers.Add(authPacket);
+
+                _listener.SendObject(client.Id, authPacket, Compress, Encrypt, false);
+
+                List<UserModel> userModelList = new List<UserModel>();
+                foreach (var user in AuthenticatedUsers)
                 {
-                    p.UserModel.Id = client.Id;
-                    AuthenticatedUsers.Add(p);
-                    WriteLine($"User '{p.UserModel.UserName}' has sucessfully authenticated");
+                    userModelList.Add(user.UserModel);
+                }
 
-                    List<UserModel> userModelList = new List<UserModel>();
-                    foreach (var user in AuthenticatedUsers)
-                    {
-                        userModelList.Add(user.UserModel);
-                    }
-
-                    foreach (var user in AuthenticatedUsers)
-                    {
-                        _listener.SendObject(user.UserModel.Id, new ChatroomPacket(userModelList), Compress, Encrypt, false);
-                    }
+                foreach (var user in AuthenticatedUsers)
+                {
+                    _listener.SendObject(user.UserModel.Id, new ChatroomPacket(userModelList), Compress, Encrypt, false);
                 }
             }
             else if (obj.GetType() == typeof(ChatPacket))
             {
-                var p = (ChatPacket)obj;
-                p.FromId = client.Id;
+                var chatPacket = (ChatPacket)obj;
+                chatPacket.FromId = client.Id;
 
-                if (p.ToId == 0) // to everyone
+                if (chatPacket.ToId == 0) // to everyone
                 {
                     foreach (var user in AuthenticatedUsers)
                     {
-                        _listener.SendObject(user.UserModel.Id, p, Compress, Encrypt, false);
+                        _listener.SendObject(user.UserModel.Id, chatPacket, Compress, Encrypt, false);
                     }
                 }
                 else // only to the recepient and the game master
                 {
-                    var recepients = AuthenticatedUsers.FindAll(a => a.UserModel.Id == p.ToId || a.UserModel.IsGameMaster == true);
+                    var recepients = AuthenticatedUsers.FindAll(a => a.UserModel.Id == chatPacket.ToId || a.UserModel.IsGameMaster == true);
 
                     foreach (var user in recepients)
                     {
-                        _listener.SendObject(user.UserModel.Id, p, Compress, Encrypt, false);
+                        _listener.SendObject(user.UserModel.Id, chatPacket, Compress, Encrypt, false);
                     }
                 }
             }

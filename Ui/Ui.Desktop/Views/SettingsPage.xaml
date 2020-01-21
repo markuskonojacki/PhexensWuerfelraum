@@ -5,10 +5,17 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:local="clr-namespace:PhexensWuerfelraum.Ui.Desktop"
       Style="{DynamicResource PageStyle}"
       mc:Ignorable="d"
       Title="SettingsPage"
-      DataContext="{Binding Settings, Source={StaticResource Locator}}" IsEnabled="{Binding Path=AllowEdit}">
+      DataContext="{Binding Settings, Source={StaticResource Locator}}"
+      IsEnabled="{Binding Path=AllowEdit}">
+
+    <Page.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Page.Resources>
+
     <StackPanel>
         <GroupBox Header="Server / Chat">
             <StackPanel>
@@ -17,6 +24,7 @@
                         <Label Margin="10 5 0 0" FontWeight="DemiBold" FontSize="16">Adresse</Label>
                         <TextBox Name="ServerAddress" Text="{Binding Setting.ServerAddress}" Margin="10 0 0 10" Width="300" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Adresse des Servers, z.B. meinserver.net oder 127.0.0.1" Controls:TextBoxHelper.WatermarkTrimming="WordEllipsis" />
                     </StackPanel>
+
                     <StackPanel>
                         <Label Margin="10 5 0 0" FontWeight="DemiBold" FontSize="16">Port</Label>
                         <TextBox Name="ServerPort" Text="{Binding Setting.ServerPort}" Margin="10 0 0 10" Width="100" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Port des Servers, z.B. 1212 (default)" ToolTip="Port des Servers, z.B. 1212 (default)" />
@@ -24,6 +32,9 @@
                 </StackPanel>
 
                 <StackPanel>
+                    <Controls:ToggleSwitch IsChecked="{Binding Setting.EnableSSL}" Header="Benutze SSL Verschlüsselung" Margin="10 10 0 10" OnLabel="Ja" OffLabel="Nein" Width="200" HorizontalAlignment="Left" ToolTip="Im Meistermodus siehst du den gesamten Chatverlauf, inklusiver geflüsterter Gespräche. Du wirst im Chat anders hervorgehoben und du siehst die Werte, Vor- und Nachteile sowie Talente der Spieler" />
+                    <TextBox Name="PublicKey" Visibility="{Binding Setting.EnableSSL, Converter={StaticResource BooleanToVisibilityConverter}}" Text="{Binding Setting.PublicKey}" Margin="10 0 0 10" Width="700" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="-----BEGIN CERTIFICATE-----  -----END CERTIFICATE-----" MaxLines="20" MinLines="20" ToolTip="Öffentlicher Zertifikatsschlüssel des Servers." TextWrapping="Wrap" AcceptsReturn="True" />
+
                     <Label Margin="10 0 0 0" FontWeight="DemiBold" FontSize="16">Statischer Chatname</Label>
                     <TextBox Name="StaticUserName" Text="{Binding Setting.StaticUserName}" Margin="10 0 0 10" Width="300" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Nich füllen, um Charakternamen zu benutzen" ToolTip="Wenn das Feld gefüllt wird, wird statt des Charakternamens der Inhalt dieses Feldes für den Chat als Benutzername verwendet" />
                 </StackPanel>
@@ -40,7 +51,7 @@
         <GroupBox Header="Sonstiges">
             <StackPanel>
                 <Controls:ToggleSwitch IsChecked="{Binding Setting.AutoUpdate}" Margin="10 10 0 10" Header="Automatische Updates" OnLabel="Aktiviert" OffLabel="Deaktiviert" Width="200" HorizontalAlignment="Left" ToolTip="Wenn deaktiviert prüft das Programm beim Starten NICHT automatisch auf eine neue Version." />
-                
+
                 <Label Margin="10 5 0 0" FontWeight="DemiBold" FontSize="16">Heldendatei</Label>
                 <StackPanel Orientation="Horizontal">
                     <TextBox IsEnabled="False" Text="{Binding Setting.HeldenDateiPath}" Margin="10 0 10 0" Width="600" HorizontalAlignment="Left" Controls:TextBoxHelper.Watermark="Pfad zur Helden-Software Charakterdatei: helden.zip.hld" />
@@ -55,9 +66,9 @@
                         </Rectangle>
                     </Button>
                 </StackPanel>
-                
+
                 <Controls:ToggleSwitch IsChecked="{Binding Setting.SoundEffectsEnabled}" Margin="10 10 0 10" Header="Soundeffekte" OnLabel="An" OffLabel="Aus" Width="200" HorizontalAlignment="Left" ToolTip="Soundeffekte wie das Plöppen bei neuen Nachrichten oder bei Ereignisen, wie einer doppel 1, können hiermit aktiviert und deaktiviert werden." />
-                
+
                 <StackPanel>
                     <Label Margin="10 0 0 0" FontWeight="DemiBold" FontSize="16">Wiki URL</Label>
                     <TextBox Text="{Binding Setting.WikiUrl}" Margin="10 0 0 10" Width="500" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="URL eines Wikis, z.B. https://de.wiki-aventurica.de/" />
