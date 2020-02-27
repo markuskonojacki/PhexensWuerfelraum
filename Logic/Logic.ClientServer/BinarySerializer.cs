@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using SimpleSockets.Messaging.MessageContracts;
+using SimpleSockets.Messaging.Serialization;
 
 namespace PhexensWuerfelraum.Logic.ClientServer
 {
@@ -22,6 +23,11 @@ namespace PhexensWuerfelraum.Logic.ClientServer
             {
                 return new BinaryFormatter().Deserialize(memStream);
             }
+        }
+
+        public T DeserializeJson<T>(byte[] bytes)
+        {
+            throw new NotImplementedException();
         }
     }
 }

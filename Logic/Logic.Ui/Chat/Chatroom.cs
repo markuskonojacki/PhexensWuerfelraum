@@ -127,8 +127,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         private static void BindEvents()
         {
             //_client.ProgressFileReceived += Progress;
-            _client.AuthSuccess += ClientOnAuthSuccess;
-            _client.AuthFailed += ClientOnAuthFailed;
+            _client.SslAuthStatus += ClientOnSslAuthStatus;
             //_client.FileReceiver += ClientOnFileReceiver;
             //_client.FolderReceiver += ClientOnFolderReceiver;
             _client.DisconnectedFromServer += Disconnected;
@@ -139,18 +138,16 @@ namespace PhexensWuerfelraum.Logic.Ui
             _client.MessageReceived += ServerMessageReceived;
             _client.MessageSubmitted += ClientMessageSubmitted;
             _client.MessageFailed += MessageFailed;
-            _client.CustomHeaderReceived += CustomHeader;
+            //_client.CustomHeaderReceived += CustomHeader;
             _client.ObjectReceived += ClientOnObjectReceived;
         }
 
-        private static void ClientOnAuthFailed()
+        private static void ClientOnSslAuthStatus(AuthStatus status)
         {
-            //WriteLine("Failed to authenticate.");
-        }
-
-        private static void ClientOnAuthSuccess()
-        {
-            //WriteLine("Authenticated with success.");
+            //if (status == AuthStatus.Failed)
+            //    WriteLine("Failed to authenticate.");
+            //if (status == AuthStatus.Success)
+            //    WriteLine("Authenticated with success.");
         }
 
         private static void ClientOnObjectReceived(SimpleSocketClient simpleSocketClient, object obj, Type objType)
@@ -226,10 +223,10 @@ namespace PhexensWuerfelraum.Logic.Ui
         //        WriteLine("File received and stored at location: " + loc);
         //}
 
-        private static void CustomHeader(SimpleSocket a, string msg, string header)
-        {
-            //WriteLine("Bytes received from server with header = " + header + " and message = " + msg);
-        }
+        //private static void CustomHeader(SimpleSocket a, string msg, string header)
+        //{
+        //    //WriteLine("Bytes received from server with header = " + header + " and message = " + msg);
+        //}
 
         private static void ErrorThrown(SimpleSocket socketClient, Exception error)
         {

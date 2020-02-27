@@ -247,12 +247,11 @@ namespace PhexensWuerfelraum.Server.Console
 
         private static void BindEvents()
         {
-            _listener.AuthFailure += ListenerOnAuthFailure;
-            _listener.AuthSuccess += ListenerOnAuthSuccess;
+            _listener.SslAuthStatus += _listener_SslAuthStatus;
             //_listener.FileReceiver += ListenerOnFileReceiver;
             _listener.MessageReceived += MessageReceived;
             _listener.MessageSubmitted += MessageSubmitted;
-            _listener.CustomHeaderReceived += CustomHeaderReceivedAsync;
+            _listener.MessageWithMetaDataReceived += CustomHeaderReceivedAsync;
             _listener.ClientDisconnected += ClientDisconnected;
             _listener.ClientConnected += ClientConnected;
             _listener.ServerHasStarted += ServerHasStarted;
@@ -263,19 +262,17 @@ namespace PhexensWuerfelraum.Server.Console
             _listener.ServerLogs += _listener_ServerLogs;
         }
 
+        private static void _listener_SslAuthStatus(IClientInfo client, AuthStatus status)
+        {
+            if (status == AuthStatus.Failed)
+                WriteLine("Server failed to authenticate certificate of client " + client.Id + " " + client.Guid + ".");
+            if (status == AuthStatus.Success)
+                WriteLine("Server authenticate certificate of client " + client.Id + " " + client.Guid + ".");
+        }
+
         private static void _listener_ServerLogs(string log)
         {
             WriteLine(log);
-        }
-
-        private static void ListenerOnAuthFailure(IClientInfo client)
-        {
-            WriteLine("Server failed to authenticate certificate of client " + client.Id + " " + client.Guid + ".");
-        }
-
-        private static void ListenerOnAuthSuccess(IClientInfo client)
-        {
-            WriteLine("Server authenticate certificate of client " + client.Id + " " + client.Guid + ".");
         }
 
         //*****Begin Events************///
@@ -311,9 +308,12 @@ namespace PhexensWuerfelraum.Server.Console
                     userModelList.Add(user.UserModel);
                 }
 
+                ChatPacket userJoinNotification = new ChatPacket(ChatMessageType.Text, $"Nutzer {authPacket.UserModel.UserName} ist dem Chat beigetreten", 0, "Server", 0, "", "Silver");
+
                 foreach (var user in AuthenticatedUsers)
                 {
                     _listener.SendObject(user.UserModel.Id, new ChatroomPacket(userModelList), Compress, Encrypt, false);
+                    _listener.SendObject(user.UserModel.Id, userJoinNotification, Compress, Encrypt, false);
                 }
             }
             else if (obj.GetType() == typeof(ChatPacket))
@@ -375,39 +375,45 @@ namespace PhexensWuerfelraum.Server.Console
         //        WriteLine("File received and stored at location: " + loc);
         //}
 
-        private static async void CustomHeaderReceivedAsync(IClientInfo client, string msg, string header)
+        //private static async void CustomHeaderReceivedAsync(IClientInfo client, string msg, string header)
+        private static async void CustomHeaderReceivedAsync(IClientInfo client, object msg, IDictionary<object, object> metadata, Type objectType)
         {
-            WriteLine($"The server received a message from the client with ID '{client.Id}' the header is '{header}' and the message is '{msg}'");
+            //WriteLine($"The server received a message from the client with ID '{client.Id}' the header is '{header}' and the message is '{msg}'");
 
-            if (header == "command")
+            foreach (KeyValuePair<object, object> entry in metadata)
             {
-                switch (msg)
+                WriteLine($"Key: {entry.Key} , Value: {entry.Value}");
+
+                if ((string)entry.Key == "command")
                 {
-                    case "GetClientList":
-                        WriteLine($"Sending List of connected clients to client with ID '{client.Id}'");
+                    switch (entry.Value)
+                    {
+                        case "GetClientList":
+                            WriteLine($"Sending List of connected clients to client with ID '{client.Id}'");
 
-                        var clients = _listener.GetConnectedClients();
+                            var clients = _listener.GetConnectedClients();
 
-                        foreach (var user in clients)
-                        {
-                            WriteLine("Client ID: " + user.Value.Id + " with IPv4 : " + user.Value.RemoteIPv4);
-                            await _listener.SendMessageAsync(client.Id, $"- ID '{user.Value.Id.ToString()}'; Name '{ AuthenticatedUsers.Find(a => a.UserModel.Id == user.Value.Id).UserModel.UserName}'", Compress, Encrypt, false);
-                        }
-                        break;
+                            foreach (var user in clients)
+                            {
+                                WriteLine("Client ID: " + user.Value.Id + " with IPv4 : " + user.Value.RemoteIPv4);
+                                await _listener.SendMessageAsync(client.Id, $"- ID '{user.Value.Id.ToString()}'; Name '{ AuthenticatedUsers.Find(a => a.UserModel.Id == user.Value.Id).UserModel.UserName}'", Compress, Encrypt, false);
+                            }
+                            break;
 
-                    case "SendAuthenticate":
+                        case "SendAuthenticate":
 
-                        break;
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
 
         private static void MessageReceived(IClientInfo client, string msg)
         {
-            totalmsg++;
+            //totalmsg++;
             //WriteLine("The server has received a message from client " + client.Id + " with name : " + client.ClientName + " and guid : " + client.Guid);
             //WriteLine("The client is running on " + client.OsVersion + " and UserDomainName = " + client.UserDomainName);
             WriteLine("The server has received a message from client " + client.Id + " the message reads: " + msg);
@@ -451,11 +457,22 @@ namespace PhexensWuerfelraum.Server.Console
             });
         }
 
-        private static void ClientDisconnected(IClientInfo client)
+        private static void ClientDisconnected(IClientInfo client, DisconnectReason reason)
         {
-            WriteLine("Client " + client.Id + " has disconnected from the server.");
+            var id = 0;
+            if (client != null)
+                id = client.Id;
 
-            AuthenticatedUsers.Remove(AuthenticatedUsers.Find(a => a.UserModel.Id == client.Id));
+            WriteLine("Client " + id + " has disconnected from the server.");
+
+            ChatPacket userLeaveNotification = new ChatPacket(ChatMessageType.Text, $"Nutzer {AuthenticatedUsers.Find(a => a.UserModel.Id == id).UserModel.UserName} hat den Chat verlassen", 0, "Server", 0, "", "Silver");
+
+            AuthenticatedUsers.Remove(AuthenticatedUsers.Find(a => a.UserModel.Id == id));
+
+            foreach (var user in AuthenticatedUsers)
+            {
+                _listener.SendObject(user.UserModel.Id, userLeaveNotification, Compress, Encrypt, false);
+            }
         }
 
         #endregion Events

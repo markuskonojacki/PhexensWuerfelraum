@@ -55,7 +55,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AsyncClientServer" Version="1.1.2" />
     <PackageReference Include="ControlzEx" Version="4.1.1" />
     <PackageReference Include="Fody" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -68,12 +67,14 @@
     <PackageReference Include="MahApps.Metro.SimpleChildWindow" Version="2.0.0-alpha0031" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.0.30" />
     <PackageReference Include="Mono.Cecil" Version="0.11.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3-beta2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="NuGet.CommandLine" Version="5.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="PropertyChanged.Fody" Version="3.1.3" />
+    <PackageReference Include="SimpleSockets" Version="1.2.20" />
+    <PackageReference Include="squirrel.windows" Version="1.9.0" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0-preview1.19504.10" />
   </ItemGroup>
 

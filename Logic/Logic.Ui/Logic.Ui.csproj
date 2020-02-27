@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AsyncClientServer" Version="1.1.2" />
     <PackageReference Include="DiceRoller" Version="4.0.0" />
     <PackageReference Include="Fody" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -33,8 +32,9 @@
     <PackageReference Include="MahApps.Metro.IconPacks" Version="3.0.0-alpha0245" />
     <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="3.1.0-preview1.19506.1" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3-beta2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.1.3" />
+    <PackageReference Include="SimpleSockets" Version="1.2.20" />
   </ItemGroup>
 
   <ItemGroup>
