@@ -9,9 +9,11 @@
     <description>Chat- und Würfelprogramm zur Unterstützung vom Spielen von DsA 4.1 über das Internet</description>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <copyright>Copyright Markus Konojacki</copyright>
-    <dependencies />
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1" />
+    </dependencies>
   </metadata>
   <files>
-    <file src="**\*.*" target="lib\net45\" exclude="*.pdb;*.nupkg;*.vshost.*"/>
+    <file src="**\*.*" target="lib\net45\" exclude="*.pdb;*.nupkg;*.vshost.*" />
   </files>
 </package>

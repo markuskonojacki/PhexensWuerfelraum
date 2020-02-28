@@ -1,6 +1,6 @@
 ﻿using PhexensWuerfelraum.Ui.Desktop.Views;
 
-using Squirrel;
+//using Squirrel;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -35,13 +35,13 @@ namespace PhexensWuerfelraum.Ui.Desktop
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "if !DEBUG")]
         private void InitSquirrel()
         {
-            using (var mgr = new UpdateManager(UpdateUrl))
-            {
-                SquirrelAwareApp.HandleEvents(
-                    onInitialInstall: v => mgr.CreateShortcutForThisExe(),
-                    onAppUpdate: v => mgr.CreateShortcutForThisExe(),
-                    onAppUninstall: v => mgr.RemoveShortcutForThisExe());
-            }
+            //using (var mgr = new UpdateManager(UpdateUrl))
+            //{
+            //    SquirrelAwareApp.HandleEvents(
+            //        onInitialInstall: v => mgr.CreateShortcutForThisExe(),
+            //        onAppUpdate: v => mgr.CreateShortcutForThisExe(),
+            //        onAppUninstall: v => mgr.RemoveShortcutForThisExe());
+            //}
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "if !DEBUG")]
@@ -73,22 +73,23 @@ namespace PhexensWuerfelraum.Ui.Desktop
         private async Task<string> CheckForUpdates()
         {
             //Check for updates
-            using (var mgr = new UpdateManager(UpdateUrl))
-            {
-                var updateInfo = await mgr.CheckForUpdate(progress: x => Trace.WriteLine(x / 3));
-                string futureVersion = updateInfo.FutureReleaseEntry.Version.ToString();
-                return futureVersion;
-            }
+            //using (var mgr = new UpdateManager(UpdateUrl))
+            //{
+            //    var updateInfo = await mgr.CheckForUpdate(progress: x => Trace.WriteLine(x / 3));
+            //    string futureVersion = updateInfo.FutureReleaseEntry.Version.ToString();
+            //    return futureVersion;
+            //}
+            return "";
         }
 
         //Proceed with the update, then restart the app
         private async Task<int> ProceedUpdate(string version)
         {
-            using (var mgr = new UpdateManager(UpdateUrl))
-            {
-                await mgr.UpdateApp();
-                UpdateManager.RestartApp();
-            }
+            //using (var mgr = new UpdateManager(UpdateUrl))
+            //{
+            //    await mgr.UpdateApp();
+            //    UpdateManager.RestartApp();
+            //}
             return 0;
         }
     }
