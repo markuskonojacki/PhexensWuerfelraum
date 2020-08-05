@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {
-    public class CharacterModel : BaseModel, ITrackingAware<CharacterModel>
+    public class CharacterModel : BaseModel, ITrackingAware
     {
         #region constructors
 
@@ -139,11 +139,11 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         #region methods
 
-        public void ConfigureTracking(TrackingConfiguration<CharacterModel> configuration)
+        public void ConfigureTracking(TrackingConfiguration configuration)
         {
             configuration
                 .Id(c => "LastCharacter")
-                .Properties(c => new
+                .Properties<CharacterModel>(c => new
                 {
                     c.Attribute,
                     c.Ausbildungen,

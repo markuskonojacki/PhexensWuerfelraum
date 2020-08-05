@@ -5,7 +5,7 @@ using System.IO;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {
-    public class SettingsModel : BaseModel, ITrackingAware<SettingsModel>
+    public class SettingsModel : BaseModel, ITrackingAware
     {
         #region properties
 
@@ -62,11 +62,11 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         public bool AdditionalTrials { get; set; }
 
-        public void ConfigureTracking(TrackingConfiguration<SettingsModel> configuration)
+        public void ConfigureTracking(TrackingConfiguration configuration)
         {
             configuration
                 .Id(s => "Settings")
-                .Properties(s => new
+                .Properties<SettingsModel>(s => new
                 {
                     s.ServerAddress,
                     s.ServerPort,

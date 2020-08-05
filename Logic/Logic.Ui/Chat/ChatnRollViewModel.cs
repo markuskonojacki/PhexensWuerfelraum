@@ -57,7 +57,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         {
             //ChatRoom = new Chatroom();
             ConnectCommand = new RelayCommand(async () => await Connect(), CanConnect);
-            DisconnectCommand = new RelayCommand(async () => Disconnect(), CanDisconnect);
+            DisconnectCommand = new RelayCommand(async () => await Disconnect(), CanDisconnect);
             SendTextCommand = new RelayCommand(async () => await SendText(), CanSend);
             SendRollCommand = new RelayCommand(async () => await SendRoll(), CanSend);
             SendActionCommand = new RelayCommand(async () => await SendAction(), CanSend);

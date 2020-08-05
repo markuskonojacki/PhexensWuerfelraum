@@ -32,7 +32,7 @@
                 </StackPanel>
 
                 <StackPanel>
-                    <Controls:ToggleSwitch IsChecked="{Binding Setting.EnableSSL}" Header="Benutze SSL Verschlüsselung" Margin="10 10 0 10" OnLabel="Ja" OffLabel="Nein" Width="200" HorizontalAlignment="Left" ToolTip="Im Meistermodus siehst du den gesamten Chatverlauf, inklusiver geflüsterter Gespräche. Du wirst im Chat anders hervorgehoben und du siehst die Werte, Vor- und Nachteile sowie Talente der Spieler" />
+                    <Controls:ToggleSwitch IsOn="{Binding Setting.EnableSSL}" Header="Benutze SSL Verschlüsselung" Margin="10 10 0 10"  OnContent="Ja" OffContent="Nein" Width="200" HorizontalAlignment="Left" ToolTip="Im Meistermodus siehst du den gesamten Chatverlauf, inklusiver geflüsterter Gespräche. Du wirst im Chat anders hervorgehoben und du siehst die Werte, Vor- und Nachteile sowie Talente der Spieler" />
                     <TextBox Name="PublicKey" Visibility="{Binding Setting.EnableSSL, Converter={StaticResource BooleanToVisibilityConverter}}" Text="{Binding Setting.PublicKey}" Margin="10 0 0 10" Width="700" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="-----BEGIN CERTIFICATE-----  -----END CERTIFICATE-----" MaxLines="20" MinLines="20" ToolTip="Öffentlicher Zertifikatsschlüssel des Servers." TextWrapping="Wrap" AcceptsReturn="True" />
 
                     <Label Margin="10 0 0 0" FontWeight="DemiBold" FontSize="16">Statischer Chatname</Label>
@@ -43,14 +43,14 @@
 
         <GroupBox Header="Spielrelevant">
             <StackPanel>
-                <Controls:ToggleSwitch IsChecked="{Binding Setting.GameMasterMode}" Margin="10 10 0 10" Header="Meistermodus" OnLabel="Ja" OffLabel="Nein" Width="200" HorizontalAlignment="Left" ToolTip="Im Meistermodus siehst du den gesamten Chatverlauf, inklusiver geflüsterter Gespräche. Du wirst im Chat anders hervorgehoben und du siehst die Werte, Vor- und Nachteile sowie Talente der Spieler" />
-                <Controls:ToggleSwitch IsChecked="{Binding Setting.AdditionalTrials}" Margin="10 10 0 10" Header="Zusätzliche Proben" OnLabel="Ja" OffLabel="Nein" Width="200" HorizontalAlignment="Left" ToolTip="Einige zusätzliche Talente und Meta-Talente die nicht der Helden Software entstammen" />
+                <Controls:ToggleSwitch IsOn="{Binding Setting.GameMasterMode}" Margin="10 10 0 10" Header="Meistermodus" OnContent="Ja" OffContent="Nein" Width="200" HorizontalAlignment="Left" ToolTip="Im Meistermodus siehst du den gesamten Chatverlauf, inklusiver geflüsterter Gespräche. Du wirst im Chat anders hervorgehoben und du siehst die Werte, Vor- und Nachteile sowie Talente der Spieler" />
+                <Controls:ToggleSwitch IsOn="{Binding Setting.AdditionalTrials}" Margin="10 10 0 10" Header="Zusätzliche Proben" OnContent="Ja" OffContent="Nein" Width="200" HorizontalAlignment="Left" ToolTip="Einige zusätzliche Talente und Meta-Talente die nicht der Helden Software entstammen" />
             </StackPanel>
         </GroupBox>
 
         <GroupBox Header="Sonstiges">
             <StackPanel>
-                <Controls:ToggleSwitch IsChecked="{Binding Setting.AutoUpdate}" Margin="10 10 0 10" Header="Automatische Updates" OnLabel="Aktiviert" OffLabel="Deaktiviert" Width="200" HorizontalAlignment="Left" ToolTip="Wenn deaktiviert prüft das Programm beim Starten NICHT automatisch auf eine neue Version." />
+                <Controls:ToggleSwitch IsOn="{Binding Setting.AutoUpdate}" Margin="10 10 0 10" Header="Automatische Updates" OnContent="Aktiviert" OffContent="Deaktiviert" Width="200" HorizontalAlignment="Left" ToolTip="Wenn deaktiviert prüft das Programm beim Starten NICHT automatisch auf eine neue Version." />
 
                 <Label Margin="10 5 0 0" FontWeight="DemiBold" FontSize="16">Heldendatei</Label>
                 <StackPanel Orientation="Horizontal">
@@ -67,7 +67,7 @@
                     </Button>
                 </StackPanel>
 
-                <Controls:ToggleSwitch IsChecked="{Binding Setting.SoundEffectsEnabled}" Margin="10 10 0 10" Header="Soundeffekte" OnLabel="An" OffLabel="Aus" Width="200" HorizontalAlignment="Left" ToolTip="Soundeffekte wie das Plöppen bei neuen Nachrichten oder bei Ereignisen, wie einer doppel 1, können hiermit aktiviert und deaktiviert werden." />
+                <Controls:ToggleSwitch IsOn="{Binding Setting.SoundEffectsEnabled}" Margin="10 10 0 10" Header="Soundeffekte" OnContent="An" OffContent="Aus" Width="200" HorizontalAlignment="Left" ToolTip="Soundeffekte wie das Plöppen bei neuen Nachrichten oder bei Ereignisen, wie einer doppel 1, können hiermit aktiviert und deaktiviert werden." />
 
                 <StackPanel>
                     <Label Margin="10 0 0 0" FontWeight="DemiBold" FontSize="16">Wiki URL</Label>
