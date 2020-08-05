@@ -2,11 +2,12 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
+    <TargetName>PhexensWuerfelraum</TargetName>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <RootNamespace>PhexensWuerfelraum.Ui.Desktop</RootNamespace>
-    <AssemblyName>PhexensWuerfelraum.Ui.Desktop</AssemblyName>
+    <AssemblyName>PhexensWuerfelraum</AssemblyName>
     <Authors>Markus Konojacki</Authors>
     <Company />
     <Product>Phexens Würfelraum</Product>
@@ -15,6 +16,15 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/Derevar/PhexensWuerfelraum</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Derevar/PhexensWuerfelraum</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Optimize>true</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
@@ -58,7 +68,7 @@
     <PackageReference Include="ControlzEx" Version="4.3.2" />
     <PackageReference Include="Fody" Version="6.2.4">
       <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <IncludeAssets>all</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Jot" Version="2.1.7" />
     <PackageReference Include="MahApps.Metro" Version="2.2.0" />
@@ -72,7 +82,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="PropertyChanged.Fody" Version="3.2.8" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.2.8">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="SimpleSockets" Version="1.2.20" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
@@ -182,9 +194,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="PhexensWuerfelraum.nuspec">
-      <SubType>Designer</SubType>
-    </None>
     <None Update="Resources\installing.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -201,9 +210,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Sounds\roll-20-20.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Update.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -277,18 +283,4 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
-    <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
-      <Output TaskParameter="Assemblies" ItemName="myAssemblyInfo" />
-    </GetAssemblyIdentity>
-    <PropertyGroup>
-      <PowerShellExe Condition=" '$(PowerShellExe)'=='' ">
-        %WINDIR%\System32\WindowsPowerShell\v1.0\powershell.exe
-      </PowerShellExe>
-    </PropertyGroup>
-    <Exec Command="$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;Get-ChildItem -File -Recurse | % {$_.LastWriteTime = (Get-Date)}&quot;" />
-    <Exec Command="nuget pack PhexensWuerfelraum.nuspec -Version %(myAssemblyInfo.Version) -Properties Configuration=Release -OutputDirectory C:\Releases -BasePath $(OutDir)" />
-    <Exec Command="squirrel --releasify $(OutDir)PhexensWuerfelraum.$([System.Version]::Parse(%(myAssemblyInfo.Version)).ToString(3)).nupkg --no-msi -g $(OutDir)\Resources\installing.gif" />
-  </Target>
 </Project>

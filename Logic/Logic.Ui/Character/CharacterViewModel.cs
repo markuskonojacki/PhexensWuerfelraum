@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Ioc;
 using Jot;
 using Jot.Storage;
+using PropertyChanged;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -30,6 +31,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// <summary>
         /// gets called when a character is selected in the HeroPickDialog, called via binding
         /// </summary>
+        [SuppressPropertyChangedWarnings]
         public CharacterModel SelectedCharacter
         {
             set

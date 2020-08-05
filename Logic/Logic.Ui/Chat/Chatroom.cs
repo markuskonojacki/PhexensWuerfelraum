@@ -23,9 +23,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         private static Chatroom ChatRoom = SimpleIoc.Default.GetInstance<Chatroom>();
 
         private static bool UseSSL;
-        private static string Password = "Password";
-        private static bool Encrypt;
-        private static bool Compress;
+        private static readonly string Password = "Password";
         private static SimpleSocketClient _client;
         private static AuthPacket ClientAuthInfo;
         private static int OwnId { get => ClientAuthInfo.UserModel.Id; }
@@ -82,9 +80,6 @@ namespace PhexensWuerfelraum.Logic.Ui
         public void Connect(string address, int port)
         {
             Status = "Verbinde...";
-
-            Encrypt = true;
-            Compress = true;
             UseSSL = SettingsViewModel.Setting.EnableSSL;
 
             if (UseSSL)
