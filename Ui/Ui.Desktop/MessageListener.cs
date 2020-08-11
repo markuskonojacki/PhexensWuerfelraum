@@ -39,10 +39,19 @@ namespace PhexensWuerfelraum.Ui.Desktop
 
             Messenger.Default.Register<OpenInfoMessage>(
                 this,
-                async msg =>
+                msg =>
                 {
-                    metroWindow = Application.Current.MainWindow as MetroWindow;
-                    await metroWindow.ShowMessageAsync(msg.InfoTitle, msg.InfoText);
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        var mySettings = new MetroDialogSettings()
+                        {
+                            AffirmativeButtonText = "Ok",
+                            DialogButtonFontSize = 20D
+                        };
+
+                        metroWindow = Application.Current.MainWindow as MetroWindow;
+                        metroWindow.ShowMessageAsync(msg.InfoTitle, msg.InfoText, MessageDialogStyle.Affirmative, mySettings);
+                    });
                 });
 
             Messenger.Default.Register<OpenHeroPickDialogMessage>(

@@ -1,18 +1,16 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using PhexensWuerfelraum.Logic.ClientServer;
+using SimpleSockets;
 using SimpleSockets.Client;
 using SimpleSockets.Messaging;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
-using SimpleSockets;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {

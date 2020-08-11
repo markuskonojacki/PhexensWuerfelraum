@@ -848,6 +848,14 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.Onova.dll_3836537307" Guid="2f7e47da-3312-466f-8807-a4a1db0c06ea">
+              <File Id="Onova.dll_3836537307" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\Onova.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.PenImc_cor3.dll_4281920519" Guid="2f7e47da-3312-466f-8807-a4a16f071385">
               <File Id="PenImc_cor3.dll_4281920519" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\PenImc_cor3.dll" />
 
@@ -4005,6 +4013,7 @@
       <ComponentRef Id="Component.mscorrc.dll_365726045" />
       <ComponentRef Id="Component.netstandard.dll_401986116" />
       <ComponentRef Id="Component.Newtonsoft.Json.dll_3061589406" />
+      <ComponentRef Id="Component.Onova.dll_3836537307" />
       <ComponentRef Id="Component.PenImc_cor3.dll_4281920519" />
       <ComponentRef Id="Component.PhexensWuerfelraum.deps.json_3070588417" />
       <ComponentRef Id="Component.PhexensWuerfelraum.dll_3578099130" />

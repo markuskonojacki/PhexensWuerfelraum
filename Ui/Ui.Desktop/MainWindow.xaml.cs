@@ -1,12 +1,15 @@
-﻿//using CefSharp.Wpf;
+﻿using GalaSoft.MvvmLight.Ioc;
 using Jot;
 using Jot.Storage;
 using MahApps.Metro.Controls;
+using Onova;
+using Onova.Services;
 using PhexensWuerfelraum.Logic.Ui;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using MenuItem = PhexensWuerfelraum.Logic.Ui.MenuItem;
@@ -19,23 +22,10 @@ namespace PhexensWuerfelraum.Ui.Desktop
     partial class MainWindow
     {
         public Tracker Tracker;
+        private ChatnRollViewModel ChatnRollViewModel { get; set; } = SimpleIoc.Default.GetInstance<ChatnRollViewModel>();
 
         public MainWindow()
         {
-            //#region setup CefSharp cache settings
-
-            //var cachePath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum"), "Cache");
-            //Directory.CreateDirectory(cachePath);
-
-            //var settings = new CefSettings
-            //{
-            //    CachePath = cachePath
-            //};
-
-            //CefSharp.Cef.Initialize(settings);
-
-            //#endregion setup CefSharp cache settings
-
             InitializeComponent();
 
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
@@ -61,6 +51,41 @@ namespace PhexensWuerfelraum.Ui.Desktop
                .Properties(mw => new { mw.Height, mw.Width, mw.Top, mw.Left })
                .PersistOn(nameof(SizeChanged));
             Tracker.Track(this);
+
+#if !DEBUG
+            if (new Logic.Ui.SettingsModel().AutoUpdate)
+            {
+                Task task = Task.Run(() => UpdateAsync());
+            }
+#endif
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "if !DEBUG")]
+        private async Task UpdateAsync()
+        {
+            using (var manager = new UpdateManager(
+                new GithubPackageResolver("Derevar", "PhexensWuerfelraum", "PhexensWuerfelraum-*.zip"),
+                new ZipPackageExtractor()))
+            {
+                var resultCheckForUpdatesAsync = await manager.CheckForUpdatesAsync();
+                if (resultCheckForUpdatesAsync.CanUpdate)
+                {
+                    ChatnRollViewModel.OpenUpdateInfoCommand.Execute(null);
+
+                    // Prepare an update by downloading and extracting the package
+                    // (supports progress reporting and cancellation)
+                    await manager.PrepareUpdateAsync(resultCheckForUpdatesAsync.LastVersion);
+
+                    if (manager.IsUpdatePrepared(resultCheckForUpdatesAsync.LastVersion))
+                    {
+                        // Launch an executable that will apply the update
+                        manager.LaunchUpdater(resultCheckForUpdatesAsync.LastVersion, true);
+
+                        // Terminate the running application so that the updater can overwrite files
+                        Environment.Exit(0);
+                    }
+                }
+            }
         }
 
         private void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)

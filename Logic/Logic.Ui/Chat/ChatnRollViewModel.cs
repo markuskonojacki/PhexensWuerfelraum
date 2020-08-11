@@ -49,19 +49,21 @@ namespace PhexensWuerfelraum.Logic.Ui
         public RelayCommand SendActionCommand { get; set; }
         public RelayCommand<string> RollDiceCommand { get; set; }
 
+        public RelayCommand OpenUpdateInfoCommand { get; private set; }
+
         #endregion Commands
 
         #region constructors
 
         public ChatnRollViewModel()
         {
-            //ChatRoom = new Chatroom();
             ConnectCommand = new RelayCommand(async () => await Connect(), CanConnect);
             DisconnectCommand = new RelayCommand(async () => await Disconnect(), CanDisconnect);
             SendTextCommand = new RelayCommand(async () => await SendText(), CanSend);
             SendRollCommand = new RelayCommand(async () => await SendRoll(), CanSend);
             SendActionCommand = new RelayCommand(async () => await SendAction(), CanSend);
             RollDiceCommand = new RelayCommand<string>(async (parm) => await SendDice(parm), CanSend);
+            OpenUpdateInfoCommand = new RelayCommand(() => OpenUpdateInfo());
         }
 
         #endregion constructors
@@ -186,6 +188,14 @@ namespace PhexensWuerfelraum.Logic.Ui
         private void DisplayError(string message)
         {
             MessengerInstance.Send(new OpenInfoMessage("Chat", message));
+        }
+
+        /// <summary>
+        /// inform user of available update
+        /// </summary>
+        private void OpenUpdateInfo()
+        {
+            MessengerInstance.Send(new OpenInfoMessage("Aktualisierung vorhanden", "Eine neue Version wurde gefunden. Die neue Version wird jetzt im Hintergrund heruntergeladen und installiert. Anschließend startet das Programm von alleine neu."));
         }
 
         /// <summary>
