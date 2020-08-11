@@ -1,0 +1,64 @@
+﻿<Window
+    x:Class="PhexensWuerfelraum.Ui.Installer.EmbeddedUI.SetupWizard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Width="445"
+    Height="250"
+    Visibility="Visible"
+    WindowStartupLocation="CenterScreen"
+    Topmost="True"
+    ResizeMode="NoResize"
+    WindowStyle="None">
+    <Grid Width="445" Height="250">
+        <Grid.Background>
+            <ImageBrush ImageSource="installing.gif" Stretch="None" />
+        </Grid.Background>
+        <TextBox
+            Name="messagesTextBox"
+            Margin="61,292.472,60,89"
+            FontFamily="Lucida Console"
+            FontSize="10"
+            HorizontalScrollBarVisibility="Auto"
+            IsReadOnly="True"
+            VerticalScrollBarVisibility="Visible" />
+        <Button
+            Name="installButton"
+            Width="250"
+            Height="23"
+            Margin="0,0,100,50"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Click="installButton_Click">
+            Installation starten
+        </Button>
+        <Button
+            Name="exitAndStartButton"
+            Width="250"
+            Height="23"
+            Margin="0,0,100,50"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Click="exitAndStartButton_Click"
+            Visibility="Hidden">
+            Installation abschließen und Programm starten
+        </Button>
+        <Button
+            Name="exitButton"
+            Width="250"
+            Height="23"
+            Margin="0,0,100,20"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Click="exitButton_Click"
+            Visibility="Hidden">
+            Installation abschließen
+        </Button>
+        <ProgressBar
+            Name="progressBar"
+            Height="30"
+            Margin="10,0,10,10"
+            VerticalAlignment="Bottom"
+            IsIndeterminate="False"
+            Visibility="Hidden" />
+    </Grid>
+</Window>

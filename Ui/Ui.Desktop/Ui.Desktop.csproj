@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetName>PhexensWuerfelraum</TargetName>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <UseWPF>true</UseWPF>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <RootNamespace>PhexensWuerfelraum.Ui.Desktop</RootNamespace>
@@ -16,6 +17,7 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/Derevar/PhexensWuerfelraum</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Derevar/PhexensWuerfelraum</RepositoryUrl>
+    <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
