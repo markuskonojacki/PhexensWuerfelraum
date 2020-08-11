@@ -17,14 +17,19 @@ Nun zum Tool selbst: Phexens Würfelraum ist ein Programm um es Menschen zu erm�
 
 ## Client
 
-Phexens Würfelraum benötigt __keine__ Administrativen Rechte. Alle Daten werden unter `%LocalAppData%/PhexensWuerfelraum` gespeichert.
+### Installation
+
+Klickt auf [Releases](https://github.com/Derevar/PhexensWuerfelraum/releases), ladet euch die `setup.msi` des aktuellen Releases herunter und installiert das Programm.
+
+### Daten
+Alle Daten werden unter `%LocalAppData%/PhexensWuerfelraum` gespeichert.
 
 ## Server
 
 ### Build
 #### Linux
 
-Zum Build wird das [.NET Core 3.0.100 x64 SDK](https://dotnet.microsoft.com/download/visual-studio-sdks) benötigt.
+Zum Build wird das [.NET Core 3.1 x64 SDK](https://dotnet.microsoft.com/download/visual-studio-sdks) benötigt.
 
 Führt folgendes in der Paket Manager Console im Visual Studio aus, um eine ausführbare Datei für Linux zu erstellen
 ```powershell
@@ -44,7 +49,7 @@ chmod +x PhexensWuerfelraum.Server.Console
 
 Starte die Applikation. Die Angabe des Portes kann wahlweise über die `settings.ini` oder einen Übergabeparameter erfolgen. Der Übergabeparameter hat Vorrang.
 ```bash
-./PhexensWuerfelraum.Server.Console --port 1212
+./PhexensWuerfelraum.Server.Console --port 12113
 ```
 
 #### Windows
@@ -58,7 +63,7 @@ dotnet publish Server\Server.Console -c release -r win10-x86 -o C:\VSDistributio
 
 Starte die Applikation. Die Angabe des Portes kann wahlweise über die `settings.ini` oder einen Übergabeparameter erfolgen. Der Übergabeparameter hat Vorrang.
 ```bash
-C:\VSDistribution\PhexensWuerfelraum.Server.Console\PhexensWuerfelraum.Server.Console.exe --port 1212
+C:\VSDistribution\PhexensWuerfelraum.Server.Console\PhexensWuerfelraum.Server.Console.exe --port 12113
 ```
 
 ## Lizenz
