@@ -465,7 +465,7 @@ namespace PhexensWuerfelraum.Server.Console
 
             WriteLine("Client " + id + " has disconnected from the server.");
 
-            if (AuthenticatedUsers.Find(a => a.UserModel.Id == id) != null)
+            if (AuthenticatedUsers.Exists(a => a.UserModel.Id == id))
             {
                 ChatPacket userLeaveNotification = new ChatPacket(ChatMessageType.Text, $"Nutzer {AuthenticatedUsers.Find(a => a.UserModel.Id == id).UserModel.UserName} hat den Chat verlassen", 0, "Server", 0, "", "Silver");
 
