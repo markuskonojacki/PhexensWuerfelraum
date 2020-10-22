@@ -23,17 +23,17 @@
 
   <ItemGroup>
     <PackageReference Include="DiceRoller" Version="4.1.0" />
-    <PackageReference Include="Fody" Version="6.2.4">
+    <PackageReference Include="Fody" Version="6.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>all</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Jot" Version="2.1.7" />
-    <PackageReference Include="MahApps.Metro" Version="2.2.0" />
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.4.0" />
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="3.1.6" />
+    <PackageReference Include="MahApps.Metro" Version="2.3.0" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.6.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="3.1.9" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="PropertyChanged.Fody" Version="3.2.8">
+    <PackageReference Include="PropertyChanged.Fody" Version="3.2.10">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="SimpleSockets" Version="1.2.20" />
