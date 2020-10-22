@@ -99,11 +99,10 @@ namespace PhexensWuerfelraum.Logic.Ui
             _client.StartClient(address, port);
         }
 
-        public async Task Disconnect()
+        public void Disconnect()
         {
             Status = "Trenne...";
-
-            await new Task(() => _client.Close());
+            _client.Close();
         }
 
         public async Task Send(string username, string message, string colorCode, int toId, string toName, ChatMessageType messageType = ChatMessageType.Text)
@@ -244,11 +243,16 @@ namespace PhexensWuerfelraum.Logic.Ui
         {
             var settings = SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting;
             var character = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
-            string username = settings.StaticUserName;
+            string username = character.Name;
 
             if (string.IsNullOrEmpty(username))
             {
                 username = string.IsNullOrEmpty(character.Name) ? "User" + new Random().Next(1000, 9999) : character.Name;
+            }
+
+            if (string.IsNullOrEmpty(username))
+            {
+                username = settings.StaticUserName;
             }
 
             UserType userType = (settings.GameMasterMode) ? UserType.GameMaster : UserType.Player;
@@ -271,6 +275,8 @@ namespace PhexensWuerfelraum.Logic.Ui
             //WriteLine("The client has disconnected from the server with ip " + a.Ip + "on port " + a.Port);
             ChatRoom.Status = "Verbinden";
             ChatRoom.Connected = false;
+
+            ChatRoom.Users.Clear();
 
             Application.Current.Dispatcher.Invoke(delegate
             {

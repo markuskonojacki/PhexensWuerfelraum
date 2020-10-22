@@ -10,15 +10,6 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// </summary>
         public MainViewModel()
         {
-            //if (BaseViewModel.IsInDesignModeStatic)
-            //{
-            //    // Create design time view services and models
-            //}
-            //else
-            //{
-            //    // Create run time view services and models
-            //}
-
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<NavigationViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();

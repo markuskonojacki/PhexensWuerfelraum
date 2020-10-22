@@ -58,7 +58,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         public ChatnRollViewModel()
         {
             ConnectCommand = new RelayCommand(async () => await Connect(), CanConnect);
-            DisconnectCommand = new RelayCommand(async () => await Disconnect(), CanDisconnect);
+            DisconnectCommand = new RelayCommand(() => Disconnect(), CanDisconnect);
             SendTextCommand = new RelayCommand(async () => await SendText(), CanSend);
             SendRollCommand = new RelayCommand(async () => await SendRoll(), CanSend);
             SendActionCommand = new RelayCommand(async () => await SendAction(), CanSend);
@@ -140,14 +140,14 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// disconnect from the chat server
         /// </summary>
         /// <returns></returns>
-        private async Task Disconnect()
+        private void Disconnect()
         {
             ToggleBlockConnectionCommands(false);
 
             if (ChatRoom == null)
                 DisplayError("Du bist mit keinem Server verbunden");
 
-            await ChatRoom.Disconnect();
+            ChatRoom.Disconnect();
 
             settingsViewModel.AllowEdit = true;
             ToggleBlockConnectionCommands(true);
@@ -158,7 +158,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// </summary>
         public async Task ReconnectAsync()
         {
-            await Disconnect();
+            Disconnect();
             await Connect();
         }
 
