@@ -1,10 +1,4 @@
-﻿using MahApps.Metro.Controls.Dialogs;
-using Onova;
-using Onova.Services;
-using PhexensWuerfelraum.Ui.Desktop.Views;
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Windows;
 
 namespace PhexensWuerfelraum.Ui.Desktop

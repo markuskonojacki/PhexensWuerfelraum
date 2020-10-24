@@ -1,17 +1,19 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using System;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
+using GalaSoft.MvvmLight.Ioc;
 using Jot;
 using Jot.Storage;
 using MahApps.Metro.Controls;
 using Onova;
 using Onova.Services;
 using PhexensWuerfelraum.Logic.Ui;
-using System;
-using System.Globalization;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Navigation;
 using MenuItem = PhexensWuerfelraum.Logic.Ui.MenuItem;
 
 namespace PhexensWuerfelraum.Ui.Desktop
@@ -23,6 +25,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
     {
         public Tracker Tracker;
         private ChatnRollViewModel ChatnRollViewModel { get; set; } = SimpleIoc.Default.GetInstance<ChatnRollViewModel>();
+        private SettingsViewModel SettingsViewModel { get; set; } = SimpleIoc.Default.GetInstance<SettingsViewModel>();
 
         public MainWindow()
         {
@@ -41,15 +44,14 @@ namespace PhexensWuerfelraum.Ui.Desktop
 
             #endregion init navigation
 
-            var charactersFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum");
-            Directory.CreateDirectory(charactersFilePath);
+            Directory.CreateDirectory(SettingsViewModel.DataPath);
 
-            Tracker = new Tracker(new JsonFileStore(charactersFilePath));
+            Tracker = new Tracker(new JsonFileStore(SettingsViewModel.DataPath));
 
             Tracker.Configure<MetroWindow>()
-               .Id(mw => "Main Window")
-               .Properties(mw => new { mw.Height, mw.Width, mw.Top, mw.Left })
-               .PersistOn(nameof(SizeChanged));
+                .Id(mw => "Main Window")
+                .Properties(mw => new { mw.Height, mw.Width, mw.Top, mw.Left })
+                .PersistOn(nameof(SizeChanged));
             Tracker.Track(this);
 
 #if !DEBUG
@@ -101,6 +103,11 @@ namespace PhexensWuerfelraum.Ui.Desktop
         {
             HamburgerMenuControl.SelectedItem = e.ExtraData ?? ((NavigationViewModel)NavigationGrid.DataContext).GetItem(e.Uri);
             HamburgerMenuControl.SelectedOptionsItem = e.ExtraData ?? ((NavigationViewModel)NavigationGrid.DataContext).GetOptionsItem(e.Uri);
+        }
+
+        private void CharacterDropDownSelector_Click(object sender, RoutedEventArgs e)
+        {
+            Navigation.Navigate(new Uri("Views/SettingsPage.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

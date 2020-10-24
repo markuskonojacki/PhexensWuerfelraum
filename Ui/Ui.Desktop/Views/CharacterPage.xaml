@@ -4,14 +4,31 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d"
       Style="{DynamicResource PageStyle}"
       Title="CharacterPage"
       DataContext="{Binding Character, Source={StaticResource Locator}}">
 
     <StackPanel>
-        <Button Content="Helden aus Helden-Software wählen" Command="{Binding OpenHeroPickDialogCommand}" Width="300" HorizontalAlignment="Left" Margin="5" />
+        <Controls:SplitButton
+                x:Name="CharacterDropDownSelector"
+                Margin="5"
+                Width="300"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Left"
+                DataContext="{Binding Character, Source={StaticResource Locator}}"
+                ItemsSource="{Binding CharacterList}"
+                SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
+                DisplayMemberPath="Name"
+                Text="Charakter wechseln">
+            <Controls:SplitButton.Icon>
+                <iconPacks:PackIconMaterial Margin="0" Kind="AccountSwitchOutline" />
+            </Controls:SplitButton.Icon>
+        </Controls:SplitButton>
+
         <Button Content="Erfolgswahrscheinlichkeiten berechnen" Command="{Binding CalculateSuccessChances}" Width="300" HorizontalAlignment="Left" Margin="5" />
+
         <StackPanel Margin="5">
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label>Name</Label>

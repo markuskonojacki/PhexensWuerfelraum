@@ -68,24 +68,24 @@
 
   <ItemGroup>
     <PackageReference Include="ControlzEx" Version="4.3.2" />
-    <PackageReference Include="Fody" Version="6.2.4">
+    <PackageReference Include="Fody" Version="6.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>all</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Jot" Version="2.1.7" />
-    <PackageReference Include="MahApps.Metro" Version="2.2.0" />
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.4.0" />
-    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.4.0" />
+    <PackageReference Include="MahApps.Metro" Version="2.3.0" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.6.0" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.6.0" />
     <PackageReference Include="MahApps.Metro.SimpleChildWindow" Version="2.0.0-alpha0031" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
-    <PackageReference Include="Mono.Cecil" Version="0.11.2" />
+    <PackageReference Include="Mono.Cecil" Version="0.11.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="NuGet.CommandLine" Version="5.6.0">
+    <PackageReference Include="NuGet.CommandLine" Version="5.7.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Onova" Version="2.6.1" />
-    <PackageReference Include="PropertyChanged.Fody" Version="3.2.8">
+    <PackageReference Include="Onova" Version="2.6.2" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.2.10">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="SimpleSockets" Version="1.2.20" />
@@ -148,9 +148,6 @@
       <SubType>Code</SubType>
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Dialogs\PickHeroDialog.xaml.cs">
-      <DependentUpon>PickHeroDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Update="MainWindow.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -180,12 +177,6 @@
     </Compile>
     <Compile Update="Views\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\WhiteboardPage.xaml.cs">
-      <DependentUpon>WhiteboardPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\WikiPage.xaml.cs">
-      <DependentUpon>WikiPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -222,9 +213,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="CustomControls\ChatMessagesListView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Dialogs\PickHeroDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
@@ -277,12 +265,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\SplashScreen.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\WhiteboardPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\WikiPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

@@ -465,13 +465,16 @@ namespace PhexensWuerfelraum.Server.Console
 
             WriteLine("Client " + id + " has disconnected from the server.");
 
-            ChatPacket userLeaveNotification = new ChatPacket(ChatMessageType.Text, $"Nutzer {AuthenticatedUsers.Find(a => a.UserModel.Id == id).UserModel.UserName} hat den Chat verlassen", 0, "Server", 0, "", "Silver");
-
-            AuthenticatedUsers.Remove(AuthenticatedUsers.Find(a => a.UserModel.Id == id));
-
-            foreach (var user in AuthenticatedUsers)
+            if (AuthenticatedUsers.Exists(a => a.UserModel.Id == id))
             {
-                _listener.SendObject(user.UserModel.Id, userLeaveNotification, Compress, Encrypt, false);
+                ChatPacket userLeaveNotification = new ChatPacket(ChatMessageType.Text, $"Nutzer {AuthenticatedUsers.Find(a => a.UserModel.Id == id).UserModel.UserName} hat den Chat verlassen", 0, "Server", 0, "", "Silver");
+
+                AuthenticatedUsers.Remove(AuthenticatedUsers.Find(a => a.UserModel.Id == id));
+
+                foreach (var user in AuthenticatedUsers)
+                {
+                    _listener.SendObject(user.UserModel.Id, userLeaveNotification, Compress, Encrypt, false);
+                }
             }
         }
 

@@ -2,9 +2,7 @@
 using GalaSoft.MvvmLight.Messaging;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using MahApps.Metro.SimpleChildWindow;
 using PhexensWuerfelraum.Logic.Ui;
-using System;
 using System.Windows;
 
 namespace PhexensWuerfelraum.Ui.Desktop
@@ -14,10 +12,8 @@ namespace PhexensWuerfelraum.Ui.Desktop
         #region properties
 
         public bool IsEnabled => true;
-        private PickHeroDialog PickHeroDialog { get; set; }
         private CharacterViewModel CharacterViewModel { get; set; }
         private ChatnRollViewModel ChatnRollViewModel { get; set; }
-        private MetroWindow metroWindow;
 
         #endregion properties
 
@@ -49,36 +45,9 @@ namespace PhexensWuerfelraum.Ui.Desktop
                             DialogButtonFontSize = 20D
                         };
 
-                        metroWindow = Application.Current.MainWindow as MetroWindow;
-                        metroWindow.ShowMessageAsync(msg.InfoTitle, msg.InfoText, MessageDialogStyle.Affirmative, mySettings);
+                        (Application.Current.MainWindow as MetroWindow).ShowMessageAsync(msg.InfoTitle, msg.InfoText, MessageDialogStyle.Affirmative, mySettings);
                     });
                 });
-
-            Messenger.Default.Register<OpenHeroPickDialogMessage>(
-                this,
-                async msg =>
-                {
-                    if (CharacterViewModel.IsChildWindowOpenOrNotProperty == false)
-                    {
-                        PickHeroDialog = new PickHeroDialog() { };
-                        PickHeroDialog.ClosingFinished += PickHeroDialog_ClosingFinished;
-                        CharacterViewModel.IsChildWindowOpenOrNotProperty = true;
-
-                        await ChildWindowManager.ShowChildWindowAsync(Application.Current.MainWindow, PickHeroDialog);
-
-                        if (ChatnRollViewModel.ChatRoom.Connected)
-                        {
-                            metroWindow = Application.Current.MainWindow as MetroWindow;
-                            metroWindow.Dispatcher.Invoke(new Action(() => { ChatnRollViewModel.ReconnectAsync(); }));
-                        }
-                    }
-                });
-        }
-
-        private void PickHeroDialog_ClosingFinished(object sender, RoutedEventArgs e)
-        {
-            PickHeroDialog = null;
-            CharacterViewModel.IsChildWindowOpenOrNotProperty = false;
         }
 
         #endregion methods

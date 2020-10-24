@@ -1,5 +1,6 @@
 ﻿using Jot.Configuration;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 
@@ -18,14 +19,10 @@ namespace PhexensWuerfelraum.Logic.Ui
         [Required(AllowEmptyStrings = false, ErrorMessage = "Heldendatei-Pfad darf nicht leer sein")]
         public string HeldenDateiPath { get; set; }
 
-        public string WikiUrl { get; set; }
-
         public bool EnableSSL { get; set; } = true;
         public string PublicKey { get; set; }
 
-        public string WhiteboardUrl { get; set; }
-
-        public string StaticUserName { get; set; }
+        public string StaticUserName { get; set; } = string.IsNullOrEmpty(Environment.UserName) ? "<statischer Name>" : Environment.UserName;
 
         public bool SoundEffectsEnabled { get; set; } = true;
 
@@ -71,8 +68,6 @@ namespace PhexensWuerfelraum.Logic.Ui
                     s.ServerAddress,
                     s.ServerPort,
                     s.HeldenDateiPath,
-                    s.WikiUrl,
-                    s.WhiteboardUrl,
                     s.StaticUserName,
                     s.SoundEffectsEnabled,
                     s.GameMasterMode,

@@ -37,13 +37,19 @@
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands ShowLastSeparator="False">
-            <Button DataContext="{Binding Character, Source={StaticResource Locator}}" Command="{Binding OpenHeroPickDialogCommand}" ToolTip="Helden wechseln">
-                <StackPanel Orientation="Horizontal">
-                    <Rectangle Width="5" />
-                    <iconPacks:PackIconMaterial Kind="AccountSwitch" Height="18" Width="15" />
-                    <Rectangle Width="5" />
-                </StackPanel>
-            </Button>
+            <Controls:SplitButton
+                x:Name="CharacterDropDownSelector"
+                Margin="0" Click="CharacterDropDownSelector_Click"
+                HorizontalContentAlignment="Center"
+                DataContext="{Binding Character, Source={StaticResource Locator}}"
+                ItemsSource="{Binding CharacterList}"
+                SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
+                DisplayMemberPath="Name"
+                Text="Charakter wechseln">
+                <Controls:SplitButton.Icon>
+                    <iconPacks:PackIconMaterial Margin="0" Kind="AccountSwitchOutline" />
+                </Controls:SplitButton.Icon>
+            </Controls:SplitButton>
 
             <Button
                 DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}"

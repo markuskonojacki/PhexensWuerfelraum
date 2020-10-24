@@ -58,7 +58,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         public ChatnRollViewModel()
         {
             ConnectCommand = new RelayCommand(async () => await Connect(), CanConnect);
-            DisconnectCommand = new RelayCommand(async () => await Disconnect(), CanDisconnect);
+            DisconnectCommand = new RelayCommand(() => Disconnect(), CanDisconnect);
             SendTextCommand = new RelayCommand(async () => await SendText(), CanSend);
             SendRollCommand = new RelayCommand(async () => await SendRoll(), CanSend);
             SendActionCommand = new RelayCommand(async () => await SendAction(), CanSend);
@@ -81,7 +81,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             var character = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
             var settings = settingsViewModel.Setting;
 
-            Username = settings.StaticUserName;
+            Username = SimpleIoc.Default.GetInstance<CharacterViewModel>().SelectedCharacter.Name;
 
             if (string.IsNullOrWhiteSpace(Username))
                 Username = character.Name != "" ? character.Name : "User" + new Random().Next(1000, 9999);
@@ -99,9 +99,9 @@ namespace PhexensWuerfelraum.Logic.Ui
                 {
                     ipAddress = Dns.GetHostAddresses(Address)[0];
                 }
-                catch (SocketException ex)
+                catch (Exception ex)
                 {
-                    DisplayError(ex.Message);
+                    DisplayError("Server Adresse leer oder ungültig, bitte in den Einstellungen überprüfen.");
                     return;
                 }
             }
@@ -140,14 +140,14 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// disconnect from the chat server
         /// </summary>
         /// <returns></returns>
-        private async Task Disconnect()
+        private void Disconnect()
         {
             ToggleBlockConnectionCommands(false);
 
             if (ChatRoom == null)
                 DisplayError("Du bist mit keinem Server verbunden");
 
-            await ChatRoom.Disconnect();
+            ChatRoom.Disconnect();
 
             settingsViewModel.AllowEdit = true;
             ToggleBlockConnectionCommands(true);
@@ -158,7 +158,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// </summary>
         public async Task ReconnectAsync()
         {
-            await Disconnect();
+            Disconnect();
             await Connect();
         }
 
