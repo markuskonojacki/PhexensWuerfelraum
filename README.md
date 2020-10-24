@@ -19,7 +19,7 @@ Nun zum Tool selbst: Phexens W√ºrfelraum ist ein Programm um es Menschen zu erm√
 
 ### Installation
 
-Klickt auf [Releases](https://github.com/Derevar/PhexensWuerfelraum/releases), ladet euch die `setup.msi` des aktuellen Releases herunter und installiert das Programm.
+Klickt auf [Releases](https://github.com/Derevar/PhexensWuerfelraum/releases/latest), ladet euch die `setup.msi` des aktuellen Releases herunter und installiert das Programm.
 
 ### Daten
 Alle Daten werden unter `%LocalAppData%/PhexensWuerfelraum` gespeichert.
