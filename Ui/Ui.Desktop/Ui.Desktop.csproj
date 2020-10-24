@@ -178,12 +178,6 @@
     <Compile Update="Views\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\WhiteboardPage.xaml.cs">
-      <DependentUpon>WhiteboardPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\WikiPage.xaml.cs">
-      <DependentUpon>WikiPage.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -271,12 +265,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\SplashScreen.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\WhiteboardPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\WikiPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

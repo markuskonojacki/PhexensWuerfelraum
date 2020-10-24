@@ -81,7 +81,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             var character = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
             var settings = settingsViewModel.Setting;
 
-            Username = settings.StaticUserName;
+            Username = SimpleIoc.Default.GetInstance<CharacterViewModel>().SelectedCharacter.Name;
 
             if (string.IsNullOrWhiteSpace(Username))
                 Username = character.Name != "" ? character.Name : "User" + new Random().Next(1000, 9999);
@@ -99,9 +99,9 @@ namespace PhexensWuerfelraum.Logic.Ui
                 {
                     ipAddress = Dns.GetHostAddresses(Address)[0];
                 }
-                catch (SocketException ex)
+                catch (Exception ex)
                 {
-                    DisplayError(ex.Message);
+                    DisplayError("Server Adresse leer oder ungültig, bitte in den Einstellungen überprüfen.");
                     return;
                 }
             }

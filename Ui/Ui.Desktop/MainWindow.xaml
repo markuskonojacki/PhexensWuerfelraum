@@ -39,15 +39,13 @@
         <Controls:WindowCommands ShowLastSeparator="False">
             <Controls:SplitButton
                 x:Name="CharacterDropDownSelector"
-                Margin="0"
+                Margin="0" Click="CharacterDropDownSelector_Click"
                 HorizontalContentAlignment="Center"
                 DataContext="{Binding Character, Source={StaticResource Locator}}"
                 ItemsSource="{Binding CharacterList}"
                 SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"
                 DisplayMemberPath="Name"
-                Text="Charakter wechseln"
-
-                SelectionChanged="CharacterDropDownSelector_SelectionChanged" Loaded="CharacterDropDownSelector_Loaded">
+                Text="Charakter wechseln">
                 <Controls:SplitButton.Icon>
                     <iconPacks:PackIconMaterial Margin="0" Kind="AccountSwitchOutline" />
                 </Controls:SplitButton.Icon>

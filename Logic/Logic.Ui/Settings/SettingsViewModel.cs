@@ -1,8 +1,12 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using Jot;
 using Jot.Storage;
 using System;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {
@@ -12,6 +16,14 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         public Tracker Tracker;
         public SettingsModel Setting { get; set; } = new SettingsModel();
+
+        public string DataPath
+        {
+            get
+            {
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum", "Data", Assembly.GetEntryAssembly().GetName().Version.Major.ToString());
+            }
+        }
 
         private bool CanFind() => true;
 
@@ -29,10 +41,9 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         public SettingsViewModel()
         {
-            var settingsFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum");
-            Directory.CreateDirectory(settingsFilePath);
+            Directory.CreateDirectory(DataPath);
 
-            Tracker = new Tracker(new JsonFileStore(settingsFilePath));
+            Tracker = new Tracker(new JsonFileStore(DataPath));
 
             if (IsInDesignModeStatic)
             {
@@ -53,6 +64,22 @@ namespace PhexensWuerfelraum.Logic.Ui
             }
 
             FindCommand = new RelayCommand(() => Find(), CanFind);
+
+            Setting.PropertyChanged += Setting_PropertyChanged;
+        }
+
+        private void Setting_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "StaticUserName":
+                    SimpleIoc.Default.GetInstance<CharacterViewModel>().CharacterList.First(c => c.Id == "StaticCharacter").Name = Setting.StaticUserName;
+                    break;
+
+                case "HeldenDateiPath":
+                    SimpleIoc.Default.GetInstance<CharacterViewModel>().LoadCharacterList();
+                    break;
+            }
         }
 
         #endregion contructors

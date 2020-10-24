@@ -36,7 +36,7 @@
                     <TextBox Name="PublicKey" Visibility="{Binding Setting.EnableSSL, Converter={StaticResource BooleanToVisibilityConverter}}" Text="{Binding Setting.PublicKey}" Margin="10 0 0 10" Width="700" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="-----BEGIN CERTIFICATE-----  -----END CERTIFICATE-----" MaxLines="20" MinLines="20" ToolTip="Öffentlicher Zertifikatsschlüssel des Servers." TextWrapping="Wrap" AcceptsReturn="True" />
 
                     <Label Margin="10 0 0 0" FontWeight="DemiBold" FontSize="16">Statischer Chatname</Label>
-                    <TextBox Name="StaticUserName" Text="{Binding Setting.StaticUserName}" Margin="10 0 0 10" Width="300" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Nich füllen, um Charakternamen zu benutzen" ToolTip="Wenn das Feld gefüllt wird, wird statt des Charakternamens der Inhalt dieses Feldes für den Chat als Benutzername verwendet" />
+                    <TextBox Name="StaticUserName" Text="{Binding Setting.StaticUserName}" Margin="10 0 0 10" Width="300" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Steht als standard Username zur verfügung" ToolTip="Steht als standard Username zur verfügung" TextChanged="StaticUserName_TextChanged" />
                 </StackPanel>
             </StackPanel>
         </GroupBox>
@@ -68,16 +68,6 @@
                 </StackPanel>
 
                 <Controls:ToggleSwitch IsOn="{Binding Setting.SoundEffectsEnabled}" Margin="10 10 0 10" Header="Soundeffekte" OnContent="An" OffContent="Aus" Width="200" HorizontalAlignment="Left" ToolTip="Soundeffekte wie das Plöppen bei neuen Nachrichten oder bei Ereignisen, wie einer doppel 1, können hiermit aktiviert und deaktiviert werden." />
-
-                <StackPanel>
-                    <Label Margin="10 0 0 0" FontWeight="DemiBold" FontSize="16">Wiki URL</Label>
-                    <TextBox Text="{Binding Setting.WikiUrl}" Margin="10 0 0 10" Width="500" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="URL eines Wikis, z.B. https://de.wiki-aventurica.de/" />
-                </StackPanel>
-
-                <StackPanel>
-                    <Label Margin="10 0 0 0" FontWeight="DemiBold" FontSize="16">Whiteboard URL</Label>
-                    <TextBox Text="{Binding Setting.WhiteboardUrl}" Margin="10 0 0 10" Width="500" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="URL eines Whiteboard Dienstes, z.B. https://whiteboardfox.com/123456-7890-1234" />
-                </StackPanel>
             </StackPanel>
         </GroupBox>
     </StackPanel>

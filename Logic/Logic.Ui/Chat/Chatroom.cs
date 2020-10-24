@@ -243,7 +243,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         {
             var settings = SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting;
             var character = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
-            string username = character.Name;
+            string username = SimpleIoc.Default.GetInstance<CharacterViewModel>().SelectedCharacter.Name;
 
             if (string.IsNullOrEmpty(username))
             {

@@ -23,13 +23,24 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         public ListCollectionView AttributesView { get; set; }
         public CharacterModel Character { get; set; } = new CharacterModel();
-        public ObservableCollection<CharacterModel> CharacterList { get; set; }
-        private SettingsModel Settings { get; set; } = SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting;
+
+        public ObservableCollection<CharacterModel> CharacterList { get; set; } = new ObservableCollection<CharacterModel>
+        {
+            new CharacterModel()
+            {
+                Name = string.IsNullOrEmpty(SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting.StaticUserName) ? Environment.UserName :SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting.StaticUserName,
+                Id = "StaticCharacter",
+                Stand = int.MaxValue.ToString()
+            }
+        };
+
+        private SettingsViewModel SettingsViewModel;
+        private SettingsModel Settings;
 
         public bool IsChildWindowOpenOrNotProperty { get; set; }
 
         /// <summary>
-        /// gets called when a character is selected in the HeroPickDialog, called via binding
+        /// gets called when a character is selected, called via binding
         /// </summary>
         [SuppressPropertyChangedWarnings]
         public CharacterModel SelectedCharacter
@@ -51,9 +62,9 @@ namespace PhexensWuerfelraum.Logic.Ui
             {
                 CharacterModel ret;
 
-                if (CharacterList.First(c => c.Id == Character.Id) != null)
+                if (CharacterList.FirstOrDefault(c => c.Id == Character.Id) != null)
                 {
-                    ret = CharacterList.First(c => c.Id == Character.Id);
+                    ret = CharacterList.FirstOrDefault(c => c.Id == Character.Id);
                 }
                 else
                 {
@@ -68,25 +79,25 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         #region commands
 
-        public RelayCommand OpenHeroPickDialogCommand { get; set; }
         public RelayCommand CalculateSuccessChances { get; set; }
 
         #endregion commands
 
         public CharacterViewModel()
         {
+            SettingsViewModel = SimpleIoc.Default.GetInstance<SettingsViewModel>();
+            Settings = SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting;
+
             #region define current Character and load from settings file
 
-            var charactersFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum");
-            Directory.CreateDirectory(charactersFilePath);
+            Directory.CreateDirectory(SettingsViewModel.DataPath);
 
-            Tracker = new Tracker(new JsonFileStore(charactersFilePath));
+            Tracker = new Tracker(new JsonFileStore(SettingsViewModel.DataPath));
             Tracker.Configure<CharacterModel>();
             Tracker.Track(Character);
 
             #endregion define current Character and load from settings file
 
-            OpenHeroPickDialogCommand = new RelayCommand(() => ImportCharacter());
             CalculateSuccessChances = new RelayCommand(() => CalcSuccessChances());
 
             InitAttributesView();
@@ -243,29 +254,28 @@ namespace PhexensWuerfelraum.Logic.Ui
         public void ImportCharacter()
         {
             LoadCharacterList();
-            MessengerInstance.Send(new OpenHeroPickDialogMessage());
         }
 
         public void LoadCharacterList()
         {
-            CharacterList = new ObservableCollection<CharacterModel>();
-            string filename = Settings.HeldenDateiPath;
-
-            if (string.IsNullOrEmpty(Settings.StaticUserName) == false)
+            while (CharacterList.Count > 1)
             {
-                CharacterModel staticCharacter = new CharacterModel()
-                {
-                    Name = Settings.StaticUserName,
-                    Id = "StaticCharacter",
-                    Stand = int.MaxValue.ToString()
-                };
-
-                CharacterList.Add(staticCharacter);
+                //CharacterList.Remove(CharacterList.First(x => x.Id != "StaticCharacter"));
+                CharacterList.RemoveAt(2);
             }
+
+            //CharacterList.Add(new CharacterModel()
+            //{
+            //    Name = string.IsNullOrEmpty(SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting.StaticUserName) ? Environment.UserName : SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting.StaticUserName,
+            //    Id = "StaticCharacter",
+            //    Stand = int.MaxValue.ToString()
+            //});
+
+            string filename = Settings.HeldenDateiPath;
 
             if (string.IsNullOrEmpty(filename) || !File.Exists(filename))
             {
-                MessengerInstance.Send(new OpenInfoMessage("Charakter Import", "Bitte wähle zuerst einen gültigen Pfad zur helden.zip.hld im Einstellungsmenü"));
+                MessengerInstance.Send(new OpenInfoMessage("Charakter Import", "Bitte wähle einen gültigen Pfad zur helden.zip.hld im Einstellungsmenü"));
             }
 
             if (File.Exists(filename))
