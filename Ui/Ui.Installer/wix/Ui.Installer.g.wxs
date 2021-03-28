@@ -480,8 +480,24 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.MahApps.Metro.IconPacks.BootstrapIcons.dll_738095129" Guid="2f7e47da-3312-466f-8807-a4a1a9ef58f5">
+              <File Id="MahApps.Metro.IconPacks.BootstrapIcons.dll_738095129" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\MahApps.Metro.IconPacks.BootstrapIcons.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.MahApps.Metro.IconPacks.BoxIcons.dll_2274181933" Guid="2f7e47da-3312-466f-8807-a4a141964a81">
               <File Id="MahApps.Metro.IconPacks.BoxIcons.dll_2274181933" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\MahApps.Metro.IconPacks.BoxIcons.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.MahApps.Metro.IconPacks.Codicons.dll_1575461992" Guid="2f7e47da-3312-466f-8807-a4a134511c8d">
+              <File Id="MahApps.Metro.IconPacks.Codicons.dll_1575461992" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\MahApps.Metro.IconPacks.Codicons.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -528,8 +544,32 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.MahApps.Metro.IconPacks.FileIcons.dll_2949754746" Guid="2f7e47da-3312-466f-8807-a4a1a7b52b70">
+              <File Id="MahApps.Metro.IconPacks.FileIcons.dll_2949754746" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\MahApps.Metro.IconPacks.FileIcons.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.MahApps.Metro.IconPacks.Fontaudio.dll_2224425346" Guid="2f7e47da-3312-466f-8807-a4a176d9b76a">
+              <File Id="MahApps.Metro.IconPacks.Fontaudio.dll_2224425346" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\MahApps.Metro.IconPacks.Fontaudio.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.MahApps.Metro.IconPacks.FontAwesome.dll_3952008940" Guid="2f7e47da-3312-466f-8807-a4a15e2f8328">
               <File Id="MahApps.Metro.IconPacks.FontAwesome.dll_3952008940" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\MahApps.Metro.IconPacks.FontAwesome.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.MahApps.Metro.IconPacks.ForkAwesome.dll_2861051691" Guid="2f7e47da-3312-466f-8807-a4a12105b0c6">
+              <File Id="MahApps.Metro.IconPacks.ForkAwesome.dll_2861051691" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\MahApps.Metro.IconPacks.ForkAwesome.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -608,6 +648,30 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.MahApps.Metro.IconPacks.PixelartIcons.dll_1210191584" Guid="2f7e47da-3312-466f-8807-a4a188eea440">
+              <File Id="MahApps.Metro.IconPacks.PixelartIcons.dll_1210191584" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\MahApps.Metro.IconPacks.PixelartIcons.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.MahApps.Metro.IconPacks.RadixIcons.dll_2552592914" Guid="2f7e47da-3312-466f-8807-a4a193d762dd">
+              <File Id="MahApps.Metro.IconPacks.RadixIcons.dll_2552592914" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\MahApps.Metro.IconPacks.RadixIcons.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.MahApps.Metro.IconPacks.RemixIcon.dll_2315189559" Guid="2f7e47da-3312-466f-8807-a4a1aff7bb6f">
+              <File Id="MahApps.Metro.IconPacks.RemixIcon.dll_2315189559" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\MahApps.Metro.IconPacks.RemixIcon.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.MahApps.Metro.IconPacks.RPGAwesome.dll_401243470" Guid="2f7e47da-3312-466f-8807-a4a18103457d">
               <File Id="MahApps.Metro.IconPacks.RPGAwesome.dll_401243470" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\MahApps.Metro.IconPacks.RPGAwesome.dll" />
 
@@ -634,6 +698,14 @@
 
             <Component Id="Component.MahApps.Metro.IconPacks.Unicons.dll_3988733097" Guid="2f7e47da-3312-466f-8807-a4a1c70aaea5">
               <File Id="MahApps.Metro.IconPacks.Unicons.dll_3988733097" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\MahApps.Metro.IconPacks.Unicons.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.MahApps.Metro.IconPacks.VaadinIcons.dll_2803502302" Guid="2f7e47da-3312-466f-8807-a4a18b421e93">
+              <File Id="MahApps.Metro.IconPacks.VaadinIcons.dll_2803502302" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\MahApps.Metro.IconPacks.VaadinIcons.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -706,6 +778,22 @@
 
             <Component Id="Component.Microsoft.Extensions.Primitives.dll_756940055" Guid="2f7e47da-3312-466f-8807-a4a1d736c41b">
               <File Id="Microsoft.Extensions.Primitives.dll_756940055" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\Microsoft.Extensions.Primitives.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.Microsoft.VisualBasic.Core.dll_3327880952" Guid="2f7e47da-3312-466f-8807-a4a151440834">
+              <File Id="Microsoft.VisualBasic.Core.dll_3327880952" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\Microsoft.VisualBasic.Core.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.Microsoft.VisualBasic.dll_2516940209" Guid="2f7e47da-3312-466f-8807-a4a1bc5c348c">
+              <File Id="Microsoft.VisualBasic.dll_2516940209" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\Microsoft.VisualBasic.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -792,8 +880,8 @@
               </RegistryKey>
             </Component>
 
-            <Component Id="Component.mscordaccore_amd64_amd64_4.700.20.26901.dll_563230344" Guid="2f7e47da-3312-466f-8807-a4a165232dcd">
-              <File Id="mscordaccore_amd64_amd64_4.700.20.26901.dll_563230344" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\mscordaccore_amd64_amd64_4.700.20.26901.dll" />
+            <Component Id="Component.mscordaccore_amd64_amd64_4.700.20.47201.dll_1147279299" Guid="2f7e47da-3312-466f-8807-a4a1bffe5f86">
+              <File Id="mscordaccore_amd64_amd64_4.700.20.47201.dll_1147279299" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\mscordaccore_amd64_amd64_4.700.20.47201.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1099,6 +1187,22 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.AppContext.dll_1565564243" Guid="2f7e47da-3312-466f-8807-a4a18f9cffa6">
+              <File Id="System.AppContext.dll_1565564243" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.AppContext.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Buffers.dll_2865066537" Guid="2f7e47da-3312-466f-8807-a4a18af9efb1">
+              <File Id="System.Buffers.dll_2865066537" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Buffers.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.CodeDom.dll_3234063438" Guid="2f7e47da-3312-466f-8807-a4a1623fc4fe">
               <File Id="System.CodeDom.dll_3234063438" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.CodeDom.dll" />
 
@@ -1123,6 +1227,14 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Collections.Immutable.dll_1218877963" Guid="2f7e47da-3312-466f-8807-a4a12d23a736">
+              <File Id="System.Collections.Immutable.dll_1218877963" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Collections.Immutable.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Collections.NonGeneric.dll_906639711" Guid="2f7e47da-3312-466f-8807-a4a1835c81d6">
               <File Id="System.Collections.NonGeneric.dll_906639711" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Collections.NonGeneric.dll" />
 
@@ -1141,6 +1253,14 @@
 
             <Component Id="Component.System.ComponentModel.Annotations.dll_4123256712" Guid="2f7e47da-3312-466f-8807-a4a1a0fc3e04">
               <File Id="System.ComponentModel.Annotations.dll_4123256712" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.ComponentModel.Annotations.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.ComponentModel.DataAnnotations.dll_407958215" Guid="2f7e47da-3312-466f-8807-a4a1bc106186">
+              <File Id="System.ComponentModel.DataAnnotations.dll_407958215" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.ComponentModel.DataAnnotations.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1187,8 +1307,24 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Configuration.dll_1129935235" Guid="2f7e47da-3312-466f-8807-a4a11c253061">
+              <File Id="System.Configuration.dll_1129935235" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Configuration.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Console.dll_524319066" Guid="2f7e47da-3312-466f-8807-a4a1966ebac1">
               <File Id="System.Console.dll_524319066" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Console.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Core.dll_973666049" Guid="2f7e47da-3312-466f-8807-a4a104ae7d05">
+              <File Id="System.Core.dll_973666049" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Core.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1203,8 +1339,32 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Data.DataSetExtensions.dll_1430599041" Guid="2f7e47da-3312-466f-8807-a4a1bd4582b7">
+              <File Id="System.Data.DataSetExtensions.dll_1430599041" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Data.DataSetExtensions.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Data.dll_1781404848" Guid="2f7e47da-3312-466f-8807-a4a1dd906255">
+              <File Id="System.Data.dll_1781404848" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Data.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Design.dll_920071145" Guid="2f7e47da-3312-466f-8807-a4a1262b3146">
               <File Id="System.Design.dll_920071145" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Design.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Diagnostics.Contracts.dll_1105524881" Guid="2f7e47da-3312-466f-8807-a4a1a1aefaf6">
+              <File Id="System.Diagnostics.Contracts.dll_1105524881" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Diagnostics.Contracts.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1291,8 +1451,24 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Diagnostics.Tracing.dll_134612774" Guid="2f7e47da-3312-466f-8807-a4a120d5b4e3">
+              <File Id="System.Diagnostics.Tracing.dll_134612774" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Diagnostics.Tracing.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.DirectoryServices.dll_1699625538" Guid="2f7e47da-3312-466f-8807-a4a11dc2bfa7">
               <File Id="System.DirectoryServices.dll_1699625538" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.DirectoryServices.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.dll_1386494498" Guid="2f7e47da-3312-466f-8807-a4a12a0e4fdf">
+              <File Id="System.dll_1386494498" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1331,6 +1507,38 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Dynamic.Runtime.dll_832163967" Guid="2f7e47da-3312-466f-8807-a4a1a6914e36">
+              <File Id="System.Dynamic.Runtime.dll_832163967" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Dynamic.Runtime.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Globalization.Calendars.dll_2255791674" Guid="2f7e47da-3312-466f-8807-a4a1dab07ffd">
+              <File Id="System.Globalization.Calendars.dll_2255791674" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Globalization.Calendars.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Globalization.dll_1141559258" Guid="2f7e47da-3312-466f-8807-a4a127b38faa">
+              <File Id="System.Globalization.dll_1141559258" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Globalization.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Globalization.Extensions.dll_2381703089" Guid="2f7e47da-3312-466f-8807-a4a1a1a580a7">
+              <File Id="System.Globalization.Extensions.dll_2381703089" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Globalization.Extensions.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.IO.Compression.Brotli.dll_3017177068" Guid="2f7e47da-3312-466f-8807-a4a12f6a5285">
               <File Id="System.IO.Compression.Brotli.dll_3017177068" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.IO.Compression.Brotli.dll" />
 
@@ -1347,8 +1555,24 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.IO.Compression.FileSystem.dll_2859588395" Guid="2f7e47da-3312-466f-8807-a4a13bb2258a">
+              <File Id="System.IO.Compression.FileSystem.dll_2859588395" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.IO.Compression.FileSystem.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.IO.Compression.ZipFile.dll_1746572910" Guid="2f7e47da-3312-466f-8807-a4a115213955">
               <File Id="System.IO.Compression.ZipFile.dll_1746572910" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.IO.Compression.ZipFile.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.IO.dll_3793126743" Guid="2f7e47da-3312-466f-8807-a4a1c852f579">
+              <File Id="System.IO.dll_3793126743" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.IO.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1365,6 +1589,22 @@
 
             <Component Id="Component.System.IO.FileSystem.dll_12478375" Guid="2f7e47da-3312-466f-8807-a4a1663bb264">
               <File Id="System.IO.FileSystem.dll_12478375" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.IO.FileSystem.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.IO.FileSystem.DriveInfo.dll_3032831585" Guid="2f7e47da-3312-466f-8807-a4a163246574">
+              <File Id="System.IO.FileSystem.DriveInfo.dll_3032831585" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.IO.FileSystem.DriveInfo.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.IO.FileSystem.Primitives.dll_3814214679" Guid="2f7e47da-3312-466f-8807-a4a16db3bf39">
+              <File Id="System.IO.FileSystem.Primitives.dll_3814214679" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.IO.FileSystem.Primitives.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1403,6 +1643,30 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.IO.Pipes.AccessControl.dll_3826017585" Guid="2f7e47da-3312-466f-8807-a4a1ee33b3ef">
+              <File Id="System.IO.Pipes.AccessControl.dll_3826017585" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.IO.Pipes.AccessControl.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.IO.Pipes.dll_2159182771" Guid="2f7e47da-3312-466f-8807-a4a18c0cb615">
+              <File Id="System.IO.Pipes.dll_2159182771" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.IO.Pipes.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.IO.UnmanagedMemoryStream.dll_2589183082" Guid="2f7e47da-3312-466f-8807-a4a1a156f0a9">
+              <File Id="System.IO.UnmanagedMemoryStream.dll_2589183082" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.IO.UnmanagedMemoryStream.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Linq.dll_1161727690" Guid="2f7e47da-3312-466f-8807-a4a12baa3040">
               <File Id="System.Linq.dll_1161727690" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Linq.dll" />
 
@@ -1419,6 +1683,22 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Linq.Parallel.dll_3195025151" Guid="2f7e47da-3312-466f-8807-a4a18e759904">
+              <File Id="System.Linq.Parallel.dll_3195025151" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Linq.Parallel.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Linq.Queryable.dll_3671318243" Guid="2f7e47da-3312-466f-8807-a4a11d994988">
+              <File Id="System.Linq.Queryable.dll_3671318243" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Linq.Queryable.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Memory.dll_167569843" Guid="2f7e47da-3312-466f-8807-a4a1f11104f2">
               <File Id="System.Memory.dll_167569843" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Memory.dll" />
 
@@ -1427,8 +1707,32 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Net.dll_1796797636" Guid="2f7e47da-3312-466f-8807-a4a11fa4edf4">
+              <File Id="System.Net.dll_1796797636" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Net.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Net.Http.dll_2042035807" Guid="2f7e47da-3312-466f-8807-a4a1e2ffeeb2">
               <File Id="System.Net.Http.dll_2042035807" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Net.Http.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Net.HttpListener.dll_3248165812" Guid="2f7e47da-3312-466f-8807-a4a1c66ea4ce">
+              <File Id="System.Net.HttpListener.dll_3248165812" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Net.HttpListener.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Net.Mail.dll_463264121" Guid="2f7e47da-3312-466f-8807-a4a1e5d95e05">
+              <File Id="System.Net.Mail.dll_463264121" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Net.Mail.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1445,6 +1749,14 @@
 
             <Component Id="Component.System.Net.NetworkInformation.dll_2954383815" Guid="2f7e47da-3312-466f-8807-a4a16c289ff3">
               <File Id="System.Net.NetworkInformation.dll_2954383815" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Net.NetworkInformation.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Net.Ping.dll_1198229957" Guid="2f7e47da-3312-466f-8807-a4a175561d23">
+              <File Id="System.Net.Ping.dll_1198229957" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Net.Ping.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1507,6 +1819,46 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Net.WebProxy.dll_1400745672" Guid="2f7e47da-3312-466f-8807-a4a19c9aa571">
+              <File Id="System.Net.WebProxy.dll_1400745672" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Net.WebProxy.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Net.WebSockets.Client.dll_4075178332" Guid="2f7e47da-3312-466f-8807-a4a1cda41a2c">
+              <File Id="System.Net.WebSockets.Client.dll_4075178332" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Net.WebSockets.Client.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Net.WebSockets.dll_3646356141" Guid="2f7e47da-3312-466f-8807-a4a1f923d1cc">
+              <File Id="System.Net.WebSockets.dll_3646356141" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Net.WebSockets.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Numerics.dll_555838281" Guid="2f7e47da-3312-466f-8807-a4a192bdd050">
+              <File Id="System.Numerics.dll_555838281" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Numerics.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Numerics.Vectors.dll_334487327" Guid="2f7e47da-3312-466f-8807-a4a1d7171957">
+              <File Id="System.Numerics.Vectors.dll_334487327" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Numerics.Vectors.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.ObjectModel.dll_383088273" Guid="2f7e47da-3312-466f-8807-a4a16a555c63">
               <File Id="System.ObjectModel.dll_383088273" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.ObjectModel.dll" />
 
@@ -1525,6 +1877,14 @@
 
             <Component Id="Component.System.Private.CoreLib.dll_1063289463" Guid="2f7e47da-3312-466f-8807-a4a11053dfca">
               <File Id="System.Private.CoreLib.dll_1063289463" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Private.CoreLib.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Private.DataContractSerialization.dll_111786043" Guid="2f7e47da-3312-466f-8807-a4a15be7f72e">
+              <File Id="System.Private.DataContractSerialization.dll_111786043" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Private.DataContractSerialization.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1555,6 +1915,54 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Reflection.DispatchProxy.dll_184787444" Guid="2f7e47da-3312-466f-8807-a4a11f3864e2">
+              <File Id="System.Reflection.DispatchProxy.dll_184787444" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Reflection.DispatchProxy.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Reflection.dll_3100991967" Guid="2f7e47da-3312-466f-8807-a4a101569484">
+              <File Id="System.Reflection.dll_3100991967" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Reflection.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Reflection.Emit.dll_3493292374" Guid="2f7e47da-3312-466f-8807-a4a130a24b6b">
+              <File Id="System.Reflection.Emit.dll_3493292374" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Reflection.Emit.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Reflection.Emit.ILGeneration.dll_1179054711" Guid="2f7e47da-3312-466f-8807-a4a1c1a4760f">
+              <File Id="System.Reflection.Emit.ILGeneration.dll_1179054711" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Reflection.Emit.ILGeneration.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Reflection.Emit.Lightweight.dll_3433376543" Guid="2f7e47da-3312-466f-8807-a4a1d29585f9">
+              <File Id="System.Reflection.Emit.Lightweight.dll_3433376543" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Reflection.Emit.Lightweight.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Reflection.Extensions.dll_2575614183" Guid="2f7e47da-3312-466f-8807-a4a1c214782c">
+              <File Id="System.Reflection.Extensions.dll_2575614183" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Reflection.Extensions.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Reflection.Metadata.dll_3573572374" Guid="2f7e47da-3312-466f-8807-a4a12db00914">
               <File Id="System.Reflection.Metadata.dll_3573572374" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Reflection.Metadata.dll" />
 
@@ -1563,8 +1971,40 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Reflection.Primitives.dll_3647609779" Guid="2f7e47da-3312-466f-8807-a4a180da8512">
+              <File Id="System.Reflection.Primitives.dll_3647609779" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Reflection.Primitives.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Reflection.TypeExtensions.dll_2579306118" Guid="2f7e47da-3312-466f-8807-a4a192682b93">
+              <File Id="System.Reflection.TypeExtensions.dll_2579306118" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Reflection.TypeExtensions.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Resources.Extensions.dll_95909381" Guid="2f7e47da-3312-466f-8807-a4a1dcc9e353">
               <File Id="System.Resources.Extensions.dll_95909381" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Resources.Extensions.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Resources.Reader.dll_250707627" Guid="2f7e47da-3312-466f-8807-a4a14800333c">
+              <File Id="System.Resources.Reader.dll_250707627" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Resources.Reader.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Resources.ResourceManager.dll_1678699010" Guid="2f7e47da-3312-466f-8807-a4a18b706f72">
+              <File Id="System.Resources.ResourceManager.dll_1678699010" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Resources.ResourceManager.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1611,6 +2051,14 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Runtime.Handles.dll_1735521859" Guid="2f7e47da-3312-466f-8807-a4a1b48818e3">
+              <File Id="System.Runtime.Handles.dll_1735521859" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Runtime.Handles.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Runtime.InteropServices.dll_301807253" Guid="2f7e47da-3312-466f-8807-a4a18caafcd4">
               <File Id="System.Runtime.InteropServices.dll_301807253" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Runtime.InteropServices.dll" />
 
@@ -1627,8 +2075,40 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Runtime.InteropServices.WindowsRuntime.dll_1120719806" Guid="2f7e47da-3312-466f-8807-a4a17eff1065">
+              <File Id="System.Runtime.InteropServices.WindowsRuntime.dll_1120719806" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Runtime.InteropServices.WindowsRuntime.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Runtime.Intrinsics.dll_4001232678" Guid="2f7e47da-3312-466f-8807-a4a1ab134ed7">
+              <File Id="System.Runtime.Intrinsics.dll_4001232678" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Runtime.Intrinsics.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Runtime.Loader.dll_3218207140" Guid="2f7e47da-3312-466f-8807-a4a1f15162b2">
+              <File Id="System.Runtime.Loader.dll_3218207140" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Runtime.Loader.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Runtime.Numerics.dll_965294706" Guid="2f7e47da-3312-466f-8807-a4a128b91791">
               <File Id="System.Runtime.Numerics.dll_965294706" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Runtime.Numerics.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Runtime.Serialization.dll_1101089362" Guid="2f7e47da-3312-466f-8807-a4a1192a19e5">
+              <File Id="System.Runtime.Serialization.dll_1101089362" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Runtime.Serialization.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1643,8 +2123,40 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Runtime.Serialization.Json.dll_3732664841" Guid="2f7e47da-3312-466f-8807-a4a12f0d03d0">
+              <File Id="System.Runtime.Serialization.Json.dll_3732664841" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Runtime.Serialization.Json.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Runtime.Serialization.Primitives.dll_3667199793" Guid="2f7e47da-3312-466f-8807-a4a11a7a12ff">
               <File Id="System.Runtime.Serialization.Primitives.dll_3667199793" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Runtime.Serialization.Primitives.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Runtime.Serialization.Xml.dll_1238521432" Guid="2f7e47da-3312-466f-8807-a4a1578a992b">
+              <File Id="System.Runtime.Serialization.Xml.dll_1238521432" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Runtime.Serialization.Xml.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Runtime.WindowsRuntime.dll_2441251370" Guid="2f7e47da-3312-466f-8807-a4a1b46f0ba2">
+              <File Id="System.Runtime.WindowsRuntime.dll_2441251370" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Runtime.WindowsRuntime.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Runtime.WindowsRuntime.UI.Xaml.dll_2965539228" Guid="2f7e47da-3312-466f-8807-a4a1d2a1d410">
+              <File Id="System.Runtime.WindowsRuntime.UI.Xaml.dll_2965539228" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Runtime.WindowsRuntime.UI.Xaml.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1699,6 +2211,14 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Security.Cryptography.OpenSsl.dll_640341326" Guid="2f7e47da-3312-466f-8807-a4a12135ae2c">
+              <File Id="System.Security.Cryptography.OpenSsl.dll_640341326" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Security.Cryptography.OpenSsl.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Security.Cryptography.Pkcs.dll_1254242587" Guid="2f7e47da-3312-466f-8807-a4a193c98706">
               <File Id="System.Security.Cryptography.Pkcs.dll_1254242587" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Security.Cryptography.Pkcs.dll" />
 
@@ -1739,6 +2259,14 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Security.dll_3339787156" Guid="2f7e47da-3312-466f-8807-a4a1154b5d74">
+              <File Id="System.Security.dll_3339787156" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Security.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Security.Permissions.dll_3590353691" Guid="2f7e47da-3312-466f-8807-a4a108ce2ec0">
               <File Id="System.Security.Permissions.dll_3590353691" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Security.Permissions.dll" />
 
@@ -1763,8 +2291,48 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Security.SecureString.dll_1486582133" Guid="2f7e47da-3312-466f-8807-a4a1b61561ea">
+              <File Id="System.Security.SecureString.dll_1486582133" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Security.SecureString.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.ServiceModel.Web.dll_1902998775" Guid="2f7e47da-3312-466f-8807-a4a1651d10f0">
+              <File Id="System.ServiceModel.Web.dll_1902998775" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.ServiceModel.Web.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.ServiceProcess.dll_1169982268" Guid="2f7e47da-3312-466f-8807-a4a1c78e009a">
+              <File Id="System.ServiceProcess.dll_1169982268" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.ServiceProcess.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Text.Encoding.CodePages.dll_3391818644" Guid="2f7e47da-3312-466f-8807-a4a1c7d2db04">
               <File Id="System.Text.Encoding.CodePages.dll_3391818644" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Text.Encoding.CodePages.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Text.Encoding.dll_4109005118" Guid="2f7e47da-3312-466f-8807-a4a13c3130dd">
+              <File Id="System.Text.Encoding.dll_4109005118" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Text.Encoding.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Text.Encoding.Extensions.dll_2747875057" Guid="2f7e47da-3312-466f-8807-a4a1885976a2">
+              <File Id="System.Text.Encoding.Extensions.dll_2747875057" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Text.Encoding.Extensions.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1803,8 +2371,56 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Threading.Channels.dll_3584671290" Guid="2f7e47da-3312-466f-8807-a4a1c411cc72">
+              <File Id="System.Threading.Channels.dll_3584671290" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Threading.Channels.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Threading.dll_4026747093" Guid="2f7e47da-3312-466f-8807-a4a127e31bd2">
               <File Id="System.Threading.dll_4026747093" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Threading.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Threading.Overlapped.dll_2890156221" Guid="2f7e47da-3312-466f-8807-a4a1bbcc6d04">
+              <File Id="System.Threading.Overlapped.dll_2890156221" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Threading.Overlapped.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Threading.Tasks.Dataflow.dll_3748784984" Guid="2f7e47da-3312-466f-8807-a4a12b1d4e60">
+              <File Id="System.Threading.Tasks.Dataflow.dll_3748784984" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Threading.Tasks.Dataflow.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Threading.Tasks.dll_3029536570" Guid="2f7e47da-3312-466f-8807-a4a19992798f">
+              <File Id="System.Threading.Tasks.dll_3029536570" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Threading.Tasks.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Threading.Tasks.Extensions.dll_2703667564" Guid="2f7e47da-3312-466f-8807-a4a1653d3617">
+              <File Id="System.Threading.Tasks.Extensions.dll_2703667564" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Threading.Tasks.Extensions.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Threading.Tasks.Parallel.dll_3858446618" Guid="2f7e47da-3312-466f-8807-a4a18e4062b9">
+              <File Id="System.Threading.Tasks.Parallel.dll_3858446618" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Threading.Tasks.Parallel.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1819,8 +2435,72 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.System.Threading.ThreadPool.dll_266211726" Guid="2f7e47da-3312-466f-8807-a4a1b97ad02b">
+              <File Id="System.Threading.ThreadPool.dll_266211726" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Threading.ThreadPool.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Threading.Timer.dll_3367399699" Guid="2f7e47da-3312-466f-8807-a4a16a0a020f">
+              <File Id="System.Threading.Timer.dll_3367399699" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Threading.Timer.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Transactions.dll_2195104128" Guid="2f7e47da-3312-466f-8807-a4a18c36c638">
+              <File Id="System.Transactions.dll_2195104128" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Transactions.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Transactions.Local.dll_1058102823" Guid="2f7e47da-3312-466f-8807-a4a174a2ad37">
+              <File Id="System.Transactions.Local.dll_1058102823" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Transactions.Local.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.ValueTuple.dll_2949728654" Guid="2f7e47da-3312-466f-8807-a4a18f5ab63e">
+              <File Id="System.ValueTuple.dll_2949728654" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.ValueTuple.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Web.dll_1622136535" Guid="2f7e47da-3312-466f-8807-a4a18f33bc11">
+              <File Id="System.Web.dll_1622136535" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Web.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Web.HttpUtility.dll_3053906446" Guid="2f7e47da-3312-466f-8807-a4a184e45f26">
+              <File Id="System.Web.HttpUtility.dll_3053906446" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Web.HttpUtility.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.System.Windows.Controls.Ribbon.dll_951430603" Guid="2f7e47da-3312-466f-8807-a4a15f47f137">
               <File Id="System.Windows.Controls.Ribbon.dll_951430603" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Windows.Controls.Ribbon.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Windows.dll_3953755012" Guid="2f7e47da-3312-466f-8807-a4a16e5bcce6">
+              <File Id="System.Windows.dll_3953755012" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Windows.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -1877,6 +2557,78 @@
 
             <Component Id="Component.System.Xaml.dll_3955473133" Guid="2f7e47da-3312-466f-8807-a4a1dfadfcdf">
               <File Id="System.Xaml.dll_3955473133" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Xaml.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Xml.dll_2217681242" Guid="2f7e47da-3312-466f-8807-a4a1e4642a7b">
+              <File Id="System.Xml.dll_2217681242" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Xml.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Xml.Linq.dll_110737276" Guid="2f7e47da-3312-466f-8807-a4a1e2a3df51">
+              <File Id="System.Xml.Linq.dll_110737276" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Xml.Linq.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Xml.ReaderWriter.dll_2994902721" Guid="2f7e47da-3312-466f-8807-a4a19113d868">
+              <File Id="System.Xml.ReaderWriter.dll_2994902721" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Xml.ReaderWriter.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Xml.Serialization.dll_8761545" Guid="2f7e47da-3312-466f-8807-a4a1172ee0b8">
+              <File Id="System.Xml.Serialization.dll_8761545" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Xml.Serialization.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Xml.XDocument.dll_1168102279" Guid="2f7e47da-3312-466f-8807-a4a18c77d06c">
+              <File Id="System.Xml.XDocument.dll_1168102279" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Xml.XDocument.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Xml.XmlDocument.dll_1857564828" Guid="2f7e47da-3312-466f-8807-a4a1c04b754a">
+              <File Id="System.Xml.XmlDocument.dll_1857564828" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Xml.XmlDocument.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Xml.XmlSerializer.dll_1045729035" Guid="2f7e47da-3312-466f-8807-a4a13b50df08">
+              <File Id="System.Xml.XmlSerializer.dll_1045729035" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Xml.XmlSerializer.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Xml.XPath.dll_1249274049" Guid="2f7e47da-3312-466f-8807-a4a17857734a">
+              <File Id="System.Xml.XPath.dll_1249274049" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Xml.XPath.dll" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
+            <Component Id="Component.System.Xml.XPath.XDocument.dll_4038301984" Guid="2f7e47da-3312-466f-8807-a4a1f7dfd0c1">
+              <File Id="System.Xml.XPath.XDocument.dll_4038301984" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\System.Xml.XPath.XDocument.dll" />
 
               <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
                 <RegistryValue Value="0" Type="string" KeyPath="yes" />
@@ -3967,13 +4719,18 @@
       <ComponentRef Id="Component.Jot.dll_3942155875" />
       <ComponentRef Id="Component.LICENSE.txt_2343583381" />
       <ComponentRef Id="Component.MahApps.Metro.dll_1063999827" />
+      <ComponentRef Id="Component.MahApps.Metro.IconPacks.BootstrapIcons.dll_738095129" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.BoxIcons.dll_2274181933" />
+      <ComponentRef Id="Component.MahApps.Metro.IconPacks.Codicons.dll_1575461992" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.Core.dll_3568416722" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.dll_726118576" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.Entypo.dll_3964378412" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.EvaIcons.dll_274440757" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.FeatherIcons.dll_2549744826" />
+      <ComponentRef Id="Component.MahApps.Metro.IconPacks.FileIcons.dll_2949754746" />
+      <ComponentRef Id="Component.MahApps.Metro.IconPacks.Fontaudio.dll_2224425346" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.FontAwesome.dll_3952008940" />
+      <ComponentRef Id="Component.MahApps.Metro.IconPacks.ForkAwesome.dll_2861051691" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.Ionicons.dll_2708936963" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.JamIcons.dll_1118332991" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.Material.dll_3143758098" />
@@ -3983,10 +4740,14 @@
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.Modern.dll_2415519104" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.Octicons.dll_1718167118" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.PicolIcons.dll_185147069" />
+      <ComponentRef Id="Component.MahApps.Metro.IconPacks.PixelartIcons.dll_1210191584" />
+      <ComponentRef Id="Component.MahApps.Metro.IconPacks.RadixIcons.dll_2552592914" />
+      <ComponentRef Id="Component.MahApps.Metro.IconPacks.RemixIcon.dll_2315189559" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.RPGAwesome.dll_401243470" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.SimpleIcons.dll_1274839857" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.Typicons.dll_288645983" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.Unicons.dll_3988733097" />
+      <ComponentRef Id="Component.MahApps.Metro.IconPacks.VaadinIcons.dll_2803502302" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.WeatherIcons.dll_3575610570" />
       <ComponentRef Id="Component.MahApps.Metro.IconPacks.Zondicons.dll_379036597" />
       <ComponentRef Id="Component.MahApps.Metro.SimpleChildWindow.dll_3419617872" />
@@ -3996,6 +4757,8 @@
       <ComponentRef Id="Component.Microsoft.Extensions.FileProviders.Physical.dll_23361914" />
       <ComponentRef Id="Component.Microsoft.Extensions.FileSystemGlobbing.dll_2668906078" />
       <ComponentRef Id="Component.Microsoft.Extensions.Primitives.dll_756940055" />
+      <ComponentRef Id="Component.Microsoft.VisualBasic.Core.dll_3327880952" />
+      <ComponentRef Id="Component.Microsoft.VisualBasic.dll_2516940209" />
       <ComponentRef Id="Component.Microsoft.Win32.Primitives.dll_3981628568" />
       <ComponentRef Id="Component.Microsoft.Win32.Registry.AccessControl.dll_3683694668" />
       <ComponentRef Id="Component.Microsoft.Win32.Registry.dll_1887569101" />
@@ -4006,7 +4769,7 @@
       <ComponentRef Id="Component.Mono.Cecil.Pdb.dll_976074413" />
       <ComponentRef Id="Component.Mono.Cecil.Rocks.dll_3479695254" />
       <ComponentRef Id="Component.mscordaccore.dll_3786448977" />
-      <ComponentRef Id="Component.mscordaccore_amd64_amd64_4.700.20.26901.dll_563230344" />
+      <ComponentRef Id="Component.mscordaccore_amd64_amd64_4.700.20.47201.dll_1147279299" />
       <ComponentRef Id="Component.mscordbi.dll_3906314787" />
       <ComponentRef Id="Component.mscorlib.dll_2695536060" />
       <ComponentRef Id="Component.mscorrc.debug.dll_3576452975" />
@@ -4044,20 +4807,29 @@
       <ComponentRef Id="Component.ReachFramework.dll_2336212514" />
       <ComponentRef Id="Component.SimpleSockets.dll_203031250" />
       <ComponentRef Id="Component.SOS_README.md_1605337116" />
+      <ComponentRef Id="Component.System.AppContext.dll_1565564243" />
+      <ComponentRef Id="Component.System.Buffers.dll_2865066537" />
       <ComponentRef Id="Component.System.CodeDom.dll_3234063438" />
       <ComponentRef Id="Component.System.Collections.Concurrent.dll_1097386847" />
       <ComponentRef Id="Component.System.Collections.dll_4019898594" />
+      <ComponentRef Id="Component.System.Collections.Immutable.dll_1218877963" />
       <ComponentRef Id="Component.System.Collections.NonGeneric.dll_906639711" />
       <ComponentRef Id="Component.System.Collections.Specialized.dll_461723039" />
       <ComponentRef Id="Component.System.ComponentModel.Annotations.dll_4123256712" />
+      <ComponentRef Id="Component.System.ComponentModel.DataAnnotations.dll_407958215" />
       <ComponentRef Id="Component.System.ComponentModel.dll_999986000" />
       <ComponentRef Id="Component.System.ComponentModel.EventBasedAsync.dll_643083883" />
       <ComponentRef Id="Component.System.ComponentModel.Primitives.dll_932229405" />
       <ComponentRef Id="Component.System.ComponentModel.TypeConverter.dll_2359313565" />
       <ComponentRef Id="Component.System.Configuration.ConfigurationManager.dll_556103510" />
+      <ComponentRef Id="Component.System.Configuration.dll_1129935235" />
       <ComponentRef Id="Component.System.Console.dll_524319066" />
+      <ComponentRef Id="Component.System.Core.dll_973666049" />
       <ComponentRef Id="Component.System.Data.Common.dll_2713885307" />
+      <ComponentRef Id="Component.System.Data.DataSetExtensions.dll_1430599041" />
+      <ComponentRef Id="Component.System.Data.dll_1781404848" />
       <ComponentRef Id="Component.System.Design.dll_920071145" />
+      <ComponentRef Id="Component.System.Diagnostics.Contracts.dll_1105524881" />
       <ComponentRef Id="Component.System.Diagnostics.Debug.dll_1908280292" />
       <ComponentRef Id="Component.System.Diagnostics.DiagnosticSource.dll_1949000895" />
       <ComponentRef Id="Component.System.Diagnostics.EventLog.dll_2411142556" />
@@ -4068,26 +4840,45 @@
       <ComponentRef Id="Component.System.Diagnostics.TextWriterTraceListener.dll_3830791956" />
       <ComponentRef Id="Component.System.Diagnostics.Tools.dll_1522927179" />
       <ComponentRef Id="Component.System.Diagnostics.TraceSource.dll_354170619" />
+      <ComponentRef Id="Component.System.Diagnostics.Tracing.dll_134612774" />
       <ComponentRef Id="Component.System.DirectoryServices.dll_1699625538" />
+      <ComponentRef Id="Component.System.dll_1386494498" />
       <ComponentRef Id="Component.System.Drawing.Common.dll_2392708967" />
       <ComponentRef Id="Component.System.Drawing.Design.dll_1676217484" />
       <ComponentRef Id="Component.System.Drawing.dll_1083511653" />
       <ComponentRef Id="Component.System.Drawing.Primitives.dll_2003242479" />
+      <ComponentRef Id="Component.System.Dynamic.Runtime.dll_832163967" />
+      <ComponentRef Id="Component.System.Globalization.Calendars.dll_2255791674" />
+      <ComponentRef Id="Component.System.Globalization.dll_1141559258" />
+      <ComponentRef Id="Component.System.Globalization.Extensions.dll_2381703089" />
       <ComponentRef Id="Component.System.IO.Compression.Brotli.dll_3017177068" />
       <ComponentRef Id="Component.System.IO.Compression.dll_1132530762" />
+      <ComponentRef Id="Component.System.IO.Compression.FileSystem.dll_2859588395" />
       <ComponentRef Id="Component.System.IO.Compression.ZipFile.dll_1746572910" />
+      <ComponentRef Id="Component.System.IO.dll_3793126743" />
       <ComponentRef Id="Component.System.IO.FileSystem.AccessControl.dll_1512758292" />
       <ComponentRef Id="Component.System.IO.FileSystem.dll_12478375" />
+      <ComponentRef Id="Component.System.IO.FileSystem.DriveInfo.dll_3032831585" />
+      <ComponentRef Id="Component.System.IO.FileSystem.Primitives.dll_3814214679" />
       <ComponentRef Id="Component.System.IO.FileSystem.Watcher.dll_2939112976" />
       <ComponentRef Id="Component.System.IO.IsolatedStorage.dll_572537938" />
       <ComponentRef Id="Component.System.IO.MemoryMappedFiles.dll_3833556408" />
       <ComponentRef Id="Component.System.IO.Packaging.dll_1823051010" />
+      <ComponentRef Id="Component.System.IO.Pipes.AccessControl.dll_3826017585" />
+      <ComponentRef Id="Component.System.IO.Pipes.dll_2159182771" />
+      <ComponentRef Id="Component.System.IO.UnmanagedMemoryStream.dll_2589183082" />
       <ComponentRef Id="Component.System.Linq.dll_1161727690" />
       <ComponentRef Id="Component.System.Linq.Expressions.dll_3628260416" />
+      <ComponentRef Id="Component.System.Linq.Parallel.dll_3195025151" />
+      <ComponentRef Id="Component.System.Linq.Queryable.dll_3671318243" />
       <ComponentRef Id="Component.System.Memory.dll_167569843" />
+      <ComponentRef Id="Component.System.Net.dll_1796797636" />
       <ComponentRef Id="Component.System.Net.Http.dll_2042035807" />
+      <ComponentRef Id="Component.System.Net.HttpListener.dll_3248165812" />
+      <ComponentRef Id="Component.System.Net.Mail.dll_463264121" />
       <ComponentRef Id="Component.System.Net.NameResolution.dll_3896936429" />
       <ComponentRef Id="Component.System.Net.NetworkInformation.dll_2954383815" />
+      <ComponentRef Id="Component.System.Net.Ping.dll_1198229957" />
       <ComponentRef Id="Component.System.Net.Primitives.dll_1862158831" />
       <ComponentRef Id="Component.System.Net.Requests.dll_2915926740" />
       <ComponentRef Id="Component.System.Net.Security.dll_84834730" />
@@ -4095,46 +4886,92 @@
       <ComponentRef Id="Component.System.Net.Sockets.dll_2566581660" />
       <ComponentRef Id="Component.System.Net.WebClient.dll_1128996791" />
       <ComponentRef Id="Component.System.Net.WebHeaderCollection.dll_2190977935" />
+      <ComponentRef Id="Component.System.Net.WebProxy.dll_1400745672" />
+      <ComponentRef Id="Component.System.Net.WebSockets.Client.dll_4075178332" />
+      <ComponentRef Id="Component.System.Net.WebSockets.dll_3646356141" />
+      <ComponentRef Id="Component.System.Numerics.dll_555838281" />
+      <ComponentRef Id="Component.System.Numerics.Vectors.dll_334487327" />
       <ComponentRef Id="Component.System.ObjectModel.dll_383088273" />
       <ComponentRef Id="Component.System.Printing.dll_1553367471" />
       <ComponentRef Id="Component.System.Private.CoreLib.dll_1063289463" />
+      <ComponentRef Id="Component.System.Private.DataContractSerialization.dll_111786043" />
       <ComponentRef Id="Component.System.Private.Uri.dll_3147877401" />
       <ComponentRef Id="Component.System.Private.Xml.dll_42568581" />
       <ComponentRef Id="Component.System.Private.Xml.Linq.dll_1228675109" />
+      <ComponentRef Id="Component.System.Reflection.DispatchProxy.dll_184787444" />
+      <ComponentRef Id="Component.System.Reflection.dll_3100991967" />
+      <ComponentRef Id="Component.System.Reflection.Emit.dll_3493292374" />
+      <ComponentRef Id="Component.System.Reflection.Emit.ILGeneration.dll_1179054711" />
+      <ComponentRef Id="Component.System.Reflection.Emit.Lightweight.dll_3433376543" />
+      <ComponentRef Id="Component.System.Reflection.Extensions.dll_2575614183" />
       <ComponentRef Id="Component.System.Reflection.Metadata.dll_3573572374" />
+      <ComponentRef Id="Component.System.Reflection.Primitives.dll_3647609779" />
+      <ComponentRef Id="Component.System.Reflection.TypeExtensions.dll_2579306118" />
       <ComponentRef Id="Component.System.Resources.Extensions.dll_95909381" />
+      <ComponentRef Id="Component.System.Resources.Reader.dll_250707627" />
+      <ComponentRef Id="Component.System.Resources.ResourceManager.dll_1678699010" />
       <ComponentRef Id="Component.System.Resources.Writer.dll_2091452872" />
       <ComponentRef Id="Component.System.Runtime.CompilerServices.Unsafe.dll_1109089071" />
       <ComponentRef Id="Component.System.Runtime.CompilerServices.VisualC.dll_1117921717" />
       <ComponentRef Id="Component.System.Runtime.dll_669001144" />
       <ComponentRef Id="Component.System.Runtime.Extensions.dll_4241755194" />
+      <ComponentRef Id="Component.System.Runtime.Handles.dll_1735521859" />
       <ComponentRef Id="Component.System.Runtime.InteropServices.dll_301807253" />
       <ComponentRef Id="Component.System.Runtime.InteropServices.RuntimeInformation.dll_1839987423" />
+      <ComponentRef Id="Component.System.Runtime.InteropServices.WindowsRuntime.dll_1120719806" />
+      <ComponentRef Id="Component.System.Runtime.Intrinsics.dll_4001232678" />
+      <ComponentRef Id="Component.System.Runtime.Loader.dll_3218207140" />
       <ComponentRef Id="Component.System.Runtime.Numerics.dll_965294706" />
+      <ComponentRef Id="Component.System.Runtime.Serialization.dll_1101089362" />
       <ComponentRef Id="Component.System.Runtime.Serialization.Formatters.dll_2709871568" />
+      <ComponentRef Id="Component.System.Runtime.Serialization.Json.dll_3732664841" />
       <ComponentRef Id="Component.System.Runtime.Serialization.Primitives.dll_3667199793" />
+      <ComponentRef Id="Component.System.Runtime.Serialization.Xml.dll_1238521432" />
+      <ComponentRef Id="Component.System.Runtime.WindowsRuntime.dll_2441251370" />
+      <ComponentRef Id="Component.System.Runtime.WindowsRuntime.UI.Xaml.dll_2965539228" />
       <ComponentRef Id="Component.System.Security.AccessControl.dll_4183517595" />
       <ComponentRef Id="Component.System.Security.Claims.dll_896030766" />
       <ComponentRef Id="Component.System.Security.Cryptography.Algorithms.dll_619743609" />
       <ComponentRef Id="Component.System.Security.Cryptography.Cng.dll_120893818" />
       <ComponentRef Id="Component.System.Security.Cryptography.Csp.dll_910249967" />
       <ComponentRef Id="Component.System.Security.Cryptography.Encoding.dll_2144711652" />
+      <ComponentRef Id="Component.System.Security.Cryptography.OpenSsl.dll_640341326" />
       <ComponentRef Id="Component.System.Security.Cryptography.Pkcs.dll_1254242587" />
       <ComponentRef Id="Component.System.Security.Cryptography.Primitives.dll_3533563744" />
       <ComponentRef Id="Component.System.Security.Cryptography.ProtectedData.dll_3986189622" />
       <ComponentRef Id="Component.System.Security.Cryptography.X509Certificates.dll_342392310" />
       <ComponentRef Id="Component.System.Security.Cryptography.Xml.dll_1784862286" />
+      <ComponentRef Id="Component.System.Security.dll_3339787156" />
       <ComponentRef Id="Component.System.Security.Permissions.dll_3590353691" />
       <ComponentRef Id="Component.System.Security.Principal.dll_3526720631" />
       <ComponentRef Id="Component.System.Security.Principal.Windows.dll_3290104245" />
+      <ComponentRef Id="Component.System.Security.SecureString.dll_1486582133" />
+      <ComponentRef Id="Component.System.ServiceModel.Web.dll_1902998775" />
+      <ComponentRef Id="Component.System.ServiceProcess.dll_1169982268" />
       <ComponentRef Id="Component.System.Text.Encoding.CodePages.dll_3391818644" />
+      <ComponentRef Id="Component.System.Text.Encoding.dll_4109005118" />
+      <ComponentRef Id="Component.System.Text.Encoding.Extensions.dll_2747875057" />
       <ComponentRef Id="Component.System.Text.Encodings.Web.dll_1623966931" />
       <ComponentRef Id="Component.System.Text.Json.dll_3348600777" />
       <ComponentRef Id="Component.System.Text.RegularExpressions.dll_3810038164" />
       <ComponentRef Id="Component.System.Threading.AccessControl.dll_391992495" />
+      <ComponentRef Id="Component.System.Threading.Channels.dll_3584671290" />
       <ComponentRef Id="Component.System.Threading.dll_4026747093" />
+      <ComponentRef Id="Component.System.Threading.Overlapped.dll_2890156221" />
+      <ComponentRef Id="Component.System.Threading.Tasks.Dataflow.dll_3748784984" />
+      <ComponentRef Id="Component.System.Threading.Tasks.dll_3029536570" />
+      <ComponentRef Id="Component.System.Threading.Tasks.Extensions.dll_2703667564" />
+      <ComponentRef Id="Component.System.Threading.Tasks.Parallel.dll_3858446618" />
       <ComponentRef Id="Component.System.Threading.Thread.dll_805098477" />
+      <ComponentRef Id="Component.System.Threading.ThreadPool.dll_266211726" />
+      <ComponentRef Id="Component.System.Threading.Timer.dll_3367399699" />
+      <ComponentRef Id="Component.System.Transactions.dll_2195104128" />
+      <ComponentRef Id="Component.System.Transactions.Local.dll_1058102823" />
+      <ComponentRef Id="Component.System.ValueTuple.dll_2949728654" />
+      <ComponentRef Id="Component.System.Web.dll_1622136535" />
+      <ComponentRef Id="Component.System.Web.HttpUtility.dll_3053906446" />
       <ComponentRef Id="Component.System.Windows.Controls.Ribbon.dll_951430603" />
+      <ComponentRef Id="Component.System.Windows.dll_3953755012" />
       <ComponentRef Id="Component.System.Windows.Extensions.dll_1883898206" />
       <ComponentRef Id="Component.System.Windows.Forms.Design.dll_3987492430" />
       <ComponentRef Id="Component.System.Windows.Forms.Design.Editors.dll_3431356327" />
@@ -4142,6 +4979,15 @@
       <ComponentRef Id="Component.System.Windows.Input.Manipulations.dll_4091260200" />
       <ComponentRef Id="Component.System.Windows.Presentation.dll_2364316939" />
       <ComponentRef Id="Component.System.Xaml.dll_3955473133" />
+      <ComponentRef Id="Component.System.Xml.dll_2217681242" />
+      <ComponentRef Id="Component.System.Xml.Linq.dll_110737276" />
+      <ComponentRef Id="Component.System.Xml.ReaderWriter.dll_2994902721" />
+      <ComponentRef Id="Component.System.Xml.Serialization.dll_8761545" />
+      <ComponentRef Id="Component.System.Xml.XDocument.dll_1168102279" />
+      <ComponentRef Id="Component.System.Xml.XmlDocument.dll_1857564828" />
+      <ComponentRef Id="Component.System.Xml.XmlSerializer.dll_1045729035" />
+      <ComponentRef Id="Component.System.Xml.XPath.dll_1249274049" />
+      <ComponentRef Id="Component.System.Xml.XPath.XDocument.dll_4038301984" />
       <ComponentRef Id="Component.THIRD_PARTY_LICENSES.txt_2643965561" />
       <ComponentRef Id="Component.ucrtbase.dll_1123268885" />
       <ComponentRef Id="Component.UIAutomationClient.dll_1710904125" />
