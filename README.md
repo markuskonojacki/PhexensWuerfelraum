@@ -69,7 +69,7 @@ C:\VSDistribution\PhexensWuerfelraum.Server.Console\PhexensWuerfelraum.Server.Co
 ## Lizenz
 
 Phexens Würfelraum ist unter der MIT Lizenz veröffentlicht. 
-Für Details siehe: [LICENSE.txt](LICENSE)
+Für Details siehe: [LICENSE.txt](LICENSE.txt)
 Lizenzen von Dritt-Hersteller-Software, Grafiken und Soundeffekten finden sich hier: [THIRD-PARTY-LICENSES.txt](THIRD-PARTY-LICENSES.txt)
 
 DAS SCHWARZE AUGE, AVENTURIEN, DERE, MYRANOR, THARUN, UTHURIA und RIESLAND sind eingetragene Marken der Significant Fantasy Medienrechte GbR.
@@ -83,5 +83,5 @@ I currently do not have plans to support other languages apart from german.
 
 ## License
 Phex's Dice Room is licensed under the MIT license.
-For details see: [LICENSE.txt](LICENSE)
+For details see: [LICENSE.txt](LICENSE.txt)
 For licenses of third partys see: [THIRD-PARTY-LICENSES.txt](THIRD-PARTY-LICENSES.txt)
