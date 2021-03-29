@@ -47,6 +47,11 @@
     <None Remove="Resources\Dice\william-tell-skull.png" />
     <None Remove="Resources\GameMasterIcon.png" />
     <None Remove="Resources\PlayerIcon.png" />
+    <None Remove="Resources\Sounds\Notification.wav" />
+    <None Remove="Resources\Sounds\roll-1-1-1.wav" />
+    <None Remove="Resources\Sounds\roll-1-1.wav" />
+    <None Remove="Resources\Sounds\roll-20-20-20.wav" />
+    <None Remove="Resources\Sounds\roll-20-20.wav" />
     <None Include="..\..\LICENSE.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -107,7 +112,7 @@
     </Resource>
     <Resource Include="FodyWeavers.xml" />
     <Resource Include="Resources\AppIcon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Backgrounds\natural_paper.png" />
     <Resource Include="Resources\Dice\d10.png" />
@@ -127,6 +132,21 @@
       <Generator>MSBuild:Compile</Generator>
     </Resource>
     <Resource Include="Resources\PlayerIcon.png" />
+    <Resource Include="Resources\Sounds\Notification.wav">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Sounds\roll-1-1-1.wav">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Sounds\roll-1-1.wav">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Sounds\roll-20-20-20.wav">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Sounds\roll-20-20.wav">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Styles\MiscStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -186,27 +206,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Resources\installing.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Sounds\Notification.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Sounds\roll-1-1-1.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Sounds\roll-1-1.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Sounds\roll-20-20-20.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Sounds\roll-20-20.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
