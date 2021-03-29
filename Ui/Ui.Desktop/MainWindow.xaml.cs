@@ -72,45 +72,46 @@ namespace PhexensWuerfelraum.Ui.Desktop
                     System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName),
                 new GithubPackageResolver("Derevar", "PhexensWuerfelraum", "PhexensWuerfelraum-*.zip"),
                 new ZipPackageExtractor());
-            var resultCheckForUpdatesAsync = await manager.CheckForUpdatesAsync();
-            if (resultCheckForUpdatesAsync.CanUpdate)
             {
-                ChatnRollViewModel.OpenUpdateInfoCommand.Execute(null);
-
-                // Prepare an update by downloading and extracting the package
-                // (supports progress reporting and cancellation)
-                await manager.PrepareUpdateAsync(resultCheckForUpdatesAsync.LastVersion);
-
-                if (manager.IsUpdatePrepared(resultCheckForUpdatesAsync.LastVersion))
+                var resultCheckForUpdatesAsync = await manager.CheckForUpdatesAsync();
+                if (resultCheckForUpdatesAsync.CanUpdate)
                 {
-                    // Launch an executable that will apply the update
-                    manager.LaunchUpdater(resultCheckForUpdatesAsync.LastVersion, true);
+                    ChatnRollViewModel.OpenUpdateInfoCommand.Execute(null);
 
-                    // Terminate the running application so that the updater can overwrite files
-                    Environment.Exit(0);
+                    // Prepare an update by downloading and extracting the package
+                    // (supports progress reporting and cancellation)
+                    await manager.PrepareUpdateAsync(resultCheckForUpdatesAsync.LastVersion);
+
+                    if (manager.IsUpdatePrepared(resultCheckForUpdatesAsync.LastVersion))
+                    {
+                        // Launch an executable that will apply the update
+                        manager.LaunchUpdater(resultCheckForUpdatesAsync.LastVersion, true);
+
+                        // Terminate the running application so that the updater can overwrite files
+                        Environment.Exit(0);
+                    }
                 }
             }
         }
-    }
 
-    private void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
-    {
-        MenuItem menuItem = (MenuItem)e.InvokedItem;
-        if (menuItem != null && menuItem.IsNavigation)
+        private void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
         {
-            Navigation.Navigate(menuItem.NavigationDestination, menuItem);
+            MenuItem menuItem = (MenuItem)e.InvokedItem;
+            if (menuItem != null && menuItem.IsNavigation)
+            {
+                Navigation.Navigate(menuItem.NavigationDestination, menuItem);
+            }
+        }
+
+        private void SplitViewFrame_OnNavigated(object sender, NavigationEventArgs e)
+        {
+            HamburgerMenuControl.SelectedItem = e.ExtraData ?? ((NavigationViewModel)NavigationGrid.DataContext).GetItem(e.Uri);
+            HamburgerMenuControl.SelectedOptionsItem = e.ExtraData ?? ((NavigationViewModel)NavigationGrid.DataContext).GetOptionsItem(e.Uri);
+        }
+
+        private void CharacterDropDownSelector_Click(object sender, RoutedEventArgs e)
+        {
+            Navigation.Navigate(new Uri("Views/SettingsPage.xaml", UriKind.RelativeOrAbsolute));
         }
     }
-
-    private void SplitViewFrame_OnNavigated(object sender, NavigationEventArgs e)
-    {
-        HamburgerMenuControl.SelectedItem = e.ExtraData ?? ((NavigationViewModel)NavigationGrid.DataContext).GetItem(e.Uri);
-        HamburgerMenuControl.SelectedOptionsItem = e.ExtraData ?? ((NavigationViewModel)NavigationGrid.DataContext).GetOptionsItem(e.Uri);
-    }
-
-    private void CharacterDropDownSelector_Click(object sender, RoutedEventArgs e)
-    {
-        Navigation.Navigate(new Uri("Views/SettingsPage.xaml", UriKind.RelativeOrAbsolute));
-    }
-}
 }
