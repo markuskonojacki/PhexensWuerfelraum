@@ -423,21 +423,29 @@ namespace PhexensWuerfelraum.Logic.Ui
         private string RollAttributeDice(int attributWert, string attributTxt)
         {
             RollResult rollResult;
+            int rollValue;
             string suffix;
             string ret;
 
             rollResult = Roller.Roll("1d20");
+            rollValue = decimal.ToInt32(rollResult.Value);
+            rollValue += Character.Modifikation;
 
-            if (rollResult.Value <= attributWert)
+            if (rollValue < 1)
+                rollValue = 1;
+
+            if (rollValue <= attributWert)
             {
-                suffix = string.Format("{0} Punkte über, geschafft! :)", attributWert - rollResult.Value);
+                suffix = string.Format("{0} Punkte über, geschafft! :)", attributWert - rollValue);
             }
             else
             {
-                suffix = string.Format("{0} Punkte drüber, nicht geschafft... :(", (attributWert - rollResult.Value) * -1);
+                suffix = string.Format("{0} Punkte drüber, nicht geschafft... :(", (attributWert - rollValue) * -1);
             }
 
-            ret = $"eine {rollResult.Value} auf {attributTxt}. {suffix}";
+            ret = $"eine {rollValue} (gewürfelt {rollResult.Value} mod. {Character.Modifikation}) auf {attributTxt}. {suffix}";
+
+            Character.Modifikation = 0;
 
             return ret;
         }
