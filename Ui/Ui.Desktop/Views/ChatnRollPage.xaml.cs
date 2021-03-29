@@ -107,7 +107,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
 
         private void SelectableMessageTextBlock_TextSelected(string SelectedText)
         {
-            Clipboard.SetText(SelectedText);
+            Clipboard.SetDataObject(SelectedText);
         }
     }
 }

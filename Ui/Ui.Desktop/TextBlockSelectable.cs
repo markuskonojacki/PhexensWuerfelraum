@@ -32,17 +32,15 @@ namespace PhexensWuerfelraum.Ui.Desktop
             EndSelectPosition = this.GetPositionFromPoint(mouseUpPoint, true);
 
             TextRange otr = new TextRange(this.ContentStart, this.ContentEnd);
-            //otr.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Black));
             otr.ApplyPropertyValue(TextElement.BackgroundProperty, new SolidColorBrush(Colors.Transparent));
 
-            TextRange ntr = new TextRange(StartSelectPosition, EndSelectPosition);
-            //ntr.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Gray));
-            ntr.ApplyPropertyValue(TextElement.BackgroundProperty, new SolidColorBrush(Colors.Gray));
-
-            SelectedText = ntr.Text;
-            if (!(TextSelected == null))
+            if (StartSelectPosition != null && EndSelectPosition != null)
             {
-                TextSelected(SelectedText);
+                TextRange ntr = new TextRange(StartSelectPosition, EndSelectPosition);
+                ntr.ApplyPropertyValue(TextElement.BackgroundProperty, new SolidColorBrush(Colors.Gray));
+
+                SelectedText = ntr.Text;
+                TextSelected?.Invoke(SelectedText);
             }
         }
     }
