@@ -6,7 +6,9 @@ using SimpleSockets.Messaging;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Media;
 using System.Reflection;
+using System.Runtime.Versioning;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,11 +31,11 @@ namespace PhexensWuerfelraum.Logic.Ui
         private UserModel _selectedUser;
         private readonly SettingsViewModel SettingsViewModel = SimpleIoc.Default.GetInstance<SettingsViewModel>();
 
-        private MediaPlayer mediaPlayer1;
-        private MediaPlayer mediaPlayer2;
-        private MediaPlayer mediaPlayer3;
-        private MediaPlayer mediaPlayer4;
-        private MediaPlayer mediaPlayer5;
+        private SoundPlayer soundPlayer1;
+        private SoundPlayer soundPlayer2;
+        private SoundPlayer soundPlayer3;
+        private SoundPlayer soundPlayer4;
+        private SoundPlayer soundPlayer5;
 
         public bool IsRunning { get; set; }
         public bool Connected { get; set; }
@@ -107,6 +109,20 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         public async Task Send(string username, string message, string colorCode, int toId, string toName, ChatMessageType messageType = ChatMessageType.Text)
         {
+            if (toId != 0)
+            {
+                switch (messageType)
+                {
+                    case ChatMessageType.Text:
+                        messageType = ChatMessageType.Whisper;
+                        break;
+
+                    case ChatMessageType.Roll:
+                        messageType = ChatMessageType.RollWhisper;
+                        break;
+                }
+            }
+
             if (!string.IsNullOrEmpty(message) && !string.IsNullOrWhiteSpace(message))
             {
                 ChatPacket chatPacket = new ChatPacket(messageType, message, 0, username, toId, toName, colorCode);
@@ -297,6 +313,7 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         #endregion Events
 
+        [SupportedOSPlatform("windows")]
         private void ManageChatPacket(ChatPacket chatPacket)
         {
             Application.Current.Dispatcher.Invoke(delegate
@@ -307,36 +324,61 @@ namespace PhexensWuerfelraum.Logic.Ui
                 {
                     if (chatPacket.FromId != OwnId) // only play notification sound for messages from other users
                     {
-                        ChatRoom.mediaPlayer1 = new MediaPlayer();
-                        ChatRoom.mediaPlayer1.Open(new Uri(Directory.GetParent(Assembly.GetExecutingAssembly().Location) + "/Resources/Sounds/Notification.wav"));
-                        ChatRoom.mediaPlayer1.Play();
+                        var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/Notification.wav"));
+
+                        if (sri != null)
+                        {
+                            ChatRoom.soundPlayer1 = new(sri.Stream);
+                            ChatRoom.soundPlayer1.Load();
+                            ChatRoom.soundPlayer1.Play();
+                        }
                     }
 
                     if (chatPacket.MessageType == ChatMessageType.Roll || chatPacket.MessageType == ChatMessageType.RollWhisper)
                     {
                         if (chatPacket.Message.Contains("Doppel 1!"))
                         {
-                            ChatRoom.mediaPlayer2 = new MediaPlayer();
-                            ChatRoom.mediaPlayer2.Open(new Uri(Directory.GetParent(Assembly.GetExecutingAssembly().Location) + "/Resources/Sounds/roll-1-1.wav"));
-                            ChatRoom.mediaPlayer2.Play();
+                            var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-1-1.wav"));
+
+                            if (sri != null)
+                            {
+                                ChatRoom.soundPlayer2 = new(sri.Stream);
+                                ChatRoom.soundPlayer2.Load();
+                                ChatRoom.soundPlayer2.Play();
+                            }
                         }
                         else if (chatPacket.Message.Contains("dreifach 1!"))
                         {
-                            ChatRoom.mediaPlayer3 = new MediaPlayer();
-                            ChatRoom.mediaPlayer3.Open(new Uri(Directory.GetParent(Assembly.GetExecutingAssembly().Location) + "/Resources/Sounds/roll-1-1-1.wav"));
-                            ChatRoom.mediaPlayer3.Play();
+                            var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-1-1-1.wav"));
+
+                            if (sri != null)
+                            {
+                                ChatRoom.soundPlayer3 = new(sri.Stream);
+                                ChatRoom.soundPlayer3.Load();
+                                ChatRoom.soundPlayer3.Play();
+                            }
                         }
                         else if (chatPacket.Message.Contains("doppel 20;"))
                         {
-                            ChatRoom.mediaPlayer4 = new MediaPlayer();
-                            ChatRoom.mediaPlayer4.Open(new Uri(Directory.GetParent(Assembly.GetExecutingAssembly().Location) + "/Resources/Sounds/roll-20-20.wav"));
-                            ChatRoom.mediaPlayer4.Play();
+                            var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-20-20.wav"));
+
+                            if (sri != null)
+                            {
+                                ChatRoom.soundPlayer4 = new(sri.Stream);
+                                ChatRoom.soundPlayer4.Load();
+                                ChatRoom.soundPlayer4.Play();
+                            }
                         }
                         else if (chatPacket.Message.Contains("dreifach 20;"))
                         {
-                            ChatRoom.mediaPlayer5 = new MediaPlayer();
-                            ChatRoom.mediaPlayer5.Open(new Uri(Directory.GetParent(Assembly.GetExecutingAssembly().Location) + "/Resources/Sounds/roll-20-20-20.wav"));
-                            ChatRoom.mediaPlayer5.Play();
+                            var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-20-20-20.wav"));
+
+                            if (sri != null)
+                            {
+                                ChatRoom.soundPlayer5 = new(sri.Stream);
+                                ChatRoom.soundPlayer5.Load();
+                                ChatRoom.soundPlayer5.Play();
+                            }
                         }
                     }
                 }
