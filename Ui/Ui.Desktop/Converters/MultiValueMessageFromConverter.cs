@@ -49,7 +49,6 @@ namespace PhexensWuerfelraum.Ui.Desktop
                     break;
 
                 case ChatMessageType.Whisper:
-                case ChatMessageType.RollWhisper:
                     if (fromUsername == ownName)
                     {
                         ret = $"Du flüsterst {toUsername}: ";
@@ -61,6 +60,21 @@ namespace PhexensWuerfelraum.Ui.Desktop
                     else
                     {
                         ret = $"{fromUsername} flüstert an {toUsername}: ";
+                    }
+                    break;
+
+                case ChatMessageType.RollWhisper:
+                    if (fromUsername == ownName)
+                    {
+                        ret = $"Du würfelst privat an {toUsername} ";
+                    }
+                    else if (toUsername == ownName)
+                    {
+                        ret = $"{fromUsername} würfelt dir privat ";
+                    }
+                    else
+                    {
+                        ret = $"{fromUsername} würfelt privat an {toUsername} ";
                     }
                     break;
             }

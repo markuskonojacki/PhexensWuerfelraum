@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetName>PhexensWuerfelraum</TargetName>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <UseWPF>true</UseWPF>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
@@ -18,6 +18,7 @@
     <PackageProjectUrl>https://github.com/Derevar/PhexensWuerfelraum</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Derevar/PhexensWuerfelraum</RepositoryUrl>
     <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
+    <StartupObject>PhexensWuerfelraum.Ui.Desktop.App</StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -46,6 +47,11 @@
     <None Remove="Resources\Dice\william-tell-skull.png" />
     <None Remove="Resources\GameMasterIcon.png" />
     <None Remove="Resources\PlayerIcon.png" />
+    <None Remove="Resources\Sounds\Notification.wav" />
+    <None Remove="Resources\Sounds\roll-1-1-1.wav" />
+    <None Remove="Resources\Sounds\roll-1-1.wav" />
+    <None Remove="Resources\Sounds\roll-20-20-20.wav" />
+    <None Remove="Resources\Sounds\roll-20-20.wav" />
     <None Include="..\..\LICENSE.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -67,29 +73,29 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ControlzEx" Version="4.3.2" />
-    <PackageReference Include="Fody" Version="6.3.0">
+    <PackageReference Include="ControlzEx" Version="5.0.0" />
+    <PackageReference Include="Fody" Version="6.5.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>all</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Jot" Version="2.1.7" />
-    <PackageReference Include="MahApps.Metro" Version="2.3.0" />
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.6.0" />
-    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.6.0" />
-    <PackageReference Include="MahApps.Metro.SimpleChildWindow" Version="2.0.0-alpha0031" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+    <PackageReference Include="Jot" Version="2.1.8" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.4" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.8.0" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.8.0" />
+    <PackageReference Include="MahApps.Metro.SimpleChildWindow" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
     <PackageReference Include="Mono.Cecil" Version="0.11.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="NuGet.CommandLine" Version="5.7.0">
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NuGet.CommandLine" Version="5.8.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Onova" Version="2.6.2" />
-    <PackageReference Include="PropertyChanged.Fody" Version="3.2.10">
+    <PackageReference Include="PropertyChanged.Fody" Version="3.3.3">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="SimpleSockets" Version="1.2.20" />
-    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -106,7 +112,7 @@
     </Resource>
     <Resource Include="FodyWeavers.xml" />
     <Resource Include="Resources\AppIcon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Backgrounds\natural_paper.png" />
     <Resource Include="Resources\Dice\d10.png" />
@@ -126,6 +132,21 @@
       <Generator>MSBuild:Compile</Generator>
     </Resource>
     <Resource Include="Resources\PlayerIcon.png" />
+    <Resource Include="Resources\Sounds\Notification.wav">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Sounds\roll-1-1-1.wav">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Sounds\roll-1-1.wav">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Sounds\roll-20-20-20.wav">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Sounds\roll-20-20.wav">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Styles\MiscStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,27 +209,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\installing.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Sounds\Notification.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Sounds\roll-1-1-1.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Sounds\roll-1-1.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Sounds\roll-20-20-20.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Sounds\roll-20-20.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Page Update="CustomControls\ChatInputTextBox.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -268,4 +268,18 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="del $(TargetDir)*.dll.config" />
+  </Target>
+
+  <ItemGroup>
+    <EmbeddedResource Update="*.dll.config">
+      <CopyToOutputDirectory>False</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <Target Name="CleanDllconfig" AfterTargets="AfterPublish">
+    <Delete Files="*.dll.config" />
+  </Target>
 </Project>
