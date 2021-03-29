@@ -19,6 +19,7 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Margin="10" Width="200" FontSize="15" Click="LicenseButton_Click">Lizenz</Button>
                 <Button Margin="10" Width="200" FontSize="15" Click="ThirdPartyLicenseButton_Click">Lizenzen Dritter</Button>
+                <Button Margin="10" Width="200" FontSize="15" Click="ChangelogButton_Click">Changelog</Button>
             </StackPanel>
         </StackPanel>
     </Grid>
