@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetName>PhexensWuerfelraum</TargetName>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <UseWPF>true</UseWPF>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
@@ -18,6 +18,7 @@
     <PackageProjectUrl>https://github.com/Derevar/PhexensWuerfelraum</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Derevar/PhexensWuerfelraum</RepositoryUrl>
     <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
+    <StartupObject>PhexensWuerfelraum.Ui.Desktop.App</StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
