@@ -18,7 +18,6 @@ namespace PhexensWuerfelraum.Server.Console
     {
         private static int Port;
         private static bool UseSSL;
-        private static bool Encrypt;
         private static bool Compress;
 
         private static List<AuthPacket> AuthenticatedUsers = new List<AuthPacket>();
@@ -29,7 +28,7 @@ namespace PhexensWuerfelraum.Server.Console
             WriteLine("Starting the server");
 
             var config = new ConfigurationBuilder()
-                .AddIniFile("settings.ini", optional: true, reloadOnChange: true)
+                .AddIniFile(Path.Combine(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "config"), "settings.ini"), optional: true, reloadOnChange: true)
                 .AddCommandLine(args)
                 .Build();
 
@@ -41,30 +40,27 @@ namespace PhexensWuerfelraum.Server.Console
             UseSSL = bool.Parse(config["ssl"]);
             WriteLine($"SSL is {(UseSSL ? "ON" : "OFF")}");
 
-            Encrypt = bool.Parse(config["encrypt"]);
-            WriteLine($"Encryption is {(Encrypt ? "ON" : "OFF")}");
-
             Compress = bool.Parse(config["compress"]);
             WriteLine($"Compression is {(Compress ? "ON" : "OFF")}");
 
             if (UseSSL)
             {
                 var privKeyFileName = "PrivateKey.pfx";
-                var privateKeyPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), privKeyFileName);
+                var privateKeyPath = Path.Combine(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "config"), privKeyFileName);
                 var publicKeyFileName = "PublicKey.pem";
-                var publicKeyPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), publicKeyFileName);
+                var publicKeyPath = Path.Combine(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "config"), publicKeyFileName);
 
-                if (!File.Exists(privKeyFileName))
+                if (!File.Exists(privateKeyPath))
                 {
                     X509Certificate2 generatedCert = Certificates.GenerateCertificate("PhexensWuerfelraumServer");
 
                     string publicKey = Certificates.ExportToPEM(generatedCert);
 
-                    File.WriteAllBytes(privKeyFileName, generatedCert.Export(X509ContentType.Pfx));
-                    File.WriteAllText(publicKeyFileName, publicKey);
+                    File.WriteAllBytes(privateKeyPath, generatedCert.Export(X509ContentType.Pfx));
+                    File.WriteAllText(publicKeyPath, publicKey);
 
                     System.Console.WriteLine("");
-                    WriteLine($"No certificate found. Generated a new private/public key pair. Give the following string to your users. It is also saved as {publicKeyPath}");
+                    WriteLine($"No certificate found. Generated a new private/public key pair. Give the following string to your users. It is also saved as config\\{publicKeyFileName}");
                     System.Console.WriteLine("");
                     System.Console.Write(publicKey);
                     System.Console.WriteLine("");
@@ -138,7 +134,7 @@ namespace PhexensWuerfelraum.Server.Console
 
             foreach (var client in clients)
             {
-                await _listener.SendMessageAsync(client.Value.Id, message, Compress, Encrypt, false);
+                await _listener.SendMessageAsync(client.Value.Id, message, Compress, false, false);
             }
         }
 
@@ -174,7 +170,7 @@ namespace PhexensWuerfelraum.Server.Console
             WriteLine("Enter your message you want to send to the server: ");
             var message = System.Console.ReadLine();
 
-            await _listener.SendMessageAsync(id, message, Compress, Encrypt, false);
+            await _listener.SendMessageAsync(id, message, Compress, false, false);
         }
 
         //private static async void SendMessageContract()
@@ -300,7 +296,7 @@ namespace PhexensWuerfelraum.Server.Console
                 authPacket.UserModel.Id = client.Id;
                 AuthenticatedUsers.Add(authPacket);
 
-                _listener.SendObject(client.Id, authPacket, Compress, Encrypt, false);
+                _listener.SendObject(client.Id, authPacket, Compress, false, false);
 
                 List<UserModel> userModelList = new List<UserModel>();
                 foreach (var user in AuthenticatedUsers)
@@ -312,8 +308,8 @@ namespace PhexensWuerfelraum.Server.Console
 
                 foreach (var user in AuthenticatedUsers)
                 {
-                    _listener.SendObject(user.UserModel.Id, new ChatroomPacket(userModelList), Compress, Encrypt, false);
-                    _listener.SendObject(user.UserModel.Id, userJoinNotification, Compress, Encrypt, false);
+                    _listener.SendObject(user.UserModel.Id, new ChatroomPacket(userModelList), Compress, false, false);
+                    _listener.SendObject(user.UserModel.Id, userJoinNotification, Compress, false, false);
                 }
             }
             else if (obj.GetType() == typeof(ChatPacket))
@@ -325,7 +321,7 @@ namespace PhexensWuerfelraum.Server.Console
                 {
                     foreach (var user in AuthenticatedUsers)
                     {
-                        _listener.SendObject(user.UserModel.Id, chatPacket, Compress, Encrypt, false);
+                        _listener.SendObject(user.UserModel.Id, chatPacket, Compress, false, false);
                     }
                 }
                 else // only to the recepient and the game master
@@ -334,7 +330,7 @@ namespace PhexensWuerfelraum.Server.Console
 
                     foreach (var user in recepients)
                     {
-                        _listener.SendObject(user.UserModel.Id, chatPacket, Compress, Encrypt, false);
+                        _listener.SendObject(user.UserModel.Id, chatPacket, Compress, false, false);
                     }
                 }
             }
@@ -396,7 +392,7 @@ namespace PhexensWuerfelraum.Server.Console
                             foreach (var user in clients)
                             {
                                 WriteLine("Client ID: " + user.Value.Id + " with IPv4 : " + user.Value.RemoteIPv4);
-                                await _listener.SendMessageAsync(client.Id, $"- ID '{user.Value.Id.ToString()}'; Name '{ AuthenticatedUsers.Find(a => a.UserModel.Id == user.Value.Id).UserModel.UserName}'", Compress, Encrypt, false);
+                                await _listener.SendMessageAsync(client.Id, $"- ID '{user.Value.Id.ToString()}'; Name '{ AuthenticatedUsers.Find(a => a.UserModel.Id == user.Value.Id).UserModel.UserName}'", Compress, false, false);
                             }
                             break;
 
@@ -473,7 +469,7 @@ namespace PhexensWuerfelraum.Server.Console
 
                 foreach (var user in AuthenticatedUsers)
                 {
-                    _listener.SendObject(user.UserModel.Id, userLeaveNotification, Compress, Encrypt, false);
+                    _listener.SendObject(user.UserModel.Id, userLeaveNotification, Compress, false, false);
                 }
             }
         }

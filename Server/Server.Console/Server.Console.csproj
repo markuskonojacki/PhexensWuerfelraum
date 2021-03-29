@@ -31,16 +31,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="settings.ini">
+    <ProjectReference Include="..\..\Logic\Logic.ClientServer\Logic.ClientServer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="config\settings.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Logic\Logic.ClientServer\Logic.ClientServer.csproj" />
   </ItemGroup>
 </Project>
