@@ -1,4 +1,5 @@
 ﻿using Jot.Configuration;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -70,6 +71,14 @@ namespace PhexensWuerfelraum.Logic.Ui
         public int JagdwaffenTaW { get; set; }
 
         public int Modifikation { get; set; }
+
+        public bool RollModeOpen { get; set; } = true;
+
+        [DependsOn("Modifikation")]
+        public bool ShowErleichterungLabel { get { return Modifikation < 0; } }
+
+        [DependsOn("Modifikation")]
+        public bool ShowErschwernisLabel { get { return Modifikation > 0; } }
 
         public string FileName { get; set; }
 

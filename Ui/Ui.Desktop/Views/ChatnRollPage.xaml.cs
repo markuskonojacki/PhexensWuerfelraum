@@ -1,10 +1,11 @@
-﻿using MahApps.Metro.Controls.Dialogs;
-using PhexensWuerfelraum.Logic.Ui;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MahApps.Metro.Controls.Dialogs;
+using PhexensWuerfelraum.Logic.Ui;
 
 namespace PhexensWuerfelraum.Ui.Desktop
 {
@@ -18,6 +19,9 @@ namespace PhexensWuerfelraum.Ui.Desktop
         private MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
 
         public CustomDialog _customCloseDialogTest;
+
+        private List<string> messageHistory = new();
+        private int currentMessageHistoryIndex = 0;
 
         public CustomDialog CustomCloseDialogTest()
         {
@@ -85,11 +89,14 @@ namespace PhexensWuerfelraum.Ui.Desktop
             await mainWindow.ShowMessageAsync("Dialog gone", "The custom dialog has closed");
         }
 
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        private void ChatInputTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
                 var context = (ChatnRollViewModel)DataContext;
+
+                messageHistory.Add(context.Message);
+
                 context.SendTextCommand.Execute(null);
             }
         }
@@ -108,6 +115,31 @@ namespace PhexensWuerfelraum.Ui.Desktop
         private void SelectableMessageTextBlock_TextSelected(string SelectedText)
         {
             Clipboard.SetDataObject(SelectedText);
+        }
+
+        private void ChatInputTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (messageHistory.Count > 0)
+            {
+                var context = (ChatnRollViewModel)DataContext;
+
+                if (e.Key == Key.Up)
+                {
+                    if (currentMessageHistoryIndex <= 0)
+                        currentMessageHistoryIndex = messageHistory.Count;
+
+                    context.Message = messageHistory[currentMessageHistoryIndex - 1];
+                    currentMessageHistoryIndex--;
+                }
+                else if (e.Key == Key.Down)
+                {
+                    if (currentMessageHistoryIndex >= messageHistory.Count - 1)
+                        currentMessageHistoryIndex = 0;
+
+                    context.Message = messageHistory[currentMessageHistoryIndex + 1];
+                    currentMessageHistoryIndex++;
+                }
+            }
         }
     }
 }

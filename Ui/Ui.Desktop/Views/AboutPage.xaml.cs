@@ -17,13 +17,32 @@ namespace PhexensWuerfelraum.Ui.Desktop.Views
 
         private void LicenseButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            var path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LICENSE.txt");
-            Process.Start(path);
+            var psi = new ProcessStartInfo
+            {
+                FileName = "https://github.com/Derevar/PhexensWuerfelraum/blob/master/LICENSE.txt",
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         private void ThirdPartyLicenseButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            Process.Start(Path.Combine(System.Environment.CurrentDirectory, "THIRD-PARTY-LICENSES.txt"));
+            var psi = new ProcessStartInfo
+            {
+                FileName = "https://github.com/Derevar/PhexensWuerfelraum/blob/master/THIRD-PARTY-LICENSES.txt",
+                UseShellExecute = true
+            };
+            Process.Start(psi);
+        }
+
+        private void ChangelogButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = "https://github.com/Derevar/PhexensWuerfelraum/releases",
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
     }
 }

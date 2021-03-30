@@ -289,13 +289,12 @@ namespace PhexensWuerfelraum.Logic.Ui
         private static void Disconnected(SimpleSocket a)
         {
             //WriteLine("The client has disconnected from the server with ip " + a.Ip + "on port " + a.Port);
-            ChatRoom.Status = "Verbinden";
-            ChatRoom.Connected = false;
-
-            ChatRoom.Users.Clear();
 
             Application.Current.Dispatcher.Invoke(delegate
             {
+                ChatRoom.Status = "Verbinden";
+                ChatRoom.Connected = false;
+                ChatRoom.Users.Clear();
                 ChatRoom.Messages.Add(new ChatPacket(ChatMessageType.Text, "Die Verbindung zum Server wurde getrennt oder konnte nicht aufgebaut werden.", 0, "", 0, ""));
             });
         }
@@ -318,6 +317,11 @@ namespace PhexensWuerfelraum.Logic.Ui
         {
             Application.Current.Dispatcher.Invoke(delegate
             {
+                if ((chatPacket.MessageType == ChatMessageType.Roll || chatPacket.MessageType == ChatMessageType.RollWhisper) && chatPacket.FromId == OwnId && chatPacket.Message.Contains("(blind)"))
+                {
+                    chatPacket.Message = chatPacket.Message.Split(':')[0];
+                }
+
                 ChatRoom.Messages.Add(chatPacket);
 
                 if (SettingsViewModel.Setting.SoundEffectsEnabled)

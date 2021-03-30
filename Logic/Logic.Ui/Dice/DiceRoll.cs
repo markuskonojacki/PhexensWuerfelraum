@@ -8,7 +8,6 @@ namespace PhexensWuerfelraum.Logic.Ui
 {
     public class DiceRoll
     {
-        private CharacterViewModel CharacterViewModel { get; set; } = SimpleIoc.Default.GetInstance<CharacterViewModel>();
         private CharacterModel Character { get; set; } = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
 
         public string RollTrial(Talent talent)
@@ -39,6 +38,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             int trialModificationMax = 0;
             string trialModificationTxt = "";
             string beText = "";
+            string blindText = "";
             string resultText = "";
             int i = 1;
 
@@ -64,7 +64,10 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             if (trial.Attribut1 == AttributType.Wildcard || trial.Attribut2 == AttributType.Wildcard || trial.Attribut3 == AttributType.Wildcard)
             {
-                return string.Format($"{trialName}: {roll1}, {roll2}, {roll3} (Probe enthält frei wählbare Attribute)");
+                if (Character.RollModeOpen == false)
+                    blindText = "(blind) ";
+
+                return string.Format($"{blindText}{trialName}: {roll1}, {roll2}, {roll3} (Probe enthält frei wählbare Attribute)");
             }
 
             attribute1Value = GetAttributeValue(trial.Attribut1);
@@ -255,7 +258,10 @@ namespace PhexensWuerfelraum.Logic.Ui
                 trialPointsRemaining = trialValue; // can't have more left than what you started with (trial modifications)
             }
 
-            return string.Format($"auf {trialName}: {roll1}, {roll2}, {roll3} ⇒ {trialPointsRemaining} {resultText} {erschwernisTxt}{trialModificationTxt}{beText}");
+            if (Character.RollModeOpen == false)
+                blindText = "(blind) ";
+
+            return string.Format($"{blindText}auf {trialName}: {roll1}, {roll2}, {roll3} ⇒ {trialPointsRemaining} {resultText} {erschwernisTxt}{trialModificationTxt}{beText}");
         }
 
         public string RollDice(string parm, int diceAmount)
@@ -417,6 +423,9 @@ namespace PhexensWuerfelraum.Logic.Ui
                     break;
             }
 
+            if (Character.RollModeOpen == false)
+                result = "(blind) " + result;
+
             return result;
         }
 
@@ -446,6 +455,9 @@ namespace PhexensWuerfelraum.Logic.Ui
             ret = $"eine {rollValue} (gewürfelt {rollResult.Value} mod. {Character.Modifikation}) auf {attributTxt}. {suffix}";
 
             Character.Modifikation = 0;
+
+            if (Character.RollModeOpen == false)
+                ret = "(blind) " + ret;
 
             return ret;
         }
