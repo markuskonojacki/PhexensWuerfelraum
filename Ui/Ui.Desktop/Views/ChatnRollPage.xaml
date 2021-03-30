@@ -175,7 +175,8 @@
                     Margin="2"
                     Controls:TextBoxHelper.ClearTextButton="True"
                     Style="{StaticResource SendTextBoxStyle}"
-                    KeyDown="TextBox_KeyDown"
+                    KeyDown="ChatInputTextBox_KeyDown"
+                    PreviewKeyDown="ChatInputTextBox_PreviewKeyDown"
                     Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     TextWrapping="WrapWithOverflow" />
