@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using PhexensWuerfelraum.Logic.ClientServer;
+using PropertyChanged;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -39,7 +40,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         public RelayCommand SendRollCommand { get; set; }
         public RelayCommand SendActionCommand { get; set; }
         public RelayCommand<string> RollDiceCommand { get; set; }
-
+        public RelayCommand ToggleRollModeCommand { get; set; }
         public RelayCommand OpenUpdateInfoCommand { get; private set; }
 
         #endregion Commands
@@ -54,6 +55,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             SendRollCommand = new RelayCommand(async () => await SendRoll(), true);
             SendActionCommand = new RelayCommand(async () => await SendAction(), true);
             RollDiceCommand = new RelayCommand<string>(async (parm) => await SendDice(parm), true);
+            ToggleRollModeCommand = new RelayCommand(() => ToggleRollMode(), true);
             OpenUpdateInfoCommand = new RelayCommand(() => OpenUpdateInfo());
         }
 
@@ -245,6 +247,11 @@ namespace PhexensWuerfelraum.Logic.Ui
                 await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, ChatMessageType.Roll);
             }
             Message = string.Empty;
+        }
+
+        private void ToggleRollMode()
+        {
+            Character.RollModeOpen = !Character.RollModeOpen;
         }
 
         #endregion methods

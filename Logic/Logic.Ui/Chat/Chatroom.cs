@@ -317,6 +317,11 @@ namespace PhexensWuerfelraum.Logic.Ui
         {
             Application.Current.Dispatcher.Invoke(delegate
             {
+                if ((chatPacket.MessageType == ChatMessageType.Roll || chatPacket.MessageType == ChatMessageType.RollWhisper) && chatPacket.FromId == OwnId && chatPacket.Message.Contains("(blind)"))
+                {
+                    chatPacket.Message = chatPacket.Message.Split(':')[0];
+                }
+
                 ChatRoom.Messages.Add(chatPacket);
 
                 if (SettingsViewModel.Setting.SoundEffectsEnabled)

@@ -330,7 +330,7 @@ namespace PhexensWuerfelraum.Server.Console
                 }
                 else // only to the recepient and the game master
                 {
-                    var recepients = AuthenticatedUsers.FindAll(a => a.UserModel.Id == chatPacket.ToId || a.UserModel.IsGameMaster == true);
+                    var recepients = AuthenticatedUsers.FindAll(a => a.UserModel.Id == chatPacket.ToId || a.UserModel.Id == chatPacket.FromId || a.UserModel.IsGameMaster == true);
 
                     foreach (var user in recepients)
                     {

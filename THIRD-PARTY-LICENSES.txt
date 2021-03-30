@@ -75,6 +75,12 @@ Credit: Icon made by Delapouite (http://delapouite.com)
 
 -------------------------------------------------------------------------
 
+Image: roll_blind.png & roll_public.png
+License: Flaticon License
+Credit: https://www.flaticon.com/authors/smashicons
+
+-------------------------------------------------------------------------
+
 Source Code: WPFChat (used as basis for Client/Server Architecture)
 License: MIT
 License Source: https://github.com/Joben28/WPFChat/blob/master/LICENSE

@@ -47,6 +47,8 @@
     <None Remove="Resources\Dice\william-tell-skull.png" />
     <None Remove="Resources\GameMasterIcon.png" />
     <None Remove="Resources\PlayerIcon.png" />
+    <None Remove="Resources\roll_blind.png" />
+    <None Remove="Resources\roll_public.png" />
     <None Remove="Resources\Sounds\Notification.wav" />
     <None Remove="Resources\Sounds\roll-1-1-1.wav" />
     <None Remove="Resources\Sounds\roll-1-1.wav" />
@@ -132,6 +134,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Resource>
     <Resource Include="Resources\PlayerIcon.png" />
+    <Resource Include="Resources\roll_blind.png" />
+    <Resource Include="Resources\roll_public.png" />
     <Resource Include="Resources\Sounds\Notification.wav">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>

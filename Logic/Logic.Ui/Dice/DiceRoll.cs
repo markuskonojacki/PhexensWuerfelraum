@@ -8,7 +8,6 @@ namespace PhexensWuerfelraum.Logic.Ui
 {
     public class DiceRoll
     {
-        private CharacterViewModel CharacterViewModel { get; set; } = SimpleIoc.Default.GetInstance<CharacterViewModel>();
         private CharacterModel Character { get; set; } = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
 
         public string RollTrial(Talent talent)
@@ -255,7 +254,14 @@ namespace PhexensWuerfelraum.Logic.Ui
                 trialPointsRemaining = trialValue; // can't have more left than what you started with (trial modifications)
             }
 
-            return string.Format($"auf {trialName}: {roll1}, {roll2}, {roll3} ⇒ {trialPointsRemaining} {resultText} {erschwernisTxt}{trialModificationTxt}{beText}");
+            string blindText;
+
+            if (Character.RollModeOpen)
+                blindText = "";
+            else
+                blindText = "(blind) ";
+
+            return string.Format($"{blindText}auf {trialName}: {roll1}, {roll2}, {roll3} ⇒ {trialPointsRemaining} {resultText} {erschwernisTxt}{trialModificationTxt}{beText}");
         }
 
         public string RollDice(string parm, int diceAmount)

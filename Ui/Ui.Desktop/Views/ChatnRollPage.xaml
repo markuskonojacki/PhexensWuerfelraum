@@ -14,6 +14,7 @@
 
     <Page.Resources>
         <local:BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+        <local:InverseBooleanToVisibilityConverter x:Key="InverseVisibilityConverter" />
         <local:MultiValueMessageFromConverter x:Key="MultiValueMessageFromConverter" />
 
         <Style x:Key="DiceButtonStyle" TargetType="{x:Type Button}">
@@ -252,45 +253,80 @@
                     <Image Source="/Resources/Dice/william-tell-skull.png" />
                 </Button>
 
-                <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2">
-                    <Label FontWeight="Bold">Anzahl Würfel</Label>
+                <Grid Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="65" />
+                        <ColumnDefinition Width="75" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right">Anzahl</Label>
                     <Controls:NumericUpDown
-                    Minimum="1"
-                    Maximum="99"
-                    Interval="1"
-                    Value="{Binding Path=DiceAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    StringFormat="G0"
-                    Opacity="0.8" />
-                    <Label FontWeight="Bold">Behinderung</Label>
+                        Grid.Column="1"
+                        Grid.Row="0"
+                        Minimum="1"
+                        Maximum="99"
+                        Interval="1"
+                        Value="{Binding Path=DiceAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        StringFormat="G0"
+                        Opacity="0.8" />
+
+                    <Label Grid.Column="0" Grid.Row="1" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right">BE</Label>
                     <Controls:NumericUpDown
-                    Minimum="0"
-                    Maximum="99"
-                    Interval="1"
-                    DataContext="{Binding Character, Source={StaticResource Locator}}"
-                    Value="{Binding Path=Character.Behinderung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    StringFormat="G0"
-                    Opacity="0.8" />
-                    <Label FontWeight="Bold">Modifikation</Label>
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Minimum="0"
+                        Maximum="99"
+                        Interval="1"
+                        DataContext="{Binding Character, Source={StaticResource Locator}}"
+                        Value="{Binding Path=Character.Behinderung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        StringFormat="G0"
+                        Opacity="0.8" />
+
+                    <Label Grid.Column="0" Grid.Row="2" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right">Mod.</Label>
                     <Controls:NumericUpDown
-                    Minimum="-99"
-                    Maximum="99"
-                    Interval="1"
-                    DataContext="{Binding Character, Source={StaticResource Locator}}"
-                    Value="{Binding Path=Character.Modifikation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    StringFormat="G0"
-                    Opacity="0.8"
-                    ToolTip="Positiv = Erschwernis / Negativ = Erleichterung" />
-                </StackPanel>
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Minimum="-99"
+                        Maximum="99"
+                        Interval="1"
+                        DataContext="{Binding Character, Source={StaticResource Locator}}"
+                        Value="{Binding Path=Character.Modifikation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        StringFormat="G0"
+                        Opacity="0.8"
+                        ToolTip="Positiv = Erschwernis / Negativ = Erleichterung" />
+
+                    <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal">
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding ToggleRollModeCommand}" Visibility="{Binding Character.RollModeOpen, Converter={StaticResource VisibilityConverter}}" ToolTip="Sichtbar würfeln">
+                            <Image Source="/Resources/roll_public.png" Height="24" />
+                        </Button>
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding ToggleRollModeCommand}" Visibility="{Binding Character.RollModeOpen, Converter={StaticResource InverseVisibilityConverter}}" ToolTip="Blind würfeln">
+                            <Image Source="/Resources/roll_blind.png" Height="24" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
             </Grid>
             <!--#endregion-->
 
             <!--#region Attribute-->
             <Grid Grid.Column="2" Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="100" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="290" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="22" />
+                    <RowDefinition Height="15" />
                 </Grid.RowDefinitions>
 
                 <StackPanel DataContext="{Binding Character, Source={StaticResource Locator}}">
@@ -362,6 +398,9 @@
                         </Button>
                     </StackPanel>
                 </StackPanel>
+
+                <Label Grid.Column="0" Grid.Row="3" Padding="2" FontSize="14" DataContext="{Binding Character, Source={StaticResource Locator}}" Visibility="{Binding Character.ShowErschwernisLabel, Converter={StaticResource VisibilityConverter}}">Erschwernis</Label>
+                <Label Grid.Column="0" Grid.Row="3" Padding="2" FontSize="14" DataContext="{Binding Character, Source={StaticResource Locator}}" Visibility="{Binding Character.ShowErleichterungLabel, Converter={StaticResource VisibilityConverter}}">Erleichterung</Label>
             </Grid>
             <!--#endregion-->
         </Grid>
