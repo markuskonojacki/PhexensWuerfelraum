@@ -50,7 +50,11 @@ namespace PhexensWuerfelraum.Server.Console
                 var publicKeyFileName = "PublicKey.pem";
                 var publicKeyPath = Path.Combine(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "config"), publicKeyFileName);
 
-                if (!File.Exists(privateKeyPath))
+                if (File.Exists(privateKeyPath))
+                {
+                    System.Console.WriteLine("Using existing private key");
+                }
+                else
                 {
                     X509Certificate2 generatedCert = Certificates.GenerateCertificate("PhexensWuerfelraumServer");
 
