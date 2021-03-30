@@ -24,6 +24,14 @@
               </RegistryKey>
             </Component>
 
+            <Component Id="Component.PhexensWuerfelraum.dll.config_2649740166" Guid="2f7e47da-3312-466f-8807-a4a108cddff9">
+              <File Id="PhexensWuerfelraum.dll.config_2649740166" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\PhexensWuerfelraum.dll.config" />
+
+              <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+                <RegistryValue Value="0" Type="string" KeyPath="yes" />
+              </RegistryKey>
+            </Component>
+
             <Component Id="Component.PhexensWuerfelraum.exe_4012960348" Guid="2f7e47da-3312-466f-8807-a4a1c4340fb2">
               <File Id="PhexensWuerfelraum.exe_4012960348" Source="..\..\..\..\..\..\..\..\VSDistribution\PhexensWuerfelraum.Ui.Desktop.Publish\PhexensWuerfelraum.exe">
                 <Shortcut Id="Shortcut.PhexensWuerfelraum.exe_4012960348.Phexens_W_rfelraum_" WorkingDirectory="INSTALLDIR" Directory="ProgramMenuFolder" Name="Phexens Würfelraum.lnk" />
@@ -101,6 +109,7 @@
 
     <Feature Id="Complete" Title="Complete" Absent="allow" Level="1">
       <ComponentRef Id="Component.LICENSE.txt_2343583381" />
+      <ComponentRef Id="Component.PhexensWuerfelraum.dll.config_2649740166" />
       <ComponentRef Id="Component.PhexensWuerfelraum.exe_4012960348" />
       <ComponentRef Id="Component.THIRD_PARTY_LICENSES.txt_2643965561" />
       <ComponentRef Id="Component.ProgramMenuFolder.EmptyDirectory" />

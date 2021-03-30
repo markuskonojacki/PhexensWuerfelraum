@@ -452,12 +452,16 @@ namespace PhexensWuerfelraum.Logic.Ui
                 suffix = string.Format("{0} Punkte drüber, nicht geschafft... :(", (attributWert - rollValue) * -1);
             }
 
-            ret = $"eine {rollValue} (gewürfelt {rollResult.Value} mod. {Character.Modifikation}) auf {attributTxt}. {suffix}";
+            if (Character.Modifikation != 0)
+            {
+                ret = $"auf {attributTxt}: eine {rollValue} (gewürfelt {rollResult.Value} mod. {Character.Modifikation}); {suffix}";
+            }
+            else
+            {
+                ret = $"auf {attributTxt}: eine {rollValue}; {suffix}";
+            }
 
             Character.Modifikation = 0;
-
-            if (Character.RollModeOpen == false)
-                ret = "(blind) " + ret;
 
             return ret;
         }
