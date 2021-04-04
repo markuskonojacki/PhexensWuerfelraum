@@ -16,9 +16,9 @@ namespace PhexensWuerfelraum.Ui.Desktop
 
             if (messageType == ChatMessageType.Roll || messageType == ChatMessageType.RollWhisper)
             {
-                if (message.Contains("Misslungen"))
+                if (message.Contains("Misslungen") || message.Contains("Doppel 20") || message.Contains("Dreifach 20"))
                     return Brushes.DarkRed;
-                else if (message.Contains("Erfolg"))
+                else if (message.Contains("Erfolg") || message.Contains("Doppel 1") || message.Contains("Dreifach 1"))
                     return Brushes.DarkGreen;
                 else
                     return Brushes.Black;
