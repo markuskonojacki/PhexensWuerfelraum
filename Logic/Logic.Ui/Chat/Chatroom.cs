@@ -340,7 +340,7 @@ namespace PhexensWuerfelraum.Logic.Ui
 
                     if (chatPacket.MessageType == ChatMessageType.Roll || chatPacket.MessageType == ChatMessageType.RollWhisper)
                     {
-                        if (chatPacket.Message.Contains("Doppel 1!"))
+                        if (chatPacket.Message.Contains("Doppel 1"))
                         {
                             var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-1-1.wav"));
 
@@ -351,7 +351,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                                 ChatRoom.soundPlayer2.Play();
                             }
                         }
-                        else if (chatPacket.Message.Contains("dreifach 1!"))
+                        else if (chatPacket.Message.Contains("Dreifach 1"))
                         {
                             var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-1-1-1.wav"));
 
@@ -362,7 +362,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                                 ChatRoom.soundPlayer3.Play();
                             }
                         }
-                        else if (chatPacket.Message.Contains("doppel 20;"))
+                        else if (chatPacket.Message.Contains("Doppel 20"))
                         {
                             var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-20-20.wav"));
 
@@ -373,7 +373,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                                 ChatRoom.soundPlayer4.Play();
                             }
                         }
-                        else if (chatPacket.Message.Contains("dreifach 20;"))
+                        else if (chatPacket.Message.Contains("Dreifach 20"))
                         {
                             var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-20-20-20.wav"));
 

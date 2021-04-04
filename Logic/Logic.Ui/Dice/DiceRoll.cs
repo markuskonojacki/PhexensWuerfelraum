@@ -218,20 +218,20 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             if (rolledOnes == 2)
             {
-                resultText = "geschafft; Doppel 1! :D";
+                resultText = "Doppel 1, Phex ist dir Hold! :D";
             }
             else if (rolledOnes == 3)
             {
-                resultText = "geschafft; Bei den Zwölfen, dreifach 1! :D";
+                resultText = "Dreifach 1, alle Zwölfe scheinen auf deiner Seite! :D";
             }
 
             if (rolledTwenties == 2)
             {
-                resultText = "oh oh... doppel 20; nicht geschafft :(";
+                resultText = "Oh oh... Doppel 20 :(";
             }
             else if (rolledTwenties == 3)
             {
-                resultText = "fuck... dreifach 20; War nett dich gekannt zu haben! :(";
+                resultText = "Dreifach 20... war nett dich gekannt zu haben! :(";
             }
 
             #endregion doppel 1/20
