@@ -214,7 +214,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 rolledTwenties++;
             }
 
-            resultText = (trialPointsRemaining >= 0 ? "geschafft :)" : "nicht geschafft :(");
+            resultText = (trialPointsRemaining >= 0 ? "Erfolg :)" : "Misslungen :(");
 
             if (rolledOnes == 2)
             {
@@ -445,19 +445,23 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             if (rollValue <= attributWert)
             {
-                suffix = string.Format("{0} Punkte über, geschafft! :)", attributWert - rollValue);
+                suffix = string.Format("{0} Punkte über. Erfolg! :)", attributWert - rollValue);
             }
             else
             {
-                suffix = string.Format("{0} Punkte drüber, nicht geschafft... :(", (attributWert - rollValue) * -1);
+                suffix = string.Format("{0} Punkte drüber. Misslungen... :(", (attributWert - rollValue) * -1);
             }
 
-            ret = $"eine {rollValue} (gewürfelt {rollResult.Value} mod. {Character.Modifikation}) auf {attributTxt}. {suffix}";
+            if (Character.Modifikation != 0)
+            {
+                ret = $"auf {attributTxt}: eine {rollValue} (gewürfelt {rollResult.Value} mod. {Character.Modifikation}); {suffix}";
+            }
+            else
+            {
+                ret = $"auf {attributTxt}: eine {rollValue}; {suffix}";
+            }
 
             Character.Modifikation = 0;
-
-            if (Character.RollModeOpen == false)
-                ret = "(blind) " + ret;
 
             return ret;
         }

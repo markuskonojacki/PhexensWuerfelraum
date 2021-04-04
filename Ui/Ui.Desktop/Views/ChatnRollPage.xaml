@@ -16,6 +16,7 @@
         <local:BooleanToVisibilityConverter x:Key="VisibilityConverter" />
         <local:InverseBooleanToVisibilityConverter x:Key="InverseVisibilityConverter" />
         <local:MultiValueMessageFromConverter x:Key="MultiValueMessageFromConverter" />
+        <local:MessageToColorConverter x:Key="MessageToColorConverter" />
 
         <Style x:Key="DiceButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="{DynamicResource GrayBrush10}" />
@@ -161,7 +162,14 @@
                                             Padding="0,2,2,2"
                                             TextWrapping="Wrap"
                                             Focusable="True"
-                                            TextSelected="SelectableMessageTextBlock_TextSelected" />
+                                            TextSelected="SelectableMessageTextBlock_TextSelected">
+                                            <TextBlock.Foreground>
+                                                <MultiBinding Converter="{StaticResource MessageToColorConverter}">
+                                                    <Binding Path="MessageType" />
+                                                    <Binding Path="Message" />
+                                                </MultiBinding>
+                                            </TextBlock.Foreground>
+                                        </local:TextBlockSelectable>
                                     </DockPanel>
                                 </DockPanel>
                             </Border>
@@ -399,8 +407,8 @@
                     </StackPanel>
                 </StackPanel>
 
-                <Label Grid.Column="0" Grid.Row="3" Padding="2" FontSize="14" DataContext="{Binding Character, Source={StaticResource Locator}}" Visibility="{Binding Character.ShowErschwernisLabel, Converter={StaticResource VisibilityConverter}}">Erschwernis</Label>
-                <Label Grid.Column="0" Grid.Row="3" Padding="2" FontSize="14" DataContext="{Binding Character, Source={StaticResource Locator}}" Visibility="{Binding Character.ShowErleichterungLabel, Converter={StaticResource VisibilityConverter}}">Erleichterung</Label>
+                <Label Grid.Column="0" Grid.Row="3" Padding="2" FontSize="14" DataContext="{Binding Character, Source={StaticResource Locator}}" Visibility="{Binding Character.ShowErschwernisLabel, Converter={StaticResource VisibilityConverter}}" Foreground="DarkRed">Erschwernis</Label>
+                <Label Grid.Column="0" Grid.Row="3" Padding="2" FontSize="14" DataContext="{Binding Character, Source={StaticResource Locator}}" Visibility="{Binding Character.ShowErleichterungLabel, Converter={StaticResource VisibilityConverter}}" Foreground="DarkGreen">Erleichterung</Label>
             </Grid>
             <!--#endregion-->
         </Grid>

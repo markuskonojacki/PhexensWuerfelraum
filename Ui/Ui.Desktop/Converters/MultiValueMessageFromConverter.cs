@@ -23,7 +23,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
             ChatMessageType messageType = (ChatMessageType)values[0];
             string fromUsername = values[1].ToString();
             string toUsername = values[2]?.ToString();
-            string ownName = "";
+            string ownName;
 
             if (Settings.StaticUserName != "")
             {
