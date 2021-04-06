@@ -90,12 +90,12 @@
       <DependentUpon>SetupWizard.xaml</DependentUpon>
     </Compile>
     <Compile Include="InstallProgressCounter.cs" />
+    <None Include="wix\Ui.Installer.g.wxs" />
     <Page Include="SetupWizard.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <None Include="packages.config" />
-    <None Include="wix\$(ProjectName).g.wxs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
