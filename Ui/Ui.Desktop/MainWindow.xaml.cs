@@ -1,14 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
-using GalaSoft.MvvmLight.Ioc;
+﻿using GalaSoft.MvvmLight.Ioc;
 using Jot;
 using Jot.Storage;
 using MahApps.Metro.Controls;
@@ -16,6 +6,15 @@ using Onova;
 using Onova.Models;
 using Onova.Services;
 using PhexensWuerfelraum.Logic.Ui;
+using System;
+using System.Globalization;
+using System.IO;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 using MenuItem = PhexensWuerfelraum.Logic.Ui.MenuItem;
 
 namespace PhexensWuerfelraum.Ui.Desktop
@@ -64,6 +63,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
 #endif
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Only unused in DEBUG")]
         private async Task UpdateAsync()
         {
             var manager = new UpdateManager(

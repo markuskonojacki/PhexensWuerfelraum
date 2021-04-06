@@ -2,7 +2,6 @@
 using GalaSoft.MvvmLight.Ioc;
 using Jot;
 using Jot.Storage;
-using PropertyChanged;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -24,6 +23,8 @@ namespace PhexensWuerfelraum.Logic.Ui
         public ListCollectionView AttributesView { get; set; }
         public CharacterModel Character { get; set; } = new CharacterModel();
 
+        public RelayCommand ReloadCharacterCommand { get; set; }
+
         public ObservableCollection<CharacterModel> CharacterList { get; set; } = new ObservableCollection<CharacterModel>
         {
             new CharacterModel()
@@ -34,15 +35,15 @@ namespace PhexensWuerfelraum.Logic.Ui
             }
         };
 
-        private SettingsViewModel SettingsViewModel;
-        private SettingsModel Settings;
+        private readonly SettingsViewModel SettingsViewModel;
+        private readonly SettingsModel Settings;
 
         public bool IsChildWindowOpenOrNotProperty { get; set; }
 
         /// <summary>
         /// gets called when a character is selected, called via binding
         /// </summary>
-        [SuppressPropertyChangedWarnings]
+        //[SuppressPropertyChangedWarnings]
         public CharacterModel SelectedCharacter
         {
             set
@@ -87,6 +88,8 @@ namespace PhexensWuerfelraum.Logic.Ui
         {
             SettingsViewModel = SimpleIoc.Default.GetInstance<SettingsViewModel>();
             Settings = SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting;
+
+            ReloadCharacterCommand = new RelayCommand(() => ReloadCharacterData());
 
             #region define current Character and load from settings file
 
@@ -147,7 +150,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// <param name="taw">Talentwert</param>
         /// <param name="mod">Erleichterung/Erschwernis</param>
         /// <returns>chance of success</returns>
-        private float CalcSuccessChance(int e1, int e2, int e3, int taw, int mod = 0)
+        private static float CalcSuccessChance(int e1, int e2, int e3, int taw, int mod = 0)
         {
             float erfolgswahrscheinlichkeit;
             float erfolge = 0;
@@ -248,28 +251,26 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         #endregion AttributeView methods
 
+        private void ReloadCharacterData()
+        {
+            LoadCharacterList();
+
+            if (CharacterList.FirstOrDefault(c => c.Id == Character.Id) != null)
+            {
+                SelectedCharacter = CharacterList.FirstOrDefault(c => c.Id == Character.Id);
+            }
+        }
+
         /// <summary>
         /// import character from helden.zip.hld file
         /// </summary>
-        public void ImportCharacter()
-        {
-            LoadCharacterList();
-        }
-
         public void LoadCharacterList()
         {
+            // remove all but StaticCharacter, which is always at position 0
             while (CharacterList.Count > 1)
             {
-                //CharacterList.Remove(CharacterList.First(x => x.Id != "StaticCharacter"));
-                CharacterList.RemoveAt(2);
+                CharacterList.RemoveAt(1);
             }
-
-            //CharacterList.Add(new CharacterModel()
-            //{
-            //    Name = string.IsNullOrEmpty(SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting.StaticUserName) ? Environment.UserName : SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting.StaticUserName,
-            //    Id = "StaticCharacter",
-            //    Stand = int.MaxValue.ToString()
-            //});
 
             string filename = Settings.HeldenDateiPath;
 
@@ -280,27 +281,23 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             if (File.Exists(filename))
             {
-                using (ZipArchive zip = ZipFile.Open(filename, ZipArchiveMode.Read))
+                using ZipArchive zip = ZipFile.Open(filename, ZipArchiveMode.Read);
+                foreach (ZipArchiveEntry entry in zip.Entries)
                 {
-                    foreach (ZipArchiveEntry entry in zip.Entries)
+                    if (entry.Name != "held.xml.tree")
                     {
-                        if (entry.Name != "held.xml.tree")
-                        {
-                            using (StreamReader characterStreamReader = new StreamReader(entry.Open(), Encoding.UTF8))
-                            {
-                                XDocument doc = XDocument.Parse(characterStreamReader.ReadToEnd());
+                        using StreamReader characterStreamReader = new(entry.Open(), Encoding.UTF8);
+                        XDocument doc = XDocument.Parse(characterStreamReader.ReadToEnd());
 
-                                var pickCharacter = XmlToCharacterModel(doc);
+                        var pickCharacter = XmlToCharacterModel(doc);
 
-                                pickCharacter.FileName = entry.FullName;
+                        pickCharacter.FileName = entry.FullName;
 
-                                CharacterList.Add(pickCharacter);
-                            }
-                        }
+                        CharacterList.Add(pickCharacter);
                     }
-
-                    CharacterList = new ObservableCollection<CharacterModel>(CharacterList.OrderByDescending(c => c.Stand));
                 }
+
+                CharacterList = new ObservableCollection<CharacterModel>(CharacterList.OrderByDescending(c => c.Stand));
             }
         }
 
@@ -313,7 +310,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             if (Character.Ausruestung != null && Character.Ausruestung.Any(a => a.Name == "jagtwaffe" && a.Set == "0" && a.Nummer != "0"))
             {
                 Heldenausruestung h1 = Character.Ausruestung.First(a => a.Name == "jagtwaffe" && a.Set == "0" && a.Nummer != "0");
-                Heldenausruestung h2 = new Heldenausruestung();
+                Heldenausruestung h2 = new();
 
                 switch (h1.Nummer)
                 {
@@ -633,7 +630,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// </summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        private CharacterModel XmlToCharacterModel(XDocument doc)
+        private static CharacterModel XmlToCharacterModel(XDocument doc)
         {
             CharacterModel character =
                 (

@@ -5,14 +5,11 @@ using SimpleSockets.Client;
 using SimpleSockets.Messaging;
 using System;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Media;
-using System.Reflection;
 using System.Runtime.Versioning;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {
@@ -20,7 +17,7 @@ namespace PhexensWuerfelraum.Logic.Ui
     {
         #region properties
 
-        private static Chatroom ChatRoom = SimpleIoc.Default.GetInstance<Chatroom>();
+        private static readonly Chatroom ChatRoom = SimpleIoc.Default.GetInstance<Chatroom>();
 
         private static bool UseSSL;
         private static readonly string Password = "Password";
@@ -93,7 +90,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             }
 
             _client.EnableExtendedAuth = false; // When the client sets 'EnableExtendedAuth' to true it will send a GUID, OSVersion, PC Name and DomainName to the server
-            _client.ObjectSerializer = new BinarySerializer();
+            _client.ObjectSerializer = new JsonSerialization();
             _client.AllowReceivingFiles = true;
 
             BindEvents();
@@ -105,9 +102,10 @@ namespace PhexensWuerfelraum.Logic.Ui
         {
             Status = "Trenne...";
             _client.Close();
+            _client.Dispose();
         }
 
-        public async Task Send(string username, string message, string colorCode, int toId, string toName, ChatMessageType messageType = ChatMessageType.Text)
+        public static async Task Send(string username, string message, string colorCode, int toId, string toName, ChatMessageType messageType = ChatMessageType.Text)
         {
             if (toId != 0)
             {
@@ -125,7 +123,7 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             if (!string.IsNullOrEmpty(message) && !string.IsNullOrWhiteSpace(message))
             {
-                ChatPacket chatPacket = new ChatPacket(messageType, message, 0, username, toId, toName, colorCode);
+                ChatPacket chatPacket = new(messageType, message, 0, username, toId, toName, colorCode);
                 await _client.SendObjectAsync(chatPacket);
             }
         }
@@ -312,7 +310,6 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         #endregion Events
 
-        [SupportedOSPlatform("windows")]
         private void ManageChatPacket(ChatPacket chatPacket)
         {
             Application.Current.Dispatcher.Invoke(delegate
@@ -324,69 +321,75 @@ namespace PhexensWuerfelraum.Logic.Ui
 
                 ChatRoom.Messages.Add(chatPacket);
 
-                if (SettingsViewModel.Setting.SoundEffectsEnabled)
+                if (SettingsViewModel.Setting.SoundEffectsEnabled && OperatingSystem.IsWindows())
                 {
-                    if (chatPacket.FromId != OwnId) // only play notification sound for messages from other users
-                    {
-                        var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/Notification.wav"));
-
-                        if (sri != null)
-                        {
-                            ChatRoom.soundPlayer1 = new(sri.Stream);
-                            ChatRoom.soundPlayer1.Load();
-                            ChatRoom.soundPlayer1.Play();
-                        }
-                    }
-
-                    if (chatPacket.MessageType == ChatMessageType.Roll || chatPacket.MessageType == ChatMessageType.RollWhisper)
-                    {
-                        if (chatPacket.Message.Contains("Doppel 1"))
-                        {
-                            var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-1-1.wav"));
-
-                            if (sri != null)
-                            {
-                                ChatRoom.soundPlayer2 = new(sri.Stream);
-                                ChatRoom.soundPlayer2.Load();
-                                ChatRoom.soundPlayer2.Play();
-                            }
-                        }
-                        else if (chatPacket.Message.Contains("Dreifach 1"))
-                        {
-                            var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-1-1-1.wav"));
-
-                            if (sri != null)
-                            {
-                                ChatRoom.soundPlayer3 = new(sri.Stream);
-                                ChatRoom.soundPlayer3.Load();
-                                ChatRoom.soundPlayer3.Play();
-                            }
-                        }
-                        else if (chatPacket.Message.Contains("Doppel 20"))
-                        {
-                            var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-20-20.wav"));
-
-                            if (sri != null)
-                            {
-                                ChatRoom.soundPlayer4 = new(sri.Stream);
-                                ChatRoom.soundPlayer4.Load();
-                                ChatRoom.soundPlayer4.Play();
-                            }
-                        }
-                        else if (chatPacket.Message.Contains("Dreifach 20"))
-                        {
-                            var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-20-20-20.wav"));
-
-                            if (sri != null)
-                            {
-                                ChatRoom.soundPlayer5 = new(sri.Stream);
-                                ChatRoom.soundPlayer5.Load();
-                                ChatRoom.soundPlayer5.Play();
-                            }
-                        }
-                    }
+                    PlaySoundOnChatMessage(chatPacket);
                 }
             });
+        }
+
+        [SupportedOSPlatform("windows")]
+        private static void PlaySoundOnChatMessage(ChatPacket chatPacket)
+        {
+            if (chatPacket.FromId != OwnId) // only play notification sound for messages from other users
+            {
+                var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/Notification.wav"));
+
+                if (sri != null)
+                {
+                    ChatRoom.soundPlayer1 = new(sri.Stream);
+                    ChatRoom.soundPlayer1.Load();
+                    ChatRoom.soundPlayer1.Play();
+                }
+            }
+
+            if (chatPacket.MessageType == ChatMessageType.Roll || chatPacket.MessageType == ChatMessageType.RollWhisper)
+            {
+                if (chatPacket.Message.Contains("Doppel 1"))
+                {
+                    var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-1-1.wav"));
+
+                    if (sri != null)
+                    {
+                        ChatRoom.soundPlayer2 = new(sri.Stream);
+                        ChatRoom.soundPlayer2.Load();
+                        ChatRoom.soundPlayer2.Play();
+                    }
+                }
+                else if (chatPacket.Message.Contains("Dreifach 1"))
+                {
+                    var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-1-1-1.wav"));
+
+                    if (sri != null)
+                    {
+                        ChatRoom.soundPlayer3 = new(sri.Stream);
+                        ChatRoom.soundPlayer3.Load();
+                        ChatRoom.soundPlayer3.Play();
+                    }
+                }
+                else if (chatPacket.Message.Contains("Doppel 20"))
+                {
+                    var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-20-20.wav"));
+
+                    if (sri != null)
+                    {
+                        ChatRoom.soundPlayer4 = new(sri.Stream);
+                        ChatRoom.soundPlayer4.Load();
+                        ChatRoom.soundPlayer4.Play();
+                    }
+                }
+                else if (chatPacket.Message.Contains("Dreifach 20"))
+                {
+                    var sri = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/Sounds/roll-20-20-20.wav"));
+
+                    if (sri != null)
+                    {
+                        ChatRoom.soundPlayer5 = new(sri.Stream);
+                        ChatRoom.soundPlayer5.Load();
+                        ChatRoom.soundPlayer5.Play();
+                    }
+                }
+            }
         }
     }
 }

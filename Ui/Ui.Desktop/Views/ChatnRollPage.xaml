@@ -345,7 +345,7 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
                         <Label Width="30" HorizontalAlignment="Right">MU</Label>
                         <TextBox Text="{Binding Character.MU, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributMU" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributMU">
                             <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
                         </Button>
                     </StackPanel>
@@ -353,7 +353,7 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
                         <Label Width="30" HorizontalAlignment="Right">KL</Label>
                         <TextBox Text="{Binding Character.KL, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributKL" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributKL">
                             <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
                         </Button>
                     </StackPanel>
@@ -361,7 +361,7 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
                         <Label Width="30" HorizontalAlignment="Right">IN</Label>
                         <TextBox Text="{Binding Character.IN, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributIN" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributIN">
                             <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
                         </Button>
                     </StackPanel>
@@ -369,7 +369,7 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
                         <Label Width="30" HorizontalAlignment="Right">CH</Label>
                         <TextBox Text="{Binding Character.CH, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributCH" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributCH">
                             <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
                         </Button>
                     </StackPanel>
@@ -377,7 +377,7 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
                         <Label Width="30" HorizontalAlignment="Right">FF</Label>
                         <TextBox Text="{Binding Character.FF, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributFF" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributFF">
                             <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
                         </Button>
                     </StackPanel>
@@ -385,7 +385,7 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
                         <Label Width="30" HorizontalAlignment="Right">GE</Label>
                         <TextBox Text="{Binding Character.GE, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributGE" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributGE">
                             <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
                         </Button>
                     </StackPanel>
@@ -393,7 +393,7 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
                         <Label Width="30" HorizontalAlignment="Right">KO</Label>
                         <TextBox Text="{Binding Character.KO, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributKO" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributKO">
                             <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
                         </Button>
                     </StackPanel>
@@ -401,7 +401,7 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
                         <Label Width="30" HorizontalAlignment="Right">KK</Label>
                         <TextBox Text="{Binding Character.KK, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="attributKK" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
+                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributKK">
                             <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
                         </Button>
                     </StackPanel>
