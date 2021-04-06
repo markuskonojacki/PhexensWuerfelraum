@@ -58,32 +58,6 @@ namespace PhexensWuerfelraum.Server.Console
             return certificate;
         }
 
-        // You can also load the certificate from to CurrentUser store
-        private X509Certificate2 LoadCertificate(string subject)
-        {
-            var userStore = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            userStore.Open(OpenFlags.OpenExistingOnly);
-            if (userStore.IsOpen)
-            {
-                var collection = userStore.Certificates.Find(X509FindType.FindBySubjectName, Environment.MachineName, false);
-                if (collection.Count > 0)
-                {
-                    return collection[0];
-                }
-                userStore.Close();
-            }
-            return null;
-        }
-
-        // Or store the certificate to the local store.
-        private void SaveCertificate(X509Certificate2 certificate)
-        {
-            var userStore = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            userStore.Open(OpenFlags.ReadWrite);
-            userStore.Add(certificate);
-            userStore.Close();
-        }
-
         /// <summary>
         /// Export a certificate to a PEM format string
         /// </summary>
@@ -91,7 +65,7 @@ namespace PhexensWuerfelraum.Server.Console
         /// <returns>A PEM encoded string</returns>
         public static string ExportToPEM(X509Certificate2 cert)
         {
-            StringBuilder builder = new StringBuilder();
+            StringBuilder builder = new();
 
             builder.AppendLine("-----BEGIN CERTIFICATE-----");
             builder.AppendLine(Convert.ToBase64String(cert.Export(X509ContentType.Cert), Base64FormattingOptions.InsertLineBreaks));

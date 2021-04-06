@@ -35,11 +35,9 @@ namespace PhexensWuerfelraum.Logic.Ui
             int roll1 = 0, roll2 = 0, roll3 = 0;
             int trialPointsRemaining = trialValue;
             int rolledOnes = 0, rolledTwenties = 0;
-            int trialModificationMax = 0;
             string trialModificationTxt = "";
             string beText = "";
             string blindText = "";
-            string resultText = "";
             int i = 1;
 
             foreach (var roll in rollResult.Values)
@@ -214,7 +212,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 rolledTwenties++;
             }
 
-            resultText = (trialPointsRemaining >= 0 ? "Erfolg :)" : "Misslungen :(");
+            string resultText = trialPointsRemaining >= 0 ? "Erfolg :)" : "Misslungen :(";
 
             if (rolledOnes == 2)
             {
@@ -243,7 +241,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             if (trialPointsRemaining >= trialValue)
             {
                 int[] erschwernisTmp = { attribute1Value - roll1, attribute2Value - roll2, attribute3Value - roll3 };
-                trialModificationMax = trialValue + Math.Abs(erschwernisTmp.Min());
+                int trialModificationMax = trialValue + Math.Abs(erschwernisTmp.Min());
 
                 if (trialModificationMax > 0)
                 {
@@ -289,7 +287,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                         }
                     }
 
-                    result = result.Substring(0, result.Length - 2);
+                    result = result[0..^2];
 
                     result += $" = {rollResult.Value}";
                     break;
@@ -341,7 +339,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                         }
                     }
 
-                    rollValueString = rollValueString.Substring(0, rollValueString.Length - 2);
+                    rollValueString = rollValueString[0..^2];
 
                     bedeutungen[0] = string.Empty;
                     bedeutungen[1] = string.Empty;
@@ -371,7 +369,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                         }
                     }
 
-                    rollValueString = rollValueString.Substring(0, rollValueString.Length - 2);
+                    rollValueString = rollValueString[0..^2];
 
                     bedeutungen[0] = string.Empty;
                     bedeutungen[1] = string.Empty;
@@ -473,51 +471,19 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// <returns></returns>
         public int GetAttributeValue(AttributType attribut)
         {
-            int attributeValue;
-
-            switch (attribut)
+            var attributeValue = attribut switch
             {
-                case AttributType.Mut:
-                    attributeValue = Character.MU;
-                    break;
-
-                case AttributType.Klugheit:
-                    attributeValue = Character.KL;
-                    break;
-
-                case AttributType.Intuition:
-                    attributeValue = Character.IN;
-                    break;
-
-                case AttributType.Charisma:
-                    attributeValue = Character.CH;
-                    break;
-
-                case AttributType.Fingerfertigkeit:
-                    attributeValue = Character.FF;
-                    break;
-
-                case AttributType.Gewandtheit:
-                    attributeValue = Character.GE;
-                    break;
-
-                case AttributType.Konstitution:
-                    attributeValue = Character.KO;
-                    break;
-
-                case AttributType.Koerperkraft:
-                    attributeValue = Character.KK;
-                    break;
-
-                case AttributType.Wildcard:
-                    attributeValue = 0;
-                    break;
-
-                default:
-                    attributeValue = 0;
-                    break;
-            }
-
+                AttributType.Mut => Character.MU,
+                AttributType.Klugheit => Character.KL,
+                AttributType.Intuition => Character.IN,
+                AttributType.Charisma => Character.CH,
+                AttributType.Fingerfertigkeit => Character.FF,
+                AttributType.Gewandtheit => Character.GE,
+                AttributType.Konstitution => Character.KO,
+                AttributType.Koerperkraft => Character.KK,
+                AttributType.Wildcard => 0,
+                _ => 0,
+            };
             return attributeValue;
         }
 
@@ -526,53 +492,21 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// </summary>
         /// <param name="attribut"></param>
         /// <returns></returns>
-        public string GetAttributeNameShort(AttributType attribut)
+        public static string GetAttributeNameShort(AttributType attribut)
         {
-            string attributeName;
-
-            switch (attribut)
+            string attributeName = attribut switch
             {
-                case AttributType.Mut:
-                    attributeName = "MU";
-                    break;
-
-                case AttributType.Klugheit:
-                    attributeName = "KL";
-                    break;
-
-                case AttributType.Intuition:
-                    attributeName = "IN";
-                    break;
-
-                case AttributType.Charisma:
-                    attributeName = "CH";
-                    break;
-
-                case AttributType.Fingerfertigkeit:
-                    attributeName = "FF";
-                    break;
-
-                case AttributType.Gewandtheit:
-                    attributeName = "GE";
-                    break;
-
-                case AttributType.Konstitution:
-                    attributeName = "KO";
-                    break;
-
-                case AttributType.Koerperkraft:
-                    attributeName = "KK";
-                    break;
-
-                case AttributType.Wildcard:
-                    attributeName = "**";
-                    break;
-
-                default:
-                    attributeName = "";
-                    break;
-            }
-
+                AttributType.Mut => "MU",
+                AttributType.Klugheit => "KL",
+                AttributType.Intuition => "IN",
+                AttributType.Charisma => "CH",
+                AttributType.Fingerfertigkeit => "FF",
+                AttributType.Gewandtheit => "GE",
+                AttributType.Konstitution => "KO",
+                AttributType.Koerperkraft => "KK",
+                AttributType.Wildcard => "**",
+                _ => "",
+            };
             return attributeName;
         }
     }

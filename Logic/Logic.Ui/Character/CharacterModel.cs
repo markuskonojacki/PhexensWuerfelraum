@@ -199,79 +199,35 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         public static string MapAttributeTypeToStringShort(AttributType attributType)
         {
-            switch (attributType)
+            return attributType switch
             {
-                case AttributType.Mut:
-                    return "MU";
-
-                case AttributType.Klugheit:
-                    return "KL";
-
-                case AttributType.Intuition:
-                    return "IN";
-
-                case AttributType.Charisma:
-                    return "CH";
-
-                case AttributType.Fingerfertigkeit:
-                    return "FF";
-
-                case AttributType.Gewandtheit:
-                    return "GE";
-
-                case AttributType.Konstitution:
-                    return "KO";
-
-                case AttributType.Koerperkraft:
-                    return "KK";
-
-                case AttributType.Wildcard:
-                    return "**";
-
-                default:
-                    return "";
-            }
+                AttributType.Mut => "MU",
+                AttributType.Klugheit => "KL",
+                AttributType.Intuition => "IN",
+                AttributType.Charisma => "CH",
+                AttributType.Fingerfertigkeit => "FF",
+                AttributType.Gewandtheit => "GE",
+                AttributType.Konstitution => "KO",
+                AttributType.Koerperkraft => "KK",
+                AttributType.Wildcard => "**",
+                _ => "",
+            };
         }
 
         public static AttributType MapStringToAttributType(string name)
         {
-            switch (name)
+            return name switch
             {
-                case "Mut":
-                case "MU":
-                    return AttributType.Mut;
-
-                case "Klugheit":
-                case "KL":
-                    return AttributType.Klugheit;
-
-                case "Intuition":
-                case "IN":
-                    return AttributType.Intuition;
-
-                case "Charisma":
-                case "CH":
-                    return AttributType.Charisma;
-
-                case "Fingerfertigkeit":
-                case "FF":
-                    return AttributType.Fingerfertigkeit;
-
-                case "Gewandtheit":
-                case "GE":
-                    return AttributType.Gewandtheit;
-
-                case "Konstitution":
-                case "KO":
-                    return AttributType.Konstitution;
-
-                case "Körperkraft":
-                case "KK":
-                    return AttributType.Koerperkraft;
-
-                default:
-                    return AttributType.Wildcard;
-            }
+                "Mut" or "MU" => AttributType.Mut,
+                "Klugheit" or "KL" => AttributType.Klugheit,
+                "Intuition" or "IN" => AttributType.Intuition,
+                "Charisma" or "CH" => AttributType.Charisma,
+                "Fingerfertigkeit" or "FF" => AttributType.Fingerfertigkeit,
+                "Gewandtheit" or "GE" => AttributType.Gewandtheit,
+                "Konstitution" or "KO" => AttributType.Konstitution,
+                "Körperkraft" or "KK" => AttributType.Koerperkraft,
+                _ => AttributType.Wildcard,
+            };
         }
 
         public static Probe MapStringToProbe(string probeStr)
@@ -286,7 +242,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             a2 = MapStringToAttributType(probeStr.Split('/')[1]);
             a3 = MapStringToAttributType(probeStr.Split('/')[2]);
 
-            Probe convertedProbe = new Probe()
+            Probe convertedProbe = new()
             {
                 Attribut1 = a1,
                 Attribut2 = a2,

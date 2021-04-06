@@ -21,14 +21,14 @@ namespace PhexensWuerfelraum.Logic.Ui
             SimpleIoc.Default.Register<IDialogCoordinator, DialogCoordinator>();
         }
 
-        public AboutViewModel About => SimpleIoc.Default.GetInstance<AboutViewModel>();
-        public CharacterViewModel Character => SimpleIoc.Default.GetInstance<CharacterViewModel>();
-        public ChatnRollViewModel ChatnRoll => SimpleIoc.Default.GetInstance<ChatnRollViewModel>();
-        public DialogCoordinator DialogCoordinator => SimpleIoc.Default.GetInstance<DialogCoordinator>();
-        public DiceRoll Dice => SimpleIoc.Default.GetInstance<DiceRoll>();
-        public MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
-        public NavigationViewModel Navigation => SimpleIoc.Default.GetInstance<NavigationViewModel>();
-        public SettingsViewModel Settings => SimpleIoc.Default.GetInstance<SettingsViewModel>();
-        public Chatroom Chatroom => SimpleIoc.Default.GetInstance<Chatroom>();
+        public static AboutViewModel About => SimpleIoc.Default.GetInstance<AboutViewModel>();
+        public static CharacterViewModel Character => SimpleIoc.Default.GetInstance<CharacterViewModel>();
+        public static ChatnRollViewModel ChatnRoll => SimpleIoc.Default.GetInstance<ChatnRollViewModel>();
+        public static DialogCoordinator DialogCoordinator => SimpleIoc.Default.GetInstance<DialogCoordinator>();
+        public static DiceRoll Dice => SimpleIoc.Default.GetInstance<DiceRoll>();
+        public static MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
+        public static NavigationViewModel Navigation => SimpleIoc.Default.GetInstance<NavigationViewModel>();
+        public static SettingsViewModel Settings => SimpleIoc.Default.GetInstance<SettingsViewModel>();
+        public static Chatroom Chatroom => SimpleIoc.Default.GetInstance<Chatroom>();
     }
 }

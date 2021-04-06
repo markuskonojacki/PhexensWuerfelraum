@@ -1,10 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using PhexensWuerfelraum.Logic.ClientServer;
-using PropertyChanged;
 using System;
 using System.Net;
-using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -92,14 +90,14 @@ namespace PhexensWuerfelraum.Logic.Ui
                 {
                     ipAddress = Dns.GetHostAddresses(Address)[0];
                 }
-                catch (Exception ex)
+                catch
                 {
                     DisplayError("Server Adresse leer oder ungültig, bitte in den Einstellungen überprüfen.");
                     return;
                 }
             }
 
-            UserModel user = new UserModel(Username, UserType);
+            UserModel user = new(Username, UserType);
 
             var validPort = int.TryParse(Port, out int socketPort);
 
@@ -201,7 +199,7 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             if (ChatRoom.Connected)
             {
-                await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, ChatMessageType.Text);
+                await Chatroom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, ChatMessageType.Text);
             }
             Message = string.Empty;
         }
@@ -216,7 +214,7 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             if (ChatRoom.Connected)
             {
-                await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, ChatMessageType.Roll);
+                await Chatroom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, ChatMessageType.Roll);
             }
             Message = string.Empty;
         }
@@ -231,7 +229,7 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             if (ChatRoom.Connected)
             {
-                await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, ChatMessageType.Action);
+                await Chatroom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, ChatMessageType.Action);
             }
             Message = string.Empty;
         }
@@ -244,7 +242,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             if (ChatRoom.Connected)
             {
                 Message = DiceRoll.RollDice(commandParameter, DiceAmount);
-                await ChatRoom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, ChatMessageType.Roll);
+                await Chatroom.Send(Username, Message, ColorCode, ChatRoom.Recipient, ChatRoom.SelectedUser?.UserName, ChatMessageType.Roll);
             }
             Message = string.Empty;
         }
