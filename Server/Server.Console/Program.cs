@@ -462,12 +462,6 @@ namespace PhexensWuerfelraum.Server.Console
         {
             var id = 0;
 
-            List<UserModel> userModelList = new();
-            foreach (var user in AuthenticatedUsers)
-            {
-                userModelList.Add(user.UserModel);
-            }
-
             if (client != null)
             {
                 id = client.Id;
@@ -484,6 +478,12 @@ namespace PhexensWuerfelraum.Server.Console
                         _listener.SendObject(user.UserModel.Id, userLeaveNotification, Compress, false, false);
                     }
                 }
+            }
+
+            List<UserModel> userModelList = new();
+            foreach (var user in AuthenticatedUsers)
+            {
+                userModelList.Add(user.UserModel);
             }
 
             foreach (var user in AuthenticatedUsers)
