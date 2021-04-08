@@ -169,11 +169,22 @@ namespace PhexensWuerfelraum.Logic.Ui
 
                 Application.Current.Dispatcher.Invoke(delegate
                 {
+                    var selectedUserBeforeReload = ChatRoom.SelectedUser;
+
                     ChatRoom.Users.Clear();
 
                     foreach (var user in c.Users)
                     {
                         ChatRoom.Users.Add(user);
+                    }
+
+                    if (selectedUserBeforeReload != null)
+                    {
+                        foreach (var user in ChatRoom.Users)
+                        {
+                            if (user.Id == selectedUserBeforeReload.Id)
+                                ChatRoom.SelectedUser = user;
+                        }
                     }
                 });
             }
