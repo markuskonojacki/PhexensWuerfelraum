@@ -23,9 +23,20 @@ namespace PhexensWuerfelraum.Server.Console
         private static readonly List<AuthPacket> AuthenticatedUsers = new();
         private static SimpleSocketListener _listener;
 
+        #region version
+
+        private static Version AssemblyVersion()
+        {
+            return Assembly.GetEntryAssembly().GetName().Version;
+        }
+
+        public static string Version { get => $"v{AssemblyVersion().Major}.{AssemblyVersion().Minor}.{AssemblyVersion().Build}"; }
+
+        #endregion version
+
         private static void Main(string[] args)
         {
-            WriteLine("Starting the server");
+            WriteLine($"Starting the server {Version}");
 
             var config = new ConfigurationBuilder()
                 .AddIniFile(Path.Combine(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "config"), "settings.ini"), optional: true, reloadOnChange: true)
