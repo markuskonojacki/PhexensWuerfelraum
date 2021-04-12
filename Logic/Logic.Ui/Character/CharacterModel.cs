@@ -110,7 +110,12 @@ namespace PhexensWuerfelraum.Logic.Ui
         public List<Talent> HandwerkTalentliste { get => Talentliste?.Where(t => t.Gruppe == TalentGruppe.Handwerk).ToList(); }
         public List<Talent> MetaTalentliste { get => Talentliste?.Where(t => t.Gruppe == TalentGruppe.Meta || t.Gruppe == TalentGruppe.Gabe || t.Gruppe == TalentGruppe.Custom).ToList(); }
 
+        private static readonly List<string> moeglicheVorteile = new() { "Adlige Abstammung", "Adliges Erbe", "Amtsadel", "Affinität zu", "Akademische Ausbildung", "Astrale Regeneration", "Astralmacht", "Ausdauernd", "Ausdauernder Zauberer", "Ausrüstungsvorteil", "Balance", "Begabung für", "Beidhändig", "Beseelte Knochenkeule", "Besonderer Besitz", "Breitgefächerte Bildung", "Dämmerungssicht", "Eidetisches Gedächtnis", "Eigeboren", "Eisenaffine Aura", "Eisern", "Empathie", "Entfernungssinn", "Ererbte Knochenkeule", "Feenfreund", "Feste Matrix", "Flink", "Gebildet", "Gefahreninstinkt", "Geräuschhexerei", "Geweiht", "Glück", "Glück im Spiel", "Gut Aussehend", "Guter Ruf", "Gutes Gedächtnis", "Halbzauberer", "Herausragend", "Hitzeresistenz", "Hohe Lebenskraft", "Hohe Magieresistenz", "Immunität", "Innerer Kompass", "Kälteresistenz", "Kampfrausch", "Koboldfreund", "Kräfteschub", "Linkshänder", "Machtvoller Vertrauter", "Magiegespür", "Meisterhandwerk", "Nachtsicht", "Natürliche Waffen", "Natürlicher Rüstungsschutz", "Niedrige Schlechte Eigenschaft", "Prophezeien", "Resistenz", "Richtungssinn", "Schlangenmensch ", "Schnelle Heilung", "Viertelzauberer", "Vollzauberer", "Vom Schicksal begünstigt", "Wesen der Nacht", "Wohlklang", "Wolfskind", "Zäher Hund", "Zauberhaar", "Zeitgefühl", "Zusätzliche Gliedmaßen", "Zweistimmiger Gesang", "Zwergennase", "Schutzgeist", "Schwer zu verzaubern ", "Soziale Anpassungsfähigkeit", "Talentschub", "Tierempathie", "Tierfreund", "Übernatürliche Begabung", "Unbeschwertes Zaubern", "Verbindungen", "Verhüllte Aura", "Veteran", "Viertelzauberer", "Altersresistenz", "Gutaussehend" };
+
         public ObservableCollection<Vorteil> Vorteile { get; set; }
+
+        public List<Vorteil> ListeVorteile { get => Vorteile?.Where(t => moeglicheVorteile.Any(v => t.Name.StartsWith(v))).ToList(); }
+        public List<Vorteil> ListeNachteile { get => Vorteile?.Where(t => !moeglicheVorteile.Any(v => t.Name.StartsWith(v))).ToList(); }
 
         public ObservableCollection<Zauber> Zauberliste { get; set; }
 
@@ -506,6 +511,22 @@ namespace PhexensWuerfelraum.Logic.Ui
             public string Name { get; set; }
             public string Value { get; set; }
             public string Spezialisierung { get => BuildSpezialisierung(); }
+            public string Text { get => BuildText(); }
+
+            private string BuildText()
+            {
+                string ret;
+
+                ret = Name;
+
+                if (string.IsNullOrEmpty(Value) == false)
+                    ret += $": {Value}";
+
+                if (string.IsNullOrEmpty(Spezialisierung) == false)
+                    ret += $" ({Spezialisierung})";
+
+                return ret;
+            }
 
             private string BuildSpezialisierung()
             {

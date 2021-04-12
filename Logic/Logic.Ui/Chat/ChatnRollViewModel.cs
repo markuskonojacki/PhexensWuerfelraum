@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Ioc;
 using PhexensWuerfelraum.Logic.ClientServer;
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -250,6 +251,12 @@ namespace PhexensWuerfelraum.Logic.Ui
         private void ToggleRollMode()
         {
             Character.RollModeOpen = !Character.RollModeOpen;
+
+            if (ChatRoom.Connected && ChatRoom.Users.Count > 0 && ChatRoom.Users.Any(u => u.IsGameMaster == true))
+            {
+                if (Character.RollModeOpen == false && settingsViewModel.Setting.GameMasterMode == false)
+                    ChatRoom.SelectedUser = ChatRoom.Users.Where(u => u.IsGameMaster == true).First();
+            }
         }
 
         #endregion methods

@@ -23,8 +23,6 @@ namespace PhexensWuerfelraum.Logic.Ui
         public ListCollectionView AttributesView { get; set; }
         public CharacterModel Character { get; set; } = new CharacterModel();
 
-        public RelayCommand ReloadCharacterCommand { get; set; }
-
         public ObservableCollection<CharacterModel> CharacterList { get; set; } = new ObservableCollection<CharacterModel>
         {
             new CharacterModel()
@@ -43,7 +41,6 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// <summary>
         /// gets called when a character is selected, called via binding
         /// </summary>
-        //[SuppressPropertyChangedWarnings]
         public CharacterModel SelectedCharacter
         {
             set
@@ -51,12 +48,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 if (value != null)
                 {
                     Character.CopyProperties(value);
-
                     InitAttributesView();
-                    CalcSuccessChances();
-                    FindJagdwaffenTaW();
-                    AddMetaTalents();
-                    AddCustomTalents();
                 }
             }
             get
@@ -89,8 +81,6 @@ namespace PhexensWuerfelraum.Logic.Ui
             SettingsViewModel = SimpleIoc.Default.GetInstance<SettingsViewModel>();
             Settings = SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting;
 
-            ReloadCharacterCommand = new RelayCommand(() => ReloadCharacterData());
-
             #region define current Character and load from settings file
 
             Directory.CreateDirectory(SettingsViewModel.DataPath);
@@ -101,7 +91,7 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             #endregion define current Character and load from settings file
 
-            CalculateSuccessChances = new RelayCommand(() => CalcSuccessChances());
+            CalculateSuccessChances = new RelayCommand(() => CalcSuccessChances(Character));
 
             InitAttributesView();
 
@@ -111,29 +101,29 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// <summary>
         /// calculate chance of success for every talent
         /// </summary>
-        private void CalcSuccessChances()
+        private static void CalcSuccessChances(CharacterModel character)
         {
-            if (Character.Talentliste != null)
+            if (character.Talentliste != null)
             {
-                foreach (var talent in Character.Talentliste)
+                foreach (var talent in character.Talentliste)
                 {
                     talent.Erfolgswahrscheinlichkeit = CalcSuccessChance(
-                        Character.Attribute.First(a => a.Type == talent.Probe.Attribut1).Value,
-                        Character.Attribute.First(a => a.Type == talent.Probe.Attribut2).Value,
-                        Character.Attribute.First(a => a.Type == talent.Probe.Attribut3).Value,
+                        character.Attribute.First(a => a.Type == talent.Probe.Attribut1).Value,
+                        character.Attribute.First(a => a.Type == talent.Probe.Attribut2).Value,
+                        character.Attribute.First(a => a.Type == talent.Probe.Attribut3).Value,
                         talent.Value
                         );
                 }
             }
 
-            if (Character.Zauberliste != null)
+            if (character.Zauberliste != null)
             {
-                foreach (var zauber in Character.Zauberliste)
+                foreach (var zauber in character.Zauberliste)
                 {
                     zauber.Erfolgswahrscheinlichkeit = CalcSuccessChance(
-                        Character.Attribute.First(a => a.Type == zauber.Probe.Attribut1).Value,
-                        Character.Attribute.First(a => a.Type == zauber.Probe.Attribut2).Value,
-                        Character.Attribute.First(a => a.Type == zauber.Probe.Attribut3).Value,
+                        character.Attribute.First(a => a.Type == zauber.Probe.Attribut1).Value,
+                        character.Attribute.First(a => a.Type == zauber.Probe.Attribut2).Value,
+                        character.Attribute.First(a => a.Type == zauber.Probe.Attribut3).Value,
                         zauber.Value
                         );
                 }
@@ -251,16 +241,6 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         #endregion AttributeView methods
 
-        private void ReloadCharacterData()
-        {
-            LoadCharacterList();
-
-            if (CharacterList.FirstOrDefault(c => c.Id == Character.Id) != null)
-            {
-                SelectedCharacter = CharacterList.FirstOrDefault(c => c.Id == Character.Id);
-            }
-        }
-
         /// <summary>
         /// import character from helden.zip.hld file
         /// </summary>
@@ -304,71 +284,71 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// <summary>
         /// Finds the designated hunting weapon and saves the talent value for the hunting meta talents
         /// </summary>
-        private void FindJagdwaffenTaW()
+        private static void FindJagdwaffenTaW(CharacterModel character)
         {
             // "jagtwaffe" is the term used in the xml
-            if (Character.Ausruestung != null && Character.Ausruestung.Any(a => a.Name == "jagtwaffe" && a.Set == "0" && a.Nummer != "0"))
+            if (character.Ausruestung != null && character.Ausruestung.Any(a => a.Name == "jagtwaffe" && a.Set == "0" && a.Nummer != "0"))
             {
-                Heldenausruestung h1 = Character.Ausruestung.First(a => a.Name == "jagtwaffe" && a.Set == "0" && a.Nummer != "0");
+                Heldenausruestung h1 = character.Ausruestung.First(a => a.Name == "jagtwaffe" && a.Set == "0" && a.Nummer != "0");
                 Heldenausruestung h2 = new();
 
                 switch (h1.Nummer)
                 {
                     case "1":
-                        if (Character.Ausruestung.Any(a => a.Name == "fkwaffe1" && a.Set == "0" && a.Slot == "0"))
+                        if (character.Ausruestung.Any(a => a.Name == "fkwaffe1" && a.Set == "0" && a.Slot == "0"))
                         {
-                            h2 = Character.Ausruestung.First(a => a.Name == "fkwaffe1" && a.Set == "0" && a.Slot == "0");
+                            h2 = character.Ausruestung.First(a => a.Name == "fkwaffe1" && a.Set == "0" && a.Slot == "0");
                         }
                         break;
 
                     case "2":
-                        if (Character.Ausruestung.Any(a => a.Name == "fkwaffe2" && a.Set == "0" && a.Slot == "0"))
+                        if (character.Ausruestung.Any(a => a.Name == "fkwaffe2" && a.Set == "0" && a.Slot == "0"))
                         {
-                            h2 = Character.Ausruestung.First(a => a.Name == "fkwaffe2" && a.Set == "0" && a.Slot == "0");
+                            h2 = character.Ausruestung.First(a => a.Name == "fkwaffe2" && a.Set == "0" && a.Slot == "0");
                         }
                         break;
 
                     case "3":
-                        if (Character.Ausruestung.Any(a => a.Name == "fkwaffe3" && a.Set == "0" && a.Slot == "0"))
+                        if (character.Ausruestung.Any(a => a.Name == "fkwaffe3" && a.Set == "0" && a.Slot == "0"))
                         {
-                            h2 = Character.Ausruestung.First(a => a.Name == "fkwaffe3" && a.Set == "0" && a.Slot == "0");
+                            h2 = character.Ausruestung.First(a => a.Name == "fkwaffe3" && a.Set == "0" && a.Slot == "0");
                         }
                         break;
                 }
 
-                if (Character.Talentliste.Any(t => t.Name == h2.Talent))
+                if (character.Talentliste.Any(t => t.Name == h2.Talent))
                 {
-                    Character.JagdwaffenTaW = Character.Talentliste.Single(t => t.Name == h2.Talent).Value;
+                    character.JagdwaffenTaW = character.Talentliste.Single(t => t.Name == h2.Talent).Value;
                 }
             }
             else
             {
-                Character.JagdwaffenTaW = 0;
+                character.JagdwaffenTaW = 0;
             }
         }
 
         /// <summary>
         /// Adds meta talents to the talents list
         /// </summary>
-        private void AddMetaTalents()
+        private static void AddMetaTalents(CharacterModel character)
         {
-            if (Character.Talentliste != null)
+            if (character.Talentliste != null)
             {
                 // Ansitzjagd
-                if (Character.Talentliste.Any(t => t.Name == "Wildnisleben") &&
-                    Character.Talentliste.Any(t => t.Name == "Tierkunde") &&
-                    Character.Talentliste.Any(t => t.Name == "Fährtensuchen") &&
-                    Character.Talentliste.Any(t => t.Name == "Sich verstecken"))
+                if (character.Talentliste.Any(t => t.Name == "Wildnisleben") &&
+                    character.Talentliste.Any(t => t.Name == "Tierkunde") &&
+                    character.Talentliste.Any(t => t.Name == "Fährtensuchen") &&
+                    character.Talentliste.Any(t => t.Name == "Sich verstecken"))
                 {
-                    var faehrtensuchen = Character.Talentliste.Single(t => t.Name == "Fährtensuchen").Value;
-                    var sichverstecken = Character.Talentliste.Single(t => t.Name == "Sich verstecken").Value;
-                    var tierkunde = Character.Talentliste.Single(t => t.Name == "Tierkunde").Value;
-                    var wildnisleben = Character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
+                    var faehrtensuchen = character.Talentliste.Single(t => t.Name == "Fährtensuchen").Value;
+                    var sichverstecken = character.Talentliste.Single(t => t.Name == "Sich verstecken").Value;
+                    var tierkunde = character.Talentliste.Single(t => t.Name == "Tierkunde").Value;
+                    var wildnisleben = character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
 
-                    int talentValue = (int)Math.Round(((double)(wildnisleben + tierkunde + faehrtensuchen + sichverstecken + Character.JagdwaffenTaW) / 5), 0, MidpointRounding.AwayFromZero);
+                    int talentValue = (int)Math.Round(((double)(wildnisleben + tierkunde + faehrtensuchen + sichverstecken + character.JagdwaffenTaW) / 5), 0, MidpointRounding.AwayFromZero);
                     var maxValue = new int[] { wildnisleben * 2, tierkunde * 2, faehrtensuchen * 2, sichverstecken * 2 }.Min();
 
-                    Character.Talentliste.Add(new Talent
+                    character.Talentliste.Add(new Talent
                     {
                         Name = "Ansitzjagd",
                         Probe = new Probe
@@ -383,20 +363,20 @@ namespace PhexensWuerfelraum.Logic.Ui
                 }
 
                 // Pirschjagd
-                if (Character.Talentliste.Any(t => t.Name == "Wildnisleben") &&
-                    Character.Talentliste.Any(t => t.Name == "Tierkunde") &&
-                    Character.Talentliste.Any(t => t.Name == "Fährtensuchen") &&
-                    Character.Talentliste.Any(t => t.Name == "Schleichen"))
+                if (character.Talentliste.Any(t => t.Name == "Wildnisleben") &&
+                    character.Talentliste.Any(t => t.Name == "Tierkunde") &&
+                    character.Talentliste.Any(t => t.Name == "Fährtensuchen") &&
+                    character.Talentliste.Any(t => t.Name == "Schleichen"))
                 {
-                    var faehrtensuchen = Character.Talentliste.Single(t => t.Name == "Fährtensuchen").Value;
-                    var schleichen = Character.Talentliste.Single(t => t.Name == "Schleichen").Value;
-                    var tierkunde = Character.Talentliste.Single(t => t.Name == "Tierkunde").Value;
-                    var wildnisleben = Character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
+                    var faehrtensuchen = character.Talentliste.Single(t => t.Name == "Fährtensuchen").Value;
+                    var schleichen = character.Talentliste.Single(t => t.Name == "Schleichen").Value;
+                    var tierkunde = character.Talentliste.Single(t => t.Name == "Tierkunde").Value;
+                    var wildnisleben = character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
 
-                    int talentValue = (int)Math.Round(((double)(wildnisleben + tierkunde + faehrtensuchen + schleichen + Character.JagdwaffenTaW) / 5), 0, MidpointRounding.AwayFromZero);
+                    int talentValue = (int)Math.Round(((double)(wildnisleben + tierkunde + faehrtensuchen + schleichen + character.JagdwaffenTaW) / 5), 0, MidpointRounding.AwayFromZero);
                     var maxValue = new int[] { wildnisleben * 2, tierkunde * 2, faehrtensuchen * 2, schleichen * 2 }.Min();
 
-                    Character.Talentliste.Add(new Talent
+                    character.Talentliste.Add(new Talent
                     {
                         Name = "Pirschjagd",
                         Probe = new Probe
@@ -411,18 +391,18 @@ namespace PhexensWuerfelraum.Logic.Ui
                 }
 
                 // Hetzjagd
-                if (Character.Talentliste.Any(t => t.Name == "Wildnisleben") &&
-                    Character.Talentliste.Any(t => t.Name == "Tierkunde") &&
-                    Character.Talentliste.Any(t => t.Name == "Reiten"))
+                if (character.Talentliste.Any(t => t.Name == "Wildnisleben") &&
+                    character.Talentliste.Any(t => t.Name == "Tierkunde") &&
+                    character.Talentliste.Any(t => t.Name == "Reiten"))
                 {
-                    var reiten = Character.Talentliste.Single(t => t.Name == "Reiten").Value;
-                    var tierkunde = Character.Talentliste.Single(t => t.Name == "Tierkunde").Value;
-                    var wildnisleben = Character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
+                    var reiten = character.Talentliste.Single(t => t.Name == "Reiten").Value;
+                    var tierkunde = character.Talentliste.Single(t => t.Name == "Tierkunde").Value;
+                    var wildnisleben = character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
 
-                    int talentValue = (int)Math.Round(((double)(wildnisleben + tierkunde + (2 * reiten) + Character.JagdwaffenTaW) / 5), 0, MidpointRounding.AwayFromZero);
+                    int talentValue = (int)Math.Round(((double)(wildnisleben + tierkunde + (2 * reiten) + character.JagdwaffenTaW) / 5), 0, MidpointRounding.AwayFromZero);
                     var maxValue = new int[] { wildnisleben * 2, tierkunde * 2, reiten * 2 }.Min();
 
-                    Character.Talentliste.Add(new Talent
+                    character.Talentliste.Add(new Talent
                     {
                         Name = "Hetzjagd",
                         Probe = new Probe
@@ -443,18 +423,18 @@ namespace PhexensWuerfelraum.Logic.Ui
                 // besitze keine der Quellen: https://de.wiki-aventurica.de/wiki/Traumreise
 
                 // Kräuter Suchen + Nahrung Sammeln
-                if (Character.Talentliste.Any(t => t.Name == "Wildnisleben") &&
-                    Character.Talentliste.Any(t => t.Name == "Sinnenschärfe") &&
-                    Character.Talentliste.Any(t => t.Name == "Pflanzenkunde"))
+                if (character.Talentliste.Any(t => t.Name == "Wildnisleben") &&
+                    character.Talentliste.Any(t => t.Name == "Sinnenschärfe") &&
+                    character.Talentliste.Any(t => t.Name == "Pflanzenkunde"))
                 {
-                    var pflanzenkunde = Character.Talentliste.Single(t => t.Name == "Pflanzenkunde").Value;
-                    var sinnenschaerfe = Character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
-                    var wildnisleben = Character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
+                    var pflanzenkunde = character.Talentliste.Single(t => t.Name == "Pflanzenkunde").Value;
+                    var sinnenschaerfe = character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
+                    var wildnisleben = character.Talentliste.Single(t => t.Name == "Wildnisleben").Value;
 
                     int talentValue = (int)Math.Round(((double)(wildnisleben + sinnenschaerfe + pflanzenkunde) / 3), 0, MidpointRounding.AwayFromZero);
                     var maxValue = new int[] { wildnisleben * 2, sinnenschaerfe * 2, pflanzenkunde * 2 }.Min();
 
-                    Character.Talentliste.Add(new Talent
+                    character.Talentliste.Add(new Talent
                     {
                         Name = "Kräuter suchen",
                         Probe = new Probe
@@ -467,7 +447,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                         Gruppe = TalentGruppe.Meta
                     });
 
-                    Character.Talentliste.Add(new Talent
+                    character.Talentliste.Add(new Talent
                     {
                         Name = "Nahrung sammeln",
                         Probe = new Probe
@@ -485,16 +465,16 @@ namespace PhexensWuerfelraum.Logic.Ui
                 // Besitze keine der Quellen: https://de.wiki-aventurica.de/wiki/Wassersuchen
 
                 // Wache halten
-                if (Character.Talentliste.Any(t => t.Name == "Selbstbeherrschung") &&
-                    Character.Talentliste.Any(t => t.Name == "Sinnenschärfe"))
+                if (character.Talentliste.Any(t => t.Name == "Selbstbeherrschung") &&
+                    character.Talentliste.Any(t => t.Name == "Sinnenschärfe"))
                 {
-                    var selbstbeherrschung = Character.Talentliste.Single(t => t.Name == "Selbstbeherrschung").Value;
-                    var sinnenschaerfe = Character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
+                    var selbstbeherrschung = character.Talentliste.Single(t => t.Name == "Selbstbeherrschung").Value;
+                    var sinnenschaerfe = character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
 
                     int talentValue = (int)Math.Round(((double)(selbstbeherrschung + (2 * sinnenschaerfe) + 1) / 3), 0, MidpointRounding.AwayFromZero);
                     var maxValue = new int[] { selbstbeherrschung * 2, sinnenschaerfe * 2 }.Min();
 
-                    Character.Talentliste.Add(new Talent
+                    character.Talentliste.Add(new Talent
                     {
                         Name = "Wache halten",
                         Probe = new Probe
@@ -513,25 +493,25 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// <summary>
         /// Adds custom talents to the talents list if enabled
         /// </summary>
-        private void AddCustomTalents()
+        private static void AddCustomTalents(CharacterModel character)
         {
-            if (Settings.AdditionalTrials)
+            if (SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting.AdditionalTrials)
             {
-                if (Character.Talentliste != null)
+                if (character.Talentliste != null)
                 {
                     // Heimlichkeit
-                    if (Character.Talentliste.Any(t => t.Name == "Sinnenschärfe") &&
-                        Character.Talentliste.Any(t => t.Name == "Sich verstecken") &&
-                        Character.Talentliste.Any(t => t.Name == "Schleichen"))
+                    if (character.Talentliste.Any(t => t.Name == "Sinnenschärfe") &&
+                        character.Talentliste.Any(t => t.Name == "Sich verstecken") &&
+                        character.Talentliste.Any(t => t.Name == "Schleichen"))
                     {
-                        var schleichen = Character.Talentliste.Single(t => t.Name == "Schleichen").Value;
-                        var sichverstecken = Character.Talentliste.Single(t => t.Name == "Sich verstecken").Value;
-                        var sinnenschaerfe = Character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
+                        var schleichen = character.Talentliste.Single(t => t.Name == "Schleichen").Value;
+                        var sichverstecken = character.Talentliste.Single(t => t.Name == "Sich verstecken").Value;
+                        var sinnenschaerfe = character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
 
                         int talentValue = (int)Math.Round(((double)(sinnenschaerfe + sichverstecken + schleichen) / 3), 0, MidpointRounding.AwayFromZero);
                         var maxValue = new int[] { sinnenschaerfe * 2, sichverstecken * 2, schleichen * 2 }.Min();
 
-                        Character.Talentliste.Add(new Talent
+                        character.Talentliste.Add(new Talent
                         {
                             Name = "Heimlichkeit",
                             Probe = new Probe
@@ -546,18 +526,18 @@ namespace PhexensWuerfelraum.Logic.Ui
                     }
 
                     // Traumkontrolle
-                    if (Character.Talentliste.Any(t => t.Name == "Orientierung") &&
-                        Character.Talentliste.Any(t => t.Name == "Sinnenschärfe") &&
-                        Character.Talentliste.Any(t => t.Name == "Selbstbeherrschung"))
+                    if (character.Talentliste.Any(t => t.Name == "Orientierung") &&
+                        character.Talentliste.Any(t => t.Name == "Sinnenschärfe") &&
+                        character.Talentliste.Any(t => t.Name == "Selbstbeherrschung"))
                     {
-                        var orientierung = Character.Talentliste.Single(t => t.Name == "Orientierung").Value;
-                        var selbstbeherrschung = Character.Talentliste.Single(t => t.Name == "Selbstbeherrschung").Value;
-                        var sinnenschaerfe = Character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
+                        var orientierung = character.Talentliste.Single(t => t.Name == "Orientierung").Value;
+                        var selbstbeherrschung = character.Talentliste.Single(t => t.Name == "Selbstbeherrschung").Value;
+                        var sinnenschaerfe = character.Talentliste.Single(t => t.Name == "Sinnenschärfe").Value;
 
                         int talentValue = (int)Math.Round(((double)(orientierung + (sinnenschaerfe * 2) + (selbstbeherrschung * 3)) / 6), 0, MidpointRounding.AwayFromZero);
                         var maxValue = new int[] { orientierung * 2, sinnenschaerfe * 2, selbstbeherrschung * 2 }.Min();
 
-                        Character.Talentliste.Add(new Talent
+                        character.Talentliste.Add(new Talent
                         {
                             Name = "Traumkontrolle",
                             Probe = new Probe
@@ -572,11 +552,11 @@ namespace PhexensWuerfelraum.Logic.Ui
                     }
 
                     // Sinnenschärfe FF + KL
-                    if (Character.Talentliste.Any(t => t.Name == "Sinnenschärfe"))
+                    if (character.Talentliste.Any(t => t.Name == "Sinnenschärfe"))
                     {
-                        Talent talent = Character.Talentliste.Single(t => t.Name == "Sinnenschärfe");
+                        Talent talent = character.Talentliste.Single(t => t.Name == "Sinnenschärfe");
 
-                        Character.Talentliste.Add(new Talent
+                        character.Talentliste.Add(new Talent
                         {
                             Name = "Sinnenschärfe FF",
                             Probe = new Probe
@@ -589,7 +569,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                             Gruppe = TalentGruppe.Koerper
                         });
 
-                        Character.Talentliste.Add(new Talent
+                        character.Talentliste.Add(new Talent
                         {
                             Name = "Sinnenschärfe KL",
                             Probe = new Probe
@@ -604,11 +584,11 @@ namespace PhexensWuerfelraum.Logic.Ui
                     }
 
                     // Fährtensuchen IN
-                    if (Character.Talentliste.Any(t => t.Name == "Fährtensuchen"))
+                    if (character.Talentliste.Any(t => t.Name == "Fährtensuchen"))
                     {
-                        Talent talent = Character.Talentliste.Single(t => t.Name == "Fährtensuchen");
+                        Talent talent = character.Talentliste.Single(t => t.Name == "Fährtensuchen");
 
-                        Character.Talentliste.Add(new Talent
+                        character.Talentliste.Add(new Talent
                         {
                             Name = "Fährtensuchen IN",
                             Probe = new Probe
@@ -716,11 +696,16 @@ namespace PhexensWuerfelraum.Logic.Ui
                             }).ToList()),
                     }).First();
 
-#if DEBUG
-            Directory.CreateDirectory(@"c:\temp\");
-            var path = $@"c:\temp\{character.Name}.xml";
-            doc.Save(path);
-#endif
+            FindJagdwaffenTaW(character);
+            AddMetaTalents(character);
+            AddCustomTalents(character);
+            CalcSuccessChances(character);
+
+            //#if DEBUG
+            //            Directory.CreateDirectory(@"c:\temp\");
+            //            var path = $@"c:\temp\{character.Name}.xml";
+            //            doc.Save(path);
+            //#endif
 
             return character;
         }

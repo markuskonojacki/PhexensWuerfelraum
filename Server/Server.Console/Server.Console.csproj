@@ -35,6 +35,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="config\settings.example.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="config\settings.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
