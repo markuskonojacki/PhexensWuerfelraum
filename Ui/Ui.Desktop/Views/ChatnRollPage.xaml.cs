@@ -141,5 +141,10 @@ namespace PhexensWuerfelraum.Ui.Desktop
                 }
             }
         }
+
+        private void StackPanel_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }

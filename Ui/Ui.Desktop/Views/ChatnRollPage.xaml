@@ -463,9 +463,14 @@
                     </ItemsControl>
 
                     <StackPanel
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type StackPanel}">
+                                <EventSetter Event="Control.RequestBringIntoView" Handler="StackPanel_RequestBringIntoView" />
+                            </Style>
+                        </StackPanel.Resources>
                         <StackPanel>
                             <StackPanel.Style>
                                 <Style TargetType="StackPanel">
