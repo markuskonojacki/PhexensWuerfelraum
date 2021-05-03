@@ -123,6 +123,8 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             if (!string.IsNullOrEmpty(message) && !string.IsNullOrWhiteSpace(message))
             {
+                message = message.Replace('"', '\'');
+
                 ChatPacket chatPacket = new(messageType, message, 0, username, toId, toName, colorCode);
                 await _client.SendObjectAsync(chatPacket);
             }
