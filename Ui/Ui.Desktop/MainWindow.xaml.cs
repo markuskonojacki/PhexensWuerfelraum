@@ -56,7 +56,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
             Tracker.Track(this);
 
 #if !DEBUG
-            if (new Logic.Ui.SettingsModel().AutoUpdate)
+            if (SettingsModel.AutoUpdate)
             {
                 Task task = Task.Run(() => UpdateAsync());
             }
