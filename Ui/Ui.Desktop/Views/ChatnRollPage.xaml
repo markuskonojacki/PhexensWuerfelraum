@@ -106,13 +106,18 @@
                 <customcontrols:ChatMessagesListView
                     Grid.Row="0"
                     Grid.Column="0"
-                    Margin="2,2,2,1"
+                    Margin="2"
                     x:Name="chatList"
                     ItemsSource="{Binding ChatRoom.Messages}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     Style="{DynamicResource ChatListViewStyle}"
                     local:ListBoxExtender.AutoScrollToEnd="True"
                     IsSynchronizedWithCurrentItem="True">
+                    <customcontrols:ChatMessagesListView.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="4" />
+                        </Style>
+                    </customcontrols:ChatMessagesListView.Resources>
                     <customcontrols:ChatMessagesListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="Template">
@@ -188,7 +193,13 @@
                     PreviewKeyDown="ChatInputTextBox_PreviewKeyDown"
                     Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    TextWrapping="WrapWithOverflow" />
+                    TextWrapping="WrapWithOverflow">
+                    <customcontrols:ChatInputTextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="4" />
+                        </Style>
+                    </customcontrols:ChatInputTextBox.Resources>
+                </customcontrols:ChatInputTextBox>
 
                 <ListView
                     Grid.Row="0"
@@ -200,6 +211,11 @@
                     VerticalAlignment="Stretch"
                     Style="{DynamicResource UserListViewStyle}"
                     local:ListBoxSelectionBehavior.ClickSelection="True">
+                    <ListView.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="4" />
+                        </Style>
+                    </ListView.Resources>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -285,7 +301,9 @@
                         Interval="1"
                         Value="{Binding Path=DiceAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         StringFormat="G0"
-                        Opacity="0.8" />
+                        Opacity="0.8"
+                        Controls:ControlsHelper.CornerRadius="4"
+                        Height="20" />
 
                     <Label Grid.Column="0" Grid.Row="1" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right">BE</Label>
                     <Controls:NumericUpDown
@@ -297,7 +315,9 @@
                         DataContext="{Binding Character, Source={StaticResource Locator}}"
                         Value="{Binding Path=Character.Behinderung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         StringFormat="G0"
-                        Opacity="0.8" />
+                        Opacity="0.8"
+                        Controls:ControlsHelper.CornerRadius="4"
+                        Height="20" />
 
                     <Label Grid.Column="0" Grid.Row="2" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right">Mod.</Label>
                     <Controls:NumericUpDown
@@ -310,7 +330,9 @@
                         Value="{Binding Path=Character.Modifikation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         StringFormat="G0"
                         Opacity="0.8"
-                        ToolTip="Positiv = Erschwernis / Negativ = Erleichterung" />
+                        ToolTip="Positiv = Erschwernis / Negativ = Erleichterung"
+                        Controls:ControlsHelper.CornerRadius="4"
+                        Height="20" />
 
                     <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal">
                         <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding ToggleRollModeCommand}" Visibility="{Binding Character.RollModeOpen, Converter={StaticResource VisibilityConverter}}" ToolTip="Sichtbar würfeln">
@@ -437,7 +459,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Margin="2" Padding="5 2 5 2" BorderThickness="1" BorderBrush="Black" Background="DarkGreen" CornerRadius="5">
+                                <Border Margin="2" Padding="5 2 5 2" BorderThickness="1" BorderBrush="Black" Background="DarkGreen" CornerRadius="4">
                                     <TextBlock Text="{Binding Text}" Grid.Column="0" Foreground="WhiteSmoke" />
                                 </Border>
                             </DataTemplate>
@@ -455,7 +477,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Margin="2" Padding="5 2 5 2" BorderThickness="1" BorderBrush="Black" Background="DarkRed" CornerRadius="5">
+                                <Border Margin="2" Padding="5 2 5 2" BorderThickness="1" BorderBrush="Black" Background="DarkRed" CornerRadius="4">
                                     <TextBlock Text="{Binding Text}" Grid.Column="0" Foreground="WhiteSmoke" />
                                 </Border>
                             </DataTemplate>
@@ -463,9 +485,14 @@
                     </ItemsControl>
 
                     <StackPanel
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type StackPanel}">
+                                <EventSetter Event="Control.RequestBringIntoView" Handler="StackPanel_RequestBringIntoView" />
+                            </Style>
+                        </StackPanel.Resources>
                         <StackPanel>
                             <StackPanel.Style>
                                 <Style TargetType="StackPanel">

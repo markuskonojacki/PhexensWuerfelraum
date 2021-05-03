@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using PhexensWuerfelraum.Logic.ClientServer;
 using SimpleSockets;
-using SimpleSockets.Messaging;
 using SimpleSockets.Messaging.Metadata;
 using SimpleSockets.Server;
 using System;
@@ -22,6 +21,8 @@ namespace PhexensWuerfelraum.Server.Console
 
         private static readonly List<AuthPacket> AuthenticatedUsers = new();
         private static SimpleSocketListener _listener;
+
+        private static readonly List<HeartbeatPacket> heartbeats = new();
 
         #region version
 
@@ -85,8 +86,6 @@ namespace PhexensWuerfelraum.Server.Console
 
                 var cert = new X509Certificate2(File.ReadAllBytes(privateKeyPath));
 
-                //var cert = new X509Certificate2(File.ReadAllBytes(Path.GetFullPath(@"C:\Users\" + Environment.UserName + @"\Desktop\test.pfx")), "Password"); // Generate: https://raw.githubusercontent.com/Cloet/SimpleSockets/master/Self-SignedCertificate%20Script.ps1
-
                 _listener = new SimpleSocketTcpSslListener(cert);
             }
             else
@@ -102,62 +101,15 @@ namespace PhexensWuerfelraum.Server.Console
 
             while (true)
             {
-                Options();
-
                 System.Console.Read();
-            }
-        }
-
-        private static void Options()
-        {
-            if (_listener.IsRunning)
-            {
-                System.Console.WriteLine("");
-                WriteLine("Available options:");
-                WriteLine("    - send a message   (M)");
-                WriteLine("    - send a broadcast (BC)");
-
-                var option = System.Console.ReadLine();
-
-                if (option != null)
-                    switch (option.ToUpper())
-                    {
-                        case "M":
-                            SendMessage();
-                            break;
-
-                        case "BC":
-                            BroadcastMessageAsync();
-                            break;
-
-                        default:
-                            Options();
-                            break;
-                    }
-                else
-                {
-                    Options();
-                }
-            }
-        }
-
-        private static async void BroadcastMessageAsync()
-        {
-            WriteLine("Enter your message you want to send to every client: ");
-            var message = System.Console.ReadLine();
-            var clients = _listener.GetConnectedClients();
-
-            foreach (var client in clients)
-            {
-                await _listener.SendMessageAsync(client.Value.Id, message, Compress, false, false);
             }
         }
 
         private static int ShowClients()
         {
             var ids = new List<int>();
-            var clients = _listener.GetConnectedClients();
-            foreach (var client in clients)
+
+            foreach (var client in _listener.GetConnectedClients())
             {
                 ids.Add(client.Value.Id);
                 WriteLine("Client ID: " + client.Value.Id + " with IPv4 : " + client.Value.RemoteIPv4);
@@ -177,89 +129,11 @@ namespace PhexensWuerfelraum.Server.Console
             return int.Parse(chosen);
         }
 
-        private static async void SendMessage()
-        {
-            System.Console.Clear();
-            var id = ShowClients();
-
-            WriteLine("Enter your message you want to send to the server: ");
-            var message = System.Console.ReadLine();
-
-            await _listener.SendMessageAsync(id, message, Compress, false, false);
-        }
-
-        //private static async void SendMessageContract()
-        //{
-        //    System.Console.Clear();
-        //    var id = ShowClients();
-
-        //    Write("Press enter to send a MessageContract...  ");
-        //    System.Console.ReadLine();
-
-        //    await _listener.SendMessageContractAsync(id, ChatPacketContract, _compress, _encrypt, false);
-        //}
-
-        //private static async void SendCustom()
-        //{
-        //    System.Console.Clear();
-        //    var id = ShowClients();
-
-        //    Write("Enter the header you want to use for the transmission...  ");
-        //    var header = System.Console.ReadLine();
-
-        //    Write("Enter the message you want to send...  ");
-        //    var message = System.Console.ReadLine();
-
-        //    await _listener.SendCustomHeaderAsync(id, message, header, _compress, _encrypt, false);
-        //}
-
-        //private static async void SendFile()
-        //{
-        //    System.Console.Clear();
-        //    var id = ShowClients();
-
-        //    Write("Enter the path to the file you want to send to the server... ");
-        //    var path = System.Console.ReadLine();
-
-        //    Write("Enter the path on the server where the file should be stored... ");
-        //    var targetPath = System.Console.ReadLine();
-
-        //    await _listener.SendFileAsync(id, path, targetPath, _compress, _encrypt, false);
-        //}
-
-        //private static async void SendFolder()
-        //{
-        //    System.Console.Clear();
-        //    var id = ShowClients();
-
-        //    Write("Enter the path to the folder you want to send to the server... ");
-        //    var path = System.Console.ReadLine();
-
-        //    Write("Enter the path on the server where the folder should be stored... ");
-        //    var targetPath = System.Console.ReadLine();
-
-        //    await _listener.SendFolderAsync(id, path, targetPath, true, false);
-        //}
-
-        //private static async void SendObject()
-        //{
-        //    System.Console.Clear();
-        //    var id = ShowClients();
-
-        //    var person = new Person("Test", "FirstName", "5th Avenue");
-
-        //    WriteLine("Press enter to send an object.");
-        //    System.Console.ReadLine();
-
-        //    await _listener.SendObjectAsync(id, person);
-        //}
-
         #region Events
 
         private static void BindEvents()
         {
             _listener.SslAuthStatus += Listener_SslAuthStatus;
-            //_listener.FileReceiver += ListenerOnFileReceiver;
             _listener.MessageReceived += MessageReceived;
             _listener.MessageSubmitted += MessageSubmitted;
             _listener.MessageWithMetaDataReceived += CustomHeaderReceivedAsync;
@@ -269,8 +143,6 @@ namespace PhexensWuerfelraum.Server.Console
             _listener.MessageFailed += MessageFailed;
             _listener.ServerErrorThrown += ErrorThrown;
             _listener.ObjectReceived += ListenerOnObjectReceived;
-            _listener.MessageUpdateFileTransfer += ListenerOnMessageUpdateFileTransfer;
-            _listener.ServerLogs += Listener_ServerLogs;
         }
 
         private static void Listener_SslAuthStatus(IClientInfo client, AuthStatus status)
@@ -281,43 +153,44 @@ namespace PhexensWuerfelraum.Server.Console
                 WriteLine($"Server authenticated certificate of client {client.Id}");
         }
 
-        private static void Listener_ServerLogs(string log)
-        {
-            //WriteLine(log);
-        }
-
-        private static void ListenerOnMessageUpdateFileTransfer(IClientInfo client, string origin, string loc, double percentageDone, MessageState state)
-        {
-            //WriteLine("Sending message to client: " + percentageDone);
-        }
-
         private static void ListenerOnObjectReceived(IClientInfo client, object obj, Type objType)
         {
-            WriteLine($"Received an object of type = '{objType.FullName}'");
+            if (obj.GetType() != typeof(HeartbeatPacket))
+                WriteLine($"Received an object of type = '{objType.FullName}'");
 
             if (obj.GetType() == typeof(AuthPacket))
             {
                 var authPacket = (AuthPacket)obj;
 
-                WriteLine($"User '{authPacket.UserModel.UserName}' has sent an authentication packet");
+                WriteLine($"User '{authPacket.UserModel.UserName}' ({authPacket.UserModel.UserIdentifier}) has sent an authentication packet");
 
                 authPacket.UserModel.Id = client.Id;
+
+                if (AuthenticatedUsers.Exists(a => a.UserModel.UserIdentifier == authPacket.UserModel.UserIdentifier))
+                {
+                    var authPackDoublicateUser = AuthenticatedUsers.Find(a => a.UserModel.UserIdentifier == authPacket.UserModel.UserIdentifier);
+                    AuthenticatedUsers.Remove(authPackDoublicateUser);
+                    WriteLine($"Removed duplicate connected user with user identifier {authPacket.UserModel.UserIdentifier}");
+                }
+
                 AuthenticatedUsers.Add(authPacket);
 
-                _listener.SendObject(client.Id, authPacket, Compress, false, false);
+                _listener.SendObjectAsync(client.Id, authPacket, Compress, false, false);
 
                 List<UserModel> userModelList = new();
-                foreach (var user in AuthenticatedUsers)
+                foreach (var user in AuthenticatedUsers.ToArray())
                 {
                     userModelList.Add(user.UserModel);
                 }
 
+                SendUserListToUsers();
+
                 ChatPacket userJoinNotification = new(ChatMessageType.Text, $"Nutzer '{authPacket.UserModel.UserName}' ist dem Chat beigetreten", 0, "Server", 0, "", "Silver");
 
-                foreach (var user in AuthenticatedUsers)
+                foreach (var user in AuthenticatedUsers.ToArray())
                 {
-                    _listener.SendObject(user.UserModel.Id, new ChatroomPacket(userModelList), Compress, false, false);
-                    _listener.SendObject(user.UserModel.Id, userJoinNotification, Compress, false, false);
+                    if (_listener.IsConnected(user.UserModel.Id))
+                        _listener.SendObjectAsync(user.UserModel.Id, userJoinNotification, Compress, false, false);
                 }
             }
             else if (obj.GetType() == typeof(ChatPacket))
@@ -327,59 +200,29 @@ namespace PhexensWuerfelraum.Server.Console
 
                 if (chatPacket.ToId == 0) // to everyone
                 {
-                    foreach (var user in AuthenticatedUsers)
+                    foreach (var user in AuthenticatedUsers.ToArray())
                     {
-                        _listener.SendObject(user.UserModel.Id, chatPacket, Compress, false, false);
+                        _listener.SendObjectAsync(user.UserModel.Id, chatPacket, Compress, false, false);
                     }
                 }
                 else // only to the recepient and the game master
                 {
                     var recepients = AuthenticatedUsers.FindAll(a => a.UserModel.Id == chatPacket.ToId || a.UserModel.Id == chatPacket.FromId || a.UserModel.IsGameMaster == true);
 
-                    foreach (var user in recepients)
+                    foreach (var user in recepients.ToArray())
                     {
-                        _listener.SendObject(user.UserModel.Id, chatPacket, Compress, false, false);
+                        _listener.SendObjectAsync(user.UserModel.Id, chatPacket, Compress, false, false);
                     }
                 }
             }
+            else if (obj.GetType() == typeof(HeartbeatPacket))
+            {
+                var heartbeatPacket = (HeartbeatPacket)obj;
+                //WriteLine($"Heartbeat received from client '{client.Id}'; first beat '{heartbeatPacket.FirstBeat}'; current beat '{heartbeatPacket.LastBeat}'");
+                heartbeats.Add(heartbeatPacket);
+            }
         }
 
-        //private static void ListenerOnFileReceiver(IClientInfo client, int currentPart, int totalParts, string loc, MessageState state)
-        //{
-        //    if (state == MessageState.ReceivingData)
-        //    {
-        //        //if (progress == null)
-        //        //{
-        //        //    progress = new ProgressBar();
-        //        //    System.Console.Write("Receiving a File... ");
-        //        //}
-
-        //        var progressDouble = ((double)currentPart / totalParts);
-
-        //        //progress.Report(progressDouble);
-
-        //        if (progressDouble >= 1.00)
-        //        {
-        //            //progress.Dispose();
-        //            //progress = null;
-        //            Thread.Sleep(200);
-        //            WriteLine("File Transfer Complete");
-        //        }
-        //    }
-
-        //    if (state == MessageState.Decrypting)
-        //        WriteLine("Decrypting File this might take a while.");
-        //    if (state == MessageState.Decompressing)
-        //        WriteLine("Decompressing the File this might take a while.");
-        //    if (state == MessageState.DecompressingDone)
-        //        WriteLine("Decompressing has finished.");
-        //    if (state == MessageState.DecryptingDone)
-        //        WriteLine("Decrypting has finished.");
-        //    if (state == MessageState.Completed)
-        //        WriteLine("File received and stored at location: " + loc);
-        //}
-
-        //private static async void CustomHeaderReceivedAsync(IClientInfo client, string msg, string header)
         private static async void CustomHeaderReceivedAsync(IClientInfo client, object msg, IDictionary<object, object> metadata, Type objectType)
         {
             WriteLine($"The server received a message from the client with ID '{client.Id}' the message is '{msg}'");
@@ -395,12 +238,15 @@ namespace PhexensWuerfelraum.Server.Console
                         case "GetClientList":
                             WriteLine($"Sending List of connected clients to client with ID '{client.Id}'");
 
-                            var clients = _listener.GetConnectedClients();
-
-                            foreach (var user in clients)
+                            foreach (var user in _listener.GetConnectedClients())
                             {
+                                string username = "";
+
+                                if (AuthenticatedUsers.Exists(a => a.UserModel.Id == user.Value.Id))
+                                    username = AuthenticatedUsers.Find(a => a.UserModel.Id == user.Value.Id).UserModel.UserName;
+
                                 WriteLine("Client ID: " + user.Value.Id + " with IPv4 : " + user.Value.RemoteIPv4);
-                                await _listener.SendMessageAsync(client.Id, $"- ID '{user.Value.Id}'; Name '{AuthenticatedUsers.Find(a => a.UserModel.Id == user.Value.Id).UserModel.UserName}'", Compress, false, false);
+                                await _listener.SendMessageAsync(client.Id, $"- ID '{user.Value.Id}'; Name '{username}'", Compress, false, false);
                             }
                             break;
 
@@ -417,15 +263,22 @@ namespace PhexensWuerfelraum.Server.Console
 
         private static void MessageReceived(IClientInfo client, string msg)
         {
-            //totalmsg++;
-            //WriteLine("The server has received a message from client " + client.Id + " with name : " + client.ClientName + " and guid : " + client.Guid);
-            //WriteLine("The client is running on " + client.OsVersion + " and UserDomainName = " + client.UserDomainName);
-            WriteLine($"The server has received a message from client {client.Id} ({AuthenticatedUsers.Find(a => a.UserModel.Id == client.Id).UserModel.UserName}) the message reads: {msg}");
+            string username = "";
+
+            if (AuthenticatedUsers.Exists(a => a.UserModel.Id == client.Id))
+                username = AuthenticatedUsers.Find(a => a.UserModel.Id == client.Id).UserModel.UserName;
+
+            WriteLine($"The server has received a message from client {client.Id} ({username}) the message reads: {msg}");
         }
 
         private static void MessageSubmitted(IClientInfo client, bool close)
         {
-            WriteLine($"A message has been sent to client {client.Id} ({AuthenticatedUsers.Find(a => a.UserModel.Id == client.Id).UserModel.UserName})");
+            string username = "";
+
+            if (AuthenticatedUsers.Exists(a => a.UserModel.Id == client.Id))
+                username = AuthenticatedUsers.Find(a => a.UserModel.Id == client.Id).UserModel.UserName;
+
+            WriteLine($"A message has been sent to client {client.Id} ({username})");
         }
 
         private static void ServerHasStarted()
@@ -441,7 +294,12 @@ namespace PhexensWuerfelraum.Server.Console
 
         private static void MessageFailed(IClientInfo client, byte[] messageData, Exception exception)
         {
-            WriteLine($"The server has failed to deliver a message to client {client.Id} ({AuthenticatedUsers.Find(a => a.UserModel.Id == client.Id).UserModel.UserName})");
+            string username = "";
+
+            if (AuthenticatedUsers.Exists(a => a.UserModel.Id == client.Id))
+                username = AuthenticatedUsers.Find(a => a.UserModel.Id == client.Id).UserModel.UserName;
+
+            WriteLine($"The server has failed to deliver a message to client {client.Id} ({username})");
             WriteLine("Error message : " + exception.Message);
         }
 
@@ -459,23 +317,24 @@ namespace PhexensWuerfelraum.Server.Console
                     if (_listener.IsConnected(client.Id))
                     {
                         _listener.Close(client.Id);
-                        _listener.Dispose();
                     }
                     else
                     {
                         WriteLine("Client has self-disconnected");
                     }
                 }
+                else
+                {
+                    StartClientConnectionMonitoring(client);
+                }
             });
         }
 
         private static void ClientDisconnected(IClientInfo client, DisconnectReason reason)
         {
-            var id = 0;
-
             if (client != null)
             {
-                id = client.Id;
+                var id = client.Id;
 
                 if (AuthenticatedUsers.Exists(a => a.UserModel.Id == id))
                 {
@@ -484,26 +343,84 @@ namespace PhexensWuerfelraum.Server.Console
 
                     AuthenticatedUsers.Remove(AuthenticatedUsers.Find(a => a.UserModel.Id == id));
 
-                    foreach (var user in AuthenticatedUsers)
+                    foreach (var user in AuthenticatedUsers.ToArray())
                     {
-                        _listener.SendObject(user.UserModel.Id, userLeaveNotification, Compress, false, false);
+                        if (_listener.IsConnected(user.UserModel.Id))
+                            _listener.SendObjectAsync(user.UserModel.Id, userLeaveNotification, Compress, false, false);
                     }
                 }
             }
 
-            List<UserModel> userModelList = new();
-            foreach (var user in AuthenticatedUsers)
-            {
-                userModelList.Add(user.UserModel);
-            }
-
-            foreach (var user in AuthenticatedUsers)
-            {
-                _listener.SendObject(user.UserModel.Id, new ChatroomPacket(userModelList), Compress, false, false);
-            }
+            SendUserListToUsers();
         }
 
         #endregion Events
+
+        public static void SendUserListToUsers()
+        {
+            List<UserModel> userModelList = new();
+            foreach (var user in AuthenticatedUsers.ToArray())
+            {
+                if (_listener.IsConnected(user.UserModel.Id))
+                {
+                    userModelList.Add(user.UserModel);
+                }
+                else
+                {
+                    WriteLine($"User {user.UserModel.Id} ({user.UserModel.UserName}) was removed from the list of authenticated users");
+                    AuthenticatedUsers.Remove(user);
+                }
+            }
+
+            foreach (var user in AuthenticatedUsers.ToArray())
+            {
+                try
+                {
+                    if (_listener.IsConnected(user.UserModel.Id))
+                        _listener.SendObjectAsync(user.UserModel.Id, new ChatroomPacket(userModelList), Compress, false, false);
+                }
+                catch (Exception)
+                {
+                    AuthenticatedUsers.Remove(user);
+                }
+            }
+        }
+
+        private static void StartClientConnectionMonitoring(IClientInfo client)
+        {
+            Task.Run(() =>
+            {
+                while (true)
+                {
+                    Thread.Sleep(10000);
+
+                    if (_listener.IsConnected(client.Id) == false && AuthenticatedUsers.Exists(a => a.UserModel.Id == client.Id))
+                    {
+                        AuthenticatedUsers.Remove(AuthenticatedUsers.Find(a => a.UserModel.Id == client.Id));
+                        _listener.Close(client.Id);
+                        break;
+                    }
+
+                    if (AuthenticatedUsers.Exists(a => a.UserModel.Id == client.Id))
+                    {
+                        var authpacket = AuthenticatedUsers.Find(a => a.UserModel.Id == client.Id);
+
+                        if (heartbeats.Exists(h => h.Guid == authpacket.UserModel.UserIdentifier))
+                        {
+                            var lastbeat = heartbeats.FindLast(h => h.Guid == authpacket.UserModel.UserIdentifier);
+
+                            if ((DateTime.UtcNow - lastbeat.LastBeat).TotalSeconds >= 30)
+                            {
+                                WriteLine($"User with id {client.Id} hasn't sent a heartbeat in over 30 seconds. Forcefully closing the connection now.");
+                                AuthenticatedUsers.Remove(AuthenticatedUsers.Find(a => a.UserModel.Id == client.Id));
+                                _listener.Close(client.Id);
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+        }
 
         private static void WriteLine(string text)
         {

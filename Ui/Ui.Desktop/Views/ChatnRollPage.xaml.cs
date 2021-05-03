@@ -16,7 +16,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
     {
         #region properties
 
-        private MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+        private readonly MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
 
         public CustomDialog _customCloseDialogTest;
 
@@ -55,30 +55,6 @@ namespace PhexensWuerfelraum.Ui.Desktop
         public ChatnRoll()
         {
             InitializeComponent();
-        }
-
-        private async void OpenTrialModifierDialog()
-        {
-            EventHandler<DialogStateChangedEventArgs> dialogManagerOnDialogOpened = null;
-            dialogManagerOnDialogOpened = (o, args) =>
-            {
-                DialogManager.DialogOpened -= dialogManagerOnDialogOpened;
-                Console.WriteLine("Custom Dialog opened!");
-            };
-            DialogManager.DialogOpened += dialogManagerOnDialogOpened;
-
-            EventHandler<DialogStateChangedEventArgs> dialogManagerOnDialogClosed = null;
-            dialogManagerOnDialogClosed = (o, args) =>
-            {
-                DialogManager.DialogClosed -= dialogManagerOnDialogClosed;
-                Console.WriteLine("Custom Dialog closed!");
-            };
-            DialogManager.DialogClosed += dialogManagerOnDialogClosed;
-
-            var dialog = CustomCloseDialogTest();
-
-            await mainWindow.ShowMetroDialogAsync(dialog);
-            await dialog.WaitUntilUnloadedAsync();
         }
 
         private async void CloseCustomDialog(object sender, RoutedEventArgs e)
@@ -140,6 +116,11 @@ namespace PhexensWuerfelraum.Ui.Desktop
                     currentMessageHistoryIndex++;
                 }
             }
+        }
+
+        private void StackPanel_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

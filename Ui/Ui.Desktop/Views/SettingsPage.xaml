@@ -27,7 +27,7 @@
 
                     <StackPanel>
                         <Label Margin="10 5 0 0" FontWeight="DemiBold" FontSize="16">Port</Label>
-                        <TextBox Name="ServerPort" Text="{Binding Setting.ServerPort}" Margin="10 0 0 10" Width="100" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Port des Servers, z.B. 1212 (default)" ToolTip="Port des Servers, z.B. 1212 (default)" />
+                        <TextBox Name="ServerPort" Text="{Binding Setting.ServerPort}" Margin="10 0 0 10" Width="100" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Port des Servers, z.B. 12113 (default)" ToolTip="Port des Servers, z.B. 12113 (default)" />
                     </StackPanel>
                 </StackPanel>
 
@@ -37,6 +37,21 @@
 
                     <Label Margin="10 0 0 0" FontWeight="DemiBold" FontSize="16">Statischer Chatname</Label>
                     <TextBox Name="StaticUserName" Text="{Binding Setting.StaticUserName}" Margin="10 0 0 10" Width="300" HorizontalAlignment="Left" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Steht als standard Username zur verfügung" ToolTip="Steht als standard Username zur verfügung" TextChanged="StaticUserName_TextChanged" />
+
+                    <Label Margin="10 0 0 0" FontWeight="DemiBold" FontSize="16">Benutzerkennung</Label>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Name="UserIdentifier" Text="{Binding Setting.UserIdentifier}" Margin="10 0 10 0" Width="300" HorizontalAlignment="Left" ToolTip="Einzigartiges Kennzeichen zur Benutzeridentifizierung" IsEnabled="False" />
+                        <Button DataContext="{Binding Settings, Source={StaticResource Locator}}" Command="{Binding RenewUserIdentifierCommand}" Width="30" Padding="0">
+                            <Rectangle Width="18" Height="18" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Rectangle.Fill>
+                                    <SolidColorBrush Color="Black" />
+                                </Rectangle.Fill>
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=appbar_refresh}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </GroupBox>
@@ -61,7 +76,7 @@
                                 <SolidColorBrush Color="Black" />
                             </Rectangle.Fill>
                             <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill" Visual="{StaticResource ResourceKey=appbar_magnify}" />
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource ResourceKey=appbar_magnify}" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
