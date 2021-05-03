@@ -34,6 +34,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         #region commands
 
         public RelayCommand FindCommand { get; set; }
+        public RelayCommand RenewUserIdentifierCommand { get; set; }
 
         #endregion commands
 
@@ -50,7 +51,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 Setting = new SettingsModel()
                 {
                     ServerAddress = "127.0.0.1",
-                    ServerPort = "1212",
+                    ServerPort = "12113",
                     SoundEffectsEnabled = true,
                     AdditionalTrials = false,
                     GameMasterMode = true,
@@ -64,6 +65,10 @@ namespace PhexensWuerfelraum.Logic.Ui
             }
 
             FindCommand = new RelayCommand(() => Find(), CanFind);
+            RenewUserIdentifierCommand = new RelayCommand(() => RenewUserIdentifier(), CanFind);
+
+            if (Setting.UserIdentifier == Guid.Empty)
+                Setting.UserIdentifier = Guid.NewGuid();
 
             Setting.PropertyChanged += Setting_PropertyChanged;
         }
@@ -112,6 +117,11 @@ namespace PhexensWuerfelraum.Logic.Ui
             {
                 Setting.HeldenDateiPath = dlg.FileName;
             }
+        }
+
+        public void RenewUserIdentifier()
+        {
+            Setting.UserIdentifier = Guid.NewGuid();
         }
 
         #endregion methods

@@ -1,7 +1,5 @@
-﻿using System.Windows.Controls;
-using GalaSoft.MvvmLight.Ioc;
-using MahApps.Metro.Controls;
-using PhexensWuerfelraum.Logic.Ui;
+﻿using MahApps.Metro.Controls;
+using System.Windows.Controls;
 
 namespace PhexensWuerfelraum.Ui.Desktop
 {

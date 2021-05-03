@@ -27,10 +27,12 @@ namespace PhexensWuerfelraum.Logic.ClientServer
             ToUsername = toUsername;
             UserColor = color;
             DateTime = DateTime.Now;
+            MessageId = Guid.NewGuid();
         }
 
         public ChatMessageType MessageType { get; set; } = ChatMessageType.Text;
         public DateTime DateTime { get; set; }
+        public Guid MessageId { get; }
         public string UserColor { get; set; }
 
         public int FromId { get; set; }

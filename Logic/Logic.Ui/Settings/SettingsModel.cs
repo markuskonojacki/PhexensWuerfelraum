@@ -1,6 +1,5 @@
 ﻿using Jot.Configuration;
 using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 
@@ -21,6 +20,7 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         public bool EnableSSL { get; set; } = true;
         public string PublicKey { get; set; }
+        public Guid UserIdentifier { get; set; }
 
         public string StaticUserName { get; set; } = string.IsNullOrEmpty(Environment.UserName) ? "<statischer Name>" : Environment.UserName;
 
@@ -28,9 +28,9 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         #region AutoUpdate
 
-        public bool AutoUpdate { get => GetAutoUpdate(); set => SetAutoUpdate(value); }
+        public static bool AutoUpdate { get => GetAutoUpdate(); set => SetAutoUpdate(value); }
 
-        private bool GetAutoUpdate()
+        private static bool GetAutoUpdate()
         {
             var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum");
             Directory.CreateDirectory(filePath);
@@ -38,7 +38,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             return !File.Exists(Path.Combine(filePath, ".disableautoupdate"));
         }
 
-        private void SetAutoUpdate(bool value)
+        private static void SetAutoUpdate(bool value)
         {
             var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum");
             Directory.CreateDirectory(filePath);
@@ -73,7 +73,8 @@ namespace PhexensWuerfelraum.Logic.Ui
                     s.GameMasterMode,
                     s.AdditionalTrials,
                     s.EnableSSL,
-                    s.PublicKey
+                    s.PublicKey,
+                    s.UserIdentifier
                 })
                 .PersistOn(nameof(PropertyChanged));
         }

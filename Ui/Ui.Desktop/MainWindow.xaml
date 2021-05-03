@@ -1,13 +1,13 @@
 ﻿<Controls:MetroWindow x:Class="PhexensWuerfelraum.Ui.Desktop.MainWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:LogicUi="clr-namespace:PhexensWuerfelraum.Logic.Ui;assembly=PhexensWuerfelraum.Logic.Ui"
                       xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                      xmlns:LogicUi="clr-namespace:PhexensWuerfelraum.Logic.Ui;assembly=PhexensWuerfelraum.Logic.Ui"
                       xmlns:local="clr-namespace:PhexensWuerfelraum.Ui.Desktop"
-                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                       mc:Ignorable="d"
                       Title="Phexens Würfelraum"
                       TitleCharacterCasing="Normal"
@@ -78,7 +78,8 @@
                 DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}"
                 Command="{Binding DisconnectCommand}"
                 Visibility="{Binding ChatRoom.Connected, Converter={StaticResource BooleanToVisibilityConverter}}"
-                ToolTip="Verbindung zum Server trennen">
+                ToolTip="Verbindung zum Server trennen"
+                IsEnabled="False">
                 <StackPanel
                     Orientation="Horizontal"
                     Background="Green"

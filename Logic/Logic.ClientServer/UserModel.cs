@@ -12,10 +12,11 @@ namespace PhexensWuerfelraum.Logic.ClientServer
     [Serializable]
     public class UserModel
     {
-        public UserModel(string userName, UserType userType)
+        public UserModel(string userName, UserType userType, Guid userIdentifier)
         {
             UserName = userName;
             UserType = userType;
+            UserIdentifier = userIdentifier;
         }
 
         public int Id { get; set; }
@@ -23,5 +24,6 @@ namespace PhexensWuerfelraum.Logic.ClientServer
         public UserType UserType { get; set; }
         public bool IsGameMaster { get => UserType == UserType.GameMaster; }
         public bool IsPlayer { get => UserType == UserType.Player; }
+        public Guid UserIdentifier { get; set; }
     }
 }

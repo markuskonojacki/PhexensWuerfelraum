@@ -98,7 +98,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                 }
             }
 
-            UserModel user = new(Username, UserType);
+            UserModel user = new(Username, UserType, settings.UserIdentifier);
 
             var validPort = int.TryParse(Port, out int socketPort);
 
@@ -139,7 +139,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             if (ChatRoom == null)
                 DisplayError("Du bist mit keinem Server verbunden");
 
-            ChatRoom.Disconnect();
+            Chatroom.Disconnect();
 
             settingsViewModel.AllowEdit = true;
             ToggleBlockConnectionCommands(true);
