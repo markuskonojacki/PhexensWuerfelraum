@@ -94,9 +94,9 @@
             <Grid Grid.Column="0" Grid.Row="0">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" MinWidth="400" />
                     <ColumnDefinition Width="3" />
-                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="180" MinWidth="150" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
