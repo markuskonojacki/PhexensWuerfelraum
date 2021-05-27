@@ -56,7 +56,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
             Tracker.Track(this);
 
 #if !DEBUG
-            if (new Logic.Ui.SettingsModel().AutoUpdate)
+            if (SettingsModel.AutoUpdate)
             {
                 Task task = Task.Run(() => UpdateAsync());
             }
@@ -70,7 +70,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
                 AssemblyMetadata.FromAssembly(
                     Assembly.GetEntryAssembly(),
                     System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName),
-                new GithubPackageResolver("Derevar", "PhexensWuerfelraum", "PhexensWuerfelraum-*.zip"),
+                new GithubPackageResolver("markuskonojacki", "PhexensWuerfelraum", "PhexensWuerfelraum-*.zip"),
                 new ZipPackageExtractor());
             {
                 var resultCheckForUpdatesAsync = await manager.CheckForUpdatesAsync();

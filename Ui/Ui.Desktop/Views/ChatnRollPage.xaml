@@ -94,8 +94,9 @@
             <Grid Grid.Column="0" Grid.Row="0">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="*" MinWidth="400" />
+                    <ColumnDefinition Width="3" />
+                    <ColumnDefinition Width="180" MinWidth="150" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
@@ -106,7 +107,7 @@
                 <customcontrols:ChatMessagesListView
                     Grid.Row="0"
                     Grid.Column="0"
-                    Margin="2"
+                    Margin="2 2 1 2"
                     x:Name="chatList"
                     ItemsSource="{Binding ChatRoom.Messages}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -185,7 +186,7 @@
                 <customcontrols:ChatInputTextBox
                     Grid.Row="1"
                     Grid.Column="0"
-                    Grid.ColumnSpan="2"
+                    Grid.ColumnSpan="3"
                     Margin="2"
                     Controls:TextBoxHelper.ClearTextButton="True"
                     Style="{StaticResource SendTextBoxStyle}"
@@ -201,10 +202,14 @@
                     </customcontrols:ChatInputTextBox.Resources>
                 </customcontrols:ChatInputTextBox>
 
+                <GridSplitter Grid.Row="0" Grid.Column="1" Width="3" HorizontalAlignment="Stretch" />
+
+                <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False" FontWeight="Bold" Margin="0 -40 0 0">.<LineBreak />.<LineBreak />.</TextBlock>
+
                 <ListView
                     Grid.Row="0"
-                    Grid.Column="1"
-                    Margin="2"
+                    Grid.Column="2"
+                    Margin="1 2 2 2"
                     ItemsSource="{Binding ChatRoom.Users}"
                     SelectedItem="{Binding ChatRoom.SelectedUser, Mode=TwoWay}"
                     HorizontalAlignment="Stretch"
