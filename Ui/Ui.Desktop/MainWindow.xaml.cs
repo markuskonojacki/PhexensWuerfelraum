@@ -70,7 +70,7 @@ namespace PhexensWuerfelraum.Ui.Desktop
                 AssemblyMetadata.FromAssembly(
                     Assembly.GetEntryAssembly(),
                     System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName),
-                new GithubPackageResolver("3w20", "PhexensWuerfelraum", "PhexensWuerfelraum-*.zip"),
+                new GithubPackageResolver("markuskonojacki", "PhexensWuerfelraum", "PhexensWuerfelraum-*.zip"),
                 new ZipPackageExtractor());
             {
                 var resultCheckForUpdatesAsync = await manager.CheckForUpdatesAsync();
