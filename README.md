@@ -7,6 +7,8 @@
 
 ![](Ui/Ui.Desktop/Resources/AppIcon.ico)
 
+![](screenshot.png)
+
 | DE |
 |:---|
 
@@ -19,7 +21,7 @@ Nun zum Tool selbst: Phexens Würfelraum ist ein Programm um es Menschen zu erm�
 
 ### Installation
 
-Klickt auf [Releases](https://github.com/Derevar/PhexensWuerfelraum/releases/latest), ladet euch die `setup.msi` des aktuellen Releases herunter und installiert das Programm.
+Klickt auf [Releases](https://github.com/markuskonojacki/PhexensWuerfelraum/releases/latest), ladet euch die `setup.msi` des aktuellen Releases herunter und installiert das Programm.
 
 ### Daten
 Alle Daten werden unter `%LocalAppData%/PhexensWuerfelraum` gespeichert.
@@ -29,7 +31,7 @@ Alle Daten werden unter `%LocalAppData%/PhexensWuerfelraum` gespeichert.
 ### Build
 #### Linux
 
-Zum Build wird das [.NET Core 3.1 x64 SDK](https://dotnet.microsoft.com/download/visual-studio-sdks) benötigt.
+Zum Build wird das [.NET 5 x64 SDK](https://dotnet.microsoft.com/download/visual-studio-sdks) benötigt.
 
 Führt folgendes in der Paket Manager Console im Visual Studio aus, um eine ausführbare Datei für Linux zu erstellen
 ```powershell
