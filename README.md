@@ -1,5 +1,7 @@
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Derevar/PhexensWuerfelraum/blob/master/LICENSE)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/Derevar/PhexensWuerfelraum/graphs/contributors)
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/markuskonojacki/PhexensWuerfelraum/blob/master/LICENSE)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/markuskonojacki/PhexensWuerfelraum/graphs/contributors)
+![GitHub all releases](https://img.shields.io/github/downloads/markuskonojacki/PhexensWuerfelraum/total)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/markuskonojacki/PhexensWuerfelraum)
 
 | [DE](#phexens-würfelraum)
 |:---|
