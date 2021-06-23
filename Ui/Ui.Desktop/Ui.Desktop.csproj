@@ -13,7 +13,7 @@
     <Company />
     <Product>Phexens Würfelraum</Product>
     <Description>The Phexens Wuerfelraum desktop app.</Description>
-    <Copyright>Copyright © Markus Konojacki 2019-present</Copyright>
+    <Copyright>Copyright © Markus Konojacki 2019, 2020, 2021</Copyright>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/Derevar/PhexensWuerfelraum</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Derevar/PhexensWuerfelraum</RepositoryUrl>
