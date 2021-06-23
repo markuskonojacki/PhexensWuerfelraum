@@ -440,16 +440,15 @@
             <!--#endregion-->
         </Grid>
 
-        <Canvas Grid.Row="1" x:Name="TrialCanvas">
-            <!-- canvas magic: https://stackoverflow.com/a/19711950/7557790-->
+        <Canvas Grid.Row="1">
+            <!-- canvas magic: https://stackoverflow.com/a/19711950/7557790 -->
             <ScrollViewer
                 Name="TrialScrollViewer"
                 Height="{Binding Parent.ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-                Width="{Binding ActualWidth, ElementName=TrialCanvas}"
+                Width="{Binding Parent.ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}"
                 HorizontalScrollBarVisibility="Visible"
                 VerticalScrollBarVisibility="Visible"
                 HorizontalAlignment="Center"
-                CanContentScroll="True"
                 Template="{StaticResource ScrollViewerHorizontalOnTopTemplate}"
                 PreviewMouseWheel="Trials_PreviewMouseWheel">
                 <StackPanel Orientation="Vertical">
@@ -491,8 +490,7 @@
 
                     <StackPanel
                         Orientation="Horizontal"
-                        HorizontalAlignment="Center"
-                        ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                        HorizontalAlignment="Center">
                         <StackPanel.Resources>
                             <Style TargetType="{x:Type StackPanel}">
                                 <EventSetter Event="Control.RequestBringIntoView" Handler="StackPanel_RequestBringIntoView" />
