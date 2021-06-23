@@ -5,11 +5,11 @@ namespace PhexensWuerfelraum.Logic.Ui
 {
     public class AboutViewModel
     {
-        private Version AssemblyVersion()
+        private static Version AssemblyVersion()
         {
             return Assembly.GetEntryAssembly().GetName().Version;
         }
 
-        public string Version { get => $"{AssemblyVersion().Major}.{AssemblyVersion().Minor}.{AssemblyVersion().Build}"; }
+        public static string Version { get => $"{AssemblyVersion().Major}.{AssemblyVersion().Minor}.{AssemblyVersion().Build}"; }
     }
 }
