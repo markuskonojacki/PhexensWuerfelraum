@@ -13,12 +13,13 @@
     <Company />
     <Product>Phexens Würfelraum</Product>
     <Description>The Phexens Wuerfelraum desktop app.</Description>
-    <Copyright>Copyright © Markus Konojacki 2019-present</Copyright>
+    <Copyright>Copyright © Markus Konojacki 2019, 2020, 2021</Copyright>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/Derevar/PhexensWuerfelraum</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Derevar/PhexensWuerfelraum</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/markuskonojacki/PhexensWuerfelraum</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/markuskonojacki/PhexensWuerfelraum</RepositoryUrl>
     <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
     <StartupObject>PhexensWuerfelraum.Ui.Desktop.App</StartupObject>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -57,6 +58,7 @@
     <None Include="..\..\LICENSE.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
@@ -106,12 +108,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="..\..\LICENSE.txt" Link="LICENSE.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\..\THIRD-PARTY-LICENSES.txt" Link="THIRD-PARTY-LICENSES.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <None Include="..\..\THIRD-PARTY-LICENSES.txt" Link="THIRD-PARTY-LICENSES.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <Resource Include="FodyWeavers.xml" />
     <Resource Include="Resources\AppIcon.ico">
       <CopyToOutputDirectory></CopyToOutputDirectory>

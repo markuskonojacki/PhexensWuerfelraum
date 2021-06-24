@@ -1,6 +1,4 @@
 ﻿using System.Diagnostics;
-using System.IO;
-using System.Reflection;
 using System.Windows.Controls;
 
 namespace PhexensWuerfelraum.Ui.Desktop.Views
@@ -19,7 +17,7 @@ namespace PhexensWuerfelraum.Ui.Desktop.Views
         {
             var psi = new ProcessStartInfo
             {
-                FileName = "https://github.com/Derevar/PhexensWuerfelraum/blob/master/LICENSE.txt",
+                FileName = "https://github.com/markuskonojacki/PhexensWuerfelraum/blob/master/LICENSE.txt",
                 UseShellExecute = true
             };
             Process.Start(psi);
@@ -29,7 +27,7 @@ namespace PhexensWuerfelraum.Ui.Desktop.Views
         {
             var psi = new ProcessStartInfo
             {
-                FileName = "https://github.com/Derevar/PhexensWuerfelraum/blob/master/THIRD-PARTY-LICENSES.txt",
+                FileName = "https://github.com/markuskonojacki/PhexensWuerfelraum/blob/master/THIRD-PARTY-LICENSES.txt",
                 UseShellExecute = true
             };
             Process.Start(psi);
@@ -39,7 +37,7 @@ namespace PhexensWuerfelraum.Ui.Desktop.Views
         {
             var psi = new ProcessStartInfo
             {
-                FileName = "https://github.com/Derevar/PhexensWuerfelraum/releases",
+                FileName = "https://github.com/markuskonojacki/PhexensWuerfelraum/releases",
                 UseShellExecute = true
             };
             Process.Start(psi);

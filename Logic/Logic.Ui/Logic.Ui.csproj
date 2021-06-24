@@ -21,12 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\..\LICENSE.txt" Link="LICENSE.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\THIRD-PARTY-LICENSES.txt" Link="THIRD-PARTY-LICENSES.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="..\..\LICENSE.txt" Link="LICENSE.txt" />
+    <None Include="..\..\THIRD-PARTY-LICENSES.txt" Link="THIRD-PARTY-LICENSES.txt" />
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
 

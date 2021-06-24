@@ -1,0 +1,84 @@
+name: release
+
+# Controls when the action will run. 
+on:
+  # Automatically on push with tag named v*
+  push:
+    tags:
+      - 'v*.*.*'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  PROJECT_PATH_UI: Ui/Ui.Desktop/Ui.Desktop.csproj
+  PROJECT_PATH_SERVER: Server/Server.Console/Server.Console.csproj
+  PROJECT_PATH_INSTALLER: Ui/Ui.Installer/Ui.Installer.csproj
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build_changelog:
+    name: 🗒 Build changelog
+    runs-on: ubuntu-latest
+    outputs:
+      changelog: ${{ steps.build_changelog.outputs.changelog }}
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: 🗒 Build changelog
+        id: build_changelog
+        uses: Bullrich/generate-release-changelog@master
+        env:
+          REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build_ui:
+    name: 📦 release tags on GitHub
+    needs: build_changelog
+    runs-on: windows-latest
+    steps:
+      - name: ⬇ Checkout
+        uses: actions/checkout@v2
+
+      - name: ⬇ setup .net 5.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+
+      - name: 🔍 Get release version number
+        id: get_version
+        uses: battila7/get-version-action@v2
+
+      - name: 🔨 build & publish UI
+        run: dotnet publish ${{ env.PROJECT_PATH_UI }} -c Release --self-contained -r win-x64 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:Version=${{ steps.get_version.outputs.version-without-v }}
+
+      - name: 🔨 build & publish LINUX SERVER
+        run: dotnet publish ${{ env.PROJECT_PATH_SERVER }} -c Release --self-contained -r ubuntu.18.04-x64 /p:Version=${{ steps.get_version.outputs.version-without-v }}
+
+      - name: 🔨 build & publish WINDOWS SERVER
+        run: dotnet publish ${{ env.PROJECT_PATH_SERVER }} -c Release --self-contained -r win-x64 /p:Version=${{ steps.get_version.outputs.version-without-v }}
+
+      - name: 🤏 zip UI binaries
+        run: Compress-Archive -Path Ui/Ui.Desktop/bin/Release/net5.0-windows/win-x64/publish/PhexensWuerfelraum.exe -DestinationPath "PhexensWuerfelraum-${{ steps.get_version.outputs.version }}.zip"
+
+      - name: 🤏 zip LINUX SERVER binaries
+        run: Compress-Archive -Path Server/Server.Console/bin/Release/net5.0/ubuntu.18.04-x64/publish/* -DestinationPath "Server-Linux-${{ steps.get_version.outputs.version }}.zip"
+
+      - name: 🤏 zip WINDOWS SERVER binaries
+        run: Compress-Archive -Path Server/Server.Console/bin/Release/net5.0/win-x64/publish/* -DestinationPath "Server-Windows-${{ steps.get_version.outputs.version }}.zip"
+
+      - name: 📦 create & publish release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            PhexensWuerfelraum-*.zip
+            Server-*.zip
+          name: Phexens Würfelraum ${{ steps.get_version.outputs.version }}
+          body: ${{ needs.build_changelog.outputs.changelog }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
