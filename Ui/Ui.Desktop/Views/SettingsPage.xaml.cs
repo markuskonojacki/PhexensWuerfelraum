@@ -1,5 +1,7 @@
-﻿using MahApps.Metro.Controls;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using GalaSoft.MvvmLight.Ioc;
+using MahApps.Metro.Controls;
+using PhexensWuerfelraum.Logic.Ui;
 
 namespace PhexensWuerfelraum.Ui.Desktop
 {
@@ -19,6 +21,11 @@ namespace PhexensWuerfelraum.Ui.Desktop
         {
             //CharacterViewModel CharacterViewModel = SimpleIoc.Default.GetInstance<CharacterViewModel>();
             //CharacterViewModel.LoadCharacterList();
+        }
+
+        private void UninstallButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            SimpleIoc.Default.GetInstance<SettingsViewModel>().Uninstall();
         }
     }
 }

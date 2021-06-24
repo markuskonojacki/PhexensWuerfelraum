@@ -1,12 +1,15 @@
-﻿using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
-using Jot;
-using Jot.Storage;
-using System;
+﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
+using IWshRuntimeLibrary;
+using Jot;
+using Jot.Storage;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {
@@ -15,7 +18,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         #region properties
 
         public Tracker Tracker;
-        public SettingsModel Setting { get; set; } = new SettingsModel();
+        public SettingsModel Setting { get; set; } = new();
 
         public string DataPath
         {
@@ -28,6 +31,13 @@ namespace PhexensWuerfelraum.Logic.Ui
         private bool CanFind() => true;
 
         public bool AllowEdit { get; set; } = true;
+
+        public bool IsInstalled => currentExePath == targetExePath && System.IO.File.Exists(targetExePath);
+
+        private readonly string startMenuPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu), "Programs");
+        private readonly string targetDirPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum", "Client");
+        private readonly string targetExePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum", "Client", "PhexensWuerfelraum.exe");
+        private readonly string currentExePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PhexensWuerfelraum.exe");
 
         #endregion properties
 
@@ -122,6 +132,49 @@ namespace PhexensWuerfelraum.Logic.Ui
         public void RenewUserIdentifier()
         {
             Setting.UserIdentifier = Guid.NewGuid();
+        }
+
+        public void Install()
+        {
+            if (IsInstalled == false)
+            {
+                if (!Directory.Exists(targetDirPath))
+                    Directory.CreateDirectory(targetDirPath);
+
+                if (currentExePath != targetExePath)
+                    System.IO.File.Move(currentExePath, targetExePath, true);
+
+                // create desktop lnk
+                var desktopShortcut = new WshShell().CreateShortcut(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Phexens Würfelraum.lnk")) as IWshShortcut;
+                desktopShortcut.TargetPath = Path.Combine(targetDirPath, "PhexensWuerfelraum.exe");
+                desktopShortcut.WorkingDirectory = targetDirPath;
+                desktopShortcut.Save();
+
+                // create start menu lnk
+                var startmenuShortcut = new WshShell().CreateShortcut(Path.Combine(startMenuPath, "Phexens Würfelraum.lnk")) as IWshShortcut;
+                startmenuShortcut.TargetPath = Path.Combine(targetDirPath, "PhexensWuerfelraum.exe");
+                startmenuShortcut.WorkingDirectory = targetDirPath;
+                startmenuShortcut.Save();
+
+                Process.Start(targetExePath);
+                Environment.Exit(0);
+            }
+        }
+
+        public void Uninstall()
+        {
+            System.IO.File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Phexens Würfelraum.lnk"));
+            System.IO.File.Delete(Path.Combine(startMenuPath, "Phexens Würfelraum.lnk"));
+
+            Process.Start(new ProcessStartInfo()
+            {
+                Arguments = $"/C choice /C J /N /D J /T 5 & rmdir /S /Q \"{ Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum") }\"",
+                WindowStyle = ProcessWindowStyle.Hidden,
+                CreateNoWindow = true,
+                FileName = "cmd.exe"
+            });
+
+            Environment.Exit(0);
         }
 
         #endregion methods

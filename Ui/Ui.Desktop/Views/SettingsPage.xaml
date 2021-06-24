@@ -85,5 +85,14 @@
                 <Controls:ToggleSwitch IsOn="{Binding Setting.SoundEffectsEnabled}" Margin="10 10 0 10" Header="Soundeffekte" OnContent="An" OffContent="Aus" Width="200" HorizontalAlignment="Left" ToolTip="Soundeffekte wie das Plöppen bei neuen Nachrichten oder bei Ereignisen, wie einer doppel 1, können hiermit aktiviert und deaktiviert werden." />
             </StackPanel>
         </GroupBox>
+
+        <GroupBox Header="Deinstallation" Visibility="{Binding IsInstalled, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel>
+                <TextBlock Margin="10 5 10 10" FontSize="16">
+                    Deinstallation löscht '%LocalAppData%\PhexensWuerfelraum\' sowie die erstellten Verknüpfungen auf Desktop und im Startmenü.
+                </TextBlock>
+                <Button Width="700" Margin="10 5 10 10" HorizontalAlignment="Left" Click="UninstallButton_Click" Background="IndianRed">Phexens Würfelraum deinstallieren</Button>
+            </StackPanel>
+        </GroupBox>
     </StackPanel>
 </Page>
