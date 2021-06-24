@@ -4,10 +4,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
+using System.Text;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
-using IWshRuntimeLibrary;
 using Jot;
 using Jot.Storage;
 
@@ -145,16 +146,20 @@ namespace PhexensWuerfelraum.Logic.Ui
                     System.IO.File.Move(currentExePath, targetExePath, true);
 
                 // create desktop lnk
-                var desktopShortcut = new WshShell().CreateShortcut(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Phexens Würfelraum.lnk")) as IWshShortcut;
-                desktopShortcut.TargetPath = Path.Combine(targetDirPath, "PhexensWuerfelraum.exe");
-                desktopShortcut.WorkingDirectory = targetDirPath;
-                desktopShortcut.Save();
+                IShellLink desktopShortcut = (IShellLink)new ShellLink();
+                desktopShortcut.SetDescription("Phexens Würfelraum");
+                desktopShortcut.SetPath(Path.Combine(targetDirPath, "PhexensWuerfelraum.exe"));
+                desktopShortcut.SetWorkingDirectory(targetDirPath);
+                IPersistFile desktopShortcutFile = (IPersistFile)desktopShortcut;
+                desktopShortcutFile.Save(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Phexens Würfelraum.lnk"), false);
 
                 // create start menu lnk
-                var startmenuShortcut = new WshShell().CreateShortcut(Path.Combine(startMenuPath, "Phexens Würfelraum.lnk")) as IWshShortcut;
-                startmenuShortcut.TargetPath = Path.Combine(targetDirPath, "PhexensWuerfelraum.exe");
-                startmenuShortcut.WorkingDirectory = targetDirPath;
-                startmenuShortcut.Save();
+                IShellLink startmenuShortcut = (IShellLink)new ShellLink();
+                startmenuShortcut.SetDescription("Phexens Würfelraum");
+                startmenuShortcut.SetPath(Path.Combine(targetDirPath, "PhexensWuerfelraum.exe"));
+                startmenuShortcut.SetWorkingDirectory(targetDirPath);
+                IPersistFile startmenuShortcutFile = (IPersistFile)startmenuShortcut;
+                startmenuShortcutFile.Save(Path.Combine(startMenuPath, "Phexens Würfelraum.lnk"), false);
 
                 Process.Start(targetExePath);
                 Environment.Exit(0);
@@ -179,4 +184,57 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         #endregion methods
     }
+
+    #region ShellLink
+
+    // https://stackoverflow.com/a/14632782
+    [ComImport]
+    [Guid("00021401-0000-0000-C000-000000000046")]
+    internal class ShellLink
+    {
+    }
+
+    [ComImport]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [Guid("000214F9-0000-0000-C000-000000000046")]
+    internal interface IShellLink
+    {
+        void GetPath([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszFile, int cchMaxPath, out IntPtr pfd, int fFlags);
+
+        void GetIDList(out IntPtr ppidl);
+
+        void SetIDList(IntPtr pidl);
+
+        void GetDescription([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszName, int cchMaxName);
+
+        void SetDescription([MarshalAs(UnmanagedType.LPWStr)] string pszName);
+
+        void GetWorkingDirectory([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszDir, int cchMaxPath);
+
+        void SetWorkingDirectory([MarshalAs(UnmanagedType.LPWStr)] string pszDir);
+
+        void GetArguments([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszArgs, int cchMaxPath);
+
+        void SetArguments([MarshalAs(UnmanagedType.LPWStr)] string pszArgs);
+
+        void GetHotkey(out short pwHotkey);
+
+        void SetHotkey(short wHotkey);
+
+        void GetShowCmd(out int piShowCmd);
+
+        void SetShowCmd(int iShowCmd);
+
+        void GetIconLocation([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszIconPath, int cchIconPath, out int piIcon);
+
+        void SetIconLocation([MarshalAs(UnmanagedType.LPWStr)] string pszIconPath, int iIcon);
+
+        void SetRelativePath([MarshalAs(UnmanagedType.LPWStr)] string pszPathRel, int dwReserved);
+
+        void Resolve(IntPtr hwnd, int fFlags);
+
+        void SetPath([MarshalAs(UnmanagedType.LPWStr)] string pszFile);
+    }
+
+    #endregion ShellLink
 }
