@@ -58,6 +58,7 @@
     <None Include="..\..\LICENSE.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
@@ -107,12 +108,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="..\..\LICENSE.txt" Link="LICENSE.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="..\..\THIRD-PARTY-LICENSES.txt" Link="THIRD-PARTY-LICENSES.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <None Include="..\..\THIRD-PARTY-LICENSES.txt" Link="THIRD-PARTY-LICENSES.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <Resource Include="FodyWeavers.xml" />
     <Resource Include="Resources\AppIcon.ico">
       <CopyToOutputDirectory></CopyToOutputDirectory>
