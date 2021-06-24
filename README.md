@@ -1,5 +1,7 @@
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/markuskonojacki/PhexensWuerfelraum/blob/master/LICENSE)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/markuskonojacki/PhexensWuerfelraum/graphs/contributors)
+![GitHub all releases](https://img.shields.io/github/downloads/markuskonojacki/PhexensWuerfelraum/total)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/markuskonojacki/PhexensWuerfelraum)
 
 | [DE](#phexens-würfelraum)
 |:---|
@@ -21,24 +23,21 @@ Nun zum Tool selbst: Phexens Würfelraum ist ein Programm um es Menschen zu erm�
 
 ### Installation
 
-Klickt auf [Releases](https://github.com/markuskonojacki/PhexensWuerfelraum/releases/latest), ladet euch die `setup.msi` des aktuellen Releases herunter und installiert das Programm.
+Klickt auf [Releases](https://github.com/markuskonojacki/PhexensWuerfelraum/releases/latest), ladet euch die `PhexensWuerfelraum-v*.*.*.zip` des aktuellen Releases herunter, entpackt die Datei `PhexensWuerfelraum.exe` und startet sie. Phexens Würfelraum installiert sich von selbst und erstellt Verknüpfungen auf Desktop sowie im Startmenü.
 
 ### Daten
 Alle Daten werden unter `%LocalAppData%/PhexensWuerfelraum` gespeichert.
 
 ## Server
 
-### Build
-#### Linux
+### Allgemein
 
-Zum Build wird das [.NET 5 x64 SDK](https://dotnet.microsoft.com/download/visual-studio-sdks) benötigt.
+- Ladet euch aus den [Releases](https://github.com/markuskonojacki/PhexensWuerfelraum/releases/latest) die für eurer Betriebssystem passende `Server-*.zip` herunter und entpackt diese
+- Geht in den Unterordner `config` und benennt die Datei `settings.example.ini` in `settings.ini` um
+- Passt die Variablen in der `settings.ini` entsprechend eurer Anforderungen an
 
-Führt folgendes in der Paket Manager Console im Visual Studio aus, um eine ausführbare Datei für Linux zu erstellen
-```powershell
-dotnet publish Server\Server.Console -c release -r ubuntu.18.04-x64 -o C:\VSDistribution\PhexensWuerfelraum.Server.Console
-```
+### Linux
 
-##### Run
 Das Ausführen des Server setzt das Mono Framework voraus. Die sicherste Methode um alle Abhängigkeiten zu installieren wäre:
 ```bash
 apt install mono-complete
@@ -54,14 +53,7 @@ Starte die Applikation. Die Angabe des Portes kann wahlweise über die `settings
 ./PhexensWuerfelraum.Server.Console --port 12113
 ```
 
-#### Windows
-
-Führt folgendes in der Paket Manager Console im Visual Studio aus, um eine ausführbare Datei für Windows zu erstellen
-```powershell
-dotnet publish Server\Server.Console -c release -r win10-x86 -o C:\VSDistribution\PhexensWuerfelraum.Server.Console
-```
-
-##### Run
+### Windows
 
 Starte die Applikation. Die Angabe des Portes kann wahlweise über die `settings.ini` oder einen Übergabeparameter erfolgen. Der Übergabeparameter hat Vorrang.
 ```bash
