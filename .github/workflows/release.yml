@@ -7,9 +7,6 @@ on:
     tags:
       - 'v*.*.*'
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
 env:
   PROJECT_PATH_UI: Ui/Ui.Desktop/Ui.Desktop.csproj
   PROJECT_PATH_SERVER: Server/Server.Console/Server.Console.csproj
@@ -28,6 +25,7 @@ jobs:
       - name: 🔍 Checkout code
         uses: actions/checkout@v2
         with:
+          ref: main
           fetch-depth: 0
 
       - name: 🗒 Build changelog
@@ -44,6 +42,9 @@ jobs:
     steps:
       - name: ⬇ Checkout
         uses: actions/checkout@v2
+        with:
+          ref: main
+          fetch-depth: 0
 
       - name: ⬇ setup .net 5.0
         uses: actions/setup-dotnet@v1
