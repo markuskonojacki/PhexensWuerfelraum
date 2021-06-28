@@ -107,7 +107,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// </summary>
         private void Find()
         {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog()
+            Microsoft.Win32.OpenFileDialog dlg = new()
             {
                 DefaultExt = ".hld",
                 Filter = "Helden-Software Charakterdatenbank (helden.zip.hld)|*.hld",
@@ -142,35 +142,40 @@ namespace PhexensWuerfelraum.Logic.Ui
                 if (!Directory.Exists(targetDirPath))
                     Directory.CreateDirectory(targetDirPath);
 
+                // move *.exe to %LocalAppData%/PhexensWuerfelraum/Client
                 if (currentExePath != targetExePath)
-                    System.IO.File.Move(currentExePath, targetExePath, true);
+                    File.Move(currentExePath, targetExePath, true);
 
-                // create desktop lnk
-                IShellLink desktopShortcut = (IShellLink)new ShellLink();
-                desktopShortcut.SetDescription("Phexens Würfelraum");
-                desktopShortcut.SetPath(Path.Combine(targetDirPath, "PhexensWuerfelraum.exe"));
-                desktopShortcut.SetWorkingDirectory(targetDirPath);
-                IPersistFile desktopShortcutFile = (IPersistFile)desktopShortcut;
-                desktopShortcutFile.Save(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Phexens Würfelraum.lnk"), false);
+                // create desktop shortcut
+                CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
 
-                // create start menu lnk
-                IShellLink startmenuShortcut = (IShellLink)new ShellLink();
-                startmenuShortcut.SetDescription("Phexens Würfelraum");
-                startmenuShortcut.SetPath(Path.Combine(targetDirPath, "PhexensWuerfelraum.exe"));
-                startmenuShortcut.SetWorkingDirectory(targetDirPath);
-                IPersistFile startmenuShortcutFile = (IPersistFile)startmenuShortcut;
-                startmenuShortcutFile.Save(Path.Combine(startMenuPath, "Phexens Würfelraum.lnk"), false);
+                // create start menu shortcut
+                CreateShortcut(startMenuPath);
 
+                // restart program
                 Process.Start(targetExePath);
                 Environment.Exit(0);
             }
         }
 
+        private void CreateShortcut(string path)
+        {
+            IShellLink shortcut = (IShellLink)new ShellLink();
+            shortcut.SetDescription("Phexens Würfelraum");
+            shortcut.SetPath(Path.Combine(targetDirPath, "PhexensWuerfelraum.exe"));
+            shortcut.SetWorkingDirectory(targetDirPath);
+
+            IPersistFile shortcutFile = (IPersistFile)shortcut;
+            shortcutFile.Save(Path.Combine(path, "Phexens Würfelraum.lnk"), false);
+        }
+
         public void Uninstall()
         {
-            System.IO.File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Phexens Würfelraum.lnk"));
-            System.IO.File.Delete(Path.Combine(startMenuPath, "Phexens Würfelraum.lnk"));
+            // delete created shortcuts
+            File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Phexens Würfelraum.lnk"));
+            File.Delete(Path.Combine(startMenuPath, "Phexens Würfelraum.lnk"));
 
+            // delete self after 5 seconds
             Process.Start(new ProcessStartInfo()
             {
                 Arguments = $"/C choice /C J /N /D J /T 5 & rmdir /S /Q \"{ Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhexensWuerfelraum") }\"",

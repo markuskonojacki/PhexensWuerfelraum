@@ -11,11 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{172611
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.Console", "Server\Server.Console\Server.Console.csproj", "{8913B429-AAEF-4C32-A5BF-362416F1DD33}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".shared", ".shared", "{80C739FB-FDA0-4CB0-ACE4-AAFEA81AD6E5}"
-	ProjectSection(SolutionItems) = preProject
-		.shared\SharedAssembly.cs = .shared\SharedAssembly.cs
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ui.Desktop", "Ui\Ui.Desktop\Ui.Desktop.csproj", "{2E3B61FF-61A3-45DF-8D6A-993CE708AE2D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic.ClientServer", "Logic\Logic.ClientServer\Logic.ClientServer.csproj", "{0A7FEB65-11F2-4BAD-BD41-C1C5796AE210}"
