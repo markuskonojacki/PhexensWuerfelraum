@@ -58,10 +58,10 @@ jobs:
         run: dotnet publish ${{ env.PROJECT_PATH_UI }} -c Release --self-contained -r win-x64 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:Version=${{ steps.get_version.outputs.version-without-v }}
 
       - name: 🔨 build & publish LINUX SERVER
-        run: dotnet publish ${{ env.PROJECT_PATH_SERVER }} -c Release --self-contained -r ubuntu.18.04-x64 /p:Version=${{ steps.get_version.outputs.version-without-v }}
+        run: dotnet publish ${{ env.PROJECT_PATH_SERVER }} -c Release --self-contained -r linux-x64 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:Version=${{ steps.get_version.outputs.version-without-v }}
 
       - name: 🔨 build & publish WINDOWS SERVER
-        run: dotnet publish ${{ env.PROJECT_PATH_SERVER }} -c Release --self-contained -r win-x64 /p:Version=${{ steps.get_version.outputs.version-without-v }}
+        run: dotnet publish ${{ env.PROJECT_PATH_SERVER }} -c Release --self-contained -r win-x64 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:Version=${{ steps.get_version.outputs.version-without-v }}
 
       - name: 🤏 zip UI binaries
         run: Compress-Archive -Path Ui/Ui.Desktop/bin/Release/net5.0-windows/win-x64/publish/PhexensWuerfelraum.exe -DestinationPath "PhexensWuerfelraum-${{ steps.get_version.outputs.version }}.zip"
