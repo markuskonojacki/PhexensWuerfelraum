@@ -68,7 +68,7 @@ jobs:
         run: Compress-Archive -Path Ui/Ui.Desktop/bin/Release/net5.0-windows/win-x64/publish/PhexensWuerfelraum.exe -DestinationPath "PhexensWuerfelraum-${{ steps.get_version.outputs.version }}.zip"
 
       - name: 🤏 zip LINUX SERVER binaries
-        run: Compress-Archive -Path Server/Server.Console/bin/Release/net5.0/ubuntu.18.04-x64/publish/* -DestinationPath "Server-Linux-${{ steps.get_version.outputs.version }}.zip"
+        run: Compress-Archive -Path Server/Server.Console/bin/Release/net5.0/linux-x64/publish/* -DestinationPath "Server-Linux-${{ steps.get_version.outputs.version }}.zip"
 
       - name: 🤏 zip WINDOWS SERVER binaries
         run: Compress-Archive -Path Server/Server.Console/bin/Release/net5.0/win-x64/publish/* -DestinationPath "Server-Windows-${{ steps.get_version.outputs.version }}.zip"
