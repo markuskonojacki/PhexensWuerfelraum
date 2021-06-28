@@ -1,15 +1,15 @@
-﻿using Microsoft.Extensions.Configuration;
-using PhexensWuerfelraum.Logic.ClientServer;
-using SimpleSockets;
-using SimpleSockets.Messaging.Metadata;
-using SimpleSockets.Server;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using PhexensWuerfelraum.Logic.ClientServer;
+using SimpleSockets;
+using SimpleSockets.Messaging.Metadata;
+using SimpleSockets.Server;
 
 namespace PhexensWuerfelraum.Server.Console
 {
@@ -39,68 +39,79 @@ namespace PhexensWuerfelraum.Server.Console
         {
             WriteLine($"Starting the server {Version}");
 
-            var config = new ConfigurationBuilder()
-                .AddIniFile(Path.Combine(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "config"), "settings.ini"), optional: true, reloadOnChange: true)
-                .AddCommandLine(args)
-                .Build();
+            string configFileIniPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "settings.ini");
+            WriteLine($"Reading config file: { configFileIniPath }");
 
-            WriteLine("Configuration:");
-
-            Port = int.Parse(config["port"]);
-            WriteLine($"Port is {Port}");
-
-            UseSSL = bool.Parse(config["ssl"]);
-            WriteLine($"SSL is {(UseSSL ? "ON" : "OFF")}");
-
-            Compress = bool.Parse(config["compress"]);
-            WriteLine($"Compression is {(Compress ? "ON" : "OFF")}");
-
-            if (UseSSL)
+            if (File.Exists(configFileIniPath))
             {
-                var privKeyFileName = "PrivateKey.pfx";
-                var privateKeyPath = Path.Combine(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "config"), privKeyFileName);
-                var publicKeyFileName = "PublicKey.pem";
-                var publicKeyPath = Path.Combine(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "config"), publicKeyFileName);
+                var config = new ConfigurationBuilder()
+                    .AddIniFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "settings.ini"), optional: true, reloadOnChange: true)
+                    .AddCommandLine(args)
+                    .Build();
 
-                if (File.Exists(privateKeyPath))
+                WriteLine("Configuration:");
+
+                Port = int.Parse(config["port"]);
+                WriteLine($"Port is {Port}");
+
+                UseSSL = bool.Parse(config["ssl"]);
+                WriteLine($"SSL is {(UseSSL ? "ON" : "OFF")}");
+
+                Compress = bool.Parse(config["compress"]);
+                WriteLine($"Compression is {(Compress ? "ON" : "OFF")}");
+
+                if (UseSSL)
                 {
-                    WriteLine("Using existing private key");
+                    var privKeyFileName = "PrivateKey.pfx";
+                    var privateKeyPath = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", privKeyFileName));
+                    var publicKeyFileName = "PublicKey.pem";
+                    var publicKeyPath = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", publicKeyFileName));
+
+                    if (File.Exists(privateKeyPath))
+                    {
+                        WriteLine("Using existing private key");
+                    }
+                    else
+                    {
+                        X509Certificate2 generatedCert = Certificates.GenerateCertificate("PhexensWuerfelraumServer");
+
+                        string publicKey = Certificates.ExportToPEM(generatedCert);
+
+                        File.WriteAllBytes(privateKeyPath, generatedCert.Export(X509ContentType.Pfx));
+                        File.WriteAllText(publicKeyPath, publicKey);
+
+                        System.Console.WriteLine("");
+                        WriteLine($"No certificate found. Generated a new private/public key pair. Give the following string to your users. It is also saved as config\\{publicKeyFileName}");
+                        System.Console.WriteLine("");
+                        System.Console.Write(publicKey);
+                        System.Console.WriteLine("");
+                        System.Console.WriteLine($"NEVER share the {privKeyFileName}!");
+                        System.Console.WriteLine("");
+                    }
+
+                    var cert = new X509Certificate2(File.ReadAllBytes(privateKeyPath));
+
+                    _listener = new SimpleSocketTcpSslListener(cert);
                 }
                 else
                 {
-                    X509Certificate2 generatedCert = Certificates.GenerateCertificate("PhexensWuerfelraumServer");
-
-                    string publicKey = Certificates.ExportToPEM(generatedCert);
-
-                    File.WriteAllBytes(privateKeyPath, generatedCert.Export(X509ContentType.Pfx));
-                    File.WriteAllText(publicKeyPath, publicKey);
-
-                    System.Console.WriteLine("");
-                    WriteLine($"No certificate found. Generated a new private/public key pair. Give the following string to your users. It is also saved as config\\{publicKeyFileName}");
-                    System.Console.WriteLine("");
-                    System.Console.Write(publicKey);
-                    System.Console.WriteLine("");
-                    System.Console.WriteLine($"NEVER share the {privKeyFileName}!");
-                    System.Console.WriteLine("");
+                    _listener = new SimpleSocketTcpListener();
                 }
 
-                var cert = new X509Certificate2(File.ReadAllBytes(privateKeyPath));
+                _listener.ObjectSerializer = new JsonSerialization();
+                _listener.AllowReceivingFiles = true;
 
-                _listener = new SimpleSocketTcpSslListener(cert);
+                BindEvents();
+                _listener.StartListening(Port);
+
+                while (true)
+                {
+                    System.Console.Read();
+                }
             }
             else
             {
-                _listener = new SimpleSocketTcpListener();
-            }
-
-            _listener.ObjectSerializer = new JsonSerialization();
-            _listener.AllowReceivingFiles = true;
-
-            BindEvents();
-            _listener.StartListening(Port);
-
-            while (true)
-            {
+                WriteLine($"Config file { configFileIniPath } does not exist. Did you rename the settings.example.ini to settings.ini?");
                 System.Console.Read();
             }
         }
