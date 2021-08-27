@@ -1,9 +1,9 @@
-﻿using Jot.Configuration;
-using PropertyChanged;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Jot.Configuration;
+using PropertyChanged;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {
@@ -123,21 +123,21 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         #region static attributes
 
-        public int CH { get => GetAttributValueByType(AttributType.Charisma); }
-        public int FF { get => GetAttributValueByType(AttributType.Fingerfertigkeit); }
-        public int GE { get => GetAttributValueByType(AttributType.Gewandtheit); }
-        public int IN { get => GetAttributValueByType(AttributType.Intuition); }
-        public int KK { get => GetAttributValueByType(AttributType.Koerperkraft); }
-        public int KL { get => GetAttributValueByType(AttributType.Klugheit); }
-        public int KO { get => GetAttributValueByType(AttributType.Konstitution); }
-        public int MU { get => GetAttributValueByType(AttributType.Mut); }
+        public int CH => GetAttributValueByType(AttributType.Charisma) + Attribute.First(a => a.Type == AttributType.Charisma).TempMod;
+        public int FF => GetAttributValueByType(AttributType.Fingerfertigkeit) + Attribute.First(a => a.Type == AttributType.Fingerfertigkeit).TempMod;
+        public int GE => GetAttributValueByType(AttributType.Gewandtheit) + Attribute.First(a => a.Type == AttributType.Gewandtheit).TempMod;
+        public int IN => GetAttributValueByType(AttributType.Intuition) + Attribute.First(a => a.Type == AttributType.Intuition).TempMod;
+        public int KK => GetAttributValueByType(AttributType.Koerperkraft) + Attribute.First(a => a.Type == AttributType.Koerperkraft).TempMod;
+        public int KL => GetAttributValueByType(AttributType.Klugheit) + Attribute.First(a => a.Type == AttributType.Klugheit).TempMod;
+        public int KO => GetAttributValueByType(AttributType.Konstitution) + Attribute.First(a => a.Type == AttributType.Konstitution).TempMod;
+        public int MU => GetAttributValueByType(AttributType.Mut) + Attribute.First(a => a.Type == AttributType.Mut).TempMod;
 
         private int GetAttributValueByType(AttributType attributType)
         {
             if (Attribute.Any(a => a.Type == attributType))
             {
-                int baseValue = Attribute.Where(a => a.Type == attributType).First().Value;
-                int modValue = Attribute.Where(a => a.Type == attributType).First().Mod;
+                int baseValue = Attribute.First(a => a.Type == attributType).Value;
+                int modValue = Attribute.First(a => a.Type == attributType).Mod;
 
                 return baseValue + modValue;
             }
@@ -214,6 +214,23 @@ namespace PhexensWuerfelraum.Logic.Ui
                 AttributType.Gewandtheit => "GE",
                 AttributType.Konstitution => "KO",
                 AttributType.Koerperkraft => "KK",
+                AttributType.Wildcard => "**",
+                _ => "",
+            };
+        }
+
+        public static string MapAttributeTypeToString(AttributType attributType)
+        {
+            return attributType switch
+            {
+                AttributType.Mut => "Mut",
+                AttributType.Klugheit => "Klugheit",
+                AttributType.Intuition => "Intuition",
+                AttributType.Charisma => "Charisma",
+                AttributType.Fingerfertigkeit => "Fingerfertigkeit",
+                AttributType.Gewandtheit => "Gewandtheit",
+                AttributType.Konstitution => "Konstitution",
+                AttributType.Koerperkraft => "Körperkraft",
                 AttributType.Wildcard => "**",
                 _ => "",
             };
@@ -455,9 +472,11 @@ namespace PhexensWuerfelraum.Logic.Ui
         public class Attribut : BaseModel
         {
             public string Name { get; set; } = "";
+            public string NameShort { get => MapAttributeTypeToStringShort(Type); }
             public AttributType Type { get; set; } = AttributType.Wildcard;
             public int Value { get; set; } = 0;
-            public int Mod { get; set; } = 0;
+            public int Mod { get; set; } = 0; // Permanente Modifikatoren vom Einlesen
+            public int TempMod { get; set; } = 0; // Temporäre Modifikatoren, z.B. durch Wunden
         }
 
         public class Ausbildung : BaseModel
@@ -510,8 +529,8 @@ namespace PhexensWuerfelraum.Logic.Ui
             public Auswahl[] Auswahl { get; set; }
             public string Name { get; set; }
             public string Value { get; set; }
-            public string Spezialisierung { get => BuildSpezialisierung(); }
-            public string Text { get => BuildText(); }
+            public string Spezialisierung => BuildSpezialisierung();
+            public string Text => BuildText();
 
             private string BuildText()
             {
@@ -520,10 +539,14 @@ namespace PhexensWuerfelraum.Logic.Ui
                 ret = Name;
 
                 if (string.IsNullOrEmpty(Value) == false)
+                {
                     ret += $": {Value}";
+                }
 
                 if (string.IsNullOrEmpty(Spezialisierung) == false)
+                {
                     ret += $" ({Spezialisierung})";
+                }
 
                 return ret;
             }
