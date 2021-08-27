@@ -23,7 +23,8 @@
                       Height="900"
                       Width="1500"
                       DataContext="{Binding Main, Source={StaticResource Locator}}"
-                      dialogs:DialogParticipation.Register="{Binding}">
+                      dialogs:DialogParticipation.Register="{Binding}"
+                      Style="{StaticResource WinAll}">
 
     <Controls:MetroWindow.Resources>
         <local:InverseBooleanConverter x:Key="InverseBooleanConverter" />
