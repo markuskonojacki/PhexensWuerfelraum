@@ -27,11 +27,11 @@
                 <ResourceDictionary Source="/Resources/Styles/UserListBoxStyle.xaml" />
                 <ResourceDictionary Source="/Resources/Styles/ChatStyle.xaml" />
                 <ResourceDictionary Source="/Resources/Styles/SendTextBoxStyle.xaml" />
-                <ResourceDictionary Source="/Resources/Styles/AttributeTextBoxStyle.xaml" />
                 <ResourceDictionary Source="/Resources/Styles/UserListViewStyle.xaml" />
                 <ResourceDictionary Source="/Resources/Styles/SendButtonStyle.xaml" />
-                <ResourceDictionary Source="/Resources/Styles/TalentsStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/RollableObjectStyle.xaml" />
                 <ResourceDictionary Source="/Resources/Styles/ScrollBarStyle.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/FontStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

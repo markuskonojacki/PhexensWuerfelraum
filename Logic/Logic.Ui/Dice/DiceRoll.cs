@@ -1,7 +1,7 @@
-﻿using Dice;
-using GalaSoft.MvvmLight.Ioc;
-using System;
+﻿using System;
 using System.Linq;
+using Dice;
+using GalaSoft.MvvmLight.Ioc;
 using static PhexensWuerfelraum.Logic.Ui.CharacterModel;
 
 namespace PhexensWuerfelraum.Logic.Ui
@@ -300,7 +300,8 @@ namespace PhexensWuerfelraum.Logic.Ui
                     break;
 
                 case "hitzonedice":
-                    string[] trefferzonen = new string[] {
+                    string[] trefferzonen = new string[]
+                    {
                         "Kopf",
                         "Kopf",
                         "Brust",
@@ -322,7 +323,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                         "Rechter Arm",
                         "Rechter Arm",
                         "Rechter Arm",
-                         };
+                    };
                     rollResult = Roller.Roll("1d" + trefferzonen.Length);
 
                     result = $"einen Trefferzonenwürfel. Die getroffene Trefferzone ist: {trefferzonen[(int)rollResult.Value - 1]}";
@@ -389,65 +390,100 @@ namespace PhexensWuerfelraum.Logic.Ui
                     break;
 
                 case "attributMU":
-                    result = RollAttributeDice(Character.MU, "Mut");
-                    break;
-
                 case "attributKL":
-                    result = RollAttributeDice(Character.KL, "Klugheit");
-                    break;
-
                 case "attributIN":
-                    result = RollAttributeDice(Character.IN, "Intuition");
-                    break;
-
                 case "attributCH":
-                    result = RollAttributeDice(Character.CH, "Charisma");
-                    break;
-
                 case "attributFF":
-                    result = RollAttributeDice(Character.FF, "Fingerfertigkeit");
-                    break;
-
                 case "attributGE":
-                    result = RollAttributeDice(Character.GE, "Gewandheit");
-                    break;
-
                 case "attributKO":
-                    result = RollAttributeDice(Character.KO, "Konstitution");
+                case "attributKK":
+                    result = RollAttributeDice(MapStringToAttributType(parm.Replace("attribut", "")));
                     break;
 
-                case "attributKK":
-                    result = RollAttributeDice(Character.KK, "Körperkraft");
+                default:
                     break;
             }
 
             if (Character.RollModeOpen == false)
+            {
                 result = "(blind) " + result;
+            }
 
             return result;
         }
 
-        private string RollAttributeDice(int attributWert, string attributTxt)
+        private string RollAttributeDice(AttributType attributType)
         {
             RollResult rollResult;
             int rollValue;
+            int attributWert = 0;
             string suffix;
             string ret;
+
+            string attributTxt = MapAttributeTypeToString(attributType);
+
+            switch (attributType)
+            {
+                case AttributType.Mut:
+                    attributWert = Character.MU;
+                    break;
+
+                case AttributType.Klugheit:
+                    attributWert = Character.KL;
+                    break;
+
+                case AttributType.Intuition:
+                    attributWert = Character.IN;
+                    break;
+
+                case AttributType.Charisma:
+                    attributWert = Character.CH;
+                    break;
+
+                case AttributType.Fingerfertigkeit:
+                    attributWert = Character.FF;
+                    break;
+
+                case AttributType.Gewandtheit:
+                    attributWert = Character.GE;
+                    break;
+
+                case AttributType.Konstitution:
+                    attributWert = Character.KO;
+                    break;
+
+                case AttributType.Koerperkraft:
+                    attributWert = Character.KK;
+                    break;
+
+                case AttributType.Wildcard:
+                    attributWert = 0;
+                    break;
+
+                default:
+                    break;
+            }
 
             rollResult = Roller.Roll("1d20");
             rollValue = decimal.ToInt32(rollResult.Value);
             rollValue += Character.Modifikation;
 
             if (rollValue < 1)
-                rollValue = 1;
-
-            if (rollValue <= attributWert)
             {
-                suffix = string.Format("{0} Punkte über. Erfolg! :)", attributWert - rollValue);
+                rollValue = 1;
+            }
+
+            if (rollValue == 20)
+            {
+                suffix = $". Misslungen... :(";
+            }
+            else if (rollValue <= attributWert)
+            {
+                suffix = $"{attributWert - rollValue} Punkte über. Erfolg! :)";
             }
             else
             {
-                suffix = string.Format("{0} Punkte drüber. Misslungen... :(", (attributWert - rollValue) * -1);
+                suffix = $"{(attributWert - rollValue) * -1} Punkte drüber. Misslungen... :(";
             }
 
             if (Character.Modifikation != 0)
@@ -471,7 +507,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// <returns></returns>
         public int GetAttributeValue(AttributType attribut)
         {
-            var attributeValue = attribut switch
+            int attributeValue = attribut switch
             {
                 AttributType.Mut => Character.MU,
                 AttributType.Klugheit => Character.KL,

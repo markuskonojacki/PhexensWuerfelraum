@@ -8,6 +8,11 @@
     <AssemblyName>PhexensWuerfelraum.Server.Console</AssemblyName>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugType>None</DebugType>
+    <DebugSymbols>False</DebugSymbols>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="FodyWeavers.xml" />
   </ItemGroup>

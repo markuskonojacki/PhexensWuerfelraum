@@ -297,7 +297,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right">Anzahl</Label>
+                    <Label Grid.Column="0" Grid.Row="0" FontWeight="DemiBold" FontSize="16" HorizontalAlignment="Right" ToolTip="Anzahl der Würfel">Anzahl</Label>
                     <Controls:NumericUpDown
                         Grid.Column="1"
                         Grid.Row="0"
@@ -310,7 +310,7 @@
                         Controls:ControlsHelper.CornerRadius="4"
                         Height="20" />
 
-                    <Label Grid.Column="0" Grid.Row="1" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right">BE</Label>
+                    <Label Grid.Column="0" Grid.Row="1" FontWeight="DemiBold" FontSize="16" HorizontalAlignment="Right" ToolTip="Behinderungsfaktor">BE</Label>
                     <Controls:NumericUpDown
                         Grid.Column="1"
                         Grid.Row="1"
@@ -324,7 +324,7 @@
                         Controls:ControlsHelper.CornerRadius="4"
                         Height="20" />
 
-                    <Label Grid.Column="0" Grid.Row="2" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right">Mod.</Label>
+                    <Label Grid.Column="0" Grid.Row="2" FontWeight="DemiBold" FontSize="16" HorizontalAlignment="Right" ToolTip="Probenmodifikator">Mod.</Label>
                     <Controls:NumericUpDown
                         Grid.Column="1"
                         Grid.Row="2"
@@ -365,73 +365,25 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel DataContext="{Binding Character, Source={StaticResource Locator}}">
-                    <Label FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                        Attribute
-                    </Label>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="64" />
+                            <ColumnDefinition Width="32" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" FontWeight="Bold" HorizontalAlignment="Center">Attribute</Label>
+                        <Label Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Center">+/-</Label>
+                    </Grid>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                        <Label Width="30" HorizontalAlignment="Right">MU</Label>
-                        <TextBox Text="{Binding Character.MU, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributMU">
-                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                        </Button>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                        <Label Width="30" HorizontalAlignment="Right">KL</Label>
-                        <TextBox Text="{Binding Character.KL, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributKL">
-                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                        </Button>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                        <Label Width="30" HorizontalAlignment="Right">IN</Label>
-                        <TextBox Text="{Binding Character.IN, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributIN">
-                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                        </Button>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                        <Label Width="30" HorizontalAlignment="Right">CH</Label>
-                        <TextBox Text="{Binding Character.CH, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributCH">
-                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                        </Button>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                        <Label Width="30" HorizontalAlignment="Right">FF</Label>
-                        <TextBox Text="{Binding Character.FF, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributFF">
-                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                        </Button>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                        <Label Width="30" HorizontalAlignment="Right">GE</Label>
-                        <TextBox Text="{Binding Character.GE, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributGE">
-                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                        </Button>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                        <Label Width="30" HorizontalAlignment="Right">KO</Label>
-                        <TextBox Text="{Binding Character.KO, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributKO">
-                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                        </Button>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-                        <Label Width="30" HorizontalAlignment="Right">KK</Label>
-                        <TextBox Text="{Binding Character.KK, Mode=OneWay}" Width="27" Height="20" IsEnabled="False" Style="{StaticResource AttributeTextBoxStyle}" TextAlignment="Center" Margin="0,0,5,0" />
-                        <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding RollDiceCommand}" CommandParameter="attributKK">
-                            <Image Source="/Resources/Dice/d20_roll.png" Height="20" />
-                        </Button>
-                    </StackPanel>
+                    <ListView ItemsSource="{Binding Character.Attribute}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" HorizontalContentAlignment="Center">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <usercontrols:AttributeRollControl />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </StackPanel>
 
                 <Label Grid.Column="0" Grid.Row="3" Padding="2" FontSize="14" DataContext="{Binding Character, Source={StaticResource Locator}}" Visibility="{Binding Character.ShowErschwernisLabel, Converter={StaticResource VisibilityConverter}}" Foreground="DarkRed">Erschwernis</Label>
@@ -507,8 +459,8 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Körper</Label>
-                            <ListView ItemsSource="{Binding Character.KoerperTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Körper</Label>
+                            <ListView ItemsSource="{Binding Character.KoerperTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <usercontrols:TrialRollControl />
@@ -528,8 +480,8 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Gesellschaft</Label>
-                            <ListView ItemsSource="{Binding Character.GesellschaftTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Gesellschaft</Label>
+                            <ListView ItemsSource="{Binding Character.GesellschaftTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <usercontrols:TrialRollControl />
@@ -549,8 +501,8 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Natur</Label>
-                            <ListView ItemsSource="{Binding Character.NaturTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Natur</Label>
+                            <ListView ItemsSource="{Binding Character.NaturTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <usercontrols:TrialRollControl />
@@ -570,8 +522,8 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Wissen</Label>
-                            <ListView ItemsSource="{Binding Character.WissenTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Wissen</Label>
+                            <ListView ItemsSource="{Binding Character.WissenTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <usercontrols:TrialRollControl />
@@ -591,8 +543,8 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Handwerk</Label>
-                            <ListView ItemsSource="{Binding Character.HandwerkTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Handwerk</Label>
+                            <ListView ItemsSource="{Binding Character.HandwerkTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <usercontrols:TrialRollControl />
@@ -612,8 +564,8 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Meta/Gaben</Label>
-                            <ListView ItemsSource="{Binding Character.MetaTalentliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Meta/Gaben</Label>
+                            <ListView ItemsSource="{Binding Character.MetaTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <usercontrols:TrialRollControl />
@@ -633,8 +585,8 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontFamily="Gabriola" FontSize="20" FontWeight="Bold" Padding="0,0,35,0">Zauber</Label>
-                            <ListView ItemsSource="{Binding Character.Zauberliste}" Style="{DynamicResource TalentListBoxStyle}" ItemContainerStyle="{DynamicResource TalentListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Zauber</Label>
+                            <ListView ItemsSource="{Binding Character.Zauberliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <usercontrols:TrialRollControl />

@@ -63,12 +63,9 @@
 
   <ItemGroup>
     <Page Remove="Resources\IconsNonShared.xaml" />
+    <Page Remove="Resources\Styles\FontStyle.xaml" />
     <Page Remove="Resources\Styles\MiscStyle.xaml" />
     <Page Remove="Resources\Styles\PageStyle.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\.shared\SharedAssembly.cs" Link="Properties\SharedAssembly.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -149,6 +146,10 @@
     <Resource Include="Resources\Sounds\roll-20-20.wav">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Styles\FontStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
     <Resource Include="Resources\Styles\MiscStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -179,6 +180,9 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="UserControls\AttributeRollControl.xaml.cs">
+      <DependentUpon>AttributeRollControl.xaml</DependentUpon>
     </Compile>
     <Compile Update="UserControls\TrialRollControl.xaml.cs">
       <DependentUpon>TrialRollControl.xaml</DependentUpon>
@@ -221,9 +225,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Resources\Styles\AttributeTextBoxStyle.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Resources\Styles\ChatStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -239,13 +240,17 @@
     <Page Update="Resources\Styles\SendTextBoxStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Resources\Styles\TalentsStyle.xaml">
+    <Page Update="Resources\Styles\RollableObjectStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Styles\UserListBoxStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Styles\UserListViewStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\AttributeRollControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\TrialRollControl.xaml">

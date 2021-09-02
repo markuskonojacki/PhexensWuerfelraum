@@ -55,9 +55,9 @@ namespace PhexensWuerfelraum.Ui.Desktop
                 .PersistOn(nameof(SizeChanged));
             Tracker.Track(this);
 
+#if !DEBUG
             SettingsViewModel.Install();
 
-#if !DEBUG
             if (SettingsModel.AutoUpdate)
             {
                 Task task = Task.Run(() => UpdateAsync());
