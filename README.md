@@ -50,14 +50,14 @@ chmod +x PhexensWuerfelraum.Server.Console
 
 Starte die Applikation. Die Angabe des Portes kann wahlweise über die `settings.ini` oder einen Übergabeparameter erfolgen. Der Übergabeparameter hat Vorrang.
 ```bash
-./PhexensWuerfelraum.Server.Console --port 12113
+.\PhexensWuerfelraum.Server.Console --port 12113
 ```
 
 ### Windows
 
 Starte die Applikation. Die Angabe des Portes kann wahlweise über die `settings.ini` oder einen Übergabeparameter erfolgen. Der Übergabeparameter hat Vorrang.
 ```bash
-C:\VSDistribution\PhexensWuerfelraum.Server.Console\PhexensWuerfelraum.Server.Console.exe --port 12113
+.\PhexensWuerfelraum.Server.Console.exe --port 12113
 ```
 
 ## Lizenz
