@@ -560,7 +560,14 @@ namespace PhexensWuerfelraum.Logic.Ui
                         Value = Auswahl[0].Value;
                     }
 
-                    return $"{Auswahl[1]?.Value}";
+                    if (Auswahl.Length > 1)
+                    {
+                        return $"{Auswahl[1]?.Value}";
+                    }
+                    else
+                    {
+                        return "";
+                    }
                 }
                 else
                 {
