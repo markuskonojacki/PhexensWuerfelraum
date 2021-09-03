@@ -121,8 +121,26 @@
   <data name="AppIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AppIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="BodyIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BodyIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CraftingIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CraftingIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="GameMasterIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GameMasterIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MagicIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MagicIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MetaIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MetaIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NatureIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NatureIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PaperDoll" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PaperDoll.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PlayerIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PlayerIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -132,5 +150,11 @@
   </data>
   <data name="roll_public" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\roll_public.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SocialIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SocialIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WisdomIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WisdomIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

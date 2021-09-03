@@ -34,6 +34,8 @@
     <None Remove="FodyWeavers.xml" />
     <None Remove="Resources\AppIcon.ico" />
     <None Remove="Resources\Backgrounds\natural_paper.png" />
+    <None Remove="Resources\BodyIcon.png" />
+    <None Remove="Resources\CraftingIcon.png" />
     <None Remove="Resources\Dice\d10.png" />
     <None Remove="Resources\Dice\d12.png" />
     <None Remove="Resources\Dice\d20.png" />
@@ -46,14 +48,20 @@
     <None Remove="Resources\Dice\shattered-sword.png" />
     <None Remove="Resources\Dice\william-tell-skull.png" />
     <None Remove="Resources\GameMasterIcon.png" />
+    <None Remove="Resources\MagicIcon.png" />
+    <None Remove="Resources\MetaIcon.png" />
+    <None Remove="Resources\NatureIcon.png" />
+    <None Remove="Resources\PaperDoll.png" />
     <None Remove="Resources\PlayerIcon.png" />
     <None Remove="Resources\roll_blind.png" />
     <None Remove="Resources\roll_public.png" />
+    <None Remove="Resources\SocialIcon.png" />
     <None Remove="Resources\Sounds\Notification.wav" />
     <None Remove="Resources\Sounds\roll-1-1-1.wav" />
     <None Remove="Resources\Sounds\roll-1-1.wav" />
     <None Remove="Resources\Sounds\roll-20-20-20.wav" />
     <None Remove="Resources\Sounds\roll-20-20.wav" />
+    <None Remove="Resources\WisdomIcon.png" />
     <None Include="..\..\LICENSE.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -73,25 +81,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ControlzEx" Version="5.0.0" />
-    <PackageReference Include="Fody" Version="6.5.0">
+    <PackageReference Include="ControlzEx" Version="5.0.1" />
+    <PackageReference Include="Fody" Version="6.5.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>all</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Jot" Version="2.1.8" />
-    <PackageReference Include="MahApps.Metro" Version="2.4.4" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.7" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.8.0" />
     <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.8.0" />
     <PackageReference Include="MahApps.Metro.SimpleChildWindow" Version="2.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
-    <PackageReference Include="Mono.Cecil" Version="0.11.3" />
+    <PackageReference Include="Mono.Cecil" Version="0.11.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NuGet.CommandLine" Version="5.8.1">
+    <PackageReference Include="NuGet.CommandLine" Version="5.10.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Onova" Version="2.6.2" />
-    <PackageReference Include="PropertyChanged.Fody" Version="3.3.3">
+    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="SimpleSockets" Version="1.2.20" />
@@ -112,6 +120,8 @@
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Backgrounds\natural_paper.png" />
+    <Resource Include="Resources\BodyIcon.png" />
+    <Resource Include="Resources\CraftingIcon.png" />
     <Resource Include="Resources\Dice\d10.png" />
     <Resource Include="Resources\Dice\d12.png" />
     <Resource Include="Resources\Dice\d20.png" />
@@ -128,9 +138,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Resource>
+    <Resource Include="Resources\MagicIcon.png" />
+    <Resource Include="Resources\MetaIcon.png" />
+    <Resource Include="Resources\NatureIcon.png" />
+    <Resource Include="Resources\PaperDoll.png" />
     <Resource Include="Resources\PlayerIcon.png" />
     <Resource Include="Resources\roll_blind.png" />
     <Resource Include="Resources\roll_public.png" />
+    <Resource Include="Resources\SocialIcon.png" />
     <Resource Include="Resources\Sounds\Notification.wav">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
@@ -158,6 +173,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Resource>
+    <Resource Include="Resources\WisdomIcon.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -74,13 +74,15 @@
     <Grid ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="22" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="455" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" x:Name="TopChatContent">
+        <Grid Grid.Row="0" Grid.Column="0" x:Name="TopChatContent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="140" />
@@ -392,7 +394,7 @@
             <!--#endregion-->
         </Grid>
 
-        <Canvas Grid.Row="1">
+        <Canvas Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <!-- canvas magic: https://stackoverflow.com/a/19711950/7557790 -->
             <ScrollViewer
                 Name="TrialScrollViewer"
@@ -403,43 +405,8 @@
                 HorizontalAlignment="Center"
                 Template="{StaticResource ScrollViewerHorizontalOnTopTemplate}"
                 PreviewMouseWheel="Trials_PreviewMouseWheel">
+                
                 <StackPanel Orientation="Vertical">
-                    <ItemsControl ItemsSource="{Binding Character.ListeVorteile}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel
-                                    Orientation="Horizontal"
-                                    HorizontalAlignment="Left"
-                                    IsItemsHost="True" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border Margin="2" Padding="5 2 5 2" BorderThickness="1" BorderBrush="Black" Background="DarkGreen" CornerRadius="4">
-                                    <TextBlock Text="{Binding Text}" Grid.Column="0" Foreground="WhiteSmoke" />
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-
-                    <ItemsControl ItemsSource="{Binding Character.ListeNachteile}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel
-                                    Orientation="Horizontal"
-                                    HorizontalAlignment="Left"
-                                    IsItemsHost="True" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border Margin="2" Padding="5 2 5 2" BorderThickness="1" BorderBrush="Black" Background="DarkRed" CornerRadius="4">
-                                    <TextBlock Text="{Binding Text}" Grid.Column="0" Foreground="WhiteSmoke" />
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-
                     <StackPanel
                         Orientation="Horizontal"
                         HorizontalAlignment="Center">
@@ -459,7 +426,11 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Körper</Label>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="22" FontWeight="DemiBold">Körper</Label>
+                                <Image Source="/Resources/BodyIcon.png" Width="20" Height="20" />
+                            </StackPanel>
+                            
                             <ListView ItemsSource="{Binding Character.KoerperTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -480,7 +451,10 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Gesellschaft</Label>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="22" FontWeight="DemiBold">Gesellschaft</Label>
+                                <Image Source="/Resources/SocialIcon.png" Width="20" Height="20" />
+                            </StackPanel>
                             <ListView ItemsSource="{Binding Character.GesellschaftTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -501,7 +475,10 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Natur</Label>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="22" FontWeight="DemiBold">Natur</Label>
+                                <Image Source="/Resources/NatureIcon.png" Width="20" Height="20" />
+                            </StackPanel>
                             <ListView ItemsSource="{Binding Character.NaturTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -522,7 +499,10 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Wissen</Label>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="22" FontWeight="DemiBold">Wissen</Label>
+                                <Image Source="/Resources/WisdomIcon.png" Width="20" Height="20" />
+                            </StackPanel>
                             <ListView ItemsSource="{Binding Character.WissenTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -543,7 +523,10 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Handwerk</Label>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="22" FontWeight="DemiBold">Handwerk</Label>
+                                <Image Source="/Resources/CraftingIcon.png" Width="20" Height="20" />
+                            </StackPanel>
                             <ListView ItemsSource="{Binding Character.HandwerkTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -564,7 +547,10 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Meta/Gaben</Label>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="22" FontWeight="DemiBold">Meta/Gaben</Label>
+                                <Image Source="/Resources/MetaIcon.png" Width="20" Height="20" />
+                            </StackPanel>
                             <ListView ItemsSource="{Binding Character.MetaTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -585,7 +571,10 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Zauber</Label>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="22" FontWeight="DemiBold">Zauber</Label>
+                                <Image Source="/Resources/MagicIcon.png" Width="20" Height="20" />
+                            </StackPanel>
                             <ListView ItemsSource="{Binding Character.Zauberliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -598,5 +587,14 @@
                 </StackPanel>
             </ScrollViewer>
         </Canvas>
+
+        <Button Grid.Row="0" Grid.Column="2" Command="{Binding ToggleDetailsFlyOutCommand}">
+            <TextBlock FontWeight="Bold" FontSize="12" Margin="-3 0 0 0">
+                <TextBlock.LayoutTransform>
+                    <RotateTransform Angle="90" />
+                </TextBlock.LayoutTransform>
+                ⯆⯆⯆   Details   ⯆⯆⯆
+            </TextBlock>
+        </Button>
     </Grid>
 </Page>

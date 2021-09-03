@@ -257,9 +257,11 @@ namespace PhexensWuerfelraum.Logic.Ui
             }
 
             if (Character.RollModeOpen == false)
+            {
                 blindText = "(blind) ";
+            }
 
-            return string.Format($"{blindText}auf {trialName}: {roll1}, {roll2}, {roll3} ⇒ {trialPointsRemaining} {resultText} {erschwernisTxt}{trialModificationTxt}{beText}");
+            return $"{blindText}auf {trialName}: {roll1}, {roll2}, {roll3} ⇒ {trialPointsRemaining} {resultText} {erschwernisTxt}{trialModificationTxt}{beText}";
         }
 
         public string RollDice(string parm, int diceAmount)

@@ -25,6 +25,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         public UserType UserType { get; set; }
         public bool BlockConnectionCommands { get; set; }
         public int DiceAmount { get; set; } = 1;
+        public bool DetailsFlyOutIsOopen { get; set; }
 
         private readonly SettingsViewModel settingsViewModel = SimpleIoc.Default.GetInstance<SettingsViewModel>();
 
@@ -41,6 +42,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         public RelayCommand<string> RollDiceCommand { get; set; }
         public RelayCommand ToggleRollModeCommand { get; set; }
         public RelayCommand OpenUpdateInfoCommand { get; private set; }
+        public RelayCommand ToggleDetailsFlyOutCommand { get; set; }
 
         #endregion Commands
 
@@ -56,6 +58,12 @@ namespace PhexensWuerfelraum.Logic.Ui
             RollDiceCommand = new RelayCommand<string>(async (parm) => await SendDice(parm), true);
             ToggleRollModeCommand = new RelayCommand(() => ToggleRollMode(), true);
             OpenUpdateInfoCommand = new RelayCommand(() => OpenUpdateInfo());
+            ToggleDetailsFlyOutCommand = new RelayCommand(() => ToggleDetailsFlyOut());
+        }
+
+        private void ToggleDetailsFlyOut()
+        {
+            DetailsFlyOutIsOopen = !DetailsFlyOutIsOopen;
         }
 
         #endregion constructors

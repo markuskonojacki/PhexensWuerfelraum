@@ -81,6 +81,48 @@ Credit: https://www.flaticon.com/authors/smashicons
 
 -------------------------------------------------------------------------
 
+Image: BodyIcon
+License: Creative Commons 3.0 BY (https://creativecommons.org/licenses/by/3.0/de/)
+Credit: Icon made by Delapouite (https://delapouite.com https://game-icons.net)
+
+-------------------------------------------------------------------------
+
+Image: CraftingIcon
+License: Creative Commons 3.0 BY (https://creativecommons.org/licenses/by/3.0/de/)
+Credit: Icon made by Lorc (https://lorcblog.blogspot.com https://game-icons.net)
+
+-------------------------------------------------------------------------
+
+Image: MagicIcon
+License: Creative Commons 3.0 BY (https://creativecommons.org/licenses/by/3.0/de/)
+Credit: Icon made by Lorc (https://lorcblog.blogspot.com https://game-icons.net)
+
+-------------------------------------------------------------------------
+
+Image: MetaIcon
+License: Creative Commons 3.0 BY (https://creativecommons.org/licenses/by/3.0/de/)
+Credit: Icon made by Delapouite (https://delapouite.com https://game-icons.net)
+
+-------------------------------------------------------------------------
+
+Image: NatureIcon
+License: Creative Commons 3.0 BY (https://creativecommons.org/licenses/by/3.0/de/)
+Credit: Icon made by Lorc (https://lorcblog.blogspot.com https://game-icons.net)
+
+-------------------------------------------------------------------------
+
+Image: SocialIcon
+License: Creative Commons 3.0 BY (https://creativecommons.org/licenses/by/3.0/de/)
+Credit: Icon made by Delapouite (https://delapouite.com https://delapouite.com https://game-icons.net)
+
+-------------------------------------------------------------------------
+
+Image: WisdomIcon
+License: Creative Commons 3.0 BY (https://creativecommons.org/licenses/by/3.0/de/)
+Credit: Icon made by Delapouite (https://delapouite.com https://game-icons.net)
+
+-------------------------------------------------------------------------
+
 Source Code: WPFChat (used as basis for Client/Server Architecture)
 License: MIT
 License Source: https://github.com/Joben28/WPFChat/blob/master/LICENSE

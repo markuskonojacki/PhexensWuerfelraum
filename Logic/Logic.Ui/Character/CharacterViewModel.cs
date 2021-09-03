@@ -601,6 +601,63 @@ namespace PhexensWuerfelraum.Logic.Ui
                             Gruppe = TalentGruppe.Natur
                         });
                     }
+
+                    // Geistiger Widerstand
+                    if (character.Talentliste.Any(t => t.Name == "Selbstbeherrschung"))
+                    {
+                        Talent talent = character.Talentliste.Single(t => t.Name == "Selbstbeherrschung");
+
+                        character.Talentliste.Add(new Talent
+                        {
+                            Name = "Geistiger Widerstand",
+                            Probe = new Probe
+                            {
+                                Attribut1 = AttributType.Mut,
+                                Attribut2 = AttributType.Mut,
+                                Attribut3 = AttributType.Klugheit
+                            },
+                            Value = talent.Value,
+                            Gruppe = TalentGruppe.Wissen
+                        });
+                    }
+
+                    // Ausdauern klettern
+                    if (character.Talentliste.Any(t => t.Name == "Klettern"))
+                    {
+                        Talent talent = character.Talentliste.Single(t => t.Name == "Klettern");
+
+                        character.Talentliste.Add(new Talent
+                        {
+                            Name = "Ausdauern klettern",
+                            Probe = new Probe
+                            {
+                                Attribut1 = AttributType.Mut,
+                                Attribut2 = AttributType.Gewandtheit,
+                                Attribut3 = AttributType.Konstitution
+                            },
+                            Value = talent.Value,
+                            Gruppe = TalentGruppe.Koerper
+                        });
+                    }
+
+                    // Langlauf
+                    if (character.Talentliste.Any(t => t.Name == "Athletik"))
+                    {
+                        Talent talent = character.Talentliste.Single(t => t.Name == "Athletik");
+
+                        character.Talentliste.Add(new Talent
+                        {
+                            Name = "Langlauf",
+                            Probe = new Probe
+                            {
+                                Attribut1 = AttributType.Gewandtheit,
+                                Attribut2 = AttributType.Konstitution,
+                                Attribut3 = AttributType.Konstitution
+                            },
+                            Value = talent.Value,
+                            Gruppe = TalentGruppe.Koerper
+                        });
+                    }
                 }
             }
         }
