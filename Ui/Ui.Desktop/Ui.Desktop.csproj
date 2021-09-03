@@ -51,6 +51,7 @@
     <None Remove="Resources\MagicIcon.png" />
     <None Remove="Resources\MetaIcon.png" />
     <None Remove="Resources\NatureIcon.png" />
+    <None Remove="Resources\PaperDoll.png" />
     <None Remove="Resources\PlayerIcon.png" />
     <None Remove="Resources\roll_blind.png" />
     <None Remove="Resources\roll_public.png" />
@@ -140,6 +141,7 @@
     <Resource Include="Resources\MagicIcon.png" />
     <Resource Include="Resources\MetaIcon.png" />
     <Resource Include="Resources\NatureIcon.png" />
+    <Resource Include="Resources\PaperDoll.png" />
     <Resource Include="Resources\PlayerIcon.png" />
     <Resource Include="Resources\roll_blind.png" />
     <Resource Include="Resources\roll_public.png" />

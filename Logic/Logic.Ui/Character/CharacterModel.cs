@@ -121,6 +121,130 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         public ObservableCollection<Heldenausruestung> Ausruestung { get; set; }
 
+        #region wounds
+        public bool WoundHead1 { get; set; }
+        public bool WoundHead2 { get; set; }
+        public bool WoundHead3 { get; set; }
+
+        public bool WoundChest1 { get; set; }
+        public bool WoundChest2 { get; set; }
+        public bool WoundChest3 { get; set; }
+
+        public bool WoundLeftArm1 { get; set; }
+        public bool WoundLeftArm2 { get; set; }
+        public bool WoundLeftArm3 { get; set; }
+
+        public bool WoundRightArm1 { get; set; }
+        public bool WoundRightArm2 { get; set; }
+        public bool WoundRightArm3 { get; set; }
+
+        public bool WoundLeftLeg1 { get; set; }
+        public bool WoundLeftLeg2 { get; set; }
+        public bool WoundLeftLeg3 { get; set; }
+
+        public bool WoundRightLeg1 { get; set; }
+        public bool WoundRightLeg2 { get; set; }
+        public bool WoundRightLeg3 { get; set; }
+
+        public bool WoundStomach1 { get; set; }
+        public bool WoundStomach2 { get; set; }
+        public bool WoundStomach3 { get; set; }
+
+        public string WoundsText { get { return BuildWoundsText(); } }
+
+        private string BuildWoundsText()
+        {
+            string ret = "";
+
+            #region head
+            if (WoundHead1 || WoundHead2 || WoundHead3)
+            {
+                ret += "Kopf (1&2): MU, KL, IN, INI-Basis –2, INI –2W6\n";
+            }
+
+            if (WoundHead1 && WoundHead2 && WoundHead3)
+            {
+                ret += "Kopf (3): +2W6 SP, bewusstlos, Blutverlust\n";
+            }
+            #endregion
+
+            #region chest
+            if (WoundChest1 || WoundChest2 || WoundChest3)
+            {
+                ret += "Brust (1&2): AT, PA, KO, KK –1; +1W6 SP\n";
+            }
+
+            if (WoundChest1 && WoundChest2 && WoundChest3)
+            {
+                ret += "Brust (3): bewusstlos, Blutverlust\n";
+            }
+            #endregion
+
+            #region stomach
+            if (WoundStomach1 || WoundStomach2 || WoundStomach3)
+            {
+                ret += "Bauch (1&2): AT, PA, KO, KK, GS, INI-Basis –1; +1W6 SP\n";
+            }
+
+            if (WoundStomach1 && WoundStomach2 && WoundStomach3)
+            {
+                ret += "Bauch (3): bewusstlos, Blutverlust\n";
+            }
+            #endregion
+
+            #region left legs
+            if (WoundLeftLeg1 || WoundLeftLeg2 || WoundLeftLeg3)
+            {
+                ret += "Linkes Bein (1&2): AT, PA, GE, INI-Basis –2; GS –1\n";
+            }
+
+            if (WoundLeftLeg1 && WoundLeftLeg2 && WoundLeftLeg3)
+            {
+                ret += "Linkes Bein (3): Sturz, kampfunfähig\n";
+            }
+            #endregion
+
+            #region right legs
+            if (WoundRightLeg1 || WoundRightLeg2 || WoundRightLeg3)
+            {
+                ret += "Rechtes Bein (1&2): AT, PA, GE, INI-Basis –2; GS –1\n";
+            }
+
+            if (WoundRightLeg1 && WoundRightLeg2 && WoundRightLeg3)
+            {
+                ret += "Rechtes Bein (3): Sturz, kampfunfähig\n";
+            }
+            #endregion
+
+            #region left arm
+            if (WoundLeftArm1 || WoundLeftArm2 || WoundLeftArm3)
+            {
+                ret += "Linker Arm (1&2): AT, PA, KK, FF –2 mit diesem Arm\n";
+            }
+
+            if (WoundLeftArm1 && WoundLeftArm2 && WoundLeftArm3)
+            {
+                ret += "Linker Arm (3): Arm handlungsunfähig\n";
+            }
+            #endregion
+
+            #region right arm
+            if (WoundRightArm1 || WoundRightArm2 || WoundRightArm3)
+            {
+                ret += "Rechter Arm (1&2): AT, PA, KK, FF –2 mit diesem Arm\n";
+            }
+
+            if (WoundRightArm1 && WoundRightArm2 && WoundRightArm3)
+            {
+                ret += "Rechter Arm (3): Arm handlungsunfähig\n";
+            }
+            #endregion
+
+            return ret;
+        }
+
+        #endregion
+
         #region static attributes
 
         public int CH => GetAttributValueByType(AttributType.Charisma) + Attribute.First(a => a.Type == AttributType.Charisma).TempMod;
@@ -172,7 +296,28 @@ namespace PhexensWuerfelraum.Logic.Ui
                     c.Talentliste,
                     c.Vorteile,
                     c.Zauberliste,
-                    c.Ausruestung
+                    c.Ausruestung,
+                    c.WoundHead1,
+                    c.WoundHead2,
+                    c.WoundHead3,
+                    c.WoundChest1,
+                    c.WoundChest2,
+                    c.WoundChest3,
+                    c.WoundLeftArm1,
+                    c.WoundLeftArm2,
+                    c.WoundLeftArm3,
+                    c.WoundRightArm1,
+                    c.WoundRightArm2,
+                    c.WoundRightArm3,
+                    c.WoundLeftLeg1,
+                    c.WoundLeftLeg2,
+                    c.WoundLeftLeg3,
+                    c.WoundRightLeg1,
+                    c.WoundRightLeg2,
+                    c.WoundRightLeg3,
+                    c.WoundStomach1,
+                    c.WoundStomach2,
+                    c.WoundStomach3
                 })
                 .PersistOn(nameof(PropertyChanged));
         }

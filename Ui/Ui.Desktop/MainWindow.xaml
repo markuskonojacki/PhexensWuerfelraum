@@ -98,6 +98,19 @@
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
 
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout 
+                Header="Details" 
+                Position="Right" 
+                Width="500"
+                DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" 
+                IsOpen="{Binding DetailsFlyOutIsOopen}" >
+                <Frame Source="Views/CharacterDetailsPage.xaml" />
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+
     <Grid x:Name="NavigationGrid" DataContext="{Binding Navigation, Source={StaticResource Locator}}">
         <Grid.Resources>
             <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type LogicUi:MenuItem}">

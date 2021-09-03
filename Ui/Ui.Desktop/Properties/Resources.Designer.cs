@@ -133,6 +133,16 @@ namespace PhexensWuerfelraum.Ui.Desktop.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PaperDoll {
+            get {
+                object obj = ResourceManager.GetObject("PaperDoll", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PlayerIcon {
             get {
                 object obj = ResourceManager.GetObject("PlayerIcon", resourceCulture);
