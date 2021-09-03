@@ -459,7 +459,11 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Körper</Label>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="22" FontWeight="DemiBold">Körper</Label>
+                                <Image Source="/Resources/BodyIcon.png" Width="20" Height="20" />
+                            </StackPanel>
+                            
                             <ListView ItemsSource="{Binding Character.KoerperTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -480,7 +484,10 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Gesellschaft</Label>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="22" FontWeight="DemiBold">Gesellschaft</Label>
+                                <Image Source="/Resources/SocialIcon.png" Width="20" Height="20" />
+                            </StackPanel>
                             <ListView ItemsSource="{Binding Character.GesellschaftTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -501,7 +508,10 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Natur</Label>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="22" FontWeight="DemiBold">Natur</Label>
+                                <Image Source="/Resources/NatureIcon.png" Width="20" Height="20" />
+                            </StackPanel>
                             <ListView ItemsSource="{Binding Character.NaturTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -522,7 +532,10 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Wissen</Label>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="22" FontWeight="DemiBold">Wissen</Label>
+                                <Image Source="/Resources/WisdomIcon.png" Width="20" Height="20" />
+                            </StackPanel>
                             <ListView ItemsSource="{Binding Character.WissenTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -543,7 +556,10 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Handwerk</Label>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="22" FontWeight="DemiBold">Handwerk</Label>
+                                <Image Source="/Resources/CraftingIcon.png" Width="20" Height="20" />
+                            </StackPanel>
                             <ListView ItemsSource="{Binding Character.HandwerkTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -564,7 +580,10 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Meta/Gaben</Label>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="22" FontWeight="DemiBold">Meta/Gaben</Label>
+                                <Image Source="/Resources/MetaIcon.png" Width="20" Height="20" />
+                            </StackPanel>
                             <ListView ItemsSource="{Binding Character.MetaTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -585,7 +604,10 @@
                                 </Style>
                             </StackPanel.Style>
 
-                            <Label HorizontalContentAlignment="Center" FontSize="22" FontWeight="DemiBold">Zauber</Label>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="22" FontWeight="DemiBold">Zauber</Label>
+                                <Image Source="/Resources/MagicIcon.png" Width="20" Height="20" />
+                            </StackPanel>
                             <ListView ItemsSource="{Binding Character.Zauberliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>

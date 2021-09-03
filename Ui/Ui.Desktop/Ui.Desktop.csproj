@@ -34,6 +34,8 @@
     <None Remove="FodyWeavers.xml" />
     <None Remove="Resources\AppIcon.ico" />
     <None Remove="Resources\Backgrounds\natural_paper.png" />
+    <None Remove="Resources\BodyIcon.png" />
+    <None Remove="Resources\CraftingIcon.png" />
     <None Remove="Resources\Dice\d10.png" />
     <None Remove="Resources\Dice\d12.png" />
     <None Remove="Resources\Dice\d20.png" />
@@ -46,14 +48,19 @@
     <None Remove="Resources\Dice\shattered-sword.png" />
     <None Remove="Resources\Dice\william-tell-skull.png" />
     <None Remove="Resources\GameMasterIcon.png" />
+    <None Remove="Resources\MagicIcon.png" />
+    <None Remove="Resources\MetaIcon.png" />
+    <None Remove="Resources\NatureIcon.png" />
     <None Remove="Resources\PlayerIcon.png" />
     <None Remove="Resources\roll_blind.png" />
     <None Remove="Resources\roll_public.png" />
+    <None Remove="Resources\SocialIcon.png" />
     <None Remove="Resources\Sounds\Notification.wav" />
     <None Remove="Resources\Sounds\roll-1-1-1.wav" />
     <None Remove="Resources\Sounds\roll-1-1.wav" />
     <None Remove="Resources\Sounds\roll-20-20-20.wav" />
     <None Remove="Resources\Sounds\roll-20-20.wav" />
+    <None Remove="Resources\WisdomIcon.png" />
     <None Include="..\..\LICENSE.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -112,6 +119,8 @@
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Backgrounds\natural_paper.png" />
+    <Resource Include="Resources\BodyIcon.png" />
+    <Resource Include="Resources\CraftingIcon.png" />
     <Resource Include="Resources\Dice\d10.png" />
     <Resource Include="Resources\Dice\d12.png" />
     <Resource Include="Resources\Dice\d20.png" />
@@ -128,9 +137,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Resource>
+    <Resource Include="Resources\MagicIcon.png" />
+    <Resource Include="Resources\MetaIcon.png" />
+    <Resource Include="Resources\NatureIcon.png" />
     <Resource Include="Resources\PlayerIcon.png" />
     <Resource Include="Resources\roll_blind.png" />
     <Resource Include="Resources\roll_public.png" />
+    <Resource Include="Resources\SocialIcon.png" />
     <Resource Include="Resources\Sounds\Notification.wav">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
@@ -158,6 +171,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Resource>
+    <Resource Include="Resources\WisdomIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
