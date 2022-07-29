@@ -6,7 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:PhexensWuerfelraum.Ui.Desktop"
       xmlns:customcontrols="clr-namespace:PhexensWuerfelraum.Ui.Desktop.CustomControls"
-      xmlns:usercontrols="clr-namespace:PhexensWuerfelraum.Ui.Desktop.UserControls"
+      xmlns:usercontrols="clr-namespace:PhexensWuerfelraum.Ui.Desktop.UserControls" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       Style="{DynamicResource PageStyle}"
       mc:Ignorable="d"
       Title="ChatnRoll"
@@ -17,6 +17,7 @@
         <local:InverseBooleanToVisibilityConverter x:Key="InverseVisibilityConverter" />
         <local:MultiValueMessageFromConverter x:Key="MultiValueMessageFromConverter" />
         <local:MessageToColorConverter x:Key="MessageToColorConverter" />
+        <local:TalentListToBoolConverter x:Key="TalentListToBoolConverter" />
 
         <Style x:Key="DiceButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="{DynamicResource GrayBrush10}" />
@@ -208,31 +209,42 @@
 
                 <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False" FontWeight="Bold" Margin="0 -40 0 0">.<LineBreak />.<LineBreak />.</TextBlock>
 
-                <ListView
-                    Grid.Row="0"
-                    Grid.Column="2"
-                    Margin="1 2 2 2"
-                    ItemsSource="{Binding ChatRoom.Users}"
-                    SelectedItem="{Binding ChatRoom.SelectedUser, Mode=TwoWay}"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Style="{DynamicResource UserListViewStyle}"
-                    local:ListBoxSelectionBehavior.ClickSelection="True">
-                    <ListView.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="4" />
-                        </Style>
-                    </ListView.Resources>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="/Resources/GameMasterIcon.png" Visibility="{Binding IsGameMaster, Converter={StaticResource VisibilityConverter}}" Margin="2" Height="16" Width="16" />
-                                <Image Source="/Resources/PlayerIcon.png" Visibility="{Binding IsPlayer, Converter={StaticResource VisibilityConverter}}" Margin="2" Height="16" Width="12" />
-                                <TextBlock Text="{Binding UserName}" Margin="2" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <DockPanel Margin="1 2 2 2" Grid.Row="0" Grid.Column="2" LastChildFill="True">
+                    <Button Margin="0 0 0 2" Height="30" DockPanel.Dock="Top"
+                            DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}"
+                            Command="{Binding RequestCharacterDataCommand}"
+                            Visibility="{Binding Character.IsMaster, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            ToolTip="Spieler Talente aktualisieren">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="14" VerticalAlignment="Center">Spieler-Talente</TextBlock>
+                            <iconPacks:PackIconMaterial Margin="5 0 0 0" Kind="Refresh" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <ListView
+                        DockPanel.Dock="Bottom"
+                        ItemsSource="{Binding ChatRoom.Users}"
+                        SelectedItem="{Binding ChatRoom.SelectedUser, Mode=TwoWay}"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Height="Auto"
+                        Style="{DynamicResource UserListViewStyle}"
+                        local:ListBoxSelectionBehavior.ClickSelection="True">
+                        <ListView.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="4" />
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Resources/GameMasterIcon.png" Visibility="{Binding IsGameMaster, Converter={StaticResource VisibilityConverter}}" Margin="2" Height="16" Width="16" />
+                                    <Image Source="/Resources/PlayerIcon.png" Visibility="{Binding IsPlayer, Converter={StaticResource VisibilityConverter}}" Margin="2" Height="16" Width="12" />
+                                    <TextBlock Text="{Binding UserName}" Margin="2" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </DockPanel>
             </Grid>
             <!--#endregion -->
 
@@ -422,6 +434,9 @@
                                         <DataTrigger Binding="{Binding Character.KoerperTalentliste.Count}" Value="0">
                                             <Setter Property="Visibility" Value="Collapsed" />
                                         </DataTrigger>
+                                        <DataTrigger Binding="{Binding Character.IsMaster}" Value="true">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </StackPanel.Style>
@@ -434,7 +449,7 @@
                             <ListView ItemsSource="{Binding Character.KoerperTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <usercontrols:TrialRollControl />
+                                        <usercontrols:TrialRollControl PlayerNumber="0" />
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -445,6 +460,9 @@
                                 <Style TargetType="StackPanel">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Character.GesellschaftTalentliste.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Character.IsMaster}" Value="true">
                                             <Setter Property="Visibility" Value="Collapsed" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -458,7 +476,7 @@
                             <ListView ItemsSource="{Binding Character.GesellschaftTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <usercontrols:TrialRollControl />
+                                        <usercontrols:TrialRollControl PlayerNumber="0" />
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -469,6 +487,9 @@
                                 <Style TargetType="StackPanel">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Character.NaturTalentliste.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Character.IsMaster}" Value="true">
                                             <Setter Property="Visibility" Value="Collapsed" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -482,7 +503,7 @@
                             <ListView ItemsSource="{Binding Character.NaturTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <usercontrols:TrialRollControl />
+                                        <usercontrols:TrialRollControl PlayerNumber="0" />
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -493,6 +514,9 @@
                                 <Style TargetType="StackPanel">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Character.WissenTalentliste.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Character.IsMaster}" Value="true">
                                             <Setter Property="Visibility" Value="Collapsed" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -506,7 +530,7 @@
                             <ListView ItemsSource="{Binding Character.WissenTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <usercontrols:TrialRollControl />
+                                        <usercontrols:TrialRollControl PlayerNumber="0" />
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -517,6 +541,9 @@
                                 <Style TargetType="StackPanel">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Character.HandwerkTalentliste.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Character.IsMaster}" Value="true">
                                             <Setter Property="Visibility" Value="Collapsed" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -530,7 +557,7 @@
                             <ListView ItemsSource="{Binding Character.HandwerkTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <usercontrols:TrialRollControl />
+                                        <usercontrols:TrialRollControl PlayerNumber="0" />
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -541,6 +568,9 @@
                                 <Style TargetType="StackPanel">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Character.MetaTalentliste.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Character.IsMaster}" Value="true">
                                             <Setter Property="Visibility" Value="Collapsed" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -554,7 +584,7 @@
                             <ListView ItemsSource="{Binding Character.MetaTalentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <usercontrols:TrialRollControl />
+                                        <usercontrols:TrialRollControl PlayerNumber="0" />
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -565,6 +595,9 @@
                                 <Style TargetType="StackPanel">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Character.Zauberliste.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Character.IsMaster}" Value="true">
                                             <Setter Property="Visibility" Value="Collapsed" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -578,7 +611,232 @@
                             <ListView ItemsSource="{Binding Character.Zauberliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <usercontrols:TrialRollControl />
+                                        <usercontrols:TrialRollControl PlayerNumber="0" />
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                        
+                        <!-- Player Talents -->
+                        <StackPanel>
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding
+                                            Path=Character.Player1Talentliste,
+                                            Converter={StaticResource TalentListToBoolConverter}}"
+                                            Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Character.IsMaster}" Value="false">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" Width="170">
+                                    <TextBlock Text="{Binding Character.CharacterPlayer1.Name}" TextTrimming="CharacterEllipsis" />
+                                </Label>
+                                <Image Source="/Resources/PlayerIcon.png" Width="20" Height="20" />
+                            </StackPanel>
+                            <ListView ItemsSource="{Binding Character.Player1Talentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <usercontrols:TrialRollControl PlayerNumber="1" />
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding
+                                            Path=Character.Player2Talentliste,
+                                            Converter={StaticResource TalentListToBoolConverter}}"
+                                            Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Character.IsMaster}" Value="false">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" Width="170">
+                                    <TextBlock Text="{Binding Character.CharacterPlayer2.Name}" TextTrimming="CharacterEllipsis" />
+                                </Label>
+                                <Image Source="/Resources/PlayerIcon.png" Width="20" Height="20" />
+                            </StackPanel>
+                            <ListView ItemsSource="{Binding Character.Player2Talentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <usercontrols:TrialRollControl PlayerNumber="2" />
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding
+                                            Path=Character.Player3Talentliste,
+                                            Converter={StaticResource TalentListToBoolConverter}}"
+                                            Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Character.IsMaster}" Value="false">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" Width="170">
+                                    <TextBlock Text="{Binding Character.CharacterPlayer3.Name}" TextTrimming="CharacterEllipsis" />
+                                </Label>
+                                <Image Source="/Resources/PlayerIcon.png" Width="20" Height="20" />
+                            </StackPanel>
+                            <ListView ItemsSource="{Binding Character.Player3Talentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <usercontrols:TrialRollControl PlayerNumber="3" />
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding
+                                            Path=Character.Player4Talentliste,
+                                            Converter={StaticResource TalentListToBoolConverter}}"
+                                            Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Character.IsMaster}" Value="false">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" Width="170">
+                                    <TextBlock Text="{Binding Character.CharacterPlayer4.Name}" TextTrimming="CharacterEllipsis" />
+                                </Label>
+                                <Image Source="/Resources/PlayerIcon.png" Width="20" Height="20" />
+                            </StackPanel>
+                            <ListView ItemsSource="{Binding Character.Player4Talentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <usercontrols:TrialRollControl PlayerNumber="4" />
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding
+                                            Path=Character.Player5Talentliste,
+                                            Converter={StaticResource TalentListToBoolConverter}}"
+                                            Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Character.IsMaster}" Value="false">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" Width="170">
+                                    <TextBlock Text="{Binding Character.CharacterPlayer5.Name}" TextTrimming="CharacterEllipsis" />
+                                </Label>
+                                <Image Source="/Resources/PlayerIcon.png" Width="20" Height="20" />
+                            </StackPanel>
+                            <ListView ItemsSource="{Binding Character.Player5Talentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <usercontrols:TrialRollControl PlayerNumber="5" />
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding
+                                            Path=Character.Player6Talentliste,
+                                            Converter={StaticResource TalentListToBoolConverter}}"
+                                            Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Character.IsMaster}" Value="false">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" Width="170">
+                                    <TextBlock Text="{Binding Character.CharacterPlayer6.Name}" TextTrimming="CharacterEllipsis" />
+                                </Label>
+                                <Image Source="/Resources/PlayerIcon.png" Width="20" Height="20" />
+                            </StackPanel>
+                            <ListView ItemsSource="{Binding Character.Player6Talentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <usercontrols:TrialRollControl PlayerNumber="6" />
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding
+                                            Path=Character.Player7Talentliste,
+                                            Converter={StaticResource TalentListToBoolConverter}}"
+                                            Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Character.IsMaster}" Value="false">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" Width="170">
+                                    <TextBlock Text="{Binding Character.CharacterPlayer7.Name}" TextTrimming="CharacterEllipsis" />
+                                </Label>
+                                <Image Source="/Resources/PlayerIcon.png" Width="20" Height="20" />
+                            </StackPanel>
+                            <ListView ItemsSource="{Binding Character.Player7Talentliste}" Style="{DynamicResource RollableObjectListBoxStyle}" ItemContainerStyle="{DynamicResource RollableObjectListBoxItemStyle}" PreviewMouseWheel="ListBox_PreviewMouseWheel">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <usercontrols:TrialRollControl PlayerNumber="7" />
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>

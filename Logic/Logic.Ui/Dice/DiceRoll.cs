@@ -10,14 +10,14 @@ namespace PhexensWuerfelraum.Logic.Ui
     {
         private CharacterModel Character { get; set; } = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
 
-        public string RollTrial(Talent talent)
+        public string RollTrial(Talent talent, int playerNumber)
         {
-            return RollTrial(talent.Name, talent.Probe, talent.Value, talent.Behinderungsfaktor);
+            return RollTrial(talent.Name, talent.Probe, talent.Value, playerNumber, talent.Behinderungsfaktor);
         }
 
-        public string RollTrial(Zauber zauber)
+        public string RollTrial(Zauber zauber, int playerNumber)
         {
-            return RollTrial(zauber.Name, zauber.Probe, zauber.Value);
+            return RollTrial(zauber.Name, zauber.Probe, zauber.Value, playerNumber);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// <param name="trialValue">TaW/ZfP</param>
         /// <param name="behinderungsfaktorText"></param>
         /// <returns>returns a string that represents the trial outcome</returns>
-        public string RollTrial(string trialName, Probe trial, int trialValue, string behinderungsfaktorText = "")
+        public string RollTrial(string trialName, Probe trial, int trialValue, int playerNumber, string behinderungsfaktorText = "")
         {
             RollResult rollResult = Roller.Roll("3d20");
             int attribute1Value, attribute2Value, attribute3Value;
@@ -65,12 +65,12 @@ namespace PhexensWuerfelraum.Logic.Ui
                 if (Character.RollModeOpen == false)
                     blindText = "(blind) ";
 
-                return string.Format($"{blindText}{trialName}: {roll1}, {roll2}, {roll3} (Probe enthält frei wählbare Attribute)");
+                return string.Format($"{blindText}{trialName}: 【{roll1}】, 【{roll2}】, 【{roll3}】 (Probe enthält frei wählbare Attribute)");
             }
 
-            attribute1Value = GetAttributeValue(trial.Attribut1);
-            attribute2Value = GetAttributeValue(trial.Attribut2);
-            attribute3Value = GetAttributeValue(trial.Attribut3);
+            attribute1Value = GetAttributeValue(trial.Attribut1, playerNumber);
+            attribute2Value = GetAttributeValue(trial.Attribut2, playerNumber);
+            attribute3Value = GetAttributeValue(trial.Attribut3, playerNumber);
 
             #region Erschwernis / Erleichterung
 
@@ -261,7 +261,44 @@ namespace PhexensWuerfelraum.Logic.Ui
                 blindText = "(blind) ";
             }
 
-            return $"{blindText}auf {trialName}: {roll1}, {roll2}, {roll3} ⇒ {trialPointsRemaining} {resultText} {erschwernisTxt}{trialModificationTxt}{beText}";
+            CharacterModel characterModel = null;
+            var anotherPlayerRollText = "";
+
+            if (playerNumber == 1)
+            {
+                characterModel = Character.CharacterPlayer1;
+            }
+            else if (playerNumber == 2)
+            {
+                characterModel = Character.CharacterPlayer2;
+            }
+            else if (playerNumber == 3)
+            {
+                characterModel = Character.CharacterPlayer3;
+            }
+            else if (playerNumber == 4)
+            {
+                characterModel = Character.CharacterPlayer4;
+            }
+            else if (playerNumber == 5)
+            {
+                characterModel = Character.CharacterPlayer5;
+            }
+            else if (playerNumber == 6)
+            {
+                characterModel = Character.CharacterPlayer6;
+            }
+            else if (playerNumber == 7)
+            {
+                characterModel = Character.CharacterPlayer7;
+            }
+
+            if (playerNumber != 0)
+            {
+                anotherPlayerRollText = $" [mit den Werten von {characterModel.Name}]";
+            }
+
+            return $"{blindText}auf {trialName}: 【{roll1}】, 【{roll2}】, 【{roll3}】 ⇒ {trialPointsRemaining} {resultText} {erschwernisTxt}{trialModificationTxt}{beText}{anotherPlayerRollText}";
         }
 
         public string RollDice(string parm, int diceAmount)
@@ -285,13 +322,17 @@ namespace PhexensWuerfelraum.Logic.Ui
                     {
                         if (singleRoll.Value != 0)
                         {
-                            result += $" {singleRoll.Value} +";
+                            result += $" 【{singleRoll.Value}】 +";
                         }
                     }
 
                     result = result[0..^2];
 
-                    result += $" = {rollResult.Value}";
+                    if (rollResult.NumRolls > 1)
+                    {
+                        result += $" = {rollResult.Value}";
+                    }
+
                     break;
 
                 case "smileydice":
@@ -338,7 +379,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                     {
                         if (singleRoll.Value != 0)
                         {
-                            rollValueString += $" {singleRoll.Value} +";
+                            rollValueString += $" 【{singleRoll.Value}】 +";
                         }
                     }
 
@@ -368,7 +409,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                     {
                         if (singleRoll.Value != 0)
                         {
-                            rollValueString += $" {singleRoll.Value} +";
+                            rollValueString += $" 【{singleRoll.Value}】 +";
                         }
                     }
 
@@ -490,11 +531,11 @@ namespace PhexensWuerfelraum.Logic.Ui
 
             if (Character.Modifikation != 0)
             {
-                ret = $"auf {attributTxt}: eine {rollValue} (gewürfelt {rollResult.Value} mod. {Character.Modifikation}); {suffix}";
+                ret = $"auf {attributTxt}: eine 【{rollValue}】 (gewürfelt {rollResult.Value} mod. {Character.Modifikation}); {suffix}";
             }
             else
             {
-                ret = $"auf {attributTxt}: eine {rollValue}; {suffix}";
+                ret = $"auf {attributTxt}: eine 【{rollValue}】; {suffix}";
             }
 
             Character.Modifikation = 0;
@@ -507,18 +548,53 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// </summary>
         /// <param name="attribut"></param>
         /// <returns></returns>
-        public int GetAttributeValue(AttributType attribut)
+        public int GetAttributeValue(AttributType attribut, int playerNumber)
         {
+            CharacterModel characterModel = null;
+
+            if (playerNumber == 0)
+            {
+                characterModel = Character;
+            }
+            else if (playerNumber == 1)
+            {
+                characterModel = Character.CharacterPlayer1;
+            }
+            else if (playerNumber == 2)
+            {
+                characterModel = Character.CharacterPlayer2;
+            }
+            else if (playerNumber == 3)
+            {
+                characterModel = Character.CharacterPlayer3;
+            }
+            else if (playerNumber == 4)
+            {
+                characterModel = Character.CharacterPlayer4;
+            }
+            else if (playerNumber == 5)
+            {
+                characterModel = Character.CharacterPlayer5;
+            }
+            else if (playerNumber == 6)
+            {
+                characterModel = Character.CharacterPlayer6;
+            }
+            else if (playerNumber == 7)
+            {
+                characterModel = Character.CharacterPlayer7;
+            }
+
             int attributeValue = attribut switch
             {
-                AttributType.Mut => Character.MU,
-                AttributType.Klugheit => Character.KL,
-                AttributType.Intuition => Character.IN,
-                AttributType.Charisma => Character.CH,
-                AttributType.Fingerfertigkeit => Character.FF,
-                AttributType.Gewandtheit => Character.GE,
-                AttributType.Konstitution => Character.KO,
-                AttributType.Koerperkraft => Character.KK,
+                AttributType.Mut => characterModel.MU,
+                AttributType.Klugheit => characterModel.KL,
+                AttributType.Intuition => characterModel.IN,
+                AttributType.Charisma => characterModel.CH,
+                AttributType.Fingerfertigkeit => characterModel.FF,
+                AttributType.Gewandtheit => characterModel.GE,
+                AttributType.Konstitution => characterModel.KO,
+                AttributType.Koerperkraft => characterModel.KK,
                 AttributType.Wildcard => 0,
                 _ => 0,
             };

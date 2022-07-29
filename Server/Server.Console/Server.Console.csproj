@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>PhexensWuerfelraum.Server.Console</RootNamespace>
     <StartupObject></StartupObject>
     <AssemblyName>PhexensWuerfelraum.Server.Console</AssemblyName>
@@ -29,6 +29,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Ini" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="SimpleSockets" Version="1.2.20" />
+    <PackageReference Include="System.Collections" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

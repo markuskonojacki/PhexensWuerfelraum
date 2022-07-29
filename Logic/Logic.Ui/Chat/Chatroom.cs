@@ -1,17 +1,22 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using Newtonsoft.Json;
 using PhexensWuerfelraum.Logic.ClientServer;
 using SimpleSockets;
 using SimpleSockets.Client;
 using SimpleSockets.Messaging;
 using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Media;
 using System.Runtime.Versioning;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using static PhexensWuerfelraum.Logic.Ui.CharacterModel;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {
@@ -175,6 +180,25 @@ namespace PhexensWuerfelraum.Logic.Ui
             }
         }
 
+        public static async Task RequestCharacterData()
+        {
+            if (_client != null)
+            {
+                CharacterModel character = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
+
+                character.CharacterPlayer1 = new CharacterModel();
+                character.CharacterPlayer2 = new CharacterModel();
+                character.CharacterPlayer3 = new CharacterModel();
+                character.CharacterPlayer4 = new CharacterModel();
+                character.CharacterPlayer5 = new CharacterModel();
+                character.CharacterPlayer6 = new CharacterModel();
+                character.CharacterPlayer7 = new CharacterModel();
+
+                CharacterRequestPacket characterRequestPacket = new();
+                await _client.SendObjectAsync(characterRequestPacket);
+            }
+        }
+
         #region Events
 
         private static void BindEvents()
@@ -245,6 +269,100 @@ namespace PhexensWuerfelraum.Logic.Ui
                 var a = (AuthPacket)obj;
                 ClientAuthInfo = a;
             }
+            else if (obj.GetType() == typeof(CharacterRequestPacket))
+            {
+                Application.Current.Dispatcher.Invoke(delegate
+                {
+                    ManageCharacterRequestPacket();
+                });
+            }
+            else if (obj.GetType() == typeof(CharacterDataPacket))
+            {
+                CharacterViewModel characterViewModel = SimpleIoc.Default.GetInstance<CharacterViewModel>();
+                CharacterDataPacket characterDataPacket = (CharacterDataPacket)obj;
+                byte[] data = Convert.FromBase64String(characterDataPacket.Data);
+                string decodedString = Encoding.UTF8.GetString(data);
+                CharacterModel characterModel = JsonConvert.DeserializeObject<CharacterModel>(decodedString);
+
+                // remove empty attributes
+                IEnumerable attributes = characterModel.Attribute.Where(a => a.Value == 0).ToList();
+                foreach (Attribut attribute in attributes)
+                {
+                    characterModel.Attribute.Remove(attribute);
+                }
+
+                Application.Current.Dispatcher.Invoke(delegate
+                {
+                    // check existing
+                    if (characterViewModel.Character?.CharacterPlayer1?.Name == characterModel.Name)
+                    {
+                        characterViewModel.Character.CharacterPlayer1 = characterModel;
+                    }
+                    else if (characterViewModel.Character?.CharacterPlayer2?.Name == characterModel.Name)
+                    {
+                        characterViewModel.Character.CharacterPlayer2 = characterModel;
+                    }
+                    else if (characterViewModel.Character?.CharacterPlayer3?.Name == characterModel.Name)
+                    {
+                        characterViewModel.Character.CharacterPlayer3 = characterModel;
+                    }
+                    else if (characterViewModel.Character?.CharacterPlayer4?.Name == characterModel.Name)
+                    {
+                        characterViewModel.Character.CharacterPlayer4 = characterModel;
+                    }
+                    else if (characterViewModel.Character?.CharacterPlayer5?.Name == characterModel.Name)
+                    {
+                        characterViewModel.Character.CharacterPlayer5 = characterModel;
+                    }
+                    else if (characterViewModel.Character?.CharacterPlayer6?.Name == characterModel.Name)
+                    {
+                        characterViewModel.Character.CharacterPlayer6 = characterModel;
+                    }
+                    else if (characterViewModel.Character?.CharacterPlayer7?.Name == characterModel.Name)
+                    {
+                        characterViewModel.Character.CharacterPlayer7 = characterModel;
+                    }
+                    // else fill up
+                    else if (string.IsNullOrEmpty(characterViewModel.Character?.CharacterPlayer1?.Name))
+                    {
+                        characterViewModel.Character.CharacterPlayer1 = characterModel;
+                    }
+                    else if (string.IsNullOrEmpty(characterViewModel.Character?.CharacterPlayer2?.Name))
+                    {
+                        characterViewModel.Character.CharacterPlayer2 = characterModel;
+                    }
+                    else if (string.IsNullOrEmpty(characterViewModel.Character?.CharacterPlayer3?.Name))
+                    {
+                        characterViewModel.Character.CharacterPlayer3 = characterModel;
+                    }
+                    else if (string.IsNullOrEmpty(characterViewModel.Character?.CharacterPlayer4?.Name))
+                    {
+                        characterViewModel.Character.CharacterPlayer4 = characterModel;
+                    }
+                    else if (string.IsNullOrEmpty(characterViewModel.Character?.CharacterPlayer5?.Name))
+                    {
+                        characterViewModel.Character.CharacterPlayer5 = characterModel;
+                    }
+                    else if (string.IsNullOrEmpty(characterViewModel.Character?.CharacterPlayer6?.Name))
+                    {
+                        characterViewModel.Character.CharacterPlayer6 = characterModel;
+                    }
+                    else if (string.IsNullOrEmpty(characterViewModel.Character?.CharacterPlayer7?.Name))
+                    {
+                        characterViewModel.Character.CharacterPlayer7 = characterModel;
+                    }
+                });
+            }
+        }
+
+        public static async Task ManageCharacterRequestPacket()
+        {
+            CharacterModel character = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
+            string encodedCharacter = Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(character)));
+            
+            CharacterDataPacket characterDataPacket = new(encodedCharacter);
+
+            await _client.SendObjectAsync(characterDataPacket);
         }
 
         private static void ErrorThrown(SimpleSocket socketClient, Exception error)

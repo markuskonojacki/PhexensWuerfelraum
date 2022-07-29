@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using GalaSoft.MvvmLight.Ioc;
 using Jot.Configuration;
 using PropertyChanged;
 
@@ -109,6 +110,23 @@ namespace PhexensWuerfelraum.Logic.Ui
         public List<Talent> WissenTalentliste { get => Talentliste?.Where(t => t.Gruppe == TalentGruppe.Wissen || t.Gruppe == TalentGruppe.Sprachen || t.Gruppe == TalentGruppe.Schrift).ToList(); }
         public List<Talent> HandwerkTalentliste { get => Talentliste?.Where(t => t.Gruppe == TalentGruppe.Handwerk).ToList(); }
         public List<Talent> MetaTalentliste { get => Talentliste?.Where(t => t.Gruppe == TalentGruppe.Meta || t.Gruppe == TalentGruppe.Gabe || t.Gruppe == TalentGruppe.Custom).ToList(); }
+
+        public CharacterModel CharacterPlayer1 { get; set; }
+        public CharacterModel CharacterPlayer2 { get; set; }
+        public CharacterModel CharacterPlayer3 { get; set; }
+        public CharacterModel CharacterPlayer4 { get; set; }
+        public CharacterModel CharacterPlayer5 { get; set; }
+        public CharacterModel CharacterPlayer6 { get; set; }
+        public CharacterModel CharacterPlayer7 { get; set; }
+
+        public List<Talent> Player1Talentliste { get => CharacterPlayer1?.Talentliste?.ToList(); }
+        public List<Talent> Player2Talentliste { get => CharacterPlayer2?.Talentliste?.ToList(); }
+        public List<Talent> Player3Talentliste { get => CharacterPlayer3?.Talentliste?.ToList(); }
+        public List<Talent> Player4Talentliste { get => CharacterPlayer4?.Talentliste?.ToList(); }
+        public List<Talent> Player5Talentliste { get => CharacterPlayer5?.Talentliste?.ToList(); }
+        public List<Talent> Player6Talentliste { get => CharacterPlayer6?.Talentliste?.ToList(); }
+        public List<Talent> Player7Talentliste { get => CharacterPlayer7?.Talentliste?.ToList(); }
+        public static bool IsMaster { get => SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting.GameMasterMode; }
 
         private static readonly List<string> moeglicheVorteile = new() { "Adlige Abstammung", "Adliges Erbe", "Amtsadel", "Affinität zu", "Akademische Ausbildung", "Astrale Regeneration", "Astralmacht", "Ausdauernd", "Ausdauernder Zauberer", "Ausrüstungsvorteil", "Balance", "Begabung für", "Beidhändig", "Beseelte Knochenkeule", "Besonderer Besitz", "Breitgefächerte Bildung", "Dämmerungssicht", "Eidetisches Gedächtnis", "Eigeboren", "Eisenaffine Aura", "Eisern", "Empathie", "Entfernungssinn", "Ererbte Knochenkeule", "Feenfreund", "Feste Matrix", "Flink", "Gebildet", "Gefahreninstinkt", "Geräuschhexerei", "Geweiht", "Glück", "Glück im Spiel", "Gut Aussehend", "Guter Ruf", "Gutes Gedächtnis", "Halbzauberer", "Herausragend", "Hitzeresistenz", "Hohe Lebenskraft", "Hohe Magieresistenz", "Immunität", "Innerer Kompass", "Kälteresistenz", "Kampfrausch", "Koboldfreund", "Kräfteschub", "Linkshänder", "Machtvoller Vertrauter", "Magiegespür", "Meisterhandwerk", "Nachtsicht", "Natürliche Waffen", "Natürlicher Rüstungsschutz", "Niedrige Schlechte Eigenschaft", "Prophezeien", "Resistenz", "Richtungssinn", "Schlangenmensch ", "Schnelle Heilung", "Viertelzauberer", "Vollzauberer", "Vom Schicksal begünstigt", "Wesen der Nacht", "Wohlklang", "Wolfskind", "Zäher Hund", "Zauberhaar", "Zeitgefühl", "Zusätzliche Gliedmaßen", "Zweistimmiger Gesang", "Zwergennase", "Schutzgeist", "Schwer zu verzaubern ", "Soziale Anpassungsfähigkeit", "Talentschub", "Tierempathie", "Tierfreund", "Übernatürliche Begabung", "Unbeschwertes Zaubern", "Verbindungen", "Verhüllte Aura", "Veteran", "Viertelzauberer", "Altersresistenz", "Gutaussehend" };
 

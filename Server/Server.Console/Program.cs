@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,7 @@ namespace PhexensWuerfelraum.Server.Console
         private static SimpleSocketListener _listener;
 
         private static readonly List<HeartbeatPacket> heartbeats = new();
+        private static Dictionary<int, int> d20statistic = new();
 
         #region version
 
@@ -103,6 +105,11 @@ namespace PhexensWuerfelraum.Server.Console
 
                 BindEvents();
                 _listener.StartListening(Port);
+
+                for (int i = 1; i <= 20; i++)
+                {
+                    d20statistic[i] = 0;
+                }
 
                 while (true)
                 {
@@ -209,6 +216,33 @@ namespace PhexensWuerfelraum.Server.Console
                 var chatPacket = (ChatPacket)obj;
                 chatPacket.FromId = client.Id;
 
+                if (chatPacket.MessageType == ChatMessageType.Roll || chatPacket.MessageType == ChatMessageType.RollWhisper)
+                {
+                    string pat = @"【(\d{1,2})】, 【(\d{1,2})】, 【(\d{1,2})】";
+                    Regex r = new(pat, RegexOptions.IgnoreCase);
+                    Match m = r.Match(chatPacket.Message);
+
+                    if (m.Success)
+                    {
+                        d20statistic[int.Parse(m.Groups[1].Value)]++;
+                        d20statistic[int.Parse(m.Groups[2].Value)]++;
+                        d20statistic[int.Parse(m.Groups[3].Value)]++;
+
+                        int sumRolls = 0;
+
+                        for (int i = 1; i <= 20; i++)
+                        {
+                            sumRolls += d20statistic[i];
+                        }
+
+                        for (int i = 1; i <= 20; i++)
+                        {
+                            WriteLine($"{i}: {d20statistic[i]} ({Math.Round((double)d20statistic[i] / (double)sumRolls * 100, 2)} %)");
+                        }
+                        WriteLine($"sum: {sumRolls} d20 rolls");
+                    }
+                }
+
                 if (chatPacket.ToId == 0) // to everyone
                 {
                     foreach (var user in AuthenticatedUsers.ToArray())
@@ -224,6 +258,26 @@ namespace PhexensWuerfelraum.Server.Console
                     {
                         _listener.SendObjectAsync(user.UserModel.Id, chatPacket, Compress, false, false);
                     }
+                }
+            }
+            else if (obj.GetType() == typeof(CharacterDataPacket))
+            {
+                var characterDataPacket = (CharacterDataPacket)obj;
+                var recepients = AuthenticatedUsers.FindAll(a => a.UserModel.IsGameMaster == true);
+
+                foreach (var user in recepients.ToArray())
+                {
+                    _listener.SendObjectAsync(user.UserModel.Id, characterDataPacket, Compress, false, false);
+                }
+            }
+            else if (obj.GetType() == typeof(CharacterRequestPacket))
+            {
+                var characterRequestPacket = (CharacterRequestPacket)obj;
+                var recepients = AuthenticatedUsers.FindAll(a => a.UserModel.IsGameMaster == false);
+
+                foreach (var user in recepients.ToArray())
+                {
+                    _listener.SendObjectAsync(user.UserModel.Id, characterRequestPacket, Compress, false, false);
                 }
             }
             else if (obj.GetType() == typeof(HeartbeatPacket))

@@ -43,6 +43,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         public RelayCommand ToggleRollModeCommand { get; set; }
         public RelayCommand OpenUpdateInfoCommand { get; private set; }
         public RelayCommand ToggleDetailsFlyOutCommand { get; set; }
+        public RelayCommand RequestCharacterDataCommand { get; set; }
 
         #endregion Commands
 
@@ -59,6 +60,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             ToggleRollModeCommand = new RelayCommand(() => ToggleRollMode(), true);
             OpenUpdateInfoCommand = new RelayCommand(() => OpenUpdateInfo());
             ToggleDetailsFlyOutCommand = new RelayCommand(() => ToggleDetailsFlyOut());
+            RequestCharacterDataCommand = new RelayCommand(async () => await Chatroom.RequestCharacterData(), true);
         }
 
         private void ToggleDetailsFlyOut()
