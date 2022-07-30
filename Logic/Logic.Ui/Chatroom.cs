@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Newtonsoft.Json;
 using PhexensWuerfelraum.Logic.ClientServer;
 using SimpleSockets;
@@ -24,8 +24,8 @@ namespace PhexensWuerfelraum.Logic.Ui
     {
         #region properties
 
-        private static readonly Chatroom ChatRoom = SimpleIoc.Default.GetInstance<Chatroom>();
-        private static readonly SettingsModel Settings = SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting;
+        private static readonly Chatroom ChatRoom = Ioc.Default.GetService<Chatroom>();
+        private static readonly SettingsModel Settings = Ioc.Default.GetService<SettingsViewModel>().Setting;
 
         private static bool UseSSL;
         private static readonly string Password = "Password";
@@ -34,7 +34,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         private static int OwnId { get => ClientAuthInfo.UserModel.Id; }
 
         private UserModel _selectedUser;
-        private readonly SettingsViewModel SettingsViewModel = SimpleIoc.Default.GetInstance<SettingsViewModel>();
+        private readonly SettingsViewModel SettingsViewModel = Ioc.Default.GetService<SettingsViewModel>();
 
         private SoundPlayer soundPlayer1;
         private SoundPlayer soundPlayer2;
@@ -106,8 +106,8 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         private static void ConnectedToServer(SimpleSocket a)
         {
-            var character = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
-            string username = SimpleIoc.Default.GetInstance<CharacterViewModel>().SelectedCharacter.Name;
+            var character = Ioc.Default.GetService<CharacterViewModel>().Character;
+            string username = Ioc.Default.GetService<CharacterViewModel>().SelectedCharacter.Name;
 
             if (string.IsNullOrEmpty(username))
             {
@@ -184,7 +184,7 @@ namespace PhexensWuerfelraum.Logic.Ui
         {
             if (_client != null)
             {
-                CharacterModel character = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
+                CharacterModel character = Ioc.Default.GetService<CharacterViewModel>().Character;
 
                 character.CharacterPlayer1 = new CharacterModel();
                 character.CharacterPlayer2 = new CharacterModel();
@@ -278,7 +278,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             }
             else if (obj.GetType() == typeof(CharacterDataPacket))
             {
-                CharacterViewModel characterViewModel = SimpleIoc.Default.GetInstance<CharacterViewModel>();
+                CharacterViewModel characterViewModel = Ioc.Default.GetService<CharacterViewModel>();
                 CharacterDataPacket characterDataPacket = (CharacterDataPacket)obj;
                 byte[] data = Convert.FromBase64String(characterDataPacket.Data);
                 string decodedString = Encoding.UTF8.GetString(data);
@@ -357,7 +357,7 @@ namespace PhexensWuerfelraum.Logic.Ui
 
         public static async Task ManageCharacterRequestPacket()
         {
-            CharacterModel character = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
+            CharacterModel character = Ioc.Default.GetService<CharacterViewModel>().Character;
             string encodedCharacter = Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(character)));
             
             CharacterDataPacket characterDataPacket = new(encodedCharacter);

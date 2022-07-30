@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
 using Dice;
-using GalaSoft.MvvmLight.Ioc;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using static PhexensWuerfelraum.Logic.Ui.CharacterModel;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {
     public class DiceRoll
     {
-        private CharacterModel Character { get; set; } = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
+        private CharacterModel Character { get; set; } = Ioc.Default.GetService<CharacterViewModel>().Character;
 
         public string RollTrial(Talent talent, int playerNumber)
         {

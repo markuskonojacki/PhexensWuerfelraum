@@ -1,9 +1,6 @@
-﻿using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
-using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using PhexensWuerfelraum.Logic.Ui;
-using System.Windows;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace PhexensWuerfelraum.Ui.Desktop
 {
@@ -30,24 +27,8 @@ namespace PhexensWuerfelraum.Ui.Desktop
 
         private void InitMessenger()
         {
-            CharacterViewModel = SimpleIoc.Default.GetInstance<CharacterViewModel>();
-            ChatnRollViewModel = SimpleIoc.Default.GetInstance<ChatnRollViewModel>();
-
-            Messenger.Default.Register<OpenInfoMessage>(
-                this,
-                msg =>
-                {
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        var mySettings = new MetroDialogSettings()
-                        {
-                            AffirmativeButtonText = "Ok",
-                            DialogButtonFontSize = 20D
-                        };
-
-                        (Application.Current.MainWindow as MetroWindow).ShowMessageAsync(msg.InfoTitle, msg.InfoText, MessageDialogStyle.Affirmative, mySettings);
-                    });
-                });
+            CharacterViewModel = Ioc.Default.GetService<CharacterViewModel>();
+            ChatnRollViewModel = Ioc.Default.GetService<ChatnRollViewModel>();
         }
 
         #endregion methods

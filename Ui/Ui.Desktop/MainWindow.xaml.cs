@@ -7,14 +7,16 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using GalaSoft.MvvmLight.Ioc;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using Jot;
 using Jot.Storage;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Onova;
 using Onova.Models;
 using Onova.Services;
 using PhexensWuerfelraum.Logic.Ui;
+using PhexensWuerfelraum.Ui.Desktop.CustomControls;
 using MenuItem = PhexensWuerfelraum.Logic.Ui.MenuItem;
 
 namespace PhexensWuerfelraum.Ui.Desktop
@@ -25,8 +27,8 @@ namespace PhexensWuerfelraum.Ui.Desktop
     partial class MainWindow
     {
         public Tracker Tracker;
-        private ChatnRollViewModel ChatnRollViewModel { get; set; } = SimpleIoc.Default.GetInstance<ChatnRollViewModel>();
-        private SettingsViewModel SettingsViewModel { get; set; } = SimpleIoc.Default.GetInstance<SettingsViewModel>();
+        private ChatnRollViewModel ChatnRollViewModel { get; set; } = Ioc.Default.GetService<ChatnRollViewModel>();
+        private SettingsViewModel SettingsViewModel { get; set; } = Ioc.Default.GetService<SettingsViewModel>();
 
         public MainWindow()
         {
@@ -78,7 +80,10 @@ namespace PhexensWuerfelraum.Ui.Desktop
                 var resultCheckForUpdatesAsync = await manager.CheckForUpdatesAsync();
                 if (resultCheckForUpdatesAsync.CanUpdate)
                 {
-                    ChatnRollViewModel.OpenUpdateInfoCommand.Execute(null);
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        (Application.Current.MainWindow as MetroWindow).ShowMetroDialogAsync<UpdateDialog>();
+                    });
 
                     // Prepare an update by downloading and extracting the package
                     // (supports progress reporting and cancellation)

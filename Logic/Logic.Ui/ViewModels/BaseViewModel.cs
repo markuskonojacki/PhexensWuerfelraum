@@ -1,10 +1,9 @@
-﻿using GalaSoft.MvvmLight;
-
-//using GalaSoft.MvvmLight.Threading;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {
-    public class BaseViewModel : ViewModelBase
+    public class BaseViewModel : ObservableRecipient
     {
         public BaseViewModel()
         {

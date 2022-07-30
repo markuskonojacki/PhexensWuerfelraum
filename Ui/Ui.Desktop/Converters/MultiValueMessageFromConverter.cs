@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using PhexensWuerfelraum.Logic.ClientServer;
 using PhexensWuerfelraum.Logic.Ui;
 using System;
@@ -9,8 +9,8 @@ namespace PhexensWuerfelraum.Ui.Desktop
 {
     public class MultiValueMessageFromConverter : IMultiValueConverter
     {
-        public CharacterModel Character { get; set; } = SimpleIoc.Default.GetInstance<CharacterViewModel>().Character;
-        public SettingsModel Settings { get; set; } = SimpleIoc.Default.GetInstance<SettingsViewModel>().Setting;
+        public CharacterModel Character { get; set; } = Ioc.Default.GetService<CharacterViewModel>().Character;
+        public SettingsModel Settings { get; set; } = Ioc.Default.GetService<SettingsViewModel>().Setting;
 
         /// <param name="values">
         ///     <Binding Path="MessageType" />

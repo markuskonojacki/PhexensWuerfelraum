@@ -1,5 +1,6 @@
-using GalaSoft.MvvmLight.Ioc;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using MahApps.Metro.Controls.Dialogs;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace PhexensWuerfelraum.Logic.Ui
 {
@@ -10,25 +11,27 @@ namespace PhexensWuerfelraum.Logic.Ui
         /// </summary>
         public MainViewModel()
         {
-            SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<NavigationViewModel>();
-            SimpleIoc.Default.Register<SettingsViewModel>();
-            SimpleIoc.Default.Register<ChatnRollViewModel>();
-            SimpleIoc.Default.Register<CharacterViewModel>();
-            SimpleIoc.Default.Register<DiceRoll>();
-            SimpleIoc.Default.Register<AboutViewModel>();
-            SimpleIoc.Default.Register<Chatroom>();
-            SimpleIoc.Default.Register<IDialogCoordinator, DialogCoordinator>();
+            Ioc.Default.ConfigureServices(
+                new ServiceCollection()
+                .AddSingleton<NavigationViewModel>()
+                .AddSingleton<SettingsViewModel>()
+                .AddSingleton<ChatnRollViewModel>()
+                .AddSingleton<CharacterViewModel>()
+                .AddSingleton<DiceRoll>()
+                .AddSingleton<AboutViewModel>()
+                .AddSingleton<Chatroom>()
+                .AddSingleton<DialogCoordinator>()
+                .BuildServiceProvider());
         }
 
-        public static AboutViewModel About => SimpleIoc.Default.GetInstance<AboutViewModel>();
-        public static CharacterViewModel Character => SimpleIoc.Default.GetInstance<CharacterViewModel>();
-        public static ChatnRollViewModel ChatnRoll => SimpleIoc.Default.GetInstance<ChatnRollViewModel>();
-        public static DialogCoordinator DialogCoordinator => SimpleIoc.Default.GetInstance<DialogCoordinator>();
-        public static DiceRoll Dice => SimpleIoc.Default.GetInstance<DiceRoll>();
-        public static MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
-        public static NavigationViewModel Navigation => SimpleIoc.Default.GetInstance<NavigationViewModel>();
-        public static SettingsViewModel Settings => SimpleIoc.Default.GetInstance<SettingsViewModel>();
-        public static Chatroom Chatroom => SimpleIoc.Default.GetInstance<Chatroom>();
+        public static AboutViewModel About => Ioc.Default.GetService<AboutViewModel>();
+        public static CharacterViewModel Character => Ioc.Default.GetService<CharacterViewModel>();
+        public static ChatnRollViewModel ChatnRoll => Ioc.Default.GetService<ChatnRollViewModel>();
+        public static DialogCoordinator DialogCoordinator => Ioc.Default.GetService<DialogCoordinator>();
+        public static DiceRoll Dice => Ioc.Default.GetService<DiceRoll>();
+        public static MainViewModel Main => Ioc.Default.GetService<MainViewModel>();
+        public static NavigationViewModel Navigation => Ioc.Default.GetService<NavigationViewModel>();
+        public static SettingsViewModel Settings => Ioc.Default.GetService<SettingsViewModel>();
+        public static Chatroom Chatroom => Ioc.Default.GetService<Chatroom>();
     }
 }

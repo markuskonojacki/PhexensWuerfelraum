@@ -62,7 +62,6 @@ namespace PhexensWuerfelraum.Logic.Ui
         public void ConfigureTracking(TrackingConfiguration configuration)
         {
             configuration
-                .Id(s => "Settings")
                 .Properties<SettingsModel>(s => new
                 {
                     s.ServerAddress,
@@ -76,6 +75,7 @@ namespace PhexensWuerfelraum.Logic.Ui
                     s.PublicKey,
                     s.UserIdentifier
                 })
+                .Id(s => "Settings")
                 .PersistOn(nameof(PropertyChanged));
         }
 

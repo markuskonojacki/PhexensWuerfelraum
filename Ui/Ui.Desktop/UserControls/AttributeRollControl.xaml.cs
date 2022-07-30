@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
-using GalaSoft.MvvmLight.Ioc;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using PhexensWuerfelraum.Logic.Ui;
 
 namespace PhexensWuerfelraum.Ui.Desktop.UserControls
@@ -10,7 +10,7 @@ namespace PhexensWuerfelraum.Ui.Desktop.UserControls
     /// </summary>
     public partial class AttributeRollControl : UserControl
     {
-        private ChatnRollViewModel ChatnRollViewModel { get; set; } = SimpleIoc.Default.GetInstance<ChatnRollViewModel>();
+        private ChatnRollViewModel ChatnRollViewModel { get; set; } = Ioc.Default.GetService<ChatnRollViewModel>();
 
         public AttributeRollControl()
         {

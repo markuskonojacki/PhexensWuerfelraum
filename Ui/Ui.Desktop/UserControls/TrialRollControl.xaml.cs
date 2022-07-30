@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using PhexensWuerfelraum.Logic.ClientServer;
 using PhexensWuerfelraum.Logic.Ui;
 using System.Windows;
@@ -12,7 +12,7 @@ namespace PhexensWuerfelraum.Ui.Desktop.UserControls
     /// </summary>
     public partial class TrialRollControl : UserControl
     {
-        private ChatnRollViewModel ChatnRollViewModel { get; set; } = SimpleIoc.Default.GetInstance<ChatnRollViewModel>();
+        private ChatnRollViewModel ChatnRollViewModel { get; set; } = Ioc.Default.GetService<ChatnRollViewModel>();
 
         public int PlayerNumber
         {
