@@ -1,36 +1,24 @@
-FROM mono:6.12
+FROM ghcr.io/linuxserver/baseimage-mono:focal
 
-ARG PUID=1000
-ARG PGID=1000
-
-RUN    apt-get update && apt-get install --no-install-recommends --yes \
-       wget \
+RUN    echo "**** install packages ****" \
+    && apt-get update \
+    && apt-get install -y \
        unzip \
-	  && mkdir -p /app/config \
-    && addgroup \
-       --gid "$PGID" \
-       phex \
-    && adduser \
-       --disabled-password \
-       --gecos "" \
-       --home /app \
-       --ingroup phex \
-       --uid "$PUID" \
-       phex \
-    && cd /app \
-    && wget -q https://github.com/markuskonojacki/PhexensWuerfelraum/releases/download/$(curl -s https://api.github.com/repos/markuskonojacki/PhexensWuerfelraum/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')/Server-Linux-$(curl -s https://api.github.com/repos/markuskonojacki/PhexensWuerfelraum/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")').zip \
-    && unzip -oq Server-Linux-*.zip \
-    && rm -rf Server-Linux-*.zip \
-    && chmod +x PhexensWuerfelraum.Server.Console
+    && echo "**** install server ****" \
+    && mkdir -p /app/phexenswuerfelraum \
+    && cd /app/phexenswuerfelraum \
+    && SERVER_VERSION=$(curl -s https://api.github.com/repos/markuskonojacki/PhexensWuerfelraum/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")') \
+    && curl -o /tmp/phexenswuerfelraum.zip -L "https://github.com/markuskonojacki/PhexensWuerfelraum/releases/download/${SERVER_VERSION}/Server-Linux-${SERVER_VERSION}.zip" \
+    && unzip /tmp/phexenswuerfelraum.zip -d /app/phexenswuerfelraum \
+    && echo "**** cleanup ****" \
+    && apt-get clean \
+    && rm -rf \
+       /tmp/* \
+       /var/tmp/*
 
-COPY settings.example.ini /app/config/
+# add local files
+COPY root/ /
 
-RUN chown -R phex:phex /app
-
-WORKDIR /app
-
-USER phex
-
+# ports and volumes
 EXPOSE 12113
-
-CMD [ "/app/PhexensWuerfelraum.Server.Console" ]
+VOLUME /config

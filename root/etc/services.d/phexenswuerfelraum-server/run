@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv bash
+
+export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+exec s6-setuidgid abc /app/phexenswuerfelraum/PhexensWuerfelraum.Server.Console

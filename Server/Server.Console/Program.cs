@@ -6,7 +6,6 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using PhexensWuerfelraum.Logic.ClientServer;
 using SimpleSockets;
 using SimpleSockets.Messaging.Metadata;
@@ -16,9 +15,7 @@ namespace PhexensWuerfelraum.Server.Console
 {
     internal class Program
     {
-        private static int Port;
-        private static bool UseSSL;
-        private static bool Compress;
+        private static readonly int Port = 12113;
 
         private static readonly List<AuthPacket> AuthenticatedUsers = new();
         private static SimpleSocketListener _listener;
@@ -41,84 +38,50 @@ namespace PhexensWuerfelraum.Server.Console
         {
             WriteLine($"Starting the server {Version}");
 
-            string configFileIniPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "settings.ini");
-            WriteLine($"Reading config file: { configFileIniPath }");
+            var privKeyFileName = "PrivateKey.pfx";
+            var privateKeyPath = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", privKeyFileName));
+            var publicKeyFileName = "PublicKey.pem";
+            var publicKeyPath = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", publicKeyFileName));
 
-            if (File.Exists(configFileIniPath))
+            if (File.Exists(privateKeyPath))
             {
-                var config = new ConfigurationBuilder()
-                    .AddIniFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "settings.ini"), optional: true, reloadOnChange: true)
-                    .AddCommandLine(args)
-                    .Build();
-
-                WriteLine("Configuration:");
-
-                Port = int.Parse(config["port"]);
-                WriteLine($"Port is {Port}");
-
-                UseSSL = bool.Parse(config["ssl"]);
-                WriteLine($"SSL is {(UseSSL ? "ON" : "OFF")}");
-
-                Compress = bool.Parse(config["compress"]);
-                WriteLine($"Compression is {(Compress ? "ON" : "OFF")}");
-
-                if (UseSSL)
-                {
-                    var privKeyFileName = "PrivateKey.pfx";
-                    var privateKeyPath = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", privKeyFileName));
-                    var publicKeyFileName = "PublicKey.pem";
-                    var publicKeyPath = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", publicKeyFileName));
-
-                    if (File.Exists(privateKeyPath))
-                    {
-                        WriteLine("Using existing private key");
-                    }
-                    else
-                    {
-                        X509Certificate2 generatedCert = Certificates.GenerateCertificate("PhexensWuerfelraumServer");
-
-                        string publicKey = Certificates.ExportToPEM(generatedCert);
-
-                        File.WriteAllBytes(privateKeyPath, generatedCert.Export(X509ContentType.Pfx));
-                        File.WriteAllText(publicKeyPath, publicKey);
-
-                        System.Console.WriteLine("");
-                        WriteLine($"No certificate found. Generated a new private/public key pair. Give the following string to your users. It is also saved as config\\{publicKeyFileName}");
-                        System.Console.WriteLine("");
-                        System.Console.Write(publicKey);
-                        System.Console.WriteLine("");
-                        System.Console.WriteLine($"NEVER share the {privKeyFileName}!");
-                        System.Console.WriteLine("");
-                    }
-
-                    var cert = new X509Certificate2(File.ReadAllBytes(privateKeyPath));
-
-                    _listener = new SimpleSocketTcpSslListener(cert);
-                }
-                else
-                {
-                    _listener = new SimpleSocketTcpListener();
-                }
-
-                _listener.ObjectSerializer = new JsonSerialization();
-                _listener.AllowReceivingFiles = true;
-
-                BindEvents();
-                _listener.StartListening(Port);
-
-                for (int i = 1; i <= 20; i++)
-                {
-                    d20statistic[i] = 0;
-                }
-
-                while (true)
-                {
-                    System.Console.Read();
-                }
+                WriteLine("Using existing private key");
             }
             else
             {
-                WriteLine($"Config file { configFileIniPath } does not exist. Did you rename the settings.example.ini to settings.ini?");
+                X509Certificate2 generatedCert = Certificates.GenerateCertificate("PhexensWuerfelraumServer");
+
+                string publicKey = Certificates.ExportToPEM(generatedCert);
+
+                File.WriteAllBytes(privateKeyPath, generatedCert.Export(X509ContentType.Pfx));
+                File.WriteAllText(publicKeyPath, publicKey);
+
+                System.Console.WriteLine("");
+                WriteLine($"No certificate found. Generated a new private/public key pair. Give the following string to your users. It is also saved as config\\{publicKeyFileName}");
+                System.Console.WriteLine("");
+                System.Console.Write(publicKey);
+                System.Console.WriteLine("");
+                System.Console.WriteLine($"NEVER share the {privKeyFileName}!");
+                System.Console.WriteLine("");
+            }
+
+            var cert = new X509Certificate2(File.ReadAllBytes(privateKeyPath));
+
+            _listener = new SimpleSocketTcpSslListener(cert);
+
+            _listener.ObjectSerializer = new JsonSerialization();
+            _listener.AllowReceivingFiles = true;
+
+            BindEvents();
+            _listener.StartListening(Port);
+
+            for (int i = 1; i <= 20; i++)
+            {
+                d20statistic[i] = 0;
+            }
+
+            while (true)
+            {
                 System.Console.Read();
             }
         }
@@ -193,7 +156,7 @@ namespace PhexensWuerfelraum.Server.Console
 
                 AuthenticatedUsers.Add(authPacket);
 
-                _listener.SendObjectAsync(client.Id, authPacket, Compress, false, false);
+                _listener.SendObjectAsync(client.Id, authPacket, false, false, false);
 
                 List<UserModel> userModelList = new();
                 foreach (var user in AuthenticatedUsers.ToArray())
@@ -208,7 +171,7 @@ namespace PhexensWuerfelraum.Server.Console
                 foreach (var user in AuthenticatedUsers.ToArray())
                 {
                     if (_listener.IsConnected(user.UserModel.Id))
-                        _listener.SendObjectAsync(user.UserModel.Id, userJoinNotification, Compress, false, false);
+                        _listener.SendObjectAsync(user.UserModel.Id, userJoinNotification, false, false, false);
                 }
             }
             else if (obj.GetType() == typeof(ChatPacket))
@@ -247,7 +210,7 @@ namespace PhexensWuerfelraum.Server.Console
                 {
                     foreach (var user in AuthenticatedUsers.ToArray())
                     {
-                        _listener.SendObjectAsync(user.UserModel.Id, chatPacket, Compress, false, false);
+                        _listener.SendObjectAsync(user.UserModel.Id, chatPacket, false, false, false);
                     }
                 }
                 else // only to the recepient and the game master
@@ -256,7 +219,7 @@ namespace PhexensWuerfelraum.Server.Console
 
                     foreach (var user in recepients.ToArray())
                     {
-                        _listener.SendObjectAsync(user.UserModel.Id, chatPacket, Compress, false, false);
+                        _listener.SendObjectAsync(user.UserModel.Id, chatPacket, false, false, false);
                     }
                 }
             }
@@ -267,7 +230,7 @@ namespace PhexensWuerfelraum.Server.Console
 
                 foreach (var user in recepients.ToArray())
                 {
-                    _listener.SendObjectAsync(user.UserModel.Id, characterDataPacket, Compress, false, false);
+                    _listener.SendObjectAsync(user.UserModel.Id, characterDataPacket, false, false, false);
                 }
             }
             else if (obj.GetType() == typeof(CharacterRequestPacket))
@@ -277,7 +240,7 @@ namespace PhexensWuerfelraum.Server.Console
 
                 foreach (var user in recepients.ToArray())
                 {
-                    _listener.SendObjectAsync(user.UserModel.Id, characterRequestPacket, Compress, false, false);
+                    _listener.SendObjectAsync(user.UserModel.Id, characterRequestPacket, false, false, false);
                 }
             }
             else if (obj.GetType() == typeof(HeartbeatPacket))
@@ -311,7 +274,7 @@ namespace PhexensWuerfelraum.Server.Console
                                     username = AuthenticatedUsers.Find(a => a.UserModel.Id == user.Value.Id).UserModel.UserName;
 
                                 WriteLine("Client ID: " + user.Value.Id + " with IPv4 : " + user.Value.RemoteIPv4);
-                                await _listener.SendMessageAsync(client.Id, $"- ID '{user.Value.Id}'; Name '{username}'", Compress, false, false);
+                                await _listener.SendMessageAsync(client.Id, $"- ID '{user.Value.Id}'; Name '{username}'", false, false, false);
                             }
                             break;
 
@@ -348,7 +311,7 @@ namespace PhexensWuerfelraum.Server.Console
 
         private static void ServerHasStarted()
         {
-            WriteLine("The server has started");
+            WriteLine($"The server has started listening on port {Port}");
         }
 
         private static void ErrorThrown(Exception exception)
@@ -411,7 +374,7 @@ namespace PhexensWuerfelraum.Server.Console
                     foreach (var user in AuthenticatedUsers.ToArray())
                     {
                         if (_listener.IsConnected(user.UserModel.Id))
-                            _listener.SendObjectAsync(user.UserModel.Id, userLeaveNotification, Compress, false, false);
+                            _listener.SendObjectAsync(user.UserModel.Id, userLeaveNotification, false, false, false);
                     }
                 }
             }
@@ -442,7 +405,7 @@ namespace PhexensWuerfelraum.Server.Console
                 try
                 {
                     if (_listener.IsConnected(user.UserModel.Id))
-                        _listener.SendObjectAsync(user.UserModel.Id, new ChatroomPacket(userModelList), Compress, false, false);
+                        _listener.SendObjectAsync(user.UserModel.Id, new ChatroomPacket(userModelList), false, false, false);
                 }
                 catch (Exception)
                 {
