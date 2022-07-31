@@ -1,0 +1,13 @@
+.git
+.github
+.vs
+Logic
+Server
+Ui
+docker-compose.yml.example
+README.md
+.dockerignore
+LICENSE.txt
+PhexensWuerfelraum.sln
+screenshot.png
+THIRD-PARTY-LICENSES.txt
