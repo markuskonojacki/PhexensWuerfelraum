@@ -30,34 +30,41 @@ Alle Daten werden unter `%LocalAppData%/PhexensWuerfelraum` gespeichert.
 
 ## Server
 
-### Allgemein
+### Docker
 
-- Ladet euch aus den [Releases](https://github.com/markuskonojacki/PhexensWuerfelraum/releases/latest) die für eurer Betriebssystem passende `Server-*.zip` herunter und entpackt diese
-- Geht in den Unterordner `config` und benennt die Datei `settings.example.ini` in `settings.ini` um
-- Passt die Variablen in der `settings.ini` entsprechend eurer Anforderungen an
+Beispiel `docker-compose.yml`:
 
-### Linux
+```yml
+---
+version: '3.8'
 
-Das Ausführen des Server setzt das Mono Framework voraus. Die sicherste Methode um alle Abhängigkeiten zu installieren wäre:
-```bash
-apt install mono-complete
+services:
+  phexenswuerfelraum:
+    container_name: phexenswuerfelraum-server
+    image: derevar/phexenswuerfelraum-server:latest
+    ports:
+      - 12113:12113
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+    volumes:
+      - /appdata/phexenswuerfelraum/config:/app/phexenswuerfelraum/config
+    restart: unless-stopped
 ```
 
-Mache die Applikation ausführbar.
+### Ohne Docker
+
+Ladet euch aus den [Releases](https://github.com/markuskonojacki/PhexensWuerfelraum/releases/latest) die für eurer Betriebssystem passende `Server-*.zip` herunter und entpackt diese. Starte die Applikation.
+
+#### Linux
 ```bash
-chmod +x PhexensWuerfelraum.Server.Console
+.\PhexensWuerfelraum.Server.Console
 ```
 
-Starte die Applikation. Die Angabe des Portes kann wahlweise über die `settings.ini` oder einen Übergabeparameter erfolgen. Der Übergabeparameter hat Vorrang.
-```bash
-.\PhexensWuerfelraum.Server.Console --port 12113
-```
-
-### Windows
-
-Starte die Applikation. Die Angabe des Portes kann wahlweise über die `settings.ini` oder einen Übergabeparameter erfolgen. Der Übergabeparameter hat Vorrang.
-```bash
-.\PhexensWuerfelraum.Server.Console.exe --port 12113
+#### Windows
+```powershell
+.\PhexensWuerfelraum.Server.Console.exe
 ```
 
 ## Lizenz
