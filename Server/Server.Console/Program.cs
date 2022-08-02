@@ -38,6 +38,9 @@ namespace PhexensWuerfelraum.Server.Console
         {
             WriteLine($"Starting the server {Version}");
 
+            // make sure the config folder exists
+            Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config"));
+
             var privKeyFileName = "PrivateKey.pfx";
             var privateKeyPath = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", privKeyFileName));
             var publicKeyFileName = "PublicKey.pem";

@@ -10,6 +10,7 @@
       Style="{DynamicResource PageStyle}"
       mc:Ignorable="d"
       Title="ChatnRoll"
+      UseLayoutRounding="True"
       DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}">
 
     <Page.Resources>
@@ -31,6 +32,7 @@
             <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
             <Setter Property="MinHeight" Value="25" />
             <Setter Property="Padding" Value="2" />
+            <Setter Property="Opacity" Value="0.8" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -42,7 +44,7 @@
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" Value="0.8" />
+                                <Setter Property="Opacity" Value="1" />
                             </Trigger>
                             <Trigger Property="IsKeyboardFocusWithin" Value="True">
                                 <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource ButtonMouseOverBorderBrush}" />
@@ -256,11 +258,11 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
-                    <RowDefinition Height="64" />
-                    <RowDefinition Height="64" />
-                    <RowDefinition Height="64" />
-                    <RowDefinition Height="64" />
-                    <RowDefinition Height="64" />
+                    <RowDefinition Height="70" />
+                    <RowDefinition Height="70" />
+                    <RowDefinition Height="70" />
+                    <RowDefinition Height="70" />
+                    <RowDefinition Height="70" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
@@ -269,31 +271,31 @@
                 </Label>
 
                 <Button Background="Transparent" Grid.Column="0" Grid.Row="1" ToolTip="Würfle einen 20-seitigen Würfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="d20">
-                    <Image Source="/Resources/Dice/d20.png" />
+                    <Image Source="/Resources/Dice/d20.png" Height="64" Width="64" />
                 </Button>
                 <Button Background="Transparent" Grid.Column="1" Grid.Row="1" ToolTip="Würfle einen 6-seitigen Würfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="d6">
-                    <Image Source="/Resources/Dice/d6.png" />
+                    <Image Source="/Resources/Dice/d6.png" Height="64" Width="64" />
                 </Button>
 
                 <Button Background="Transparent" Grid.Column="0" Grid.Row="2" ToolTip="Würfle einen 12-seitigen Würfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="d12">
-                    <Image Source="/Resources/Dice/d12.png" />
+                    <Image Source="/Resources/Dice/d12.png" Height="64" Width="64" />
                 </Button>
                 <Button Background="Transparent" Grid.Column="1" Grid.Row="2" ToolTip="Würfle einen 3-seitigen Würfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="d3">
-                    <Image Source="/Resources/Dice/d3.png" />
+                    <Image Source="/Resources/Dice/d3.png" Height="64" Width="64" />
                 </Button>
 
                 <Button Background="Transparent" Grid.Column="0" Grid.Row="3" ToolTip="Würfle einen Schicksalswürfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="smileydice">
-                    <Image Source="/Resources/Dice/drama-masks.png" />
+                    <Image Source="/Resources/Dice/drama-masks.png" Height="64" Width="64" />
                 </Button>
                 <Button Background="Transparent" Grid.Column="1" Grid.Row="3" ToolTip="Würfle einen Trefferzonenwürfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="hitzonedice">
-                    <Image Source="/Resources/Dice/hitzone.png" />
+                    <Image Source="/Resources/Dice/hitzone.png" Height="64" Width="64" />
                 </Button>
 
                 <Button Background="Transparent" Grid.Column="0" Grid.Row="4" ToolTip="Würfle einen Nahkampf-Patzerwürfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="meleepatzerdice">
-                    <Image Source="/Resources/Dice/shattered-sword.png" />
+                    <Image Source="/Resources/Dice/shattered-sword.png" Height="64" Width="64" />
                 </Button>
                 <Button Background="Transparent" Grid.Column="1" Grid.Row="4" ToolTip="Würfle einen Fernkampf-Patzerwürfel" Style="{DynamicResource DiceButtonStyle}" Command="{Binding RollDiceCommand}" CommandParameter="rangedpatzerdice">
-                    <Image Source="/Resources/Dice/william-tell-skull.png" />
+                    <Image Source="/Resources/Dice/william-tell-skull.png" Height="64" Width="64" />
                 </Button>
 
                 <Grid Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2">
@@ -305,8 +307,8 @@
                         <RowDefinition Height="32" />
                         <RowDefinition Height="32" />
                         <RowDefinition Height="32" />
-                        <RowDefinition Height="32" />
-                        <RowDefinition Height="10" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="26" />
                         <RowDefinition Height="26" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
@@ -353,7 +355,7 @@
                         Controls:ControlsHelper.CornerRadius="4"
                         Height="20" />
 
-                    <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal">
+                    <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal">
                         <Button Background="Transparent" Style="{DynamicResource DiceButtonStyle}" DataContext="{Binding ChatnRoll, Source={StaticResource Locator}}" Command="{Binding ToggleRollModeCommand}" Visibility="{Binding Character.RollModeOpen, Converter={StaticResource VisibilityConverter}}" ToolTip="Sichtbar würfeln">
                             <Image Source="/Resources/roll_public.png" Height="24" />
                         </Button>
