@@ -65,7 +65,7 @@ jobs:
         run: dotnet publish ${{ env.PROJECT_PATH_SERVER }} -c Release --self-contained -r win-x64 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:Version=${{ steps.get_version.outputs.version-without-v }}
 
       - name: 🤏 zip UI binaries
-        run: Compress-Archive -Path Ui/Ui.Desktop/bin/Release/net6.0-windows/win-x64/publish/PhexensWuerfelraum.exe -DestinationPath "PhexensWuerfelraum-${{ steps.get_version.outputs.version }}.zip"
+        run: Compress-Archive -Path Ui/Ui.Desktop/bin/Release/net6.0-windows7.0/win-x64/publish/PhexensWuerfelraum.exe -DestinationPath "PhexensWuerfelraum-${{ steps.get_version.outputs.version }}.zip"
 
       - name: 🤏 zip LINUX SERVER binaries
         run: Compress-Archive -Path Server/Server.Console/bin/Release/net6.0/linux-x64/publish/* -DestinationPath "Server-Linux-${{ steps.get_version.outputs.version }}.zip"
