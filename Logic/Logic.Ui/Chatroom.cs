@@ -273,7 +273,7 @@ namespace PhexensWuerfelraum.Logic.Ui
             {
                 Application.Current.Dispatcher.Invoke(delegate
                 {
-                    ManageCharacterRequestPacket();
+                    new Task<Task>(async () => await ManageCharacterRequestPacket()).Start();
                 });
             }
             else if (obj.GetType() == typeof(CharacterDataPacket))

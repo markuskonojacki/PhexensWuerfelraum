@@ -10,6 +10,7 @@ using PhexensWuerfelraum.Logic.ClientServer;
 using SimpleSockets;
 using SimpleSockets.Messaging.Metadata;
 using SimpleSockets.Server;
+using Newtonsoft.Json.Linq;
 
 namespace PhexensWuerfelraum.Server.Console
 {
@@ -21,7 +22,9 @@ namespace PhexensWuerfelraum.Server.Console
         private static SimpleSocketListener _listener;
 
         private static readonly List<HeartbeatPacket> heartbeats = new();
-        private static Dictionary<int, int> d20statistic = new();
+        private static Dictionary<int, int> d20statistic;
+        private static JObject d20statisticJson;
+        private static string d20statisticPath;
 
         #region version
 
@@ -39,12 +42,32 @@ namespace PhexensWuerfelraum.Server.Console
             WriteLine($"Starting the server {Version}");
 
             // make sure the config folder exists
-            Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config"));
+            string configFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config");
+            Directory.CreateDirectory(configFolder);
 
             var privKeyFileName = "PrivateKey.pfx";
-            var privateKeyPath = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", privKeyFileName));
+            var privateKeyPath = Path.Combine(Path.Combine(configFolder, privKeyFileName));
             var publicKeyFileName = "PublicKey.pem";
-            var publicKeyPath = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", publicKeyFileName));
+            var publicKeyPath = Path.Combine(Path.Combine(configFolder, publicKeyFileName));
+
+            d20statisticPath = Path.Combine(configFolder, "d20statistic.json");
+
+            if (File.Exists(d20statisticPath))
+            {
+                d20statisticJson = JObject.Parse(File.ReadAllText(d20statisticPath));
+                d20statistic = d20statisticJson.ToObject<Dictionary<int, int>>();
+            }
+            else
+            {
+                d20statistic = new();
+
+                for (int i = 1; i <= 20; i++)
+                {
+                    d20statistic[i] = 0;
+                }
+
+                WriteStatisticToDisk();
+            }
 
             if (File.Exists(privateKeyPath))
             {
@@ -78,15 +101,16 @@ namespace PhexensWuerfelraum.Server.Console
             BindEvents();
             _listener.StartListening(Port);
 
-            for (int i = 1; i <= 20; i++)
-            {
-                d20statistic[i] = 0;
-            }
-
             while (true)
             {
                 System.Console.Read();
             }
+        }
+
+        private static void WriteStatisticToDisk()
+        {
+            d20statisticJson = JObject.FromObject(d20statistic);
+            File.WriteAllText(d20statisticPath, d20statisticJson.ToString());
         }
 
         private static int ShowClients()
@@ -206,6 +230,8 @@ namespace PhexensWuerfelraum.Server.Console
                             WriteLine($"{i}: {d20statistic[i]} ({Math.Round((double)d20statistic[i] / (double)sumRolls * 100, 2)} %)");
                         }
                         WriteLine($"sum: {sumRolls} d20 rolls");
+
+                        WriteStatisticToDisk();
                     }
                 }
 
